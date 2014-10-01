@@ -17,11 +17,9 @@
         <div class="well">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-addon">Search</div>
-                            <input class="form-control" ng-model="query">
-                        </div>
+                    <div class="input-group">
+                        <div class="input-group-addon">Search</div>
+                        <input class="form-control" ng-model="query">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -45,8 +43,7 @@
                 <tbody>
                     <tr ng-repeat="item in fileList | filter:query | orderBy:orderProp">
                         <td ng-click="touch(item)">
-                            <img src="assets/img/{{item.type === 'dir' ? 'folder.png':'file-empty.png'}}" width="18" />
-                            {{item.name}}
+                            <img src="assets/img/{{item.type === 'dir' ? 'folder.png':'file-empty.png'}}" width="18" /> {{item.name}}
                         </td>
                         <td class="">
                             {{item.size}} kb
@@ -58,6 +55,10 @@
                             <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-click="touch(item)">Delete</button>
                             <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-click="touch(item)">Rename</button>
                             <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" ng-click="touch(item)">Copy</button>
+                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" ng-show="isEditable(item)" ng-click="touch(item)">Edit</button>
+                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="isCompressible(item)" ng-click="touch(item)">Compress</button>
+                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="isExtractable(item)" ng-click="touch(item)">Extract</button>
+                            <button class="btn btn-sm btn-default" ng-show="!isFolder(item)" ng-click="touch(item)">Download</button>
                         </td>
                     </tr>
                 </tbody>
@@ -148,6 +149,30 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-sm btn-primary" ng-click="createFolder(temp.new.name)">Create</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div class="modal" id="edit">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">Edit file</h4>
+          </div>
+          <div class="modal-body">
+            Content
+            <textarea class="form-control" ng-model="temp.new.content">
+                Lorem ipsum dolor sit
+            </textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="edit(temp)">Edit</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
