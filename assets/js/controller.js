@@ -1,89 +1,63 @@
-var fileManager = angular.module('fileManagerApp', []);
-fileManager.controller('FileManagerCtrl', function ($scope, $http) {
+FileManagerApp.controller('FileManagerCtrl', ['$scope', '$http', 'item', function($scope, $http, Item) {
 
-    $scope.orderProp = ['type', 'name'];
-    $scope.temp = {ori: {}, new: {}};
+    $scope.orderProp = ['model.type', 'model.name'];
     $scope.requesting = false;
+    $scope.fileList = [];
+    $scope.temp = new Item();
 
     $scope.refresh = function(success, error) {
         $scope.requesting = true;
         $http.get('files.json').success(function(data) {
-            $scope.fileList = data.files;
+            angular.forEach(data.files, function(file) {
+                $scope.fileList.push(new Item(file));
+            });
             $scope.currentPath = data.path;
+            $scope.requesting = false;
             typeof success === 'function' && success(data);
-            $scope.requesting = false;
+
         }).error(function(data) {
-            typeof error === 'function' && error(data);
             $scope.requesting = false;
+            typeof error === 'function' && error(data);
         });
     };
 
-    $scope.touch = function(tempItem) {
-        $scope.temp.ori = tempItem || {};
-        $scope.temp.new = angular.copy(tempItem) || {};
+    $scope.touch = function(item) {
+        $scope.temp = item;
     };
 
-    $scope.delete = function(tempItem) {
-        var id = $scope.fileList.indexOf(tempItem.ori);
+    $scope.copy = function(item) {
+        var newItem = angular.copy(item);
+        while ($scope.fileNameExists(newItem.model.name)) {
+            console.log('existe');
+            newItem.model.name += '_copy';
+        }
+        $scope.fileList.push(newItem);
+        $('#copy').modal('hide');
+    };
+
+    $scope.delete = function(item) {
+        var id = $scope.fileList.indexOf(item);
         $scope.fileList.splice(id, 1);
         $('#delete').modal('hide');
     };
 
-    $scope.rename = function(tempItem) {
-        tempItem.ori.name = $scope.temp.new.name || tempItem.ori.name;
-        $('#rename').modal('hide');
-    };
-
-    $scope.copy = function(tempItem) {
-        while ($scope.fileNameExists(tempItem.new.name)) {
-            tempItem.new.name += '_copy';
-        }
-        $scope.fileList.push(tempItem.new);
-        $('#copy').modal('hide');
-    };
-
-    $scope.edit = function(tempItem) {
-        tempItem.ori.content = $scope.temp.new.content;
-        $('#edit').modal('hide');
-    };
-
     $scope.createFolder = function(name) {
-        if (name.trim()) {
-            var item = {
-                type: 'dir',
-                name: name,
-                size: 0,
-                date: new Date()
-            };
+        name = name.trim();
+        if (name && !$scope.fileNameExists(name)) {
+            var item = new Item({name: name, type: 'dir'});
             $scope.fileList.push(item);
         }
         $('#newfolder').modal('hide');
     };
 
     $scope.fileNameExists = function(fileName) {
-        for (item in $scope.fileList) {
+        for (var item in $scope.fileList) {
             item = $scope.fileList[item];
-            if (item.name === fileName) {
+            if (item.model.name === fileName) {
                 return true;
             }
         }
     };
 
-    $scope.isFolder = function(item) {
-        return item.type === 'dir';
-    };
-
-    $scope.isEditable = function(item) {
-        return !!item.name.match('\.txt$');
-    };
-
-    $scope.isCompressible = function(item) {
-        return $scope.isFolder(item);
-    };
-
-    $scope.isExtractable = function(item) {
-        return !!(!$scope.isFolder(item) && item.name.match('\.(zip|gz|tar|rar|gzip)$'));
-    };
-
     $scope.refresh();
-});
+}]);

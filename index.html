@@ -1,13 +1,15 @@
 <!doctype html>
-<html lang="en" ng-app="fileManagerApp">
+<html lang="en" ng-app="FileManagerApp">
 <head>
   <meta charset="utf-8">
   <title>angular-filemanager</title>
   <script src="assets/ext/angular.min.js"></script>
   <script src="assets/ext/jquery.min.js"></script>
   <script src="assets/ext/bootstrap.min.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/item.js"></script>
   <script src="assets/js/controller.js"></script>
-  <link rel="stylesheet" type="text/css" href="assets/ext/bootstrap.min.css" />
+  <link href="assets/ext/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body ng-controller="FileManagerCtrl">
@@ -42,30 +44,29 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in fileList | filter:query | orderBy:orderProp">
-                        <td ng-click="touch(item)">
-                            <img src="assets/img/{{item.type === 'dir' ? 'folder.png':'file-empty.png'}}" width="18" /> {{item.name}}
+                        <td>
+                            <img ng-src="assets/img/{{item.model.type === 'dir' ? 'folder.png':'file-empty.png'}}" width="18" /> {{item.model.name}}
                         </td>
                         <td class="">
-                            {{item.size}} kb
+                            {{item.model.size}} kb
                         </td>
                         <td class="">
-                            {{item.date.toString()}}
+                            {{item.model.date.toString()}}
                         </td>
                         <td class="text-right">
                             <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-click="touch(item)">Delete</button>
                             <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-click="touch(item)">Rename</button>
                             <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" ng-click="touch(item)">Copy</button>
-                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" ng-show="isEditable(item)" ng-click="touch(item)">Edit</button>
-                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="isCompressible(item)" ng-click="touch(item)">Compress</button>
-                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="isExtractable(item)" ng-click="touch(item)">Extract</button>
-                            <button class="btn btn-sm btn-default" ng-show="!isFolder(item)" ng-click="touch(item)">Download</button>
+                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" ng-show="item.isEditable()" ng-click="touch(item)">Edit</button>
+                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="item.isCompressible()" ng-click="touch(item)">Compress</button>
+                            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="item.isExtractable()" ng-click="touch(item)">Extract</button>
+                            <button class="btn btn-sm btn-default" ng-show="!item.isFolder()" ng-click="touch(item)">Download</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-
 
     <div class="modal" id="delete">
       <div class="modal-dialog">
@@ -78,15 +79,15 @@
             <h4 class="modal-title">Confirm</h4>
           </div>
           <div class="modal-body">
-            Are you sure you want to delete <b>{{temp.ori.name}}</b> ?
+            Are you sure you want to delete <b>{{temp.model.name}}</b> ?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-sm btn-primary" ng-click="delete(temp)">Delete</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div>
+    </div>
 
     <div class="modal" id="rename">
       <div class="modal-dialog">
@@ -99,16 +100,16 @@
             <h4 class="modal-title">Change name</h4>
           </div>
           <div class="modal-body">
-            New filename for <b>{{temp.ori.name}}</b> ?
-            <input class="form-control" ng-model="temp.new.name">
+            New filename for <b>{{temp.model.name}}</b> ?
+            <input class="form-control" ng-model="temp.tempModel.name">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" ng-click="rename(temp)">Rename</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="temp.rename()">Rename</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div>
+    </div>
 
     <div class="modal" id="copy">
       <div class="modal-dialog">
@@ -128,9 +129,9 @@
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-sm btn-primary" ng-click="copy(temp)">Copy</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div>
+    </div>
 
     <div class="modal" id="newfolder">
       <div class="modal-dialog">
@@ -150,9 +151,9 @@
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-sm btn-primary" ng-click="createFolder(temp.new.name)">Create</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div>
+    </div>
 
     <div class="modal" id="edit">
       <div class="modal-dialog">
@@ -166,17 +167,17 @@
           </div>
           <div class="modal-body">
             Content
-            <textarea class="form-control" ng-model="temp.new.content">
+            <textarea class="form-control" ng-model="temp.tempModel.content">
                 Lorem ipsum dolor sit
             </textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" ng-click="edit(temp)">Edit</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="temp.edit()">Edit</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+      </div>
+    </div>
 
 </body>
 </html>

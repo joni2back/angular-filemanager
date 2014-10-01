@@ -1,0 +1,1 @@
+var FileManagerApp = angular.module('FileManagerApp', []);

@@ -44,6 +44,13 @@
             "date": "2014-09-30 10:30:32",
             "size": 128,
             "content": "this is the content of the readme file"
+        },
+        {
+            "name": "meeting.txt",
+            "type": "file",
+            "date": "2014-09-30 10:30:32",
+            "size": 987,
+            "content": "testing..."
         }
     ]
 }
