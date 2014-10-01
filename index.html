@@ -2,7 +2,7 @@
 <html lang="en" ng-app="fileManagerApp">
 <head>
   <meta charset="utf-8">
-  <title>Fmanager</title>
+  <title>angular-filemanager</title>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -12,9 +12,9 @@
 
 <body ng-controller="FileManagerCtrl">
 
-	<div class="container">
-        <h3>FileManager</h3>
-		<div class="well">
+    <div class="container">
+        <h3>angular-filemanager</h3>
+        <div class="well">
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon">Search</div>
@@ -22,35 +22,37 @@
                 </div>
             </div>
 
-			<hr />
-			<table class="table table-striped table-bordered table-hover">
-				<thead>
-					<th>Name</th>
-					<th>Size</th>
-					<th>Date</th>
-					<th class="text-right">Actions</th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in fileList | filter:query | orderBy:orderProp">
+            <hr />
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Date</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in fileList | filter:query | orderBy:orderProp">
                         <td ng-click="touch(item)">
-                            <i class="icon icon-new {{item.type === 'dir' ? 'fa-folder':'fa-file'}}"></i> {{item.name}}
+                            <i class="glyphicon {{item.type === 'dir' ? 'glyphicon-folder-close':'glyphicon-file'}}"></i> {{item.name}}
                         </td>
-						<td class="">
-							{{item.size}}Kb
-						</td>
-						<td class="">
-							{{item.date.toString()}}
-						</td>
-						<td class="text-right">
+                        <td class="">
+                            {{item.size}}Kb
+                        </td>
+                        <td class="">
+                            {{item.date.toString()}}
+                        </td>
+                        <td class="text-right">
                             <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-click="touch(item)">Delete</button>
                             <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-click="touch(item)">Rename</button>
                             <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" ng-click="touch(item)">Copy</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
     <div class="modal" id="delete">

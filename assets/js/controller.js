@@ -1,47 +1,47 @@
 var jsonData = [
-	{
-		name: 'archivo.tar.gz',
-		type: 'file',
+    {
+        name: 'archivo.tar.gz',
+        type: 'file',
         date: new Date(),
         size: 289329
-	},
-	{
-		name: 'ejecutable.exe',
-		type: 'file',
+    },
+    {
+        name: 'ejecutable.exe',
+        type: 'file',
         date: new Date(),
         size: 34539
-	},
-	{
-		name: 'includes',
-		type: 'dir',
+    },
+    {
+        name: 'includes',
+        type: 'dir',
         date: new Date(),
         size: 4
-	},
-	{
-		name: 'dsc-39289843.jpg',
-		type: 'file',
+    },
+    {
+        name: 'dsc-39289843.jpg',
+        type: 'file',
         date: new Date(),
         size: 3499
-	},
-	{
-		name: 'assets',
-		type: 'dir',
+    },
+    {
+        name: 'assets',
+        type: 'dir',
         date: new Date(),
         size: 4
-	},
-	{
-		name: 'zorro',
-		type: 'dir',
+    },
+    {
+        name: 'zorro',
+        type: 'dir',
         date: new Date(),
         size: 4
-	}
+    }
 ];
 
 var fileManager = angular.module('fileManagerApp', []);
 
 fileManager.controller('FileManagerCtrl', function ($scope) {
-	$scope.fileList = jsonData;
-	$scope.orderProp = ['type', 'name'];
+    $scope.fileList = jsonData;
+    $scope.orderProp = ['type', 'name'];
     $scope.temp = {};
 
     $scope.touch = function(item) {
