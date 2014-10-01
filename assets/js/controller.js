@@ -1,72 +1,57 @@
-var jsonData = [
-    {
-        name: 'archivo.tar.gz',
-        type: 'file',
-        date: new Date(),
-        size: 289329
-    },
-    {
-        name: 'ejecutable.exe',
-        type: 'file',
-        date: new Date(),
-        size: 34539
-    },
-    {
-        name: 'includes',
-        type: 'dir',
-        date: new Date(),
-        size: 4
-    },
-    {
-        name: 'dsc-39289843.jpg',
-        type: 'file',
-        date: new Date(),
-        size: 3499
-    },
-    {
-        name: 'assets',
-        type: 'dir',
-        date: new Date(),
-        size: 4
-    },
-    {
-        name: 'zorro',
-        type: 'dir',
-        date: new Date(),
-        size: 4
-    }
-];
-
 var fileManager = angular.module('fileManagerApp', []);
 
-fileManager.controller('FileManagerCtrl', function ($scope) {
-    $scope.fileList = jsonData;
-    $scope.orderProp = ['type', 'name'];
-    $scope.temp = {};
+fileManager.controller('FileManagerCtrl', function ($scope, $http) {
 
-    $scope.touch = function(item) {
-        $scope.temp = item || {};
+    $scope.orderProp = ['type', 'name'];
+    $scope.temp = {ori: {}, new: {}};
+    $scope.requesting = false;
+
+    $scope.refresh = function(success, error) {
+        $scope.requesting = true;
+        $http.get('files.json').success(function(data) {
+            $scope.fileList = data.files;
+            $scope.currentPath = data.path;
+            typeof success === 'function' && success(data);
+            $scope.requesting = false;
+        }).error(function(data) {
+            typeof error === 'function' && error(data);
+            $scope.requesting = false;
+        });
     };
 
-    $scope.delete = function(item) {
-        var id = $scope.fileList.indexOf(item);
+    $scope.touch = function(tempItem) {
+        $scope.temp.ori = tempItem || {};
+        $scope.temp.new = angular.copy(tempItem) || {};
+    };
+
+    $scope.delete = function(tempItem) {
+        var id = $scope.fileList.indexOf(tempItem.ori);
         $scope.fileList.splice(id, 1);
         $('#delete').modal('hide');
     };
 
-    $scope.rename = function(item) {
-        var newName = window.prompt('New filename?', item.name);
-        item.name = newName || item.name;
+    $scope.rename = function(tempItem) {
+        tempItem.ori.name = $scope.temp.new.name || tempItem.ori.name;
         $('#rename').modal('hide');
     };
 
-    $scope.copy = function(item) {
-        var newItem = angular.copy(item);
-        while ($scope.fileNameExists(newItem.name)) {
-            newItem.name += '_copy';
+    $scope.copy = function(tempItem) {
+        while ($scope.fileNameExists(tempItem.new.name)) {
+            tempItem.new.name += '_copy';
         }
-        $scope.fileList.push(newItem);
+        $scope.fileList.push(tempItem.new);
         $('#copy').modal('hide');
+    };
+
+    $scope.createFolder = function(name) {
+        var item = {
+            type: 'dir',
+            name: name,
+            size: 0,
+            date: new Date()
+        };
+        $scope.fileList.push(item);
+        $('#newfolder').modal('hide');
     };
 
     $scope.fileNameExists = function(fileName) {
@@ -77,4 +62,6 @@ fileManager.controller('FileManagerCtrl', function ($scope) {
             }
         }
     };
+
+    $scope.refresh();
 });
