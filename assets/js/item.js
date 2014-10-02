@@ -1,7 +1,7 @@
-FileManagerApp.factory('item', function() {
+FileManagerApp.factory('item', ['$http', function($http) {
 
     var Item = function(model) {
-
+        this.inprocess = false;
         var rawModel = {
             name: '',
             type: 'file',
@@ -22,14 +22,20 @@ FileManagerApp.factory('item', function() {
     };
 
     Item.prototype.rename = function() {
+        var self = this;
         if (this.tempModel.name.trim()) {
-            this.update();
-            $('#rename').modal('hide');
+            self.inprocess = true;
+            $http.post('/fmgr?rename', this.tempModel).success(function(data) {
+                self.update();
+                $('#rename').modal('hide');
+                self.inprocess = false;
+            }).error(function(data) {
+                self.inprocess = false;
+            });
         }
     };
 
     Item.prototype.edit = function() {
-        //this.model.content = this.tempModel.content;
         this.update();
         $('#edit').modal('hide');
     };
@@ -39,7 +45,7 @@ FileManagerApp.factory('item', function() {
     };
 
     Item.prototype.isEditable = function() {
-        return !!this.model.name.match('\.txt$');
+        return !!this.model.name.match('\.(txt|html|php|css|js)$');
     };
 
     Item.prototype.isCompressible = function() {
@@ -51,4 +57,4 @@ FileManagerApp.factory('item', function() {
     };
 
     return Item;
-});
+}]);

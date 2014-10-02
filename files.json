@@ -1,56 +1,91 @@
 {
-    "path": "/public_html/files",
-    "size": 9058493,
-    "files": [
+    "path": "/public_html",
+    "size": 905843,
+    "result": [
         {
-            "name": "file.tar.gz",
-            "type": "file",
-            "date": "2014-09-30 10:30:32",
-            "size": 289329
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"4096",
+        "group":"0",
+        "user":"0",
+        "number":"2",
+        "rights":"drwxr-xr-x",
+        "type":"dir",
+        "name":"input"
         },
         {
-            "name": "executable.exe",
-            "type": "file",
-            "date": "2014-09-30 10:30:32",
-            "size": 34539
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"4096",
+        "group":"0",
+        "user":"0",
+        "number":"2",
+        "rights":"drwxr-xr-x",
+        "type":"dir",
+        "name":"monopoly"
         },
         {
-            "name": "includes",
-            "type": "dir",
-            "date": "2014-09-30 10:30:32",
-            "size": 4
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"4096",
+        "group":"0",
+        "user":"0",
+        "number":"2",
+        "rights":"drwxr-xr-x",
+        "type":"dir",
+        "name":"salsa"
         },
         {
-            "name": "dsc-39289843.jpg",
-            "type": "file",
-            "date": "2014-09-30 10:30:32",
-            "size": 3499
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"4096",
+        "group":"0",
+        "user":"0",
+        "number":"2",
+        "rights":"drwxr-xr-x",
+        "type":"dir",
+        "name":"tango"
         },
         {
-            "name": "assets",
-            "type": "dir",
-            "date": "2014-09-30 10:30:32",
-            "size": 4
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"0",
+        "group":"0",
+        "user":"0",
+        "number":"1",
+        "rights":"-rw-r--r--",
+        "type":"file",
+        "name":"exec"
         },
         {
-            "name": "virus.pif",
-            "type": "file",
-            "date": "2014-09-30 10:30:32",
-            "size": 4
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"0",
+        "group":"0",
+        "user":"0",
+        "number":"1",
+        "rights":"-rw-r--r--",
+        "type":"file",
+        "name":"named"
         },
         {
-            "name": "readme.txt",
-            "type": "file",
-            "date": "2014-09-30 10:30:32",
-            "size": 128,
-            "content": "this is the content of the readme file"
-        },
-        {
-            "name": "meeting.txt",
-            "type": "file",
-            "date": "2014-09-30 10:30:32",
-            "size": 987,
-            "content": "testing..."
+        "time":"2014-09-30 10:29:57",
+        "day":"2",
+        "month":"Oct",
+        "size":"0",
+        "group":"0",
+        "user":"0",
+        "number":"1",
+        "rights":"-rw-r--r--",
+        "type":"file",
+        "name":"readme.html",
+        "content":"<h1>hello world</h1>"
         }
     ]
 }
