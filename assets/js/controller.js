@@ -7,6 +7,7 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     $scope.myFiles = null;
 
     $scope.touch = function(item) {
+        item.error = '';
         $scope.temp = item;
     };
 
@@ -20,15 +21,16 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     };
 
     $scope.delete = function(item) {
-        var id = $scope.fileNavigator.fileList.indexOf(item);
-        $scope.fileNavigator.fileList.splice(id, 1);
-        $('#delete').modal('hide');
+        item.delete(function() {
+            $scope.fileNavigator.refresh();
+            $('#delete').modal('hide');
+        });
     };
 
     $scope.createFolder = function(name) {
         name = name.trim();
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
-            var item = new Item({name: name, type: 'dir'});
+            var item = new Item({name: name, type: 'dir'}, $scope.fileNavigator.currentPath);
             $scope.fileNavigator.fileList.push(item);
         }
         $('#newfolder').modal('hide');
@@ -37,7 +39,7 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     $scope.createFile = function(name, content) {
         name = name.trim();
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
-            var item = new Item({name: name, type: 'file', content: content});
+            var item = new Item({name: name, type: 'file', content: content}, $scope.fileNavigator.currentPath);
             $scope.fileNavigator.fileList.push(item);
         }
         $('#newfile').modal('hide');

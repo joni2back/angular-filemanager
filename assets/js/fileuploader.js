@@ -2,8 +2,10 @@ FileManagerApp.service('fileUploader', ['$http', '$config', function ($http, $co
     var self = this;
 
     self.requesting = false;
-    self.upload = function(fileList, to, success, error) {
+    self.upload = function(fileList, path, success, error) {
         var form = new FormData();
+
+        form.append('destination', path);
         for (var file in fileList) {
             fileObj = fileList[file];
             typeof fileObj === 'object' && form.append('file-' + (1 + parseInt(file)), fileObj);

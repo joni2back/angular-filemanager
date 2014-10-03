@@ -17,7 +17,7 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         $http.post($config.listUrl, data).success(function(data) {
             self.fileList = [];
             angular.forEach(data.result, function(file) {
-                self.fileList.push(new Item(file));
+                self.fileList.push(new Item(file, self.currentPath));
             });
             self.requesting = false;
             typeof success === 'function' && success(data);
