@@ -83,16 +83,16 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
     Item.prototype.edit = function() {
         var self = this;
         var data = {
-            content: self.tempModel.content,
             mode: "savefile",
-            path: this.tempModel.fullPath()
+            content: self.tempModel.content,
+            path: self.tempModel.fullPath()
         };
         self.inprocess = true;
         self.error = '';
         $http({
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            url: $config.editContentUrl,
+            url: $config.editUrl,
             data: $.param(data)
         }).success(function(data) {
             self.inprocess = false;
