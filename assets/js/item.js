@@ -26,23 +26,30 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
 
         this.update = function() {
             angular.extend(this.model, this.tempModel);
+            return this;
+        };
+        this.revert = function() {
+            angular.extend(this.tempModel, this.model);
+            return this;
         };
     };
 
-    Item.prototype.rename = function() {
+    Item.prototype.rename = function(success, error) {
         var self = this;
         if (this.tempModel.name.trim()) {
             self.inprocess = true;
             self.error = '';
             $http.post($config.renameUrl, this.tempModel).success(function(data) {
                 self.update();
-                $('#rename').modal('hide');
                 self.inprocess = false;
+                typeof success === 'function' && success(data);
             }).error(function(data) {
                 self.inprocess = false;
                 self.error = 'An error occurred renaming the file';
+                typeof error === 'function' && error(data);
             });
         }
+        return self;
     };
 
     Item.prototype.getContent = function() {
@@ -60,6 +67,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
             self.inprocess = false;
             self.error = 'An error occurred getting the content of the file';
         });
+        return self;
     };
 
     Item.prototype.delete = function(success, error) {
@@ -78,6 +86,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
             self.error = 'An error occurred deleting the file or folder';
             typeof error === 'function' && error(data);
         });
+        return self;
     };
 
     Item.prototype.edit = function() {
@@ -102,6 +111,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
             self.inprocess = false;
             self.error = 'An error occurred modifying the file';
         });
+        return self;
     };
 
     Item.prototype.isFolder = function() {

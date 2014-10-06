@@ -53,7 +53,7 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         var self = this;
         for (var item in self.fileList) {
             item = self.fileList[item];
-            if (item.model.name === fileName) {
+            if (fileName.trim && item.model.name.trim() === fileName.trim()) {
                 return true;
             }
         }

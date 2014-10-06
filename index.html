@@ -12,7 +12,7 @@
   <script src="assets/js/filenavigator.js"></script>
   <script src="assets/js/fileuploader.js"></script>
   <script src="assets/js/controller.js"></script>
-  <link href="assets/ext/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
   <link href="assets/css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 
@@ -33,9 +33,15 @@
                 </div>
                 <div class="col-md-6">
                     <div class="text-right">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#newfolder" ng-click="touch({})">+ New folder</button>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#newfile" ng-click="touch({})">+ New file</button>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#uploadfile" ng-click="touch({})">+ Upload File</button>
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newfolder" ng-click="touch({})">
+                            <i class="glyphicon glyphicon-plus"></i> New folder
+                        </button>
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newfile" ng-click="touch({})">
+                            <i class="glyphicon glyphicon-plus"></i> New file
+                        </button>
+                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadfile" ng-click="touch({})">
+                            <i class="glyphicon glyphicon-upload"></i> Upload file
+                        </button>
                     </div>
                 </div>
             </div>
@@ -59,7 +65,7 @@
                         <th class="text-right">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="file-item">
                     <tr ng-show="fileNavigator.requesting">
                         <td colspan="4">
                             Loading...
@@ -72,8 +78,11 @@
                     </tr>
                     <tr ng-repeat="item in fileNavigator.fileList | filter:query | orderBy:orderProp" ng-show="!fileNavigator.requesting">
                         <td>
-                            <img ng-src="assets/img/{{item.model.type === 'dir' ? 'folder.png':'file-empty.png'}}" width="18" />
-                            <a href="" ng-click="fileNavigator.folderClick(item)">{{item.model.name}}</a>
+                            <a href="" ng-href="#/{{fileNavigator.currentPath.join('/')}}/{{item.model.name}}" ng-click="fileNavigator.folderClick(item)">
+                                <i class="glyphicon glyphicon-folder-close" ng-show="item.model.type === 'dir'"></i>
+                                <i class="glyphicon glyphicon-file" ng-show="item.model.type === 'file'"></i>
+                                {{item.model.name}}
+                            </a>
                         </td>
                         <td>
                             {{item.model.sizeKb()}} Kb
@@ -82,18 +91,7 @@
                             {{item.model.date.toString()}}
                         </td>
                         <td class="text-right">
-                            <div ng-show="!item.inprocess">
-                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-click="touch(item)">Delete</button>
-                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-click="touch(item)">Rename</button>
-                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" ng-click="touch(item)">Copy</button>
-                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" ng-show="item.isEditable()" ng-click="item.getContent(); touch(item)">Edit</button>
-                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="item.isCompressible()" ng-click="touch(item)">Compress</button>
-                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="item.isExtractable()" ng-click="touch(item)">Extract</button>
-                                <button class="btn btn-sm btn-default" ng-show="!item.isFolder()" ng-click="touch(item)">Download</button>
-                            </div>
-                            <div ng-show="item.inprocess">
-                                <span class="label label-warning">Wait ...</span>
-                            </div>
+                            <div ng-include src="'fileToolbar'"></div>
                         </td>
                     </tr>
                 </tbody>
@@ -113,7 +111,7 @@
           </div>
           <div class="modal-body">
             Are you sure you want to delete <b>{{temp.model.name}}</b> ?
-            <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+            <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">Cancel</button>
@@ -136,11 +134,11 @@
           <div class="modal-body">
             <label class="radio">New filename for <b>{{temp.model.name}}</b> ?</label>
             <input class="form-control" ng-model="temp.tempModel.name" autofocus="autofocus">
-            <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+            <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" ng-click="temp.rename()" ng-disabled="temp.inprocess">Rename</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="rename(temp)" ng-disabled="temp.inprocess">Rename</button>
           </div>
         </div>
       </div>
@@ -157,9 +155,9 @@
             <h4 class="modal-title">Copy file</h4>
           </div>
           <div class="modal-body">
-            <label class="radio">Enter new path for <b>/{{fileNavigator.currentPath.join('/')}}/{{temp.tempModel.name}}</b></label>
-            <input class="form-control" ng-value="'/' + fileNavigator.currentPath.join('/') + '/' + temp.tempModel.name + '_copy'" autofocus="autofocus">
-            <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+            <label class="radio">Enter new path for <b>/{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+            <input class="form-control" ng-model="temp.tempModel.name" autofocus="autofocus">
+            <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">Cancel</button>
@@ -183,7 +181,7 @@
               <label class="radio">File content</label>
               <span class="label label-warning" ng-show="temp.inprocess">Loading ...</span>
               <textarea class="form-control code" ng-model="temp.tempModel.content" ng-show="!temp.inprocess"></textarea>
-              <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+              <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">Cancel</button>
@@ -206,7 +204,7 @@
           <div class="modal-body">
             <label class="radio">Folder name</label>
             <input class="form-control" ng-model="temp.tempModel.name" autofocus="autofocus">
-            <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+            <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">Cancel</button>
@@ -231,7 +229,7 @@
             <input class="form-control" ng-model="temp.tempModel.name" autofocus="autofocus">
             <label class="radio">File content</label>
             <textarea class="form-control code" ng-model="temp.tempModel.content"></textarea>
-            <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+            <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">Cancel</button>
@@ -254,13 +252,13 @@
           <div class="modal-body">
 
             <label class="radio">Files will be uploaded to <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
-            <input type="file" class="form-control" ng-file="uploadfiles" autofocus="autofocus" multiple="multiple"/>
-            <div><span class="label label-danger" ng-show="temp.error">{{temp.error}}</span></div>
+            <input type="file" class="form-control" ng-file="uploadFileList" autofocus="autofocus" multiple="multiple"/>
+            <div ng-include src="'errorBar'" class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <div ng-show="!fileUploader.requesting">
                 <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-sm btn-primary" ng-click="uploadFiles()" ng-disabled="fileUploader.requesting">Upload</button>
+                <button class="btn btn-sm btn-primary" ng-click="uploadFiles()" ng-disabled="!uploadFileList.length || fileUploader.requesting">Upload</button>
             </div>
             <div ng-show="fileUploader.requesting">
                 <span class="label label-warning">Uploading ...</span>
@@ -269,6 +267,38 @@
         </div>
       </div>
     </div>
+
+    <script type="text/ng-template" id="errorBar">
+        <div class="label label-danger error-msg pull-left" ng-show="temp.error"><i class="glyphicon glyphicon-remove-circle"></i> {{temp.error}}</div>
+    </script>
+    <script type="text/ng-template" id="fileToolbar">
+        <div ng-show="!item.inprocess">
+            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-click="touch(item)">
+                <i class="glyphicon glyphicon-trash"></i> Delete
+            </button>
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-click="touch(item)">
+                <i class="glyphicon glyphicon-edit"></i> Rename
+            </button>
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" ng-click="touch(item)">
+                <i class="glyphicon glyphicon-log-out"></i> Copy
+            </button>
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" ng-show="item.isEditable()" ng-click="item.getContent(); touch(item)">
+                <i class="glyphicon glyphicon-pencil"></i> Edit
+            </button>
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="item.isCompressible()" ng-click="touch(item)">
+                <i class="glyphicon glyphicon-compressed"></i> Compress
+            </button>
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" ng-show="item.isExtractable()" ng-click="touch(item)">
+                <i class="glyphicon glyphicon-export"></i> Extract
+            </button>
+            <button class="btn btn-sm btn-default" ng-show="!item.isFolder()" ng-click="touch(item)">
+                <i class="glyphicon glyphicon-cloud-download"></i> Download
+            </button>
+        </div>
+        <div ng-show="item.inprocess">
+            <span class="label label-warning">Wait ...</span>
+        </div>
+    </script>
 
 </body>
 </html>
