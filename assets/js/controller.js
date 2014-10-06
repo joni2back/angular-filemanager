@@ -1,5 +1,6 @@
-FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator', 'fileUploader', function($scope, Item, FileNavigator, FileUploader) {
+FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator', 'fileUploader', '$config', function($scope, Item, FileNavigator, FileUploader, $config) {
 
+    $scope.appName = $config.appName;
     $scope.orderProp = ['model.type', 'model.name'];
     $scope.temp = new Item();
     $scope.fileNavigator = new FileNavigator();
@@ -15,7 +16,7 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     $scope.copy = function(item) {
         var newItem = angular.copy(item);
         if ($scope.fileNavigator.fileNameExists(newItem.tempModel.name)) {
-            item.error = 'Filename already exists, specify another name';
+            item.error = $config.msg.invalidFilename;
             return false;
         }
         newItem.update();
@@ -32,7 +33,7 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
 
     $scope.rename = function(item) {
         if ($scope.fileNavigator.fileNameExists(item.tempModel.name)) {
-            item.error = 'Filename already exists, specify another name';
+            item.error = $config.msg.invalidFilename;
             return false;
         }
         item.rename(function() {
@@ -46,7 +47,7 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
             $scope.fileNavigator.fileList.push(new Item({name: name, type: 'dir'}, $scope.fileNavigator.currentPath));
         } else {
-            $scope.temp.error = 'Invalid folder name or already exists, specify another name';
+            $scope.temp.error = $config.msg.invalidFilename;
             return false;
         }
         $('#newfolder').modal('hide');
@@ -57,7 +58,7 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
             $scope.fileNavigator.fileList.push(new Item({name: name, type: 'file', content: content}, $scope.fileNavigator.currentPath));
         } else {
-            $scope.temp.error = 'Invalid filename or already exists, specify another name';
+            $scope.temp.error = $config.msg.invalidFilename;
             return false;
         }
         $('#newfile').modal('hide');

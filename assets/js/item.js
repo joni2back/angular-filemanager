@@ -45,7 +45,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
                 typeof success === 'function' && success(data);
             }).error(function(data) {
                 self.inprocess = false;
-                self.error = 'An error occurred renaming the file';
+                self.error = $config.msg.errorRenaming;
                 typeof error === 'function' && error(data);
             });
         }
@@ -65,7 +65,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
             self.inprocess = false;
         }).error(function(data) {
             self.inprocess = false;
-            self.error = 'An error occurred getting the content of the file';
+            self.error = $config.msg.errorGettingContent;
         });
         return self;
     };
@@ -83,7 +83,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
             typeof success === 'function' && success(data);
         }).error(function(data) {
             self.inprocess = false;
-            self.error = 'An error occurred deleting the file or folder';
+            self.error = $config.msg.errorDeleting;
             typeof error === 'function' && error(data);
         });
         return self;
@@ -109,7 +109,7 @@ FileManagerApp.factory('item', ['$http', '$config', function($http, $config) {
             $('#edit').modal('hide');
         }).error(function(data) {
             self.inprocess = false;
-            self.error = 'An error occurred modifying the file';
+            self.error = $config.msg.errorModifying;
         });
         return self;
     };

@@ -1,0 +1,23 @@
+textarea.code {
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+    min-height:150px;
+}
+
+.modal .label.error-msg {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 0;
+    padding: 5px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.table .file-item a:hover {
+    text-decoration: none;
+}
+
+.btn,
+.modal .modal-content {
+    border-radius: 0;
+}
