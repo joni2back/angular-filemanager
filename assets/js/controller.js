@@ -1,4 +1,6 @@
-FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator', 'fileUploader', '$config', function($scope, Item, FileNavigator, FileUploader, $config) {
+FileManagerApp.controller('FileManagerCtrl', [
+    '$scope', '$config', 'item', 'fileNavigator', 'fileUploader', 
+    function($scope, $config, Item, FileNavigator, FileUploader) {
 
     $scope.appName = $config.appName;
     $scope.orderProp = ['model.type', 'model.name'];
@@ -9,7 +11,6 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
 
     $scope.touch = function(item) {
         item.revert && item.revert();
-        item.error = '';
         $scope.temp = item;
     };
 
@@ -45,7 +46,10 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     $scope.createFolder = function(name) {
         name = name && name.trim();
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
-            $scope.fileNavigator.fileList.push(new Item({name: name, type: 'dir'}, $scope.fileNavigator.currentPath));
+            $scope.fileNavigator.fileList.push(new Item(
+                {name: name, type: 'dir'},
+                $scope.fileNavigator.currentPath
+            ));
         } else {
             $scope.temp.error = $config.msg.invalidFilename;
             return false;
@@ -56,7 +60,10 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     $scope.createFile = function(name, content) {
         name = name && name.trim();
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
-            $scope.fileNavigator.fileList.push(new Item({name: name, type: 'file', content: content}, $scope.fileNavigator.currentPath));
+            $scope.fileNavigator.fileList.push(new Item(
+                {name: name, type: 'file', content: content},
+                $scope.fileNavigator.currentPath
+            ));
         } else {
             $scope.temp.error = $config.msg.invalidFilename;
             return false;
@@ -65,7 +72,8 @@ FileManagerApp.controller('FileManagerCtrl', ['$scope', 'item', 'fileNavigator',
     };
 
     $scope.uploadFiles = function() {
-        $scope.fileUploader.upload($scope.uploadFileList, $scope.fileNavigator.currentPath, function() {
+        $scope.fileUploader.upload($scope.uploadFileList,
+            $scope.fileNavigator.currentPath, function() {
             $scope.fileNavigator.refresh();
             $('#uploadfile').modal('hide');
         });

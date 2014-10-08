@@ -16,10 +16,3 @@ FileManagerApp.directive('ngFile', ['$parse', function ($parse) {
         }
     };
 }]);
-
-$(document).on('shown', ".modal", function() {
-    $('[autofocus]', this).focus();
-});
-
-//dev console workaround
-//setInterval(function() {angular.element(document.body).scope().$apply();}, 200);
