@@ -21,14 +21,12 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
                 self.fileList.push(new Item(file, self.currentPath));
 
                 //aca estaria el tree
-                if (file.type === 'dir') {
-
+                if (file.type === 'dir') { 
                     if (typeof self.history[path] === "undefined") {
                         self.history[path] = [];
                     }
                     //data.nodes.push({name: file.name, nodes: []});
                     self.history[path].indexOf(file.name) < 0 && self.history[path].push(file.name);
-
                     console.log(self.history);
                 }
             });
