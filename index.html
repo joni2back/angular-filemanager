@@ -57,46 +57,63 @@
                 <li><button class="btn btn-primary btn-xs" data-ng-click="fileNavigator.upDir()">&laquo;</button></li>
             </ol>
 
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Date</th>
-                        <th class="text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="file-item">
-                    <tr data-ng-show="fileNavigator.requesting">
-                        <td colspan="4">
-                            Loading...
-                        </td>
-                    </tr>
-                    <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
-                        <td colspan="4">
-                            No files in this folder...
-                        </td>
-                    </tr>
-                    <tr data-ng-repeat="item in fileNavigator.fileList | filter:query | orderBy:orderProp" data-ng-show="!fileNavigator.requesting">
-                        <td>
-                            <a href="" data-ng-href="#/{{fileNavigator.currentPath.join('/')}}/{{item.model.name}}" data-ng-click="fileNavigator.folderClick(item)">
-                                <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
-                                <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>
-                                {{item.model.name}}
-                            </a>
-                        </td>
-                        <td>
-                            {{item.model.sizeKb()}} Kb
-                        </td>
-                        <td>
-                            {{item.model.date.toString()}}
-                        </td>
-                        <td class="text-right">
-                            <div data-ng-include data-src="'fileToolbar'"></div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+
+
+
+
+
+
+
+            <div class="row">
+                <div class="col-md-2">
+
+
+
+                </div>
+                <div class="col-md-10">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Size</th>
+                                <th>Date</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="file-item">
+                            <tr data-ng-show="fileNavigator.requesting">
+                                <td colspan="4">
+                                    Loading...
+                                </td>
+                            </tr>
+                            <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
+                                <td colspan="4">
+                                    No files in this folder...
+                                </td>
+                            </tr>
+                            <tr data-ng-repeat="item in fileNavigator.fileList | filter:query | orderBy:orderProp" data-ng-show="!fileNavigator.requesting">
+                                <td>
+                                    <a href="" data-ng-href="#/{{fileNavigator.currentPath.join('/')}}/{{item.model.name}}" data-ng-click="fileNavigator.folderClick(item)">
+                                        <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
+                                        <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>
+                                        {{item.model.name}}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{item.model.sizeKb()}} Kb
+                                </td>
+                                <td>
+                                    {{item.model.date.toString()}}
+                                </td>
+                                <td class="text-right">
+                                    <div data-ng-include data-src="'fileToolbar'"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -315,29 +332,29 @@
     </script>
     <script type="text/ng-template" id="fileToolbar">
         <div data-ng-show="!item.inprocess">
-            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" data-ng-click="touch(item)">
-                <i class="glyphicon glyphicon-trash"></i> Delete
+            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" data-ng-click="touch(item)" title="Delete">
+                <i class="glyphicon glyphicon-trash"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" data-ng-click="touch(item)">
-                <i class="glyphicon glyphicon-edit"></i> Rename
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" data-ng-click="touch(item)" title="Rename">
+                <i class="glyphicon glyphicon-edit"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" data-ng-click="touch(item)">
-                <i class="glyphicon glyphicon-log-out"></i> Copy
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" data-ng-click="touch(item)" title="Copy">
+                <i class="glyphicon glyphicon-log-out"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" data-ng-show="item.isEditable()" data-ng-click="item.getContent(); touch(item)">
-                <i class="glyphicon glyphicon-pencil"></i> Edit
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" data-ng-show="item.isEditable()" data-ng-click="item.getContent(); touch(item)" title="Edit">
+                <i class="glyphicon glyphicon-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#changepermissions" data-ng-click="touch(item)">
-                <i class="glyphicon glyphicon-pencil"></i> Permissions
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#changepermissions" data-ng-click="touch(item)" title="Permissions">
+                <i class="glyphicon glyphicon-pencil"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" data-ng-show="item.isCompressible()" data-ng-click="touch(item)">
-                <i class="glyphicon glyphicon-compressed"></i> Compress
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" data-ng-show="item.isCompressible()" data-ng-click="touch(item)" title="Compress">
+                <i class="glyphicon glyphicon-compressed"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" data-ng-show="item.isExtractable()" data-ng-click="touch(item)">
-                <i class="glyphicon glyphicon-export"></i> Extract
+            <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#" data-ng-show="item.isExtractable()" data-ng-click="touch(item)" title="Extract">
+                <i class="glyphicon glyphicon-export"></i>
             </button>
-            <button class="btn btn-sm btn-default" data-ng-show="!item.isFolder()" data-ng-click="item.download()">
-                <i class="glyphicon glyphicon-cloud-download"></i> Download
+            <button class="btn btn-sm btn-default" data-ng-show="!item.isFolder()" data-ng-click="item.download()" title="Download">
+                <i class="glyphicon glyphicon-cloud-download"></i>
             </button>
         </div>
         <div data-ng-show="item.inprocess">
