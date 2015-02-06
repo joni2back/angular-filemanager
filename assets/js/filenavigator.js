@@ -6,36 +6,60 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         self.requesting = false;
         self.fileList = [];
         self.currentPath = $config.rootPath;
-        self.history = {};
+        self.history = [];
     };
 
     FileNavigator.prototype.refresh = function(success, error) {
         var self = this;
         var path = '/' + self.currentPath.join('/');
         var data = {params:{onlyFolders: false, path: path}};
+
         self.requesting = true;
         self.fileList = [];
+
         $http.post($config.listUrl, data).success(function(data) {
             self.fileList = [];
             angular.forEach(data.result, function(file) {
                 self.fileList.push(new Item(file, self.currentPath));
-
-                //aca estaria el tree
-                if (file.type === 'dir') { 
-                    if (typeof self.history[path] === "undefined") {
-                        self.history[path] = [];
-                    }
-                    //data.nodes.push({name: file.name, nodes: []});
-                    self.history[path].indexOf(file.name) < 0 && self.history[path].push(file.name);
-                    console.log(self.history);
-                }
+                file.type === 'dir' && self.buildTree(file, path);
             });
+
             self.requesting = false;
             typeof success === 'function' && success(data);
         }).error(function(data) {
             self.requesting = false;
             typeof error === 'function' && error(data);
         });
+    };
+
+    FileNavigator.prototype.buildTree = function(file, path) {
+        var self = this;
+        !self.history.length && self.history.push({name: path, nodes: []});
+        angular.forEach(self.history, function(item) {
+            var recursive = function(item) {
+                if (item.name !== path) {
+                    angular.forEach(item.nodes, function(item) {
+                        recursive(item);
+                    });
+                } else {
+                    var exists = false;
+                    var absName = path + '/' + file.name;
+                    angular.forEach(item.nodes, function(item) {
+                        if (item.name === absName) {
+                            exists = true;
+                        }
+                    });
+                    !exists && item.nodes.push({name: absName, nodes: []});
+                }
+            };
+            recursive(item);
+        });
+    };
+
+    FileNavigator.prototype.folderClickByName = function(fullPath) {
+        var self = this;
+        self.currentPath = fullPath.substr(1).split('/');
+        self.refresh();
     };
 
     FileNavigator.prototype.folderClick = function(item) {
