@@ -6,7 +6,8 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
             path: path || [],
             type: 'file',
             size: 0,
-            date: new Date(),
+            date: model && new Date(model.month + ' ' + model.day + ', ' + new Date().getFullYear() + ' ' + model.time + ':00'),
+            //date: model && model.day + ' ' + model.month + ' - ' + model.time,
             perms: new Chmod(),
             content: '',
             sizeKb: function() {
@@ -39,13 +40,20 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
 
     Item.prototype.rename = function(success, error) {
         var self = this;
+        var data = {
+            mode: "rename",
+            old: self.model.fullPath(),
+            new: self.tempModel.fullPath()
+        };
         if (self.tempModel.name.trim()) {
             self.inprocess = true;
             self.error = '';
-            $http.post($config.renameUrl, self.tempModel).success(function(data) {
+            $http({method: 'GET', url: $config.renameUrl, params: data}).success(function(data) {
                 self.update();
                 self.inprocess = false;
                 typeof success === 'function' && success(data);
+
+                self.error = data.Error; ///fz
             }).error(function(data) {
                 self.inprocess = false;
                 self.error = $config.msg.errorRenaming;
@@ -55,10 +63,36 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         return self;
     };
 
-    Item.prototype.download = function() {
+    Item.prototype.copy = function(success, error) {
+        var self = this;
+        var data = {
+            mode: "copy",
+            path: self.model.fullPath(),
+            newPath: self.model.fullPath().replace(new RegExp(self.model.name + '$'), self.tempModel.name)
+        };
+        if (self.tempModel.name.trim()) {
+            self.inprocess = true;
+            self.error = '';
+            $http({method: 'GET', url: $config.copyUrl, params: data}).success(function(data) {
+                self.update();
+                self.inprocess = false;
+                typeof success === 'function' && success(data);
+
+                self.error = data.Error; ///fz
+            }).error(function(data) {
+                self.inprocess = false;
+                self.error = $config.msg.errorCopying;
+                typeof error === 'function' && error(data);
+            });
+        }
+        return self;
+    };
+
+    Item.prototype.download = function(preview) {
         var self = this;
         var data = {
             mode: "download",
+            preview: preview,
             path: self.model.fullPath()
         };
         var url = [$config.downloadFileUrl, $.param(data)].join('?');
@@ -66,6 +100,11 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
             window.open(url, '_blank', '');
         }
         return self;
+    };
+
+    Item.prototype.preview = function() {
+        var self = this;
+        return self.download(true);
     };
 
     Item.prototype.getContent = function() {
@@ -160,7 +199,11 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
     };
 
     Item.prototype.isEditable = function() {
-        return !!this.model.name.match($config.isEditableFilePattern);
+        return !!this.model.name.match(new RegExp($config.isEditableFilePattern));
+    };
+
+    Item.prototype.isImage = function() {
+        return !!this.model.name.match(new RegExp($config.isImageFilePattern));
     };
 
     Item.prototype.isCompressible = function() {

@@ -1,5 +1,5 @@
 FileManagerApp.controller('FileManagerCtrl', [
-    '$scope', '$config', 'item', 'fileNavigator', 'fileUploader', 
+    '$scope', '$config', 'item', 'fileNavigator', 'fileUploader',
     function($scope, $config, Item, FileNavigator, FileUploader) {
 
     $scope.appName = $config.appName;
@@ -20,9 +20,10 @@ FileManagerApp.controller('FileManagerCtrl', [
             item.error = $config.msg.invalidFilename;
             return false;
         }
-        newItem.update();
-        $scope.fileNavigator.fileList.push(newItem);
-        $('#copy').modal('hide');
+        item.copy(function() {
+            $scope.fileNavigator.refresh();
+            $('#copy').modal('hide');
+        });
     };
 
     $scope.delete = function(item) {
@@ -39,7 +40,7 @@ FileManagerApp.controller('FileManagerCtrl', [
         }
         item.rename(function() {
             $scope.fileNavigator.refresh();
-            $('#delete').modal('hide');
+            $('#rename').modal('hide');
         });
     };
 
