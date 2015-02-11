@@ -1,0 +1,40 @@
+<table class="table table-striped table-hover mb0 table-files">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Date</th>
+            <th class="text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="file-item">
+        <tr data-ng-show="fileNavigator.requesting">
+            <td colspan="4">
+                Loading...
+            </td>
+        </tr>
+        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
+            <td colspan="4">
+                No files in this folder...
+            </td>
+        </tr>
+        <tr data-ng-repeat="item in fileNavigator.fileList | filter:query | orderBy:orderProp" data-ng-show="!fileNavigator.requesting">
+            <td>
+                <a href="" data-ng-href="#/{{fileNavigator.currentPath.join('/')}}/{{item.model.name}}" data-ng-click="smartClick(item)" ng-right-click="smartRightClick(item)">
+                    <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
+                    <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>
+                    {{item.model.name}}
+                </a>
+            </td>
+            <td>
+                {{item.model.sizeKb()}} Kb
+            </td>
+            <td>
+                {{item.model.date.toString()}}
+            </td>
+            <td class="text-right">
+                <div ng-include="'assets/templates/item-toolbar.html'"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>

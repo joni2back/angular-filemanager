@@ -1,0 +1,11 @@
+<div id="contextMenu" class="dropdown clearfix">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block; position:static; margin-bottom:5px;">
+        <li role="presentation" class="dropdown-header">
+            <i class="glyphicon glyphicon-folder-close" data-ng-show="temp.model.type === 'dir'"></i>
+            <i class="glyphicon glyphicon-file" data-ng-show="temp.model.type === 'file'"></i>
+            {{temp.model.name}}
+        </li>
+        <li class="divider"></li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Delete</a></li>
+    </ul>
+</div>

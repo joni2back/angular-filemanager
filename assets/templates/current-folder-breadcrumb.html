@@ -1,0 +1,7 @@
+<ol class="breadcrumb mb0">
+    <li data-ng-repeat="(key, dir) in fileNavigator.currentPath track by key" data-ng-class="{'active':$last}">
+        <a href="" data-ng-show="!$last" data-ng-click="fileNavigator.goTo(key)">{{dir}}</a>
+        <span data-ng-show="$last">{{dir}}</span>
+    </li>
+    <li><button class="btn btn-primary btn-xs" data-ng-click="fileNavigator.upDir()">&laquo;</button></li>
+</ol>
