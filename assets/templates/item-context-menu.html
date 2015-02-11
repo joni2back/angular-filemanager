@@ -1,10 +1,13 @@
-<div id="contextMenu" class="dropdown clearfix">
+<div id="context-menu" class="dropdown clearfix">
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block; position:static; margin-bottom:5px;">
-        <li role="presentation" class="dropdown-header">
-            <i class="glyphicon glyphicon-folder-close" data-ng-show="temp.model.type === 'dir'"></i>
-            <i class="glyphicon glyphicon-file" data-ng-show="temp.model.type === 'file'"></i>
-            {{temp.model.name}}
-        </li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="#rename"><i class="glyphicon glyphicon-edit"></i> Rename</a></li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="#copy" data-ng-show="!temp.isFolder()"><i class="glyphicon glyphicon-log-out"></i> Copy</a></li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="#edit" data-ng-show="temp.isEditable()" data-ng-click="temp.getContent();"><i class="glyphicon glyphicon-pencil"></i> Edit</a></li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="#changepermissions"><i class="glyphicon glyphicon-lock"></i> Permissions</a></li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="" data-ng-show="temp.isCompressible()" ><i class="glyphicon glyphicon-compressed"></i> Compress</a></li>
+        <li><a tabindex="-1" href="#" data-toggle="modal" data-target="" data-ng-show="temp.isExtractable()" ><i class="glyphicon glyphicon-export"></i> Extract</a></li>
+        <li><a tabindex="-1" href="#" data-ng-show="!temp.isFolder()" data-ng-click="temp.download()"><i class="glyphicon glyphicon-download"></i> Download</a></li>
+        <li><a tabindex="-1" href="#" data-ng-show="temp.isImage()" data-ng-click="temp.preview()"><i class="glyphicon glyphicon-picture"></i> View item</a></li>
         <li class="divider"></li>
         <li><a tabindex="-1" href="#" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> Delete</a></li>
     </ul>

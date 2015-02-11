@@ -18,7 +18,7 @@
                 No files in this folder...
             </td>
         </tr>
-        <tr data-ng-repeat="item in fileNavigator.fileList | filter:query | orderBy:orderProp" data-ng-show="!fileNavigator.requesting">
+        <tr data-ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" data-ng-show="!fileNavigator.requesting">
             <td>
                 <a href="" data-ng-href="#/{{fileNavigator.currentPath.join('/')}}/{{item.model.name}}" data-ng-click="smartClick(item)" ng-right-click="smartRightClick(item)">
                     <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>

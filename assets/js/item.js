@@ -38,6 +38,31 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         angular.extend(this.tempModel, model);
     };
 
+    Item.prototype.createFolder = function(success, error) {
+        var self = this;
+        var data = {
+            mode: "addfolder",
+            path: self.tempModel.path.join('/'),
+            name: self.tempModel.name
+        };
+
+        if (self.tempModel.name.trim()) {
+            self.inprocess = true;
+            self.error = '';
+            $http({method: 'GET', url: $config.createFolderUrl, params: data}).success(function(data) {
+                self.update();
+                self.inprocess = false;
+                typeof success === 'function' && success(data);
+                self.error = data.Error; ///fz
+            }).error(function(data) {
+                self.inprocess = false;
+                self.error = $config.msg.errorCreatingFolder;
+                typeof error === 'function' && error(data);
+            });
+        }
+        return self;
+    };
+
     Item.prototype.rename = function(success, error) {
         var self = this;
         var data = {
@@ -203,7 +228,7 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
     };
 
     Item.prototype.isEditable = function() {
-        return !!this.model.name.toLowerCase().match(new RegExp($config.isEditableFilePattern));
+        return !this.isFolder() && !!this.model.name.toLowerCase().match(new RegExp($config.isEditableFilePattern));
     };
 
     Item.prototype.isImage = function() {

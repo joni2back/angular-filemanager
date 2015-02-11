@@ -42,6 +42,7 @@ textarea.code {
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
+  font-size:13px;
 }
 
 
@@ -85,6 +86,12 @@ body {
     border-right: 1px solid #eee;
   }
 }
+@media (max-width: 768px) {
+    .navbar-form .btn {
+          margin-top: 5px;
+      }
+}
+
 
 /* Sidebar navigation */
 .nav-sidebar {
@@ -149,9 +156,32 @@ body {
     padding: 4px 8px!important;
 }
 
-
-#contextMenu {
+#context-menu {
   position: absolute;
   display:none;
   z-index:9999;
+}
+
+.iconset {
+    padding:10px;
+}
+.col-120 {
+    width:100px;
+    max-height:100px;
+    float:left;
+    margin-bottom: 9px;
+    margin-right: 9px;
+}
+.col-120:last-child {
+    margin-right:0;
+}
+.iconset .thumbnail {
+    border-radius: 0;
+    overflow:hidden;
+    margin:0;
+    padding:0;
+    padding:10px 0;
+}
+.iconset .thumbnail .item-icon {
+    font-size:32px;
 }

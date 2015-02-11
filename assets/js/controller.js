@@ -4,23 +4,23 @@ FileManagerApp.controller('FileManagerCtrl', [
 
     $scope.appName = $config.appName;
     $scope.orderProp = ['model.type', 'model.name'];
+    $scope.query = '';
     $scope.temp = new Item();
     $scope.fileNavigator = new FileNavigator();
     $scope.fileUploader = FileUploader;
     $scope.uploadFileList = [];
+    $scope.viewMode = 'main-icons.html';
 
     $scope.touch = function(item) {
+        item = (item && item.revert && item) || new Item();
         item.revert && item.revert();
         $scope.temp = item;
     };
 
     $scope.smartRightClick = function(item) {
-        $scope.temp = item;
-        var $contextMenu = $("#contextMenu").hide();
-        $(document).click(function() {
-            $contextMenu.hide();
-        });
-        $("body").on("contextmenu", "tr td", function(e) {
+        var $contextMenu = $("#context-menu").hide();
+        $scope.touch(item);
+        $(window.document).on("contextmenu", ".table-files td, .iconset a.thumbnail", function(e) {
             $contextMenu.css({
                 left: e.pageX,
                 top: e.pageY
@@ -30,7 +30,6 @@ FileManagerApp.controller('FileManagerCtrl', [
     };
 
     $scope.smartClick = function(item) {
-        var self = this;
         if (item.isFolder()) {
             return $scope.fileNavigator.folderClick(item);
         };
@@ -38,9 +37,9 @@ FileManagerApp.controller('FileManagerCtrl', [
             return item.preview();
         }
         if (item.isEditable()) {
-            $('#edit').modal('show');
             item.getContent();
-            self.touch(item);
+            $scope.touch(item);
+            $('#edit').modal('show');
             return;
         }
     };
@@ -87,32 +86,19 @@ FileManagerApp.controller('FileManagerCtrl', [
         });
     };
 
-    $scope.createFolder = function(name) {
-        name = name && name.trim();
+    $scope.createFolder = function(item) {
+        name = item.tempModel.name && item.tempModel.name.trim();
+        item.tempModel.type = 'dir';
+        item.tempModel.path = $scope.fileNavigator.currentPath;
         if (name && !$scope.fileNavigator.fileNameExists(name)) {
-            $scope.fileNavigator.fileList.push(new Item(
-                {name: name, type: 'dir'},
-                $scope.fileNavigator.currentPath
-            ));
+            item.createFolder(function() {
+                $scope.fileNavigator.refresh();
+                $('#newfolder').modal('hide');
+            });
         } else {
             $scope.temp.error = $config.msg.invalidFilename;
             return false;
         }
-        $('#newfolder').modal('hide');
-    };
-
-    $scope.createFile = function(name, content) {
-        name = name && name.trim();
-        if (name && !$scope.fileNavigator.fileNameExists(name)) {
-            $scope.fileNavigator.fileList.push(new Item(
-                {name: name, type: 'file', content: content},
-                $scope.fileNavigator.currentPath
-            ));
-        } else {
-            $scope.temp.error = $config.msg.invalidFilename;
-            return false;
-        }
-        $('#newfile').modal('hide');
     };
 
     $scope.uploadFiles = function() {

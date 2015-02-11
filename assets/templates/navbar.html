@@ -10,18 +10,21 @@
       <a class="navbar-brand" href="#">{{appName}}</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right">
-        <input type="text" class="form-control input-sm" placeholder="Search..." data-ng-model="query">
-        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newfolder" data-ng-click="touch({})">
+      <div class="navbar-form navbar-right">
+        <input type="text" class="form-control input-sm" placeholder="Search..." ng-model="$parent.query">
+        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newfolder" data-ng-click="touch()">
             <i class="glyphicon glyphicon-plus"></i> New folder
         </button>
-        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#newfile" data-ng-click="touch({})">
-            <i class="glyphicon glyphicon-plus"></i> New file
-        </button>
-        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadfile" data-ng-click="touch({})">
+        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadfile" data-ng-click="touch()">
             <i class="glyphicon glyphicon-upload"></i> Upload file
         </button>
-      </form>
+        <button class="btn btn-danger btn-sm" data-ng-click="$parent.viewMode = 'main-icons.html'" data-ng-show="$parent.viewMode !== 'main-icons.html'" title="Icons">
+            <i class="glyphicon glyphicon-th-large"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" data-ng-click="$parent.viewMode = 'main-table.html'" data-ng-show="$parent.viewMode !== 'main-table.html'" title="List">
+            <i class="glyphicon glyphicon-th-list"></i>
+        </button>
+      </div>
     </div>
   </div>
 </nav>

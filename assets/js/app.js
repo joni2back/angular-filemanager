@@ -28,3 +28,21 @@ FileManagerApp.directive('ngRightClick', function($parse) {
         });
     };
 });
+
+FileManagerApp.filter('strLimit', ['$filter', function($filter) {
+    return function(input, limit) {
+        if (input.length <= limit) {
+            return input;
+        }
+        return $filter('limitTo')(input, limit) + '...';
+   };
+}]);
+
+$(function() {
+    $(window.document).on('shown', '.modal', function() {
+        $('[autofocus]', this).focus();
+    });
+    $(window.document).click(function() {
+        $("#context-menu").hide();
+    });
+});

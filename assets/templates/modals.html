@@ -14,7 +14,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button type="button" class="btn btn-sm btn-primary" data-ng-click="delete(temp)" data-ng-disabled="temp.inprocess">Delete</button>
+        <button type="button" class="btn btn-sm btn-primary" data-ng-click="delete(temp)" data-ng-disabled="temp.inprocess" autofocus="autofocus">Delete</button>
       </div>
     </div>
   </div>
@@ -79,7 +79,7 @@
       <div class="modal-body">
           <label class="radio">File content</label>
           <span class="label label-warning" data-ng-show="temp.inprocess">Loading ...</span>
-          <textarea class="form-control code" data-ng-model="temp.tempModel.content" data-ng-show="!temp.inprocess"></textarea>
+          <textarea class="form-control code" data-ng-model="temp.tempModel.content" data-ng-show="!temp.inprocess" autofocus="autofocus"></textarea>
           <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
@@ -107,32 +107,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp.tempModel.name)" data-ng-disabled="temp.inprocess">Create</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal" id="newfile">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Create file</h4>
-      </div>
-      <div class="modal-body">
-        <label class="radio">File name</label>
-        <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        <label class="radio">File content</label>
-        <textarea class="form-control code" data-ng-model="temp.tempModel.content"></textarea>
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button class="btn btn-sm btn-primary" data-ng-click="createFile(temp.tempModel.name, temp.tempModel.content)" data-ng-disabled="temp.inprocess">Create</button>
+        <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp)" data-ng-disabled="temp.inprocess">Create</button>
       </div>
     </div>
   </div>
@@ -151,7 +126,7 @@
       <div class="modal-body">
 
         <label class="radio">Files will be uploaded to <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
-        <input type="file" class="form-control" data-ng-file="uploadFileList" autofocus="autofocus" multiple="multiple"/>
+        <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
         <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
