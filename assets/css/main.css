@@ -148,3 +148,10 @@ body {
 .table-files td {
     padding: 4px 8px!important;
 }
+
+
+#contextMenu {
+  position: absolute;
+  display:none;
+  z-index:9999;
+}

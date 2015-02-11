@@ -144,7 +144,7 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         return self;
     };
 
-    Item.prototype.edit = function() {
+    Item.prototype.edit = function(success, error) {
         var self = this;
         var data = {
             mode: "savefile",
@@ -153,23 +153,26 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         };
         self.inprocess = true;
         self.error = '';
+
         $http({
             method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'text/plain'},
             url: $config.editUrl,
             data: $.param(data)
         }).success(function(data) {
             self.inprocess = false;
             self.update();
-            $('#edit').modal('hide');
+            typeof success === 'function' && success(data);
         }).error(function(data) {
+            alert('error')
             self.inprocess = false;
             self.error = $config.msg.errorModifying;
+            typeof error === 'function' && error(data);
         });
         return self;
     };
 
-    Item.prototype.changePermissions = function() {
+    Item.prototype.changePermissions = function(success, error) {
         var self = this;
         var data = {
             mode: "changepermissions",
@@ -186,10 +189,11 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         }).success(function(data) {
             self.inprocess = false;
             self.update();
-            $('#changepermissions').modal('hide');
+            typeof success === 'function' && success(data);
         }).error(function(data) {
             self.inprocess = false;
             self.error = $config.msg.errorModifying;
+            typeof error === 'function' && error(data);
         });
         return self;
     };
@@ -199,11 +203,11 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
     };
 
     Item.prototype.isEditable = function() {
-        return !!this.model.name.match(new RegExp($config.isEditableFilePattern));
+        return !!this.model.name.toLowerCase().match(new RegExp($config.isEditableFilePattern));
     };
 
     Item.prototype.isImage = function() {
-        return !!this.model.name.match(new RegExp($config.isImageFilePattern));
+        return !!this.model.name.toLowerCase().match(new RegExp($config.isImageFilePattern));
     };
 
     Item.prototype.isCompressible = function() {

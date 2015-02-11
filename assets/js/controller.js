@@ -14,6 +14,49 @@ FileManagerApp.controller('FileManagerCtrl', [
         $scope.temp = item;
     };
 
+    $scope.smartRightClick = function(item) {
+        $scope.temp = item;
+        var $contextMenu = $("#contextMenu").hide();
+        $(document).click(function() {
+            $contextMenu.hide();
+        });
+        $("body").on("contextmenu", "tr td", function(e) {
+            $contextMenu.css({
+                left: e.pageX,
+                top: e.pageY
+            }).show();
+            return false;
+        });
+    };
+
+    $scope.smartClick = function(item) {
+        var self = this;
+        if (item.isFolder()) {
+            return $scope.fileNavigator.folderClick(item);
+        };
+        if (item.isImage()) {
+            return item.preview();
+        }
+        if (item.isEditable()) {
+            $('#edit').modal('show');
+            item.getContent();
+            self.touch(item);
+            return;
+        }
+    };
+
+    $scope.edit = function(item) {
+        item.edit(function() {
+            $('#edit').modal('hide');
+        });
+    };
+
+    $scope.changePermissions = function(item) {
+        item.changePermissions(function() {
+            $('#changepermissions').modal('hide');
+        });
+    };
+
     $scope.copy = function(item) {
         var newItem = angular.copy(item);
         if ($scope.fileNavigator.fileNameExists(newItem.tempModel.name)) {
