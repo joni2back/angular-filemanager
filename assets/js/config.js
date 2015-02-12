@@ -1,7 +1,6 @@
 FileManagerApp && FileManagerApp.constant("$config", {
-    rootPath: ["public_html"],
     appName: "Angular FileManager",
-    listUrl: "/hosting/filemanager/customlist",
+    listUrl: "/hosting/filemanager/listdirectory",
     uploadUrl: "/hosting/filemanager/upload",
     renameUrl: "/filemgr.php",
     copyUrl: "/filemgr.php",

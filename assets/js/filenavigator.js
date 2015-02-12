@@ -5,14 +5,14 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
 
         self.requesting = false;
         self.fileList = [];
-        self.currentPath = $config.rootPath;
+        self.currentPath = [];
         self.history = [];
     };
 
     FileNavigator.prototype.refresh = function(success, error) {
         var self = this;
-        var path = '/' + self.currentPath.join('/');
-        var data = {params:{onlyFolders: false, path: path}};
+        var path = self.currentPath.join('/');
+        var data = {params:{onlyFolders: false, path: '/' + path}};
 
         self.requesting = true;
         self.fileList = [];
@@ -43,7 +43,7 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
                     });
                 } else {
                     var exists = false;
-                    var absName = path + '/' + file.name;
+                    var absName = path ? (path + '/' + file.name) : file.name;
                     angular.forEach(item.nodes, function(item) {
                         if (item.name === absName) {
                             exists = true;
@@ -58,7 +58,8 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
 
     FileNavigator.prototype.folderClickByName = function(fullPath) {
         var self = this;
-        self.currentPath = fullPath.substr(1).split('/');
+        fullPath = fullPath.replace(new RegExp(/^\/*/g), '').split('/');
+        self.currentPath = fullPath && fullPath[0] === "" ? [] : fullPath;
         self.refresh();
     };
 
@@ -72,7 +73,7 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
 
     FileNavigator.prototype.upDir = function() {
         var self = this;
-        if (self.currentPath[0] && self.currentPath[1]) {
+        if (self.currentPath[0]) {
             self.currentPath = self.currentPath.slice(0, -1);
             self.refresh();
         }
