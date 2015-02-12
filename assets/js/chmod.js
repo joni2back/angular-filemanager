@@ -30,31 +30,3 @@ FileManagerApp.service('chmod', function () {
 
     return Chmod;
 });
-
-//FileManagerApp.service('chmod', ['$config', function ($config) {
-//
-//    var values = {
-//        read: 0,
-//        write: 0,
-//        execute: 0
-//    };
-//
-//    return {
-//        values: {
-//            owner: angular.copy(values),
-//            group: angular.copy(values),
-//            others: angular.copy(values)
-//        },
-//        getNumber: function() {
-//            return [
-//                +this.values.owner.read + +this.values.owner.write + +this.values.owner.execute,
-//                +this.values.group.read + +this.values.group.write + +this.values.group.execute,
-//                +this.values.others.read + +this.values.others.write + +this.values.others.execute
-//            ].join('');
-//        },
-//        permissionValues: {
-//            read: 4, write: 2, execute: 1
-//        }
-//    };
-//
-//}]);

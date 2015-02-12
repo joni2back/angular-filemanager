@@ -1,3 +1,9 @@
+/*!
+ * @author  Jonas Sciangula Street <joni2back@gmail.com>
+ * @date    2014-05-05
+ * @version 0.5
+ */
+
 var FileManagerApp = angular.module('FileManagerApp', []);
 
 FileManagerApp.directive('ngFile', ['$parse', function ($parse) {

@@ -189,7 +189,6 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
             self.update();
             typeof success === 'function' && success(data);
         }).error(function(data) {
-            alert('error')
             self.inprocess = false;
             self.error = $config.msg.errorModifying;
             typeof error === 'function' && error(data);
