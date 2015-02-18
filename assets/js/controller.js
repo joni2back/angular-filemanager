@@ -9,7 +9,11 @@ FileManagerApp.controller('FileManagerCtrl', [
     $scope.fileNavigator = new FileNavigator();
     $scope.fileUploader = FileUploader;
     $scope.uploadFileList = [];
-    $scope.viewMode = 'main-icons.html';
+    $scope.viewTemplate = sessionStorage.viewTemplate || 'main-icons.html';
+
+    $scope.setTemplate = function(name) {
+        $scope.viewTemplate = sessionStorage.viewTemplate = name;
+    };
 
     $scope.touch = function(item) {
         item = (item && item.revert && item) || new Item();
