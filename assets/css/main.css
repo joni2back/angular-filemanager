@@ -158,7 +158,8 @@ body {
     margin-right: 5px;
 }
 .table-files td {
-    padding: 4px 8px!important;
+    padding: 3px 8px!important;
+    vertical-align: middle!important;
 }
 
 #context-menu {
@@ -226,8 +227,8 @@ body {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-
-.modal.animated {
+.modal.animated,
+.animated.fast {
   -webkit-animation-duration: .2s;
   animation-duration: .2s;
 }
@@ -250,6 +251,41 @@ body {
   }
 }
 
+
+
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+            transform: none;
+  }
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+          animation-name: fadeInDown;
+}
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
