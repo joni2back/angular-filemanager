@@ -1,4 +1,4 @@
-<div class="modal" id="delete">
+<div class="modal animated fadeIn" id="delete">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div class="modal" id="rename">
+<div class="modal animated fadeIn" id="rename">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<div class="modal" id="copy">
+<div class="modal animated fadeIn" id="copy">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,7 +54,7 @@
         <h4 class="modal-title">Copy file</h4>
       </div>
       <div class="modal-body">
-        <label class="radio">Enter new copy name for <b>/{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+        <label class="radio">Enter new copy name for <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
         <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
         <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
       </div>
@@ -66,13 +66,51 @@
   </div>
 </div>
 
-<div class="modal" id="edit">
+<div class="modal animated fadeIn" id="compress">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Compress item</h4>
+      </div>
+      <div class="modal-body">
+        <div ng-show="temp.success">
+            <div class="label label-success error-msg">Compression started in a background process</div>
+        </div>
+        <div ng-hide="temp.success">
+            <label class="radio">Enter new filename for the compression of <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+            <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+        </div>
+
+        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+        <div ng-show="temp.success">
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+        </div>
+        <div ng-hide="temp.success">
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+            <button type="button" class="btn btn-sm btn-primary" data-ng-click="compress(temp)" data-ng-disabled="temp.inprocess">Compress</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal animated fadeIn" id="edit" data-ng-class="{'modal-fullscreen': fullscreen}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
+        </button>
+        <button type="button" class="close mr5" data-ng-click="fullscreen=!fullscreen">
+            <span>&loz;</span>
+            <span class="sr-only">Toggle Fullscreen</span>
         </button>
         <h4 class="modal-title">Edit file</h4>
       </div>
@@ -90,7 +128,7 @@
   </div>
 </div>
 
-<div class="modal" id="newfolder">
+<div class="modal animated fadeIn" id="newfolder">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -113,7 +151,7 @@
   </div>
 </div>
 
-<div class="modal" id="uploadfile">
+<div class="modal animated fadeIn" id="uploadfile">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -125,7 +163,7 @@
       </div>
       <div class="modal-body">
 
-        <label class="radio">Files will be uploaded to <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
+        <label class="radio">Files will be uploaded to <b>{{fileNavigator.currentPath.join('/')}}</b></label>
         <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
         <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
       </div>
@@ -142,7 +180,7 @@
   </div>
 </div>
 
-<div class="modal" id="changepermissions">
+<div class="modal animated fadeIn" id="changepermissions">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

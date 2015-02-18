@@ -1,6 +1,8 @@
 textarea.code {
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-    min-height:250px;
+    min-height:200px;
+    resize:vertical;
+    color:#000;
 }
 
 .modal .label.error-msg {
@@ -152,6 +154,9 @@ body {
 .mr2 {
     margin-right: 2px;
 }
+.mr5 {
+    margin-right: 5px;
+}
 .table-files td {
     padding: 4px 8px!important;
 }
@@ -184,4 +189,68 @@ body {
 }
 .iconset .thumbnail .item-icon {
     font-size:32px;
+}
+
+.modal-fullscreen .modal-dialog,
+.modal-fullscreen .modal-content {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.modal-fullscreen .modal-dialog {
+    margin: 0;
+    width: 100%;
+}
+
+.modal-fullscreen .modal-content {
+    border: none;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: inherit;
+    -moz-box-shadow: inherit;
+    -o-box-shadow: inherit;
+    box-shadow: inherit;
+}
+
+.modal-fullscreen textarea.code {
+    min-height:375px;
+}
+
+
+.animated {
+  -webkit-animation-duration: .7s;
+  animation-duration: .7s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.modal.animated {
+  -webkit-animation-duration: .2s;
+  animation-duration: .2s;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
 }
