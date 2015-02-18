@@ -20,10 +20,9 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
             self.fileList = [];
             angular.forEach(data.result, function(file) {
                 self.fileList.push(new Item(file, self.currentPath));
-                file.type === 'dir' && self.buildTree(file, path);
             });
-
             self.requesting = false;
+            self.buildTree(path);
             typeof success === 'function' && success(data);
         }).error(function(data) {
             self.requesting = false;
@@ -31,9 +30,12 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         });
     };
 
-    FileNavigator.prototype.buildTree = function(file, path) {
+    FileNavigator.prototype.buildTree = function(path) {
         var self = this;
         var recursive = function(parent, file, path) {
+            if (parent.name && !path.match(new RegExp('^' + parent.name))) {
+                parent.nodes = [];
+            }
             if (parent.name !== path) {
                 for (var i in parent.nodes) {
                     var child = parent.nodes[i];
@@ -52,7 +54,10 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         };
 
         !self.history.length && self.history.push({name: path, nodes: []});
-        recursive(self.history[0], file, path);
+        for (var i in self.fileList) {
+            var file = self.fileList[i].model;
+            file.type === 'dir' && recursive(self.history[0], file, path);
+        }
     };
 
     FileNavigator.prototype.folderClickByName = function(fullPath) {
