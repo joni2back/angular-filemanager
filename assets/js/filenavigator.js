@@ -16,7 +16,6 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
 
         self.requesting = true;
         self.fileList = [];
-
         $http.post($config.listUrl, data).success(function(data) {
             self.fileList = [];
             angular.forEach(data.result, function(file) {
@@ -34,26 +33,26 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
 
     FileNavigator.prototype.buildTree = function(file, path) {
         var self = this;
-        !self.history.length && self.history.push({name: path, nodes: []});
-        angular.forEach(self.history, function(item) {
-            var recursive = function(item) {
-                if (item.name !== path) {
-                    angular.forEach(item.nodes, function(item) {
-                        recursive(item);
-                    });
-                } else {
-                    var exists = false;
-                    var absName = path ? (path + '/' + file.name) : file.name;
-                    angular.forEach(item.nodes, function(item) {
-                        if (item.name === absName) {
-                            exists = true;
-                        }
-                    });
-                    !exists && item.nodes.push({name: absName, nodes: []});
+        var recursive = function(parent, file, path) {
+            if (parent.name !== path) {
+                for (var i in parent.nodes) {
+                    var child = parent.nodes[i];
+                    recursive(child, file, path);
                 }
-            };
-            recursive(item);
-        });
+            } else {
+                var absName = path ? (path + '/' + file.name) : file.name;
+                for (var i in parent.nodes) {
+                    var child = parent.nodes[i];
+                    if (child.name === absName) {
+                        return;
+                    }
+                }
+                parent.nodes.push({name: absName, nodes: []});
+            }
+        };
+
+        !self.history.length && self.history.push({name: path, nodes: []});
+        recursive(self.history[0], file, path);
     };
 
     FileNavigator.prototype.folderClickByName = function(fullPath) {
