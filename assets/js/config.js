@@ -9,6 +9,8 @@ FileManagerApp && FileManagerApp.constant("$config", {
     getContentUrl: "/filemgr.php",
     createFolderUrl: "/filemgr.php",
     downloadFileUrl: "/filemgr.php",
+    compressUrl: "/filemgr.php",
+    extractUrl: "/filemgr.php",
 
     msg: {
         invalidFilename: "Invalid filename or already exists, specify another name",
@@ -16,6 +18,7 @@ FileManagerApp && FileManagerApp.constant("$config", {
         errorDeleting: "An error occurred deleting the file or folder",
         errorRenaming: "An error occurred renaming the file",
         errorCopying: "An error occurred copying the file",
+        errorCompressing: "An error occurred compressing the file or folder",
         errorCreatingFolder: "An error occurred creating the folder",
         errorGettingContent: "An error occurred getting the content of the file"
     },

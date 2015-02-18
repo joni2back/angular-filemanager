@@ -101,12 +101,35 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
             $http({method: 'GET', url: $config.copyUrl, params: data}).success(function(data) {
                 self.update();
                 self.inprocess = false;
-                typeof success === 'function' && success(data);
-
                 self.error = data.Error; ///fz
+                typeof success === 'function' && success(data);
             }).error(function(data) {
                 self.inprocess = false;
                 self.error = $config.msg.errorCopying;
+                typeof error === 'function' && error(data);
+            });
+        }
+        return self;
+    };
+
+    Item.prototype.compress = function(success, error) {
+        var self = this;
+        var data = {
+            mode: "compress",
+            path: self.model.fullPath(),
+            destination: self.tempModel.fullPath()
+        };
+        if (self.tempModel.name.trim()) {
+            self.inprocess = true;
+            self.error = '';
+            $http({method: 'GET', url: $config.compressUrl, params: data}).success(function(data) {
+                self.update();
+                self.inprocess = false;
+                self.error = data.Error; ///fz
+                typeof success === 'function' && success(data);
+            }).error(function(data) {
+                self.inprocess = false;
+                self.error = $config.msg.errorCompressing;
                 typeof error === 'function' && error(data);
             });
         }

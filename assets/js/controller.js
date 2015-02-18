@@ -68,6 +68,16 @@ FileManagerApp.controller('FileManagerCtrl', [
         });
     };
 
+    $scope.compress = function(item) {
+        item.compress(function() {
+            item.success = true;
+            $scope.fileNavigator.refresh();
+            //$('#compress').modal('hide');
+        }, function() {
+            item.success = false;
+        });
+    };
+
     $scope.delete = function(item) {
         item.delete(function() {
             $scope.fileNavigator.refresh();

@@ -1,6 +1,6 @@
 <div class="iconset">
   <div class="col-120" data-ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" data-ng-show="!fileNavigator.requesting">
-        <a href="#" class="thumbnail text-center" data-ng-click="smartClick(item)" ng-right-click="smartRightClick(item)" title="{{item.model.name}}">
+        <a href="#" class="thumbnail text-center" data-ng-click="smartClick(item)" ng-right-click="smartRightClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
             <div class="item-icon">
                 <i class="glyphicon glyphicon-folder-open" data-ng-show="item.model.type === 'dir'"></i>
                 <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>

@@ -20,14 +20,14 @@
         </tr>
         <tr data-ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" data-ng-show="!fileNavigator.requesting">
             <td>
-                <a href="" data-ng-href="#/{{fileNavigator.currentPath.join('/')}}/{{item.model.name}}" data-ng-click="smartClick(item)" ng-right-click="smartRightClick(item)">
+                <a href="#" data-ng-click="smartClick(item)" ng-right-click="smartRightClick(item)">
                     <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
                     <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>
                     {{item.model.name}}
                 </a>
             </td>
             <td>
-                {{item.model.sizeKb()}} Kb
+                {{item.model.sizeKb()}}kb
             </td>
             <td>
                 {{item.model.date.toString()}}
