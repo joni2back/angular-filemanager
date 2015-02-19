@@ -1,3 +1,5 @@
+var FileManagerApp = angular.module('FileManagerApp', []);
+
 FileManagerApp.directive('ngFile', function($parse) {
     return {
         restrict: 'A',
