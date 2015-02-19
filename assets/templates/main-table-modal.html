@@ -13,15 +13,17 @@
             </td>
         </tr>
         <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
-            <td colspan="3">
+            <td colspan="2">
                 No files in this folder...
+            </td>
+            <td class="text-right">
+                <button class="btn btn-sm btn-default" data-ng-click="fileNavigator.upDir()">Back</button>
             </td>
         </tr>
         <tr data-ng-repeat="item in fileNavigator.fileList | orderBy: orderProp" data-ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
             <td>
                 <a href="" data-ng-click="fileNavigator.folderClick(item)">
-                    <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
-                    <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>
+                    <i class="glyphicon glyphicon-folder-close"></i>
                     {{item.model.name}}
                 </a>
             </td>

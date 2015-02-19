@@ -56,6 +56,13 @@
       <div class="modal-body">
         <label class="radio">Enter new copy name for <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
         <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+
+
+        <div>{{selected.model.fullPath()}}</div>
+        <button type="button" class="btn btn-sm btn-default" data-ng-click="openNavigator()">To another folder</button>
+
+
+
         <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
@@ -267,7 +274,7 @@
       </div>
       <div class="modal-body">
         <div data-ng-show="!selected.model.name">
-            <div ng-include="'assets/templates/current-folder-breadcrumb-modal.html'"></div>
+            <div ng-include="'assets/templates/current-folder-breadcrumb.html'"></div>
             <div ng-include="'assets/templates/main-table-modal.html'"></div>
         </div>
         <div data-ng-show="selected.model.name">
