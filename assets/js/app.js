@@ -1,13 +1,4 @@
-/*!
- * @author  Jonas Sciangula Street <joni2back@gmail.com>
- * @date    2014-05-05
- * @version 0.5
- */
-
-var FileManagerApp = angular.module('FileManagerApp', []);
-
-FileManagerApp.directive('ngFile', ['$parse', function ($parse) {
-    //ng-file property
+FileManagerApp.directive('ngFile', function($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -21,7 +12,7 @@ FileManagerApp.directive('ngFile', ['$parse', function ($parse) {
             });
         }
     };
-}]);
+});
 
 FileManagerApp.directive('ngRightClick', function($parse) {
     return function(scope, element, attrs) {
@@ -29,7 +20,7 @@ FileManagerApp.directive('ngRightClick', function($parse) {
         element.bind('contextmenu', function(event) {
             scope.$apply(function() {
                 event.preventDefault();
-                fn(scope, {$event:event});
+                fn(scope, {$event: event});
             });
         });
     };

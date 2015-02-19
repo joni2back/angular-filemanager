@@ -24,7 +24,7 @@ FileManagerApp.controller('FileManagerCtrl', [
     $scope.smartRightClick = function(item) {
         var $contextMenu = $("#context-menu").hide();
         $scope.touch(item);
-        $(window.document).on("contextmenu", ".table-files td, .iconset a.thumbnail", function(e) {
+        $(window.document).on("contextmenu", ".table-files td a, .iconset a.thumbnail", function(e) {
             $contextMenu.css({
                 left: e.pageX,
                 top: e.pageY

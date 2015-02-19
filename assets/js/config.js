@@ -1,4 +1,4 @@
-FileManagerApp && FileManagerApp.constant("$config", {
+FileManagerApp.constant("$config", {
     appName: "Angular FileManager",
     listUrl: "/hosting/filemanager/listdirectory",
     uploadUrl: "/hosting/filemanager/upload",

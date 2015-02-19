@@ -6,8 +6,8 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
             path: path || [],
             type: 'file',
             size: 0,
-            date: model && new Date(model.month + ' ' + model.day + ', ' + new Date().getFullYear() + ' ' + model.time + ':00'),
-            //date: model && model.day + ' ' + model.month + ' - ' + model.time,
+            //date: model && new Date(model.month + ' ' + model.day + ', ' + new Date().getFullYear() + ' ' + model.time + ':00'),
+            date: model && model.day + ' ' + model.month + ' - ' + model.time,
             perms: new Chmod(),
             content: '',
             sizeKb: function() {

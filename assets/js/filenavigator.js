@@ -33,19 +33,17 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
     FileNavigator.prototype.buildTree = function(path) {
         var self = this;
         var recursive = function(parent, file, path) {
+            var absName = path ? (path + '/' + file.name) : file.name;
             if (parent.name && !path.match(new RegExp('^' + parent.name))) {
                 parent.nodes = [];
             }
             if (parent.name !== path) {
                 for (var i in parent.nodes) {
-                    var child = parent.nodes[i];
-                    recursive(child, file, path);
+                    recursive(parent.nodes[i], file, path);
                 }
             } else {
-                var absName = path ? (path + '/' + file.name) : file.name;
                 for (var i in parent.nodes) {
-                    var child = parent.nodes[i];
-                    if (child.name === absName) {
+                    if (parent.nodes[i].name === absName) {
                         return;
                     }
                 }
