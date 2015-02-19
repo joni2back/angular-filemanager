@@ -254,3 +254,30 @@
     </div>
   </div>
 </div>
+
+<div class="modal animated fadeIn" id="selector" data-ng-controller="ModalFileManagerCtrl">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Select the folder</h4>
+      </div>
+      <div class="modal-body">
+        <div data-ng-show="!selected.model.name">
+            <div ng-include="'assets/templates/current-folder-breadcrumb-modal.html'"></div>
+            <div ng-include="'assets/templates/main-table-modal.html'"></div>
+        </div>
+        <div data-ng-show="selected.model.name">
+            {{selected.model.fullPath()}}
+            <button type="button" class="btn btn-sm btn-default" data-ng-click="untouch()">Change</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

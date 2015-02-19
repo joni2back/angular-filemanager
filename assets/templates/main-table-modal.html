@@ -1,0 +1,36 @@
+<table class="table table-striped table-hover mb0 table-files">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th class="text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="file-item">
+        <tr data-ng-show="fileNavigator.requesting">
+            <td colspan="3">
+                Loading...
+            </td>
+        </tr>
+        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
+            <td colspan="3">
+                No files in this folder...
+            </td>
+        </tr>
+        <tr data-ng-repeat="item in fileNavigator.fileList | orderBy: orderProp" data-ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
+            <td>
+                <a href="" data-ng-click="fileNavigator.folderClick(item)">
+                    <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
+                    <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>
+                    {{item.model.name}}
+                </a>
+            </td>
+            <td>
+                {{item.model.date.toString()}}
+            </td>
+            <td class="text-right">
+                <button class="btn btn-sm btn-default" data-ng-click="touch(item)"><i class="glyphicon glyphicon-hand-up"></i> Select this</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

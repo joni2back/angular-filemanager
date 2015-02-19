@@ -1,6 +1,6 @@
 FileManagerApp.controller('FileManagerCtrl', [
-    '$scope', '$config', 'item', 'fileNavigator', 'fileUploader',
-    function($scope, $config, Item, FileNavigator, FileUploader) {
+    '$scope', '$rootScope', '$config', 'item', 'fileNavigator', 'fileUploader',
+    function($scope, $rootScope, $config, Item, FileNavigator, FileUploader) {
 
     $scope.appName = $config.appName;
     $scope.orderProp = ['model.type', 'model.name'];

@@ -14,7 +14,8 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
                 return Math.round(this.size / 1024, 1);
             },
             fullPath: function() {
-                return '/' + this.path.join('/') + '/' + this.name;
+                var finalSlash = this.type === 'dir' ? '/' : '';
+                return ('/' + this.path.join('/') + '/' + this.name + finalSlash).replace(new RegExp('\/\/'), '/');
             }
         };
 
