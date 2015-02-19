@@ -82,6 +82,16 @@ FileManagerApp.controller('FileManagerCtrl', [
         });
     };
 
+    $scope.extract = function(item) {
+        item.extract(function() {
+            item.success = true;
+            $scope.fileNavigator.refresh();
+            //$('#extract').modal('hide');
+        }, function() {
+            item.success = false;
+        });
+    };
+
     $scope.delete = function(item) {
         item.delete(function() {
             $scope.fileNavigator.refresh();

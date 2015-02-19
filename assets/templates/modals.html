@@ -100,6 +100,40 @@
   </div>
 </div>
 
+<div class="modal animated fadeIn" id="extract">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Extract item</h4>
+      </div>
+      <div class="modal-body">
+        <div ng-show="temp.success">
+            <div class="label label-success error-msg">Extraction started in a background process</div>
+        </div>
+        <div ng-hide="temp.success">
+            <label class="radio">Enter the folder name for the extraction of <b>{{temp.model.name}}</b></label>
+            <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+        </div>
+
+        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+        <div ng-show="temp.success">
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+        </div>
+        <div ng-hide="temp.success">
+            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+            <button type="button" class="btn btn-sm btn-primary" data-ng-click="extract(temp)" data-ng-disabled="temp.inprocess">Extract</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal animated fadeIn" id="edit" data-ng-class="{'modal-fullscreen': fullscreen}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">

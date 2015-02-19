@@ -19,6 +19,7 @@ FileManagerApp.constant("$config", {
         errorRenaming: "An error occurred renaming the file",
         errorCopying: "An error occurred copying the file",
         errorCompressing: "An error occurred compressing the file or folder",
+        errorExtracting: "An error occurred extracting the file",
         errorCreatingFolder: "An error occurred creating the folder",
         errorGettingContent: "An error occurred getting the content of the file"
     },

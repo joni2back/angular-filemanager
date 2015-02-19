@@ -136,6 +136,30 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         return self;
     };
 
+    Item.prototype.extract = function(success, error) {
+        var self = this;
+        var data = {
+            mode: "extract",
+            path: self.model.fullPath(),
+            destination: self.tempModel.fullPath()
+        };
+        if (self.tempModel.name.trim()) {
+            self.inprocess = true;
+            self.error = '';
+            $http({method: 'GET', url: $config.extractUrl, params: data}).success(function(data) {
+                self.update();
+                self.inprocess = false;
+                self.error = data.Error; ///fz
+                typeof success === 'function' && success(data);
+            }).error(function(data) {
+                self.inprocess = false;
+                self.error = $config.msg.errorExtracting;
+                typeof error === 'function' && error(data);
+            });
+        }
+        return self;
+    };
+
     Item.prototype.download = function(preview) {
         var self = this;
         var data = {
