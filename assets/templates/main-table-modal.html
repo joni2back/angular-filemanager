@@ -12,9 +12,9 @@
                 Loading...
             </td>
         </tr>
-        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
+        <tr data-ng-show="!fileNavigator.requesting && !fileNavigator.listHasFolders()">
             <td colspan="2">
-                No files in this folder...
+                This folder not contains children folders...
             </td>
             <td class="text-right">
                 <button class="btn btn-sm btn-default" data-ng-click="fileNavigator.upDir()">Back</button>
@@ -31,7 +31,7 @@
                 {{item.model.date.toString()}}
             </td>
             <td class="text-right">
-                <button class="btn btn-sm btn-default" data-ng-click="touch(item)"><i class="glyphicon glyphicon-hand-up"></i> Select this</button>
+                <button class="btn btn-sm btn-default" data-ng-click="select(item, temp)"><i class="glyphicon glyphicon-hand-up"></i> Select this</button>
             </td>
         </tr>
     </tbody>

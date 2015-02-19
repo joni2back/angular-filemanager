@@ -6,22 +6,16 @@ FileManagerApp.controller('ModalFileManagerCtrl', [
     $scope.orderProp = ['model.type', 'model.name'];
     $scope.fileNavigator = new FileNavigator();
 
-    $rootScope.selected = new Item();
 
-    $scope.touch = function(item) {
-        item = (item && item.revert && item) || new Item();
-        $rootScope.selected = item;
+    $rootScope.select = function(item, temp) {
+        temp.tempModel.path = item.model.fullPath().split('/');
         $('#selector').modal('hide');
     };
 
-    $scope.untouch = function() {
-        $scope.touch(null);
-    };
-
-    $rootScope.openNavigator = function() {
-        $scope.untouch();
+    $rootScope.openNavigator = function(item) {
+        $scope.fileNavigator.currentPath = item.model.path.slice();
+        $scope.fileNavigator.refresh();
         $('#selector').modal('show');
     };
 
-    $scope.fileNavigator.refresh();
 }]);

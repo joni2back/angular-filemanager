@@ -97,5 +97,14 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         }
     };
 
+    FileNavigator.prototype.listHasFolders = function() {
+        var self = this;
+        for (var item in self.fileList) {
+            if (self.fileList[item].model.type === 'dir') {
+                return true;
+            }
+        }
+    };
+
     return FileNavigator;
 }]);

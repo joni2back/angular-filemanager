@@ -61,8 +61,8 @@ FileManagerApp.controller('FileManagerCtrl', [
     };
 
     $scope.copy = function(item) {
-        var newItem = angular.copy(item);
-        if ($scope.fileNavigator.fileNameExists(newItem.tempModel.name)) {
+        var samePath = item.tempModel.path.join() === item.model.path.join();
+        if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
             item.error = $config.msg.invalidFilename;
             return false;
         }
@@ -100,7 +100,8 @@ FileManagerApp.controller('FileManagerCtrl', [
     };
 
     $scope.rename = function(item) {
-        if ($scope.fileNavigator.fileNameExists(item.tempModel.name)) {
+        var samePath = item.tempModel.path.join() === item.model.path.join();
+        if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
             item.error = $config.msg.invalidFilename;
             return false;
         }

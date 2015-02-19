@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
         Are you sure you want to delete <b>{{temp.model.name}}</b> ?
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
@@ -28,12 +28,14 @@
             <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
         </button>
-        <h4 class="modal-title">Change name</h4>
+        <h4 class="modal-title">Change name / Move</h4>
       </div>
       <div class="modal-body">
-        <label class="radio">New filename for <b>{{temp.model.name}}</b> ?</label>
+        <label class="radio">Enter new name for <b>{{temp.model.name}}</b></label>
         <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+
+        <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
@@ -54,16 +56,11 @@
         <h4 class="modal-title">Copy file</h4>
       </div>
       <div class="modal-body">
-        <label class="radio">Enter new copy name for <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+        <label class="radio">Enter new copy name for <b>{{temp.model.name}}</b></label>
         <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-
-
-        <div>{{selected.model.fullPath()}}</div>
-        <button type="button" class="btn btn-sm btn-default" data-ng-click="openNavigator()">To another folder</button>
-
-
-
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+        
+        <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
@@ -92,7 +89,7 @@
             <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
         </div>
 
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <div ng-show="temp.success">
@@ -126,7 +123,7 @@
             <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
         </div>
 
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <div ng-show="temp.success">
@@ -159,7 +156,7 @@
           <label class="radio">File content</label>
           <span class="label label-warning" data-ng-show="temp.inprocess">Loading ...</span>
           <textarea class="form-control code" data-ng-model="temp.tempModel.content" data-ng-show="!temp.inprocess" autofocus="autofocus"></textarea>
-          <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+          <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
@@ -182,7 +179,7 @@
       <div class="modal-body">
         <label class="radio">Folder name</label>
         <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
@@ -206,7 +203,7 @@
 
         <label class="radio">Files will be uploaded to <b>{{fileNavigator.currentPath.join('/')}}</b></label>
         <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
-        <div data-ng-include data-src="'errorBar'" class="clearfix"></div>
+        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
         <div data-ng-show="!fileUploader.requesting">
@@ -273,13 +270,9 @@
         <h4 class="modal-title">Select the folder</h4>
       </div>
       <div class="modal-body">
-        <div data-ng-show="!selected.model.name">
+        <div>
             <div ng-include="'assets/templates/current-folder-breadcrumb.html'"></div>
             <div ng-include="'assets/templates/main-table-modal.html'"></div>
-        </div>
-        <div data-ng-show="selected.model.name">
-            {{selected.model.fullPath()}}
-            <button type="button" class="btn btn-sm btn-default" data-ng-click="untouch()">Change</button>
         </div>
       </div>
       <div class="modal-footer">
@@ -288,3 +281,23 @@
     </div>
   </div>
 </div>
+
+<script type="text/ng-template" id="path-selector">
+    <div class="panel panel-primary mt10 mb0">
+      <div class="panel-heading">
+        <h3 class="panel-title">Details</h3>
+      </div>
+      <div class="panel-body">
+          <div>
+            <code class="mr5"><b>Source:</b> {{temp.model.fullPath()}}</code>
+          </div>
+          <div>
+            <code class="mr5"><b>Destination:</b>{{temp.tempModel.fullPath()}}</code>
+            <span class="badge badge-warning pointer" data-ng-click="openNavigator(temp)">Change</span>
+          </div>
+      </div>
+    </div>
+</script>
+<script type="text/ng-template" id="error-bar">
+    <div class="label label-danger error-msg pull-left animated fadeIn" data-ng-show="temp.error"><i class="glyphicon glyphicon-remove-circle"></i> {{temp.error}}</div>
+</script>

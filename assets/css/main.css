@@ -20,8 +20,9 @@ textarea.code {
 }
 
 .btn,
+.panel, .panel-heading,
 .modal .modal-content {
-    border-radius: 0;
+    border-radius: 0!important;
 }
 
 .bold {
@@ -289,4 +290,13 @@ body {
 .fadeIn {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
+}
+.mt10 {
+    margin-top:10px;
+}
+.pointer {
+    cursor: pointer;
+}
+.block {
+    display: block;
 }

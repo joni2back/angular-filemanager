@@ -1,5 +1,5 @@
 FileManagerApp.constant("$config", {
-    appName: "Angular FileManager",
+    appName: "Ferozo3 FileManager",
     listUrl: "/hosting/filemanager/listdirectory",
     uploadUrl: "/hosting/filemanager/upload",
     renameUrl: "/filemgr.php",
