@@ -1,4 +1,4 @@
-var FileManagerApp = angular.module('FileManagerApp', []);
+var FileManagerApp = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
 FileManagerApp.directive('ngFile', function($parse) {
     return {

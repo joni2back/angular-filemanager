@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <title>AngularJS FileManager</title>
   <script src="assets/ext/angular.min.js"></script>
+  <script src="assets/ext/angular-translate.min.js"></script>
+  <script src="assets/ext/angular-cookies.min.js"></script>
   <script src="assets/ext/jquery.min.js"></script>
   <script src="assets/ext/bootstrap.min.js"></script>
   <script src="assets/js/app.js"></script>
@@ -12,6 +14,7 @@
   <script src="assets/js/item.js"></script>
   <script src="assets/js/filenavigator.js"></script>
   <script src="assets/js/fileuploader.js"></script>
+  <script src="assets/js/translations.js"></script>
   <script src="assets/js/controller.js"></script>
   <script src="assets/js/selector-controller.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
@@ -23,16 +26,16 @@
 
     <div class="container-fluid">
         <div class="row">
+
             <div class="col-sm-3 col-md-2 sidebar file-tree" ng-include="'assets/templates/sidebar.html'"></div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div ng-include="'assets/templates/current-folder-breadcrumb.html'"></div>
-                <div ng-include="'assets/templates/' + viewTemplate"></div>
+                <div ng-include="'assets/templates/' + viewTemplate" class="main-navigation"></div>
             </div>
         </div>
     </div>
 
     <div ng-include="'assets/templates/modals.html'"></div>
     <div ng-include="'assets/templates/item-context-menu.html'"></div>
-
 </body>
 </html>
