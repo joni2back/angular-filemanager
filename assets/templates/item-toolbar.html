@@ -1,7 +1,4 @@
 <div data-ng-show="!item.inprocess">
-    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" data-ng-click="touch(item)" title="{{'delete' | translate}}">
-        <i class="glyphicon glyphicon-trash"></i>
-    </button>
     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" data-ng-click="touch(item)" title="{{'rename' | translate}}">
         <i class="glyphicon glyphicon-edit"></i>
     </button>
@@ -25,6 +22,9 @@
     </button>
     <button class="btn btn-sm btn-default" data-ng-show="item.isImage()" data-ng-click="item.preview()" title="{{'view_item' | translate}}">
         <i class="glyphicon glyphicon-picture"></i>
+    </button>
+    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" data-ng-click="touch(item)" title="{{'delete' | translate}}">
+        <i class="glyphicon glyphicon-trash"></i>
     </button>
 </div>
 <div data-ng-show="item.inprocess">

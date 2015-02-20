@@ -308,3 +308,11 @@ body {
 .block {
     display: block;
 }
+.detail-sources {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.modal {
+    word-wrap: break-word;
+}
