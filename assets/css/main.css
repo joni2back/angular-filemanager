@@ -140,7 +140,7 @@ body {
     padding-left:12px;
 }
 .file-tree ul.nav.nav-sidebar > li {
-    border-left: 1px solid #428BCA;
+    border-left: 1px solid #ddd;
     padding-left:4px
 }
 .file-tree ul.nav.nav-sidebar > li > a {
