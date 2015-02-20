@@ -23,24 +23,26 @@
 <div class="modal animated fadeIn" id="rename">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Change name / Move</h4>
-      </div>
-      <div class="modal-body">
-        <label class="radio">Enter new name for <b>{{temp.model.name}}</b></label>
-        <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+        <form data-ng-submit="rename(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Change name / Move</h4>
+            </div>
+            <div class="modal-body">
+              <label class="radio">Enter new name for <b>{{temp.model.name}}</b></label>
+              <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
 
-        <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
-        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button type="button" class="btn btn-sm btn-primary" data-ng-click="rename(temp)" data-ng-disabled="temp.inprocess">Rename</button>
-      </div>
+              <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+              <button type="button" class="btn btn-sm btn-primary" data-ng-click="rename(temp)" data-ng-disabled="temp.inprocess">Rename</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -48,24 +50,26 @@
 <div class="modal animated fadeIn" id="copy">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Copy file</h4>
-      </div>
-      <div class="modal-body">
-        <label class="radio">Enter new copy name for <b>{{temp.model.name}}</b></label>
-        <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        
-        <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
-        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button type="button" class="btn btn-sm btn-primary" data-ng-click="copy(temp)" data-ng-disabled="temp.inprocess">Copy</button>
-      </div>
+        <form data-ng-submit="copy(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Copy file</h4>
+            </div>
+            <div class="modal-body">
+              <label class="radio">Enter new copy name for <b>{{temp.model.name}}</b></label>
+              <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+
+              <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+              <button type="button" class="btn btn-sm btn-primary" data-ng-click="copy(temp)" data-ng-disabled="temp.inprocess">Copy</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -73,33 +77,35 @@
 <div class="modal animated fadeIn" id="compress">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Compress item</h4>
-      </div>
-      <div class="modal-body">
-        <div ng-show="temp.success">
-            <div class="label label-success error-msg">Compression started in a background process</div>
-        </div>
-        <div ng-hide="temp.success">
-            <label class="radio">Enter new filename for the compression of <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
-            <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        </div>
+        <form data-ng-submit="compress(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Compress item</h4>
+            </div>
+            <div class="modal-body">
+              <div ng-show="temp.success">
+                  <div class="label label-success error-msg">Compression started in a background process</div>
+              </div>
+              <div ng-hide="temp.success">
+                  <label class="radio">Enter new filename for the compression of <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+                  <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+              </div>
 
-        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <div ng-show="temp.success">
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
-        </div>
-        <div ng-hide="temp.success">
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" data-ng-click="compress(temp)" data-ng-disabled="temp.inprocess">Compress</button>
-        </div>
-      </div>
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <div ng-show="temp.success">
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+              </div>
+              <div ng-hide="temp.success">
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="compress(temp)" data-ng-disabled="temp.inprocess">Compress</button>
+              </div>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -107,33 +113,35 @@
 <div class="modal animated fadeIn" id="extract">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Extract item</h4>
-      </div>
-      <div class="modal-body">
-        <div ng-show="temp.success">
-            <div class="label label-success error-msg">Extraction started in a background process</div>
-        </div>
-        <div ng-hide="temp.success">
-            <label class="radio">Enter the folder name for the extraction of <b>{{temp.model.name}}</b></label>
-            <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        </div>
+        <form data-ng-submit="extract(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Extract item</h4>
+            </div>
+            <div class="modal-body">
+              <div ng-show="temp.success">
+                  <div class="label label-success error-msg">Extraction started in a background process</div>
+              </div>
+              <div ng-hide="temp.success">
+                  <label class="radio">Enter the folder name for the extraction of <b>{{temp.model.name}}</b></label>
+                  <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+              </div>
 
-        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <div ng-show="temp.success">
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
-        </div>
-        <div ng-hide="temp.success">
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary" data-ng-click="extract(temp)" data-ng-disabled="temp.inprocess">Extract</button>
-        </div>
-      </div>
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <div ng-show="temp.success">
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+              </div>
+              <div ng-hide="temp.success">
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="extract(temp)" data-ng-disabled="temp.inprocess">Extract</button>
+              </div>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -141,27 +149,29 @@
 <div class="modal animated fadeIn" id="edit" data-ng-class="{'modal-fullscreen': fullscreen}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <button type="button" class="close mr5" data-ng-click="fullscreen=!fullscreen">
-            <span>&loz;</span>
-            <span class="sr-only">Toggle Fullscreen</span>
-        </button>
-        <h4 class="modal-title">Edit file</h4>
-      </div>
-      <div class="modal-body">
-          <label class="radio">File content</label>
-          <span class="label label-warning" data-ng-show="temp.inprocess">Loading ...</span>
-          <textarea class="form-control code" data-ng-model="temp.tempModel.content" data-ng-show="!temp.inprocess" autofocus="autofocus"></textarea>
-          <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button type="button" class="btn btn-sm btn-primary" data-ng-click="edit(temp)" data-ng-disabled="temp.inprocess">Edit</button>
-      </div>
+        <form data-ng-submit="edit(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <button type="button" class="close mr5" data-ng-click="fullscreen=!fullscreen">
+                  <span>&loz;</span>
+                  <span class="sr-only">Toggle Fullscreen</span>
+              </button>
+              <h4 class="modal-title">Edit file</h4>
+            </div>
+            <div class="modal-body">
+                <label class="radio">File content</label>
+                <span class="label label-warning" data-ng-show="temp.inprocess">Loading ...</span>
+                <textarea class="form-control code" data-ng-model="temp.tempModel.content" data-ng-show="!temp.inprocess" autofocus="autofocus"></textarea>
+                <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+              <button type="button" class="btn btn-sm btn-primary" data-ng-click="edit(temp)" data-ng-disabled="temp.inprocess">Edit</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -169,22 +179,24 @@
 <div class="modal animated fadeIn" id="newfolder">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Create folder</h4>
-      </div>
-      <div class="modal-body">
-        <label class="radio">Folder name</label>
-        <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
-        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp)" data-ng-disabled="temp.inprocess">Create</button>
-      </div>
+        <form data-ng-submit="createFolder(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Create folder</h4>
+            </div>
+            <div class="modal-body">
+              <label class="radio">Folder name</label>
+              <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+              <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp)" data-ng-disabled="temp.inprocess">Create</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -192,28 +204,30 @@
 <div class="modal animated fadeIn" id="uploadfile">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Upload file</h4>
-      </div>
-      <div class="modal-body">
+        <form data-ng-submit="uploadFiles()">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Upload file</h4>
+            </div>
+            <div class="modal-body">
 
-        <label class="radio">Files will be uploaded to <b>{{fileNavigator.currentPath.join('/')}}</b></label>
-        <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
-        <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
-      </div>
-      <div class="modal-footer">
-        <div data-ng-show="!fileUploader.requesting">
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-            <button class="btn btn-sm btn-primary" data-ng-click="uploadFiles()" data-ng-disabled="!uploadFileList.length || fileUploader.requesting">Upload</button>
-        </div>
-        <div data-ng-show="fileUploader.requesting">
-            <span class="label label-warning">Uploading ...</span>
-        </div>
-      </div>
+              <label class="radio">Files will be uploaded to <b>{{fileNavigator.currentPath.join('/')}}</b></label>
+              <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+              <div data-ng-show="!fileUploader.requesting">
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+                  <button class="btn btn-sm btn-primary" data-ng-click="uploadFiles()" data-ng-disabled="!uploadFileList.length || fileUploader.requesting">Upload</button>
+              </div>
+              <div data-ng-show="fileUploader.requesting">
+                  <span class="label label-warning">Uploading ...</span>
+              </div>
+            </div>
+        </form>
     </div>
   </div>
 </div>
@@ -221,40 +235,42 @@
 <div class="modal animated fadeIn" id="changepermissions">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
-        </button>
-        <h4 class="modal-title">Change permissions</h4>
-      </div>
-      <div class="modal-body">
+        <form data-ng-submit="changePermissions(temp)">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <h4 class="modal-title">Change permissions</h4>
+            </div>
+            <div class="modal-body">
 
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>Permissions</th>
-                    <th ng-repeat="(type, value) in temp.model.perms.values">{{type}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="(mode, value) in temp.model.perms.permissionValues">
-                    <td>{{mode}}</td>
-                    <td data-ng-repeat="(type, value) in temp.model.perms.values" class="col-xs-1" ng-click="main()">
-                        <input type="checkbox" ng-model="temp.tempModel.perms.values[type][mode]" ng-false-value="0" ng-true-value="{{temp.model.perms.permissionValues[mode]}}" >
-                    </td>
-                </tr>
-          </tbody>
-        </table>
-        <div>
-            <span>Original Chmod: {{temp.model.perms.getNumber()}}</span>
-            <span>Chmod: {{temp.tempModel.perms.getNumber()}}</span>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-        <button class="btn btn-sm btn-primary" data-ng-click="changePermissions(temp)" data-ng-disabled="">Change</button>
-      </div>
+              <table class="table table-striped table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th>Permissions</th>
+                          <th ng-repeat="(type, value) in temp.model.perms.values">{{type}}</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat="(mode, value) in temp.model.perms.permissionValues">
+                          <td>{{mode}}</td>
+                          <td data-ng-repeat="(type, value) in temp.model.perms.values" class="col-xs-1" ng-click="main()">
+                              <input type="checkbox" ng-model="temp.tempModel.perms.values[type][mode]" ng-false-value="0" ng-true-value="{{temp.model.perms.permissionValues[mode]}}" >
+                          </td>
+                      </tr>
+                </tbody>
+              </table>
+              <div>
+                  <span>Original Chmod: {{temp.model.perms.getNumber()}}</span>
+                  <span>Chmod: {{temp.tempModel.perms.getNumber()}}</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-sm btn-primary" data-ng-click="changePermissions(temp)" data-ng-disabled="">Change</button>
+            </div>
+        </form>
     </div>
   </div>
 </div>
