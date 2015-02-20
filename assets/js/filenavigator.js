@@ -1,3 +1,10 @@
+/*!
+ * Javascript Filemanager developed with AngularJS and Bootstrap
+ *
+ * @author  Jonas Sciangula Street <joni2back@gmail.com>
+ * @version v0.8
+ */
+
 FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($http, $config, Item) {
 
     var FileNavigator = function() {

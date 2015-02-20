@@ -1,3 +1,10 @@
+/*!
+ * Javascript Filemanager developed with AngularJS and Bootstrap
+ *
+ * @author  Jonas Sciangula Street <joni2back@gmail.com>
+ * @version v0.8
+ */
+
 textarea.code {
     font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
     min-height:200px;
@@ -140,7 +147,7 @@ body {
     padding-left:12px;
 }
 .file-tree ul.nav.nav-sidebar > li {
-    border-left: 1px solid #428BCA;
+    border-left: 1px solid #ddd;
     padding-left:4px
 }
 .file-tree ul.nav.nav-sidebar > li > a {
