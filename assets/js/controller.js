@@ -1,6 +1,6 @@
 FileManagerApp.controller('FileManagerCtrl', [
-    '$scope', '$rootScope', '$config', 'item', 'fileNavigator', 'fileUploader',
-    function($scope, $rootScope, $config, Item, FileNavigator, FileUploader) {
+    '$scope', '$translate', '$cookies', '$config', 'item', 'fileNavigator', 'fileUploader',
+    function($scope, $translate, $cookies, $config, Item, FileNavigator, FileUploader) {
 
     $scope.appName = $config.appName;
     $scope.orderProp = ['model.type', 'model.name'];
@@ -9,10 +9,16 @@ FileManagerApp.controller('FileManagerCtrl', [
     $scope.fileNavigator = new FileNavigator();
     $scope.fileUploader = FileUploader;
     $scope.uploadFileList = [];
-    $scope.viewTemplate = sessionStorage.viewTemplate || 'main-icons.html';
+    $scope.viewTemplate = $cookies.viewTemplate || 'main-icons.html';
+    $scope.language = $cookies.language || 'en';
 
     $scope.setTemplate = function(name) {
-        $scope.viewTemplate = sessionStorage.viewTemplate = name;
+        $scope.viewTemplate = $cookies.viewTemplate = name;
+    };
+
+    $scope.changeLanguage = function (locale) {
+        $scope.language = $cookies.language = locale;
+        $translate.use(locale);
     };
 
     $scope.touch = function(item) {
@@ -23,13 +29,14 @@ FileManagerApp.controller('FileManagerCtrl', [
 
     $scope.smartRightClick = function(item) {
         var $contextMenu = $("#context-menu").hide();
+        var selectors = ".main-navigation .table-files td a, .iconset a.thumbnail";
         $scope.touch(item);
-        $(window.document).on("contextmenu", ".table-files td a, .iconset a.thumbnail", function(e) {
+        $(window.document).on("contextmenu", selectors, function(e) {
             $contextMenu.css({
                 left: e.pageX,
                 top: e.pageY
             }).show();
-            return false;
+            e.preventDefault();
         });
     };
 
@@ -134,5 +141,6 @@ FileManagerApp.controller('FileManagerCtrl', [
         });
     };
 
+    $translate.use($scope.language);
     $scope.fileNavigator.refresh();
 }]);

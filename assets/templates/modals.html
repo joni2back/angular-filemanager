@@ -4,17 +4,17 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
+            <span class="sr-only">{{"close" | translate}}</span>
         </button>
-        <h4 class="modal-title">Confirm</h4>
+        <h4 class="modal-title">{{"confirm" | translate}}</h4>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete <b>{{temp.model.name}}</b> ?
+        {{'sure_to_delete' | translate}} <b>{{temp.model.name}}</b> ?
         <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-        <button type="button" class="btn btn-sm btn-primary" data-ng-click="delete(temp)" data-ng-disabled="temp.inprocess" autofocus="autofocus">Delete</button>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
+        <button type="button" class="btn btn-sm btn-primary" data-ng-click="delete(temp)" data-ng-disabled="temp.inprocess" autofocus="autofocus">{{"delete" | translate}}</button>
       </div>
     </div>
   </div>
@@ -27,20 +27,20 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Change name / Move</h4>
+              <h4 class="modal-title">{{'change_name_move' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <label class="radio">Enter new name for <b>{{temp.model.name}}</b></label>
+              <label class="radio">{{'enter_new_name_for' | translate}} <b>{{temp.model.name}}</b></label>
               <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
 
               <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-              <button type="button" class="btn btn-sm btn-primary" data-ng-click="rename(temp)" data-ng-disabled="temp.inprocess">Rename</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
+              <button type="button" class="btn btn-sm btn-primary" data-ng-click="rename(temp)" data-ng-disabled="temp.inprocess">{{'rename' | translate}}</button>
             </div>
         </form>
     </div>
@@ -54,19 +54,19 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Copy file</h4>
+              <h4 class="modal-title">{{'copy_file' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <label class="radio">Enter new copy name for <b>{{temp.model.name}}</b></label>
+              <label class="radio">{{'enter_new_name_for' | translate}} <b>{{temp.model.name}}</b></label>
               <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
 
               <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
               <button type="button" class="btn btn-sm btn-primary" data-ng-click="copy(temp)" data-ng-disabled="temp.inprocess">Copy</button>
             </div>
         </form>
@@ -81,16 +81,16 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Compress item</h4>
+              <h4 class="modal-title">{{'compress' | translate}}</h4>
             </div>
             <div class="modal-body">
               <div ng-show="temp.success">
-                  <div class="label label-success error-msg">Compression started in a background process</div>
+                  <div class="label label-success error-msg">{{'compression_started' | translate}}</div>
               </div>
               <div ng-hide="temp.success">
-                  <label class="radio">Enter new filename for the compression of <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+                  <label class="radio">{{'enter_folder_name_for_compression' | translate}} <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
                   <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
               </div>
 
@@ -98,11 +98,11 @@
             </div>
             <div class="modal-footer">
               <div ng-show="temp.success">
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"close" | translate}}</button>
               </div>
               <div ng-hide="temp.success">
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="compress(temp)" data-ng-disabled="temp.inprocess">Compress</button>
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
+                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="compress(temp)" data-ng-disabled="temp.inprocess">{{'compress' | translate}}</button>
               </div>
             </div>
         </form>
@@ -117,16 +117,16 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Extract item</h4>
+              <h4 class="modal-title">{{'extract_item' | translate}}</h4>
             </div>
             <div class="modal-body">
               <div ng-show="temp.success">
-                  <div class="label label-success error-msg">Extraction started in a background process</div>
+                  <div class="label label-success error-msg">{{'extraction_started' | translate}}</div>
               </div>
               <div ng-hide="temp.success">
-                  <label class="radio">Enter the folder name for the extraction of <b>{{temp.model.name}}</b></label>
+                  <label class="radio">{{'enter_folder_name_for_extraction' | translate}} <b>{{temp.model.name}}</b></label>
                   <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
               </div>
 
@@ -134,11 +134,11 @@
             </div>
             <div class="modal-footer">
               <div ng-show="temp.success">
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"close" | translate}}</button>
               </div>
               <div ng-hide="temp.success">
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="extract(temp)" data-ng-disabled="temp.inprocess">Extract</button>
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
+                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="extract(temp)" data-ng-disabled="temp.inprocess">{{'extract' | translate}}</button>
               </div>
             </div>
         </form>
@@ -153,23 +153,23 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
               <button type="button" class="close mr5" data-ng-click="fullscreen=!fullscreen">
                   <span>&loz;</span>
-                  <span class="sr-only">Toggle Fullscreen</span>
+                  <span class="sr-only">{{'toggle_fullscreen' | translate}}</span>
               </button>
-              <h4 class="modal-title">Edit file</h4>
+              <h4 class="modal-title">{{'edit_file' | translate}}</h4>
             </div>
             <div class="modal-body">
-                <label class="radio">File content</label>
-                <span class="label label-warning" data-ng-show="temp.inprocess">Loading ...</span>
+                <label class="radio">{{'file_content' | translate}}</label>
+                <span class="label label-warning" data-ng-show="temp.inprocess">{{'loading' | translate}} ...</span>
                 <textarea class="form-control code" data-ng-model="temp.tempModel.content" data-ng-show="!temp.inprocess" autofocus="autofocus"></textarea>
                 <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-              <button type="button" class="btn btn-sm btn-primary" data-ng-click="edit(temp)" data-ng-disabled="temp.inprocess">Edit</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
+              <button type="button" class="btn btn-sm btn-primary" data-ng-click="edit(temp)" data-ng-disabled="temp.inprocess">{{'edit' | translate}}</button>
             </div>
         </form>
     </div>
@@ -183,18 +183,18 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Create folder</h4>
+              <h4 class="modal-title">{{'create_folder' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <label class="radio">Folder name</label>
+              <label class="radio">{{'folder_name' | translate}}</label>
               <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Cancel</button>
-              <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp)" data-ng-disabled="temp.inprocess">Create</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
+              <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp)" data-ng-disabled="temp.inprocess">{{'create' | translate}}</button>
             </div>
         </form>
     </div>
@@ -208,23 +208,23 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Upload file</h4>
+              <h4 class="modal-title">{{"upload_file" | translate}}</h4>
             </div>
             <div class="modal-body">
 
-              <label class="radio">Files will be uploaded to <b>{{fileNavigator.currentPath.join('/')}}</b></label>
+              <label class="radio">{{"files_will_uploaded_to" | translate}} <b>{{fileNavigator.currentPath.join('/')}}</b></label>
               <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
               <div data-ng-show="!fileUploader.requesting">
-                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-                  <button class="btn btn-sm btn-primary" data-ng-click="uploadFiles()" data-ng-disabled="!uploadFileList.length || fileUploader.requesting">Upload</button>
+                  <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
+                  <button class="btn btn-sm btn-primary" data-ng-click="uploadFiles()" data-ng-disabled="!uploadFileList.length || fileUploader.requesting">{{'upload' | translate}}</button>
               </div>
               <div data-ng-show="fileUploader.requesting">
-                  <span class="label label-warning">Uploading ...</span>
+                  <span class="label label-warning">{{"uploading" | translate}} ...</span>
               </div>
             </div>
         </form>
@@ -239,16 +239,16 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
-                  <span class="sr-only">Close</span>
+                  <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <h4 class="modal-title">Change permissions</h4>
+              <h4 class="modal-title">{{'change_permissions' | translate}}</h4>
             </div>
             <div class="modal-body">
 
               <table class="table table-striped table-bordered table-hover">
                   <thead>
                       <tr>
-                          <th>Permissions</th>
+                          <th>{{"permissions" | translate}}</th>
                           <th ng-repeat="(type, value) in temp.model.perms.values">{{type}}</th>
                       </tr>
                   </thead>
@@ -267,8 +267,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-              <button class="btn btn-sm btn-primary" data-ng-click="changePermissions(temp)" data-ng-disabled="">Change</button>
+              <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
+              <button class="btn btn-sm btn-primary" data-ng-click="changePermissions(temp)" data-ng-disabled="">{{'change' | translate}}</button>
             </div>
         </form>
     </div>
@@ -281,9 +281,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
-            <span class="sr-only">Close</span>
+            <span class="sr-only">{{"close" | translate}}</span>
         </button>
-        <h4 class="modal-title">Select the folder</h4>
+        <h4 class="modal-title">{{"select_destination_folder" | translate}}</h4>
       </div>
       <div class="modal-body">
         <div>
@@ -292,7 +292,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">Close</button>
+        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"close" | translate}}</button>
       </div>
     </div>
   </div>
@@ -301,15 +301,15 @@
 <script type="text/ng-template" id="path-selector">
     <div class="panel panel-primary mt10 mb0">
       <div class="panel-heading">
-        <h3 class="panel-title">Details</h3>
+        <h3 class="panel-title">{{'details' | translate}}</h3>
       </div>
       <div class="panel-body">
           <div>
-            <code class="mr5"><b>Source:</b> {{temp.model.fullPath()}}</code>
+            <code class="mr5"><b>{{"source" | translate}}:</b> {{temp.model.fullPath()}}</code>
           </div>
           <div>
-            <code class="mr5"><b>Destination:</b>{{temp.tempModel.fullPath()}}</code>
-            <span class="badge badge-warning pointer" data-ng-click="openNavigator(temp)">Change</span>
+            <code class="mr5"><b>{{"destination" | translate}}:</b>{{temp.tempModel.fullPath()}}</code>
+            <span class="badge badge-warning pointer" data-ng-click="openNavigator(temp)">{{'change' | translate}}</span>
           </div>
       </div>
     </div>
