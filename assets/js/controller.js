@@ -1,3 +1,10 @@
+/*!
+ * Javascript Filemanager developed with AngularJS and Bootstrap
+ *
+ * @author  Jonas Sciangula Street <joni2back@gmail.com>
+ * @version v0.8
+ */
+
 FileManagerApp.controller('FileManagerCtrl', [
     '$scope', '$translate', '$cookies', '$config', 'item', 'fileNavigator', 'fileUploader',
     function($scope, $translate, $cookies, $config, Item, FileNavigator, FileUploader) {
