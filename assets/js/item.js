@@ -73,9 +73,9 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
     Item.prototype.rename = function(success, error) {
         var self = this;
         var data = {
-            mode: "rename",
-            old: self.model.fullPath(),
-            new: self.tempModel.fullPath()
+            "mode": "rename",
+            "old": self.model.fullPath(),
+            "new": self.tempModel.fullPath()
         };
         if (self.tempModel.name.trim()) {
             self.inprocess = true;
@@ -204,7 +204,7 @@ FileManagerApp.factory('item', ['$http', '$config', 'chmod', function($http, $co
         return self;
     };
 
-    Item.prototype.delete = function(success, error) {
+    Item.prototype.remove = function(success, error) {
         var self = this;
         var data = {
             mode: "delete",
