@@ -19,6 +19,9 @@ FileManagerApp.controller('FileManagerCtrl', [
     $scope.viewTemplate = $cookies.viewTemplate || 'main-icons.html';
     $scope.language = $cookies.language || 'en';
 
+    $translate.use($scope.language);
+    $scope.fileNavigator.refresh();
+
     $scope.setTemplate = function(name) {
         $scope.viewTemplate = $cookies.viewTemplate = name;
     };
@@ -106,8 +109,8 @@ FileManagerApp.controller('FileManagerCtrl', [
         });
     };
 
-    $scope.delete = function(item) {
-        item.delete(function() {
+    $scope.remove = function(item) {
+        item.remove(function() {
             $scope.fileNavigator.refresh();
             $('#delete').modal('hide');
         });
@@ -147,7 +150,4 @@ FileManagerApp.controller('FileManagerCtrl', [
             $('#uploadfile').modal('hide');
         });
     };
-
-    $translate.use($scope.language);
-    $scope.fileNavigator.refresh();
 }]);
