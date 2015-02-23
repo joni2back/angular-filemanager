@@ -18,4 +18,3 @@ Javascript Filemanager developed with AngularJS and Bootstrap by Jonas Sciangula
   - Multiple file selector
   - Unix chmod permissions
   - Backend controllers (PHP, Python, .Net, etc)
-  - Translation support
