@@ -60,7 +60,16 @@ FileManagerApp.config(function($translateProvider) {
         copy: "Copy",
         rename: "Rename",
         extract: "Extract",
-        compress: "Compress"
+        compress: "Compress",
+        error_invalid_filename: "Invalid filename or already exists, specify another name",
+        error_modifying: "An error occurred modifying the file",
+        error_deleting: "An error occurred deleting the file or folder",
+        error_renaming: "An error occurred renaming the file",
+        error_copying: "An error occurred copying the file",
+        error_compressing: "An error occurred compressing the file or folder",
+        error_extracting: "An error occurred extracting the file",
+        error_creating_folder: "An error occurred creating the folder",
+        error_getting_content: "An error occurred getting the content of the file"
     });
 
     $translateProvider.translations('pt', {
@@ -118,7 +127,16 @@ FileManagerApp.config(function($translateProvider) {
         copy: "Copiar",
         rename: "Rebatizar",
         extract: "Extrair",
-        compress: "Comprimir"
+        compress: "Comprimir",
+        error_invalid_filename: "Invalid ou nome de arquivo já existe, especifique outro nome",
+        error_modifying: "Ocorreu um erro ao modificar o arquivo",
+        error_deleting: "Ocorreu um erro ao excluir o arquivo ou pasta",
+        error_renaming: "Ocorreu um erro ao mudar o nome do arquivo",
+        error_copying: "Ocorreu um erro ao copiar o arquivo",
+        error_compressing: "Ocorreu um erro ao comprimir o arquivo ou pasta",
+        error_extracting: "Ocorreu um erro ao extrair o arquivo",
+        error_creating_folder: "Ocorreu um erro ao criar a pasta",
+        error_getting_content: "Ocorreu um erro ao obter o conteúdo do arquivo"
     });
 
     $translateProvider.translations('es', {
@@ -176,6 +194,15 @@ FileManagerApp.config(function($translateProvider) {
         copy: "Copiar",
         rename: "Renombrar",
         extract: "Extraer",
-        compress: "Comprimir"
+        compress: "Comprimir",
+        error_invalid_filename: "El nombre del archivo es invalido o ya existe",
+        error_modifying: "Ocurrio un error al intentar modificar el archivo",
+        error_deleting: "Ocurrio un error al intentar eliminar el archivo",
+        error_renaming: "Ocurrio un error al intentar renombrar el archivo",
+        error_copying: "Ocurrio un error al intentar copiar el archivo",
+        error_compressing: "Ocurrio un error al intentar comprimir el archivo",
+        error_extracting: "Ocurrio un error al intentar extraer el archivo",
+        error_creating_folder: "Ocurrio un error al intentar crear la carpeta",
+        error_getting_content: "Ocurrio un error al obtener el contenido del archivo"
     });
 });

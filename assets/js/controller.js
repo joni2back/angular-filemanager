@@ -79,7 +79,7 @@ FileManagerApp.controller('FileManagerCtrl', [
     $scope.copy = function(item) {
         var samePath = item.tempModel.path.join() === item.model.path.join();
         if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
-            item.error = $config.msg.invalidFilename;
+            item.error = $translate.instant('error_invalid_filename');
             return false;
         }
         item.copy(function() {
@@ -92,7 +92,6 @@ FileManagerApp.controller('FileManagerCtrl', [
         item.compress(function() {
             item.success = true;
             $scope.fileNavigator.refresh();
-            //$('#compress').modal('hide');
         }, function() {
             item.success = false;
         });
@@ -102,7 +101,6 @@ FileManagerApp.controller('FileManagerCtrl', [
         item.extract(function() {
             item.success = true;
             $scope.fileNavigator.refresh();
-            //$('#extract').modal('hide');
         }, function() {
             item.success = false;
         });
@@ -118,7 +116,7 @@ FileManagerApp.controller('FileManagerCtrl', [
     $scope.rename = function(item) {
         var samePath = item.tempModel.path.join() === item.model.path.join();
         if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
-            item.error = $config.msg.invalidFilename;
+            item.error = $translate.instant('error_invalid_filename');
             return false;
         }
         item.rename(function() {
@@ -137,7 +135,7 @@ FileManagerApp.controller('FileManagerCtrl', [
                 $('#newfolder').modal('hide');
             });
         } else {
-            $scope.temp.error = $config.msg.invalidFilename;
+            $scope.temp.error = $translate.instant('error_invalid_filename');
             return false;
         }
     };
