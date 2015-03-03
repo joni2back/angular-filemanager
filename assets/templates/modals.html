@@ -110,7 +110,7 @@
   </div>
 </div>
 
-<div class="modal animated fadeIn" id="extract">
+<div class="modal animated fadeIn" id="extract" ng-init="temp.emptyName()">
   <div class="modal-dialog">
     <div class="modal-content">
         <form data-ng-submit="extract(temp)">
@@ -128,8 +128,8 @@
               <div ng-hide="temp.success">
                   <label class="radio">{{'enter_folder_name_for_extraction' | translate}} <b>{{temp.model.name}}</b></label>
                   <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+                  <div data-ng-include data-src="'path-selector'" class="clearfix"></div>
               </div>
-
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">

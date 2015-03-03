@@ -14,7 +14,7 @@
     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#compress" data-ng-show="item.isCompressible()" data-ng-click="touch(item)" title="{{'compress' | translate}}">
         <i class="glyphicon glyphicon-compressed"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#extract" data-ng-show="item.isExtractable()" data-ng-click="touch(item)" title="{{'extract' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#extract" data-ng-show="item.isExtractable()" data-ng-click="touch(item); item.tempModel.name=''" title="{{'extract' | translate}}">
         <i class="glyphicon glyphicon-export"></i>
     </button>
     <button class="btn btn-sm btn-default" data-ng-show="!item.isFolder()" data-ng-click="item.download()" title="{{'download' | translate}}">
