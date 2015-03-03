@@ -35,7 +35,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Listing
     URL: $config.listUrl
     Method: POST
-#### JSON Request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -45,7 +45,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     }
 }
 ```
-#### JSON Request params
+#### JSON Response
 ```json
 {
     "result": [
@@ -86,7 +86,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Rename / Move
     URL: $config.renameUrl
     Method: POST
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -111,7 +111,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Copy
     URL: $config.copyUrl
     Method: POST
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -136,7 +136,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Remove
     URL: $config.removeUrl
     Method: POST
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -161,7 +161,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.removeUrl
     Method: POST
 
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -187,7 +187,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Getting content of file
     URL: $config.getContentUrl
     Method: POST
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -209,12 +209,12 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.createFolderUrl
     Method: POST
 
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
-        "mode": "addfolder"
-        "name": "new-folder"
+        "mode": "addfolder",
+        "name": "new-folder",
         "path": "/public_html"
     }
 }
@@ -234,7 +234,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Compressing file
     URL: $config.compressUrl
     Method: POST
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
@@ -259,14 +259,14 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### Extracting file
     URL: $config.extractUrl
     Method: POST
-#### Post JSON request params
+#### JSON Request content
 ```json
 {
     "params": {
-        "mode": "extract"
+        "mode": "extract",
         "destination": "/public_html/extracted-files",
         "path": "/public_html/compressed.zip",
-        "sourceFile": "/public_html/compressed.zip",
+        "sourceFile": "/public_html/compressed.zip"
     }
 }
 ```
@@ -292,5 +292,18 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 #### Response
 ```
-File content
+-File content
 ```
+--------------------
+
+#### Errors / Exceptions
+Every backend errors should be with an Error 500 HTTP code.
+
+Btw, you can also reporting errors in a 200 response with this json structure
+```json
+{
+    "result": {
+        "success": false,
+        "error": "Access denied to remove file"
+    }
+}
