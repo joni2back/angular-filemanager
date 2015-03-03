@@ -47,7 +47,7 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
     Item.prototype.defineCallback = function(data, success, error) {
         /* Check if there was some error in a 200 response */
         var self = this;
-        if (data.result && (!data.result.success || data.result.error)) {
+        if (data.result && data.result.error) {
             self.error = data.result.error;
             return typeof error === 'function' && error(data);
         }
