@@ -36,17 +36,17 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.listUrl
     Method: POST
 #### JSON Request params
-```
+```json
 {
-    params: {
-        mode: "list",
-        onlyFolders: false,
-        path: "/public_html"
+    "params": {
+        "mode": "list",
+        "onlyFolders": false,
+        "path": "/public_html"
     }
 }
 ```
 #### JSON Request params
-```
+```json
 {
     "result": [
         {
@@ -87,9 +87,9 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.renameUrl
     Method: POST
 #### Post JSON request params
-```
+```json
 {
-    params: {
+    "params": {
         "mode": "rename",
         "path": "/public_html/index.php",
         "newPath": "/public_html/index2.php"
@@ -97,12 +97,12 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": {
-		"success": true,
-		"error": null
-	}
+        "success": true,
+        "error": null
+    }
 }
 ```
 
@@ -112,9 +112,9 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.copyUrl
     Method: POST
 #### Post JSON request params
-```
+```json
 {
-    params: {
+    "params": {
         "mode": "copy",
         "path": "/public_html/index.php",
         "newPath": "/public_html/index-copy.php"
@@ -122,12 +122,12 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": {
-    	"success": true,
-		"error": null
-	}
+        "success": true,
+        "error": null
+    }
 }
 ```
 
@@ -137,21 +137,21 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.removeUrl
     Method: POST
 #### Post JSON request params
-```
+```json
 {
-    params: {
+    "params": {
         "mode": "delete",
         "path": "/public_html/index.php",
     }
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": {
         "success": true,
     	"error": null
-	}
+    }
 }
 ```
 
@@ -162,9 +162,9 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     Method: POST
 
 #### Post JSON request params
-```
+```json
 {
-    params: {
+    "params": {
         "mode": "edit",
         "content": "<?php echo random(); ?>",
         "path": "/public_html/index.php",
@@ -173,12 +173,12 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 
 #### JSON Response
-```
+```json
 {
     "result": {
         "success": true,
-    	"error": null
-	}
+        "error": null
+    }
 }
 ```
 
@@ -188,16 +188,16 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.getContentUrl
     Method: POST
 #### Post JSON request params
-```
+```json
 {
-    params: {
+    "params": {
         "mode": "editfile",
         "path": "/public_html/index.php",
     }
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": "<?php echo random(); ?>",
 }
@@ -210,22 +210,22 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     Method: POST
 
 #### Post JSON request params
-```
+```json
 {
-    params: {
-        mode: "addfolder"
-        name: "new-folder"
-        path: "/public_html"
+    "params": {
+        "mode": "addfolder"
+        "name": "new-folder"
+        "path": "/public_html"
     }
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": {
         "success": true,
         "error": null
-	}
+    }
 }
 ```
     
@@ -235,17 +235,17 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.compressUrl
     Method: POST
 #### Post JSON request params
-```
+```json
 {
-    params: {
-        mode: "compress",
-        path: "/public_html/compressed.zip",
-        destination: "/public_html/backups"
+    "params": {
+        "mode": "compress",
+        "path": "/public_html/compressed.zip",
+        "destination": "/public_html/backups"
     }
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": {
         "success": true,
@@ -260,18 +260,18 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     URL: $config.extractUrl
     Method: POST
 #### Post JSON request params
-```
+```json
 {
-    params: {
-        mode: "extract"
-        destination: "/public_html/extracted-files",
-        path: "/public_html/compressed.zip",
-        sourceFile: "/public_html/compressed.zip",
+    "params": {
+        "mode": "extract"
+        "destination": "/public_html/extracted-files",
+        "path": "/public_html/compressed.zip",
+        "sourceFile": "/public_html/compressed.zip",
     }
 }
 ```
 #### JSON Response
-```
+```json
 {
     "result": {
         "success": true,
