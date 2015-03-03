@@ -288,11 +288,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 #### Http query params
 ```
-{
-    mode: "download",
-    preview: true,
-    path: "/public_html/image.jpg"
-}
+[$config.downloadFileUrl]?mode=download&preview=true&path=/public_html/image.jpg
 ```
 #### Response
 ```
