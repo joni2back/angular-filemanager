@@ -47,8 +47,12 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
     Item.prototype.defineCallback = function(data, success, error) {
         /* Check if there was some error in a 200 response */
         var self = this;
-        if (data.error) {
-            self.error = data.error;
+        if (data.result && (!data.result.success || data.result.error)) {
+            self.error = data.result.error;
+            return typeof error === 'function' && error(data);
+        }
+        if (data.error) { //fz
+            self.error = data.error.message;
             return typeof error === 'function' && error(data);
         }
         self.update();
@@ -67,12 +71,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
             self.inprocess = true;
             self.error = '';
             $http.post($config.createFolderUrl, data).success(function(data) {
-                self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
-                self.inprocess = false;
-                self.error = $translate.instant('error_creating_folder');
+                self.error = data.result && data.result.error ?
+                    data.result.error:
+                    $translate.instant('error_creating_folder');
                 typeof error === 'function' && error(data);
+            }).finally(function() {
+                self.inprocess = false;
             });
         }
         return self;
@@ -89,12 +95,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
             self.inprocess = true;
             self.error = '';
             $http.post($config.renameUrl, data).success(function(data) {
-                self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
-                self.inprocess = false;
-                self.error = $translate.instant('error_renaming');
+                self.error = data.result && data.result.error ?
+                    data.result.error:
+                    $translate.instant('error_renaming');
                 typeof error === 'function' && error(data);
+            }).finally(function() {
+                self.inprocess = false;
             });
         }
         return self;
@@ -111,12 +119,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
             self.inprocess = true;
             self.error = '';
             $http.post($config.copyUrl, data).success(function(data) {
-                self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
-                self.inprocess = false;
-                self.error = $translate.instant('error_copying');
+                self.error = data.result && data.result.error ?
+                    data.result.error:
+                    $translate.instant('error_copying');
                 typeof error === 'function' && error(data);
+            }).finally(function() {
+                self.inprocess = false;
             });
         }
         return self;
@@ -133,12 +143,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
             self.inprocess = true;
             self.error = '';
             $http.post($config.compressUrl, data).success(function(data) {
-                self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
-                self.inprocess = false;
-                self.error = $translate.instant('error_compressing');
+                self.error = data.result && data.result.error ?
+                    data.result.error:
+                    $translate.instant('error_compressing');
                 typeof error === 'function' && error(data);
+            }).finally(function() {
+                self.inprocess = false;
             });
         }
         return self;
@@ -156,12 +168,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
             self.inprocess = true;
             self.error = '';
             $http.post($config.extractUrl, data).success(function(data) {
-                self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
-                self.inprocess = false;
-                self.error = $translate.instant('error_extracting');
+                self.error = data.result && data.result.error ?
+                    data.result.error:
+                    $translate.instant('error_extracting');
                 typeof error === 'function' && error(data);
+            }).finally(function() {
+                self.inprocess = false;
             });
         }
         return self;
@@ -196,12 +210,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
         self.error = '';
         $http.post($config.getContentUrl, data).success(function(data) {
             self.tempModel.content = self.model.content = data.result;
-            self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
-            self.inprocess = false;
-            self.error = $translate.instant('error_getting_content');
+            self.error = data.result && data.result.error ?
+                data.result.error:
+                $translate.instant('error_getting_content');
             typeof error === 'function' && error(data);
+        }).finally(function() {
+            self.inprocess = false;
         });
         return self;
     };
@@ -215,12 +231,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
         self.inprocess = true;
         self.error = '';
         $http.post($config.removeUrl, data).success(function(data) {
-            self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
-            self.inprocess = false;
-            self.error = $translate.instant('error_deleting');
+            self.error = data.result && data.result.error ?
+                data.result.error:
+                $translate.instant('error_deleting');
             typeof error === 'function' && error(data);
+        }).finally(function() {
+            self.inprocess = false;
         });
         return self;
     };
@@ -236,12 +254,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
         self.error = '';
 
         $http.post($config.editUrl, data).success(function(data) {
-            self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
-            self.inprocess = false;
-            self.error = $translate.instant('error_modifying');
+            self.error = data.result && data.result.error ?
+                data.result.error:
+                $translate.instant('error_modifying');
             typeof error === 'function' && error(data);
+        }).finally(function() {
+            self.inprocess = false;
         });
         return self;
     };
@@ -261,12 +281,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
             url: $config.editUrl,
             data: $.param(data)
         }).success(function(data) {
-            self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
-            self.inprocess = false;
-            self.error = $translate.instant('error_modifying');
+            self.error = data.result && data.result.error ?
+                data.result.error:
+                $translate.instant('error_modifying');
             typeof error === 'function' && error(data);
+        }).finally(function() {
+            self.inprocess = false;
         });
         return self;
     };

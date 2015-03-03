@@ -7,7 +7,7 @@
 FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($http, $config, Item) {
 
     $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    
+
     var FileNavigator = function() {
         this.requesting = false;
         this.fileList = [];
@@ -20,6 +20,7 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
         var self = this;
         var path = self.currentPath.join('/');
         var data = {params: {
+            mode: "list",
             onlyFolders: false,
             path: '/' + path
         }};

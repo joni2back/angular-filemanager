@@ -8,6 +8,12 @@
             {{item.model.name | strLimit : 11 }}
         </a>
     </div>
+    <div class="alert alert-warning" data-ng-show="fileNavigator.requesting">
+        {{"loading" | translate}}...
+    </div>
+    <div class="alert alert-warning" data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1 && !fileNavigator.error">
+        {{"no_files_in_folder" | translate}}...
+    </div>
     <div class="alert alert-danger" data-ng-show="!fileNavigator.requesting && fileNavigator.error">
         {{ fileNavigator.error }}
     </div>
