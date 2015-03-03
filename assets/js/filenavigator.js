@@ -6,22 +6,27 @@
 
 FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($http, $config, Item) {
 
+    $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    
     var FileNavigator = function() {
-        var self = this;
-
-        self.requesting = false;
-        self.fileList = [];
-        self.currentPath = [];
-        self.history = [];
+        this.requesting = false;
+        this.fileList = [];
+        this.currentPath = [];
+        this.history = [];
+        this.error = '';
     };
 
     FileNavigator.prototype.refresh = function(success, error) {
         var self = this;
         var path = self.currentPath.join('/');
-        var data = {params:{onlyFolders: false, path: '/' + path}};
+        var data = {params: {
+            onlyFolders: false,
+            path: '/' + path
+        }};
 
         self.requesting = true;
         self.fileList = [];
+        self.error = '';
         $http.post($config.listUrl, data).success(function(data) {
             self.fileList = [];
             angular.forEach(data.result, function(file) {
@@ -29,6 +34,11 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
             });
             self.requesting = false;
             self.buildTree(path);
+
+            if (data.error) {
+                self.error = data.error;
+                return typeof error === 'function' && error(data);
+            }
             typeof success === 'function' && success(data);
         }).error(function(data) {
             self.requesting = false;

@@ -5,18 +5,19 @@
  */
 
 FileManagerApp.constant("$config", {
-    appName: "Angular FileManager",
+    appName: "angular-filemanager",
     listUrl: "/hosting/filemanager/listdirectory",
     uploadUrl: "/hosting/filemanager/upload",
-    renameUrl: "/filemgr.php",
-    copyUrl: "/filemgr.php",
-    deleteUrl: "/filemgr.php",
-    editUrl: "/filemgr.php",
-    getContentUrl: "/filemgr.php",
-    createFolderUrl: "/filemgr.php",
-    downloadFileUrl: "/filemgr.php",
-    compressUrl: "/filemgr.php",
-    extractUrl: "/filemgr.php",
+
+    renameUrl: "/hosting/filemanager/item/rename",
+    copyUrl: "/hosting/filemanager/item/copy",
+    removeUrl: "/hosting/filemanager/item/remove",
+    editUrl: "/hosting/filemanager/item/edit",
+    getContentUrl: "/hosting/filemanager/item/content/get",
+    createFolderUrl: "/hosting/filemanager/item/folder/create",
+    downloadFileUrl: "/hosting/filemanager/item/download",
+    compressUrl: "/hosting/filemanager/item/compress",
+    extractUrl: "/hosting/filemanager/item/extract",
 
     isEditableFilePattern: '\\.(txt|html|htm|aspx|asp|ini|pl|py|md|php|css|js|log|htaccess|htpasswd|json)$',
     isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',

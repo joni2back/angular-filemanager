@@ -47,8 +47,8 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
     Item.prototype.defineCallback = function(data, success, error) {
         /* Check if there was some error in a 200 response */
         var self = this;
-        if (data.Error) {
-            self.error = data.Error;
+        if (data.error) {
+            self.error = data.error;
             return typeof error === 'function' && error(data);
         }
         self.update();
@@ -57,16 +57,16 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.createFolder = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "addfolder",
             path: self.tempModel.path.join('/'),
             name: self.tempModel.name
-        };
+        }};
 
         if (self.tempModel.name.trim()) {
             self.inprocess = true;
             self.error = '';
-            $http({method: 'GET', url: $config.createFolderUrl, params: data}).success(function(data) {
+            $http.post($config.createFolderUrl, data).success(function(data) {
                 self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -80,15 +80,15 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.rename = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             "mode": "rename",
-            "old": self.model.fullPath(),
-            "new": self.tempModel.fullPath()
-        };
+            "path": self.model.fullPath(),
+            "newPath": self.tempModel.fullPath()
+        }};
         if (self.tempModel.name.trim()) {
             self.inprocess = true;
             self.error = '';
-            $http({method: 'GET', url: $config.renameUrl, params: data}).success(function(data) {
+            $http.post($config.renameUrl, data).success(function(data) {
                 self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -102,15 +102,15 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.copy = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "copy",
             path: self.model.fullPath(),
             newPath: self.tempModel.fullPath() //.replace(new RegExp(self.model.name + '$'), self.tempModel.name)
-        };
+        }};
         if (self.tempModel.name.trim()) {
             self.inprocess = true;
             self.error = '';
-            $http({method: 'GET', url: $config.copyUrl, params: data}).success(function(data) {
+            $http.post($config.copyUrl, data).success(function(data) {
                 self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -124,15 +124,15 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.compress = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "compress",
             path: self.model.fullPath(),
             destination: self.tempModel.fullPath()
-        };
+        }};
         if (self.tempModel.name.trim()) {
             self.inprocess = true;
             self.error = '';
-            $http({method: 'GET', url: $config.compressUrl, params: data}).success(function(data) {
+            $http.post($config.compressUrl, data).success(function(data) {
                 self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -146,15 +146,16 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.extract = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "extract",
             path: self.model.fullPath(),
+            sourceFile: self.model.fullPath(),
             destination: self.tempModel.fullPath()
-        };
-        if (self.tempModel.name.trim()) {
+        }};
+        if (true) {
             self.inprocess = true;
             self.error = '';
-            $http({method: 'GET', url: $config.extractUrl, params: data}).success(function(data) {
+            $http.post($config.extractUrl, data).success(function(data) {
                 self.inprocess = false;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -187,14 +188,14 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.getContent = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "editfile",
             path: self.tempModel.fullPath()
-        };
+        }};
         self.inprocess = true;
         self.error = '';
-        $http({method: 'GET', url: $config.getContentUrl, params: data}).success(function(data) {
-            self.tempModel.content = self.model.content = data.Content;
+        $http.post($config.getContentUrl, data).success(function(data) {
+            self.tempModel.content = self.model.content = data.result;
             self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
@@ -207,13 +208,13 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.remove = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "delete",
             path: self.tempModel.fullPath()
-        };
+        }};
         self.inprocess = true;
         self.error = '';
-        $http({method: 'GET', url: $config.deleteUrl, params: data}).success(function(data) {
+        $http.post($config.removeUrl, data).success(function(data) {
             self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
@@ -226,20 +227,15 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.edit = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "savefile",
             content: self.tempModel.content,
             path: self.tempModel.fullPath()
-        };
+        }};
         self.inprocess = true;
         self.error = '';
 
-        $http({
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'text/plain'},
-            url: $config.editUrl,
-            data: $.param(data)
-        }).success(function(data) {
+        $http.post($config.editUrl, data).success(function(data) {
             self.inprocess = false;
             self.defineCallback(data, success, error);
         }).error(function(data) {
@@ -252,11 +248,11 @@ FileManagerApp.factory('item', ['$http', '$translate', '$config', 'chmod', funct
 
     Item.prototype.changePermissions = function(success, error) {
         var self = this;
-        var data = {
+        var data = {params: {
             mode: "changepermissions",
             path: self.tempModel.fullPath(),
             perms: self.tempModel.perms.getNumber()
-        };
+        }};
         self.inprocess = true;
         self.error = '';
         $http({

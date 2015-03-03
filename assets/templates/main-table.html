@@ -13,9 +13,14 @@
                 {{"loading" | translate}}...
             </td>
         </tr>
-        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1">
+        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1 && !fileNavigator.error">
             <td colspan="4">
                 {{"no_files_in_folder" | translate}}...
+            </td>
+        </tr>
+        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.error">
+            <td colspan="4">
+                {{ fileNavigator.error }}
             </td>
         </tr>
         <tr data-ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" data-ng-show="!fileNavigator.requesting">
