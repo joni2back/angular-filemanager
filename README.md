@@ -3,7 +3,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager.png)
 
-### App Features
+## App Features
   - Multilanguage (English / Spanish / Portuguese)
   - Multiple templates (List / Icons)
   - Multiple file upload
@@ -17,14 +17,284 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
   - Preview
   - Download
 
-### External Libs / Plugins used
+## External Libs / Plugins used
   - [@angular](https://github.com/angular/angular)
   - [@angular-cookies](https://github.com/angular/bower-angular-cookies)
   - [@angular-translate](https://github.com/angular-translate/angular-translate)
   - [@bootstrap](https://github.com/twbs/bootstrap)
   - [@jquery](https://github.com/jquery/jquery)
 
-### TODO
+## TODO
   - Multiple file selector (nice to have)
   - Unix chmod permissions
   - Backend controllers (PHP, Python, .Net, etc)
+
+--------------------
+## Backend API
+
+### Listing
+    URL: $config.listUrl
+    Method: POST
+#### JSON Request params
+```
+{
+    params: {
+        mode: "list",
+        onlyFolders: false,
+        path: "/public_html"
+    }
+}
+```
+#### JSON Request params
+```
+{
+    "result": [
+        {
+            "name": "joomla", 
+            "rights": "drwxr-xr-x", 
+            "size": "4096", 
+            "time": "16:07", 
+            "type": "dir", 
+        }, 
+        {
+            "name": "magento", 
+            "rights": "drwxr-xr-x", 
+            "size": "4096", 
+            "time": "17:42", 
+            "type": "dir", 
+        }, 
+        {
+            "name": ".htaccess", 
+            "rights": "-rw-r--r--", 
+            "size": "0", 
+            "time": "17:42", 
+            "type": "file", 
+        }, 
+        {
+            "name": "index.php", 
+            "rights": "-rw-r--r--", 
+            "size": "0", 
+            "time": "17:41", 
+            "type": "file", 
+        }
+    ]
+}
+```
+
+--------------------
+
+### Rename / Move
+    URL: $config.renameUrl
+    Method: POST
+#### Post JSON request params
+```
+{
+    params: {
+        "mode": "rename",
+        "path": "/public_html/index.php",
+        "newPath": "/public_html/index2.php"
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": {
+		"success": true,
+		"error": null
+	}
+}
+```
+
+--------------------
+
+### Copy
+    URL: $config.copyUrl
+    Method: POST
+#### Post JSON request params
+```
+{
+    params: {
+        "mode": "copy",
+        "path": "/public_html/index.php",
+        "newPath": "/public_html/index-copy.php"
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": {
+    	"success": true,
+		"error": null
+	}
+}
+```
+
+--------------------
+
+### Remove
+    URL: $config.removeUrl
+    Method: POST
+#### Post JSON request params
+```
+{
+    params: {
+        "mode": "delete",
+        "path": "/public_html/index.php",
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": {
+        "success": true,
+    	"error": null
+	}
+}
+```
+
+--------------------
+
+### Edition
+    URL: $config.removeUrl
+    Method: POST
+
+#### Post JSON request params
+```
+{
+    params: {
+        "mode": "edit",
+        "content": "<?php echo random(); ?>",
+        "path": "/public_html/index.php",
+    }
+}
+```
+
+#### JSON Response
+```
+{
+    "result": {
+        "success": true,
+    	"error": null
+	}
+}
+```
+
+--------------------
+
+### Getting content of file
+    URL: $config.getContentUrl
+    Method: POST
+#### Post JSON request params
+```
+{
+    params: {
+        "mode": "editfile",
+        "path": "/public_html/index.php",
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": "<?php echo random(); ?>",
+}
+```
+
+--------------------
+
+### Create folder
+    URL: $config.createFolderUrl
+    Method: POST
+
+#### Post JSON request params
+```
+{
+    params: {
+        mode: "addfolder"
+        name: "new-folder"
+        path: "/public_html"
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": {
+        "success": true,
+        "error": null
+	}
+}
+```
+    
+--------------------
+
+### Compressing file
+    URL: $config.compressUrl
+    Method: POST
+#### Post JSON request params
+```
+{
+    params: {
+        mode: "compress",
+        path: "/public_html/compressed.zip",
+        destination: "/public_html/backups"
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": {
+        "success": true,
+        "error": null
+    }
+}
+```
+
+--------------------
+
+### Extracting file
+    URL: $config.extractUrl
+    Method: POST
+#### Post JSON request params
+```
+{
+    params: {
+        mode: "extract"
+        destination: "/public_html/extracted-files",
+        path: "/public_html/compressed.zip",
+        sourceFile: "/public_html/compressed.zip",
+    }
+}
+```
+#### JSON Response
+```
+{
+    "result": {
+        "success": true,
+        "error": null
+    }
+}
+```
+
+--------------------
+
+### Download / Preview file
+    URL: $config.downloadFileUrl
+    Method: GET
+
+#### Http query params
+```
+{
+    mode: "download",
+    preview: true,
+    path: "/public_html/image.jpg"
+}
+```
+#### Response
+```
+File content
+```
