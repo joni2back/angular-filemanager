@@ -1,0 +1,3 @@
+[submodule "bridges/php/php-classic"]
+	path = bridges/php/php-classic
+	url = https://github.com/joni2back/php-classic.git
