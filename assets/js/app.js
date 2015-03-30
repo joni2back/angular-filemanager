@@ -5,9 +5,9 @@
  */
 
 (function() {
-    var FileManagerApp = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
+    var app = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
-    FileManagerApp.directive('ngFile', function($parse) {
+    app.directive('ngFile', function($parse) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -23,7 +23,7 @@
         };
     });
 
-    FileManagerApp.directive('ngRightClick', function($parse) {
+    app.directive('ngRightClick', function($parse) {
         return function(scope, element, attrs) {
             var fn = $parse(attrs.ngRightClick);
             element.bind('contextmenu', function(event) {
@@ -35,21 +35,34 @@
         };
     });
 
-    FileManagerApp.filter('strLimit', ['$filter', function($filter) {
+    app.filter('strLimit', ['$filter', function($filter) {
         return function(input, limit) {
             if (input.length <= limit) {
                 return input;
             }
             return $filter('limitTo')(input, limit) + '...';
-       };
+        };
     }]);
 
-    $(function() {
-        $(window.document).on('shown', '.modal', function() {
-            $('[autofocus]', this).focus();
-        });
-        $(window.document).click(function() {
-            $("#context-menu").hide();
-        });
+    /**
+     * jQuery inits
+     */
+    var menuSelectors = '.main-navigation .table-files td a, .iconset a.thumbnail';
+
+    $(window.document).on('shown', '.modal', function() {
+        $('[autofocus]', this).focus();
     });
+
+    $(window.document).on('click', function() {
+        $("#context-menu").hide();
+    });
+
+    $(window.document).on('contextmenu', menuSelectors, function(e) {
+        $("#context-menu").hide().css({
+            left: e.pageX,
+            top: e.pageY
+        }).show();
+        e.preventDefault();
+    });
+
 })();
