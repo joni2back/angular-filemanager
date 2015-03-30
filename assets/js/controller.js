@@ -4,7 +4,8 @@
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
 
-FileManagerApp.controller('FileManagerCtrl', [
+(function() {
+    angular.module('FileManagerApp').controller('FileManagerCtrl', [
     '$scope', '$translate', '$cookies', '$config', 'item', 'fileNavigator', 'fileUploader',
     function($scope, $translate, $cookies, $config, Item, FileNavigator, FileUploader) {
 
@@ -148,3 +149,4 @@ FileManagerApp.controller('FileManagerCtrl', [
         });
     };
 }]);
+})();

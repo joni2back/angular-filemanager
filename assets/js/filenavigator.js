@@ -3,8 +3,8 @@
  * Jonas Sciangula Street <joni2back@gmail.com>
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
-
-FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($http, $config, Item) {
+(function() {
+    angular.module('FileManagerApp').service('fileNavigator', ['$http', '$config', 'item', function ($http, $config, Item) {
 
     $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -125,3 +125,4 @@ FileManagerApp.service('fileNavigator', ['$http', '$config', 'item', function ($
 
     return FileNavigator;
 }]);
+})();

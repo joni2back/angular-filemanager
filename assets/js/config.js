@@ -4,8 +4,9 @@
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
 
-FileManagerApp.constant("$config", {
-    appName: "angular-filemanager",
+(function() {
+    angular.module('FileManagerApp').constant("$config", {
+    appName: "https://github.com/joni2back/angular-filemanager",
     listUrl: "/hosting/filemanager/listdirectory",
     uploadUrl: "/hosting/filemanager/upload",
 
@@ -23,3 +24,4 @@ FileManagerApp.constant("$config", {
     isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',
     isExtractableFilePattern: '\\.(zip|gz|tar|rar|gzip)$'
 });
+})();
