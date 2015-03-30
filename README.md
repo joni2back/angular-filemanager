@@ -53,32 +53,32 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 {
     "result": [
         {
-            "name": "joomla", 
-            "rights": "drwxr-xr-x", 
-            "size": "4096", 
-            "time": "16:07", 
-            "type": "dir", 
-        }, 
+            "name": "joomla",
+            "rights": "drwxr-xr-x",
+            "size": "4096",
+            "time": "16:07",
+            "type": "dir"
+        },
         {
-            "name": "magento", 
-            "rights": "drwxr-xr-x", 
-            "size": "4096", 
-            "time": "17:42", 
-            "type": "dir", 
-        }, 
+            "name": "magento",
+            "rights": "drwxr-xr-x",
+            "size": "4096",
+            "time": "17:42",
+            "type": "dir"
+        },
         {
-            "name": ".htaccess", 
-            "rights": "-rw-r--r--", 
-            "size": "0", 
-            "time": "17:42", 
-            "type": "file", 
-        }, 
+            "name": ".htaccess",
+            "rights": "-rw-r--r--",
+            "size": "0",
+            "time": "17:42",
+            "type": "file"
+        },
         {
-            "name": "index.php", 
-            "rights": "-rw-r--r--", 
-            "size": "0", 
-            "time": "17:41", 
-            "type": "file", 
+            "name": "index.php",
+            "rights": "-rw-r--r--",
+            "size": "0",
+            "time": "17:41",
+            "type": "file"
         }
     ]
 }
@@ -160,7 +160,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 --------------------
 
-### Edition
+### Edit file
     URL: $config.removeUrl
     Method: POST
 
@@ -187,7 +187,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 --------------------
 
-### Getting content of file
+### Get content of a file
     URL: $config.getContentUrl
     Method: POST
 #### JSON Request content
@@ -231,10 +231,10 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     }
 }
 ```
-    
+
 --------------------
 
-### Compressing file
+### Compress file
     URL: $config.compressUrl
     Method: POST
 #### JSON Request content
@@ -259,7 +259,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 --------------------
 
-### Extracting file
+### Extract file
     URL: $config.extractUrl
     Method: POST
 #### JSON Request content
@@ -272,6 +272,27 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
         "sourceFile": "/public_html/compressed.zip"
     }
 }
+```
+#### JSON Response
+```json
+{
+    "result": {
+        "success": true,
+        "error": null
+    }
+}
+```
+
+--------------------
+
+### Upload file
+    URL: $config.uploadUrl
+    Method: POST
+    Content-Type: multipart/form-data
+    Unlimited file upload, each item will be enumerated as file-1, file-2, etc.
+#### Http post params
+```
+[$config.uploadUrl]?destination=/public_html/image.jpg&file-1={..}&file-2={...}
 ```
 #### JSON Response
 ```json
@@ -302,7 +323,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 #### Errors / Exceptions
 Every backend errors should be with an Error 500 HTTP code.
 
-Btw, you can also reporting errors in a 200 response with this json structure
+Btw, you can report errors with a 200 response with this json structure
 ```json
 {
     "result": {
