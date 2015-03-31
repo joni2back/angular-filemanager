@@ -49,8 +49,12 @@
      */
     var menuSelectors = '.main-navigation .table-files td a, .iconset a.thumbnail';
 
-    $(window.document).on('shown', '.modal', function() {
-        $('[autofocus]', this).focus();
+    $(window.document).on('shown.bs.modal', '.modal', function() {
+        var self = this;
+        var timer = setTimeout(function() {
+            $('[autofocus]', self).focus();
+            timer && clearTimeout(timer);
+        }, 100);
     });
 
     $(window.document).on('click', function() {
