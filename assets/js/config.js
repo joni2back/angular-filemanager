@@ -7,14 +7,14 @@
 (function() {
     angular.module('FileManagerApp').constant("$config", {
         appName: "https://github.com/joni2back/angular-filemanager",
-        listUrl: "/hosting/filemanager/listdirectory",
+        listUrl: "bridges/php/handler.php", 
         uploadUrl: "/hosting/filemanager/upload",
 
         renameUrl: "/hosting/filemanager/item/rename",
         copyUrl: "/hosting/filemanager/item/copy",
         removeUrl: "/hosting/filemanager/item/remove",
         editUrl: "/hosting/filemanager/item/edit",
-        getContentUrl: "/hosting/filemanager/item/content/get",
+        getContentUrl: "bridges/php/handler.php",
         createFolderUrl: "/hosting/filemanager/item/folder/create",
         downloadFileUrl: "/hosting/filemanager/item/download",
         compressUrl: "/hosting/filemanager/item/compress",

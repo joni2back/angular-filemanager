@@ -38,20 +38,34 @@ abstract class Request {
 
 class Response {
     public function __construct($data) {
-        echo json_encode($data);
+        echo json_encode(array('result' => $data));
         exit;
     }
 }
+
+class FileManager extends FtpHelper {
+
+    public function getContent($path) {
+        $localPath = tempnam(sys_get_temp_dir(), 'fmanager_');
+        $this->download($path, $localPath);
+        return file_get_contents($localPath);
+    }
+
+}
+
 ExceptionCatcherJSON::register();
 
-$oFtp = new FtpHelper(array(
-    'hostname' => '',
-    'username' => '',
-    'password' => ''
+$oFtp = new FileManager(array(
+    'hostname' => '200.58.111.120',
+    'username' => 'demofilemanager@zendelsolutions.com',
+    'password' => 'FM321xxx'
 ));
-$oFtp->connect();
 
+$oFtp->connect();
 
 if (Request::getApiParam('mode') === 'list') {
     new Response($oFtp->listFilesRaw(Request::getApiParam('path')));
+}
+if (Request::getApiParam('mode') === 'editfile') {
+    new Response($oFtp->getContent(Request::getApiParam('path')));
 }
