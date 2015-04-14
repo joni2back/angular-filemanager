@@ -7,7 +7,9 @@
 (function() {
     angular.module('FileManagerApp').constant("$config", {
         appName: "https://github.com/joni2back/angular-filemanager",
-        listUrl: "bridges/php/handler.php", 
+        defaultLang: "en",
+
+        listUrl: "bridges/php/handler.php",
         uploadUrl: "/hosting/filemanager/upload",
 
         renameUrl: "/hosting/filemanager/item/rename",

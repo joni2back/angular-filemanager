@@ -16,19 +16,17 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.viewTemplate || 'main-icons.html';
-        $scope.language = $cookies.language || 'en';
-
-        $translate.use($scope.language);
-        $scope.fileNavigator.refresh();
+        $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
 
         $scope.setTemplate = function(name) {
             $scope.viewTemplate = $cookies.viewTemplate = name;
         };
 
         $scope.changeLanguage = function (locale) {
-            $scope.language = $cookies.language = locale;
-            $translate.use(locale);
+            if (locale) {
+                return $translate.use($cookies.language = locale);
+            }
+            $translate.use($cookies.language || $config.defaultLang);
         };
 
         $scope.touch = function(item) {
@@ -139,5 +137,19 @@
                 $('#uploadfile').modal('hide');
             });
         };
+
+        $scope.getQueryParam = function(param) {
+            var found;
+            window.location.search.substr(1).split("&").forEach(function(item) {
+                if (param ===  item.split("=")[0]) {
+                    found = item.split("=")[1];
+                }
+            });
+            return found;
+        };
+
+        $scope.changeLanguage($scope.getQueryParam('lang'));
+        $scope.fileNavigator.refresh();
+
     }]);
 })();

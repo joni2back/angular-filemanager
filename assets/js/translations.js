@@ -6,6 +6,7 @@
 (function() {
     angular.module('FileManagerApp').config(function($translateProvider) {
         $translateProvider.translations('en', {
+            filemanager: "File Manager",
             language: "Language",
             english: "English",
             spanish: "Spanish",
@@ -69,10 +70,12 @@
             error_compressing: "An error occurred compressing the file or folder",
             error_extracting: "An error occurred extracting the file",
             error_creating_folder: "An error occurred creating the folder",
-            error_getting_content: "An error occurred getting the content of the file"
+            error_getting_content: "An error occurred getting the content of the file",
+            sure_to_start_compression_with: "Are you sure to compress"
         });
 
         $translateProvider.translations('pt', {
+            filemanager: "Gerenciador de arquivos",
             language: "Língua",
             english: "Inglês",
             spanish: "Espanhol",
@@ -136,10 +139,12 @@
             error_compressing: "Ocorreu um erro ao comprimir o arquivo ou pasta",
             error_extracting: "Ocorreu um erro ao extrair o arquivo",
             error_creating_folder: "Ocorreu um erro ao criar a pasta",
-            error_getting_content: "Ocorreu um erro ao obter o conteúdo do arquivo"
+            error_getting_content: "Ocorreu um erro ao obter o conteúdo do arquivo",
+            sure_to_start_compression_with: "Tem certeza que deseja comprimir"
         });
 
         $translateProvider.translations('es', {
+            filemanager: "Administrador de archivos",
             language: "Idioma",
             english: "Ingles",
             spanish: "Español",
@@ -203,7 +208,8 @@
             error_compressing: "Ocurrio un error al intentar comprimir el archivo",
             error_extracting: "Ocurrio un error al intentar extraer el archivo",
             error_creating_folder: "Ocurrio un error al intentar crear la carpeta",
-            error_getting_content: "Ocurrio un error al obtener el contenido del archivo"
+            error_getting_content: "Ocurrio un error al obtener el contenido del archivo",
+            sure_to_start_compression_with: "Esta seguro que desea comprimir"
         });
     });
 })();
