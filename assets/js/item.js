@@ -1,8 +1,9 @@
-/*!
+/*
  * Angular FileManager v0.8 (https://github.com/joni2back/angular-filemanager)
  * Jonas Sciangula Street <joni2back@gmail.com>
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
+
 (function() {
     angular.module('FileManagerApp').factory('item', ['$http', '$translate', '$config', 'chmod', function($http, $translate, $config, Chmod) {
 
@@ -50,7 +51,7 @@
                 self.error = data.result.error;
                 return typeof error === 'function' && error(data);
             }
-            if (data.error) { //fz
+            if (data.error) {
                 self.error = data.error.message;
                 return typeof error === 'function' && error(data);
             }
@@ -76,7 +77,7 @@
                         data.result.error:
                         $translate.instant('error_creating_folder');
                     typeof error === 'function' && error(data);
-                }).finally(function() {
+                })['finally'](function() {
                     self.inprocess = false;
                 });
             }
@@ -100,7 +101,7 @@
                         data.result.error:
                         $translate.instant('error_renaming');
                     typeof error === 'function' && error(data);
-                }).finally(function() {
+                })['finally'](function() {
                     self.inprocess = false;
                 });
             }
@@ -112,7 +113,7 @@
             var data = {params: {
                 mode: "copy",
                 path: self.model.fullPath(),
-                newPath: self.tempModel.fullPath() //.replace(new RegExp(self.model.name + '$'), self.tempModel.name)
+                newPath: self.tempModel.fullPath()
             }};
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
@@ -124,7 +125,7 @@
                         data.result.error:
                         $translate.instant('error_copying');
                     typeof error === 'function' && error(data);
-                }).finally(function() {
+                })['finally'](function() {
                     self.inprocess = false;
                 });
             }
@@ -148,7 +149,7 @@
                         data.result.error:
                         $translate.instant('error_compressing');
                     typeof error === 'function' && error(data);
-                }).finally(function() {
+                })['finally'](function() {
                     self.inprocess = false;
                 });
             }
@@ -163,20 +164,20 @@
                 sourceFile: self.model.fullPath(),
                 destination: self.tempModel.fullPath()
             }};
-            if (true) {
-                self.inprocess = true;
-                self.error = '';
-                $http.post($config.extractUrl, data).success(function(data) {
-                    self.defineCallback(data, success, error);
-                }).error(function(data) {
-                    self.error = data.result && data.result.error ?
-                        data.result.error:
-                        $translate.instant('error_extracting');
-                    typeof error === 'function' && error(data);
-                }).finally(function() {
-                    self.inprocess = false;
-                });
-            }
+
+            self.inprocess = true;
+            self.error = '';
+            return $http.post($config.extractUrl, data).success(function(data) {
+                self.defineCallback(data, success, error);
+            }).error(function(data) {
+                self.error = data.result && data.result.error ?
+                    data.result.error:
+                    $translate.instant('error_extracting');
+                typeof error === 'function' && error(data);
+            })["finally"](function() {
+                self.inprocess = false;
+            });
+
             return self;
         };
 
@@ -215,7 +216,7 @@
                     data.result.error:
                     $translate.instant('error_getting_content');
                 typeof error === 'function' && error(data);
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return self;
@@ -236,7 +237,7 @@
                     data.result.error:
                     $translate.instant('error_deleting');
                 typeof error === 'function' && error(data);
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return self;
@@ -259,7 +260,7 @@
                     data.result.error:
                     $translate.instant('error_modifying');
                 typeof error === 'function' && error(data);
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return self;
@@ -286,7 +287,7 @@
                     data.result.error:
                     $translate.instant('error_modifying');
                 typeof error === 'function' && error(data);
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return self;
