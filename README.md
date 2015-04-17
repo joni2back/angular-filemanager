@@ -2,10 +2,10 @@
 File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](https://github.com/joni2back)
 
 
-#### [Try the DEMO (only listing)](http://zendelsolutions.com/zendel/projects/angular-filemanager)
+#### [Try the DEMO (only listing and file editor)](http://zendelsolutions.com/zendel/projects/angular-filemanager)
 ---------
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager.png)
-![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/mobile.png)  Mobile support
+![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager-mobile.png)  Mobile support
 
 ## App Features
   - Multilanguage (English / Spanish / Portuguese)
