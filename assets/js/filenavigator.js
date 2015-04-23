@@ -1,10 +1,4 @@
-/*
- * Angular FileManager v0.8 (https://github.com/joni2back/angular-filemanager)
- * Jonas Sciangula Street <joni2back@gmail.com>
- * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
- */
- 
-(function() {
+;(function() {
     angular.module('FileManagerApp').service('fileNavigator', [
         '$http', '$config', 'item', function ($http, $config, Item) {
 
@@ -79,7 +73,7 @@
 
         FileNavigator.prototype.folderClickByName = function(fullPath) {
             var self = this;
-            fullPath = fullPath.replace(new RegExp(/^\/*/g), '').split('/');
+            fullPath = fullPath.replace(new RegExp("^\/*", "g"), '').split('/');
             self.currentPath = fullPath && fullPath[0] === "" ? [] : fullPath;
             self.refresh();
         };

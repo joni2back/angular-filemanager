@@ -20,6 +20,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
   - Edit
   - Preview
   - Download
+  - File permissions (Unix Chmod style)
 
 ## External Libs / Plugins used
   - [@angular](https://github.com/angular/angular)
@@ -30,8 +31,6 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 ## TODO
   - Multiple file selector (nice to have)
-  - Unix chmod permissions module if linux server
-  - Enable features of the app by config file (eg: compression)
   - Backend controllers (PHP, Python, NodeJS, .Net, etc)
 
 --------------------

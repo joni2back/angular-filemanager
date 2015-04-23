@@ -1,10 +1,4 @@
-/*
- * Angular FileManager v0.8 (https://github.com/joni2back/angular-filemanager)
- * Jonas Sciangula Street <joni2back@gmail.com>
- * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
- */
-
-(function() {
+;(function() {
     angular.module('FileManagerApp').factory('item', ['$http', '$translate', '$config', 'chmod', function($http, $translate, $config, Chmod) {
 
         var Item = function(model, path) {
@@ -13,7 +7,7 @@
                 path: path || [],
                 type: 'file',
                 size: 0,
-                date: date: model && new Date(model.date),
+                date: model && new Date(model.date),
                 perms: new Chmod(model && model.rights),
                 content: '',
                 sizeKb: function() {

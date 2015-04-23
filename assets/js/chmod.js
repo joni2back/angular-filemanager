@@ -1,10 +1,4 @@
-/*
- * Angular FileManager v0.8 (https://github.com/joni2back/angular-filemanager)
- * Jonas Sciangula Street <joni2back@gmail.com>
- * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
- */
-
-(function() {
+;(function() {
     angular.module('FileManagerApp').service('chmod', function () {
 
         var Chmod = function(initValue) {
@@ -69,13 +63,13 @@
         };
 
         Chmod.prototype.convertfromCode = function (str) {
-            str = ('' + str).replace(/\s/g, '');
+            str = ('' + str).replace(new RegExp("\\s", "g"), '');
             str = str.length === 10 ? str.substr(1) : str;
-            if (! str.match(/^[\-rwx]{9}$/)) {
+            if (! str.match(new RegExp("^[\-rwx]{9}$"))) {
                 return;
             }
 
-            var result = [], vals = str.match(/.{1,3}/g);
+            var result = [], vals = str.match(new RegExp(".{1,3}", "g"));
             for (var i in vals) {
                 var rwxObj = this.getRwxObj();
                 rwxObj.read  = !!vals[i].match('r');
@@ -94,16 +88,16 @@
         Chmod.prototype.convertfromOctal = function (str) {
             str = ('' + str).replace(/\s/g, '');
             str = str.length === 4 ? str.substr(1) : str;
-            if (! str.match(/^[0-7]{3}$/)) {
+            if (! str.match(new RegExp("^[0-7]{3}$"))) {
                 return;
             }
 
-            var result = [], vals = str.match(/.{1}/g);
+            var result = [], vals = str.match(new RegExp(".{1}", "g"));
             for (var i in vals) {
                 var rwxObj = this.getRwxObj();
-                rwxObj.read  = !!vals[i].match(/[4567]/);
-                rwxObj.write = !!vals[i].match(/[2367]/);
-                rwxObj.exec  = !!vals[i].match(/[1357]/);
+                rwxObj.read  = !!vals[i].match("[4567]");
+                rwxObj.write = !!vals[i].match("[2367]");
+                rwxObj.exec  = !!vals[i].match("[1357]");
                 result.push(rwxObj);
             }
 

@@ -1,10 +1,4 @@
-/*
- * Angular FileManager v0.8 (https://github.com/joni2back/angular-filemanager)
- * Jonas Sciangula Street <joni2back@gmail.com>
- * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
- */
-
-(function() {
+;(function() {
     angular.module('FileManagerApp').constant("$config", {
         appName: "https://github.com/joni2back/angular-filemanager",
         defaultLang: "en",
