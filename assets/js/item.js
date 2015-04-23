@@ -277,7 +277,7 @@
                     data.result.error:
                     $translate.instant('error_changing_perms');
                 typeof error === 'function' && error(data);
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return self;

@@ -2,10 +2,10 @@
     angular.module('FileManagerApp').service('fileUploader', ['$http', '$config', function ($http, $config) {
         var self = this;
 
-        self.requesting = false;
+        self.requesting = false; 
         self.upload = function(fileList, path, success, error) {
             var form = new FormData();
-
+ 
             form.append('destination', '/' + path.join('/'));
             for (var file in fileList) {
                 fileObj = fileList[file];

@@ -2,7 +2,7 @@
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
     '$scope', '$translate', '$cookies', '$config', 'item', 'fileNavigator', 'fileUploader',
     function($scope, $translate, $cookies, $config, Item, FileNavigator, FileUploader) {
-    
+
         $scope.config = $config;
         $scope.appName = $config.appName;
         $scope.orderProp = ['model.type', 'model.name'];
