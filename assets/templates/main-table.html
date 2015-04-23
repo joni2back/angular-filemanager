@@ -4,6 +4,7 @@
             <th>{{"name" | translate}}</th>
             <th class="hidden-xs">{{"size" | translate}}</th>
             <th class="hidden-sm hidden-xs">{{"date" | translate}}</th>
+            <th class="hidden-sm hidden-xs">{{"permissions" | translate}}</th>
             <th class="text-right">{{"actions" | translate}}</th>
         </tr>
     </thead>
@@ -36,6 +37,9 @@
             </td>
             <td class="hidden-sm hidden-xs">
                 {{item.model.date.toString()}}
+            </td>
+            <td class="hidden-sm hidden-xs">
+                {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}
             </td>
             <td class="text-right">
                 <div ng-include="'assets/templates/item-toolbar.html'"></div>

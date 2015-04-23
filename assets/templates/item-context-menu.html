@@ -3,7 +3,7 @@
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#rename"><i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#copy" data-ng-show="!temp.isFolder()"><i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#edit" data-ng-show="temp.isEditable()" data-ng-click="temp.getContent();"><i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}</a></li>
-        <!--<li><a href="" tabindex="-1" data-toggle="modal" data-target="#changepermissions"><i class="glyphicon glyphicon-lock"></i> {{'permissions' | translate}}</a></li>-->
+        <li ng-show="config.enablePermissionsModule"><a href="" tabindex="-1" data-toggle="modal" data-target="#changepermissions"><i class="glyphicon glyphicon-lock"></i> {{'permissions' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#compress" data-ng-show="temp.isCompressible()" ><i class="glyphicon glyphicon-compressed"></i> {{'compress' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#extract" ng-click="temp.tempModel.name=''" data-ng-show="temp.isExtractable()" ><i class="glyphicon glyphicon-export"></i> {{'extract' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-ng-show="!temp.isFolder()" data-ng-click="temp.download()"><i class="glyphicon glyphicon-download"></i> {{'download' | translate}}</a></li>

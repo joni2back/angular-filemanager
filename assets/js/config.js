@@ -21,6 +21,10 @@
         downloadFileUrl: "/hosting/filemanager/item/download",
         compressUrl: "/hosting/filemanager/item/compress",
         extractUrl: "/hosting/filemanager/item/extract",
+        permissionsUrl: "/hosting/filemanager/item/permissions/set",
+
+        enablePermissionsModule: true,
+        enableCompressChooseName: false,
 
         isEditableFilePattern: '\\.(txt|html|htm|aspx|asp|ini|pl|py|md|php|css|js|log|htaccess|htpasswd|json)$',
         isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',

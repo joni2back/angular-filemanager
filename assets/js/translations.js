@@ -72,7 +72,16 @@
             error_extracting: "An error occurred extracting the file",
             error_creating_folder: "An error occurred creating the folder",
             error_getting_content: "An error occurred getting the content of the file",
-            sure_to_start_compression_with: "Are you sure to compress"
+            error_changing_perms: "An error occurred changing the permissions of the file",
+            sure_to_start_compression_with: "Are you sure to compress",
+            owner: "Owner",
+            group: "Group",
+            others: "Others",
+            read: "Read",
+            write: "Write",
+            exec: "Exec",
+            original: "Original",
+            changes: "Changes"
         });
 
         $translateProvider.translations('pt', {
@@ -141,7 +150,16 @@
             error_extracting: "Ocorreu um erro ao extrair o arquivo",
             error_creating_folder: "Ocorreu um erro ao criar a pasta",
             error_getting_content: "Ocorreu um erro ao obter o conteúdo do arquivo",
-            sure_to_start_compression_with: "Tem certeza que deseja comprimir"
+            error_changing_perms: "Ocorreu um erro ao alterar as permissões do arquivo",
+            sure_to_start_compression_with: "Tem certeza que deseja comprimir",
+            owner: "Proprietário",
+            group: "Grupo",
+            others: "Outros",
+            read: "Leitura",
+            write: "Gravável",
+            exec: "Execução",
+            original: "Original",
+            changes: "Mudanças"
         });
 
         $translateProvider.translations('es', {
@@ -210,7 +228,16 @@
             error_extracting: "Ocurrio un error al intentar extraer el archivo",
             error_creating_folder: "Ocurrio un error al intentar crear la carpeta",
             error_getting_content: "Ocurrio un error al obtener el contenido del archivo",
-            sure_to_start_compression_with: "Esta seguro que desea comprimir"
+            error_changing_perms: "Ocurrio un error al cambiar los permisos del archivo",
+            sure_to_start_compression_with: "Esta seguro que desea comprimir",
+            owner: "Propietario",
+            group: "Grupo",
+            others: "Otros",
+            read: "Lectura",
+            write: "Escritura",
+            exec: "Ejecucion",
+            original: "Original",
+            changes: "Cambios"
         });
     });
 })();

@@ -7,32 +7,111 @@
 (function() {
     angular.module('FileManagerApp').service('chmod', function () {
 
-        var Chmod = function() {
-            var self = this;
+        var Chmod = function(initValue) {
 
-            var values = {
-                read: 0,
-                write: 0,
-                execute: 0
-            };
+            this.owner = this.getRwxObj();
+            this.group = this.getRwxObj();
+            this.others = this.getRwxObj();
 
-            self.values = {
-                owner: angular.copy(values),
-                group: angular.copy(values),
-                others: angular.copy(values)
+            if (initValue) {
+                var codes = isNaN(initValue) ?
+                    this.convertfromCode(initValue):
+                    this.convertfromOctal(initValue);
+
+                if (! codes) {
+                    throw new Error('Invalid input data');
+                }
+
+                this.owner = codes.owner;
+                this.group = codes.group;
+                this.others = codes.others;
+            }
+        };
+
+        Chmod.prototype.toOctal = function(prepend, append) {
+            var props = ['owner', 'group', 'others'];
+            var result = [];
+            for (var i in props) {
+                var key = props[i];
+                result[i]  = this[key].read  && this.octalValues.read  || 0;
+                result[i] += this[key].write && this.octalValues.write || 0;
+                result[i] += this[key].exec  && this.octalValues.exec  || 0;
+            }
+            return (prepend||'') + result.join('') + (append||'');
+        };
+
+        Chmod.prototype.toCode = function(prepend, append) {
+            var props = ['owner', 'group', 'others'];
+            var result = [];
+            for (var i in props) {
+                var key = props[i];
+                result[i]  = this[key].read  && this.codeValues.read  || '-';
+                result[i] += this[key].write && this.codeValues.write || '-';
+                result[i] += this[key].exec  && this.codeValues.exec  || '-';
+            }
+            return (prepend||'') + result.join('') + (append||'');
+        };
+
+        Chmod.prototype.getRwxObj = function() {
+            return {
+                read: false,
+                write: false,
+                exec: false
             };
         };
 
-        Chmod.prototype.getNumber = function() {
-            return [
-                +this.values.owner.read + +this.values.owner.write + +this.values.owner.execute,
-                +this.values.group.read + +this.values.group.write + +this.values.group.execute,
-                +this.values.others.read + +this.values.others.write + +this.values.others.execute
-            ].join('');
+        Chmod.prototype.octalValues = {
+            read: 4, write: 2, exec: 1
         };
 
-        Chmod.prototype.permissionValues = {
-            read: 4, write: 2, execute: 1
+        Chmod.prototype.codeValues = {
+            read: 'r', write: 'w', exec: 'x'
+        };
+
+        Chmod.prototype.convertfromCode = function (str) {
+            str = ('' + str).replace(/\s/g, '');
+            str = str.length === 10 ? str.substr(1) : str;
+            if (! str.match(/^[\-rwx]{9}$/)) {
+                return;
+            }
+
+            var result = [], vals = str.match(/.{1,3}/g);
+            for (var i in vals) {
+                var rwxObj = this.getRwxObj();
+                rwxObj.read  = !!vals[i].match('r');
+                rwxObj.write = !!vals[i].match('w');
+                rwxObj.exec  = !!vals[i].match('x');
+                result.push(rwxObj);
+            }
+
+            return {
+                owner : result[0],
+                group : result[1],
+                others: result[2]
+            };
+        };
+
+        Chmod.prototype.convertfromOctal = function (str) {
+            str = ('' + str).replace(/\s/g, '');
+            str = str.length === 4 ? str.substr(1) : str;
+            if (! str.match(/^[0-7]{3}$/)) {
+                return;
+            }
+
+            var result = [], vals = str.match(/.{1}/g);
+            for (var i in vals) {
+                var rwxObj = this.getRwxObj();
+                rwxObj.read  = !!vals[i].match(/[4567]/);
+                rwxObj.write = !!vals[i].match(/[2367]/);
+                rwxObj.exec  = !!vals[i].match(/[1357]/);
+                result.push(rwxObj);
+            }
+
+            return {
+                owner : result[0],
+                group : result[1],
+                others: result[2]
+            };
         };
 
         return Chmod;

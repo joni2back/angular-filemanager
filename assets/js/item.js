@@ -13,8 +13,8 @@
                 path: path || [],
                 type: 'file',
                 size: 0,
-                date: model && new Date(model.date),
-                perms: new Chmod(),
+                date: date: model && new Date(model.date),
+                perms: new Chmod(model && model.rights),
                 content: '',
                 sizeKb: function() {
                     return Math.round(this.size / 1024, 1);
@@ -35,7 +35,7 @@
             };
 
             this.revert = function() {
-                angular.extend(this.tempModel, this.model);
+                angular.extend(this.tempModel, angular.copy(this.model));
                 this.error = '';
                 return this;
             };
@@ -271,23 +271,19 @@
             var data = {params: {
                 mode: "changepermissions",
                 path: self.tempModel.fullPath(),
-                perms: self.tempModel.perms.getNumber()
+                perms: self.tempModel.perms.toOctal(),
+                permsCode: self.tempModel.perms.toCode()
             }};
             self.inprocess = true;
             self.error = '';
-            $http({
-                method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                url: $config.editUrl,
-                data: $.param(data)
-            }).success(function(data) {
+            $http.post($config.permissionsUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
                     data.result.error:
-                    $translate.instant('error_modifying');
+                    $translate.instant('error_changing_perms');
                 typeof error === 'function' && error(data);
-            })['finally'](function() {
+            }).finally(function() {
                 self.inprocess = false;
             });
             return self;

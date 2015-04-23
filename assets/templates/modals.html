@@ -90,8 +90,13 @@
                   <div class="label label-success error-msg">{{'compression_started' | translate}}</div>
               </div>
               <div ng-hide="temp.success">
-                  <label class="radio">{{'enter_folder_name_for_compression' | translate}} <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
-                  <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+                  <div ng-hide="config.enableCompressChooseName">
+                    {{'sure_to_start_compression_with' | translate}} <b>{{temp.model.name}}</b> ?
+                  </div>
+                  <div ng-show="config.enableCompressChooseName">
+                    <label class="radio">{{'enter_folder_name_for_compression' | translate}} <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
+                    <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
+                  </div>
               </div>
 
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
@@ -213,7 +218,6 @@
               <h4 class="modal-title">{{"upload_file" | translate}}</h4>
             </div>
             <div class="modal-body">
-
               <label class="radio">{{"files_will_uploaded_to" | translate}} <b>{{fileNavigator.currentPath.join('/')}}</b></label>
               <input type="file" class="form-control" data-ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
               <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
@@ -248,23 +252,32 @@
               <table class="table table-striped table-bordered table-hover">
                   <thead>
                       <tr>
-                          <th>{{"permissions" | translate}}</th>
-                          <th ng-repeat="(type, value) in temp.model.perms.values">{{type}}</th>
+                          <th>{{'permissions' | translate}}</th>
+                          <th class="col-xs-1 text-center">{{'exec' | translate}}</th>
+                          <th class="col-xs-1 text-center">{{'read' | translate}}</th>
+                          <th class="col-xs-1 text-center">{{'write' | translate}}</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr ng-repeat="(mode, value) in temp.model.perms.permissionValues">
-                          <td>{{mode}}</td>
-                          <td data-ng-repeat="(type, value) in temp.model.perms.values" class="col-xs-1" ng-click="main()">
-                              <input type="checkbox" ng-model="temp.tempModel.perms.values[type][mode]" ng-false-value="0" ng-true-value="{{temp.model.perms.permissionValues[mode]}}" >
+                      <tr data-ng-repeat="(permTypeKey, permTypeValue) in temp.tempModel.perms">
+                          <td>{{permTypeKey | translate}}</td>
+                          <td data-ng-repeat="(permKey, permValue) in permTypeValue" class="col-xs-1 text-center" ng-click="main()">
+                              <label class="col-xs-12">
+                                <input type="checkbox" ng-model="temp.tempModel.perms[permTypeKey][permKey]">
+                              </label>
                           </td>
                       </tr>
                 </tbody>
               </table>
-              <div>
-                  <span>Original Chmod: {{temp.model.perms.getNumber()}}</span>
-                  <span>Chmod: {{temp.tempModel.perms.getNumber()}}</span>
+              <div class="clearfix">
+                  <span class="badge pull-left">
+                    {{'original' | translate}}: {{temp.model.perms.toCode(temp.model.type === 'dir'?'d':'-')}} ({{temp.model.perms.toOctal()}})
+                  </span>
+                  <span class="badge pull-right">
+                    {{'changes' | translate}}: {{temp.tempModel.perms.toCode(temp.model.type === 'dir'?'d':'-')}} ({{temp.tempModel.perms.toOctal()}})
+                  </span>
               </div>
+              <div data-ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>

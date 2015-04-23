@@ -8,9 +8,9 @@
     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" data-ng-show="item.isEditable()" data-ng-click="item.getContent(); touch(item)" title="{{'edit' | translate}}">
         <i class="glyphicon glyphicon-pencil"></i>
     </button>
-    <!--<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#changepermissions" data-ng-click="touch(item)" title="{{'permissions' | translate}}">
+    <button ng-show="config.enablePermissionsModule" class="btn btn-sm btn-default" data-toggle="modal" data-target="#changepermissions" data-ng-click="touch(item)" title="{{'permissions' | translate}}">
         <i class="glyphicon glyphicon-lock"></i>
-    </button>-->
+    </button>
     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#compress" data-ng-show="item.isCompressible()" data-ng-click="touch(item)" title="{{'compress' | translate}}">
         <i class="glyphicon glyphicon-compressed"></i>
     </button>
