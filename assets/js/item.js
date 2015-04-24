@@ -1,4 +1,5 @@
-;(function() {
+(function(window, angular, $) {
+    "use strict";
     angular.module('FileManagerApp').factory('item', ['$http', '$translate', '$config', 'chmod', function($http, $translate, $config, Chmod) {
 
         var Item = function(model, path) {
@@ -7,7 +8,7 @@
                 path: path || [],
                 type: 'file',
                 size: 0,
-                date: model && new Date(model.date),
+                date: new Date(model && model.date || null),
                 perms: new Chmod(model && model.rights),
                 content: '',
                 recursive: false,
@@ -307,4 +308,4 @@
 
         return Item;
     }]);
-})();
+})(window, angular, jQuery);

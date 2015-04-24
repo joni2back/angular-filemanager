@@ -1,4 +1,5 @@
-;(function() {
+(function(angular) {
+    "use strict";
     angular.module('FileManagerApp').service('fileNavigator', [
         '$http', '$config', 'item', function ($http, $config, Item) {
 
@@ -121,4 +122,4 @@
 
         return FileNavigator;
     }]);
-})();
+})(angular);

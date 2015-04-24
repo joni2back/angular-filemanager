@@ -1,4 +1,5 @@
-;(function() {
+(function(angular) {
+    "use strict";
     angular.module('FileManagerApp').config(['$translateProvider', function($translateProvider) {
         $translateProvider.translations('en', {
             filemanager: "File Manager",
@@ -237,4 +238,4 @@
             recursive: "Recursivo"
         });
     }]);
-})();
+})(angular);

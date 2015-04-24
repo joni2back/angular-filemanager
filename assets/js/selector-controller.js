@@ -1,4 +1,5 @@
-;(function() {
+(function(angular, $) {
+    "use strict";
     angular.module('FileManagerApp').controller('ModalFileManagerCtrl', [
         '$scope', '$rootScope', '$config', 'fileNavigator',
         function($scope, $rootScope, $config, FileNavigator) {
@@ -19,4 +20,4 @@
         };
 
     }]);
-})();
+})(angular, jQuery);

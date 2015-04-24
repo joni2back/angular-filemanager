@@ -4,7 +4,8 @@
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
 
-(function() {
+(function(window, angular, $) {
+    "use strict";
     var app = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
     app.directive('ngFile', ['$parse', function($parse) {
@@ -70,4 +71,4 @@
         e.preventDefault();
     });
 
-})();
+})(window, angular, jQuery);

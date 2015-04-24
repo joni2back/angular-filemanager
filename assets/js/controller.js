@@ -1,4 +1,5 @@
-;(function() {
+(function(window, angular, $) {
+    "use strict";
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
     '$scope', '$translate', '$cookies', '$config', 'item', 'fileNavigator', 'fileUploader',
     function($scope, $translate, $cookies, $config, Item, FileNavigator, FileUploader) {
@@ -111,7 +112,7 @@
         };
 
         $scope.createFolder = function(item) {
-            name = item.tempModel.name && item.tempModel.name.trim();
+            var name = item.tempModel.name && item.tempModel.name.trim();
             item.tempModel.type = 'dir';
             item.tempModel.path = $scope.fileNavigator.currentPath;
             if (name && !$scope.fileNavigator.fileNameExists(name)) {
@@ -148,4 +149,4 @@
         $scope.fileNavigator.refresh();
 
     }]);
-})();
+})(window, angular, jQuery);

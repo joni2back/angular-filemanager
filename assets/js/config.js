@@ -1,4 +1,5 @@
-;(function() {
+(function(angular) {
+    "use strict";
     angular.module('FileManagerApp').constant("$config", {
         appName: "https://github.com/joni2back/angular-filemanager",
         defaultLang: "en",
@@ -25,4 +26,4 @@
         isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',
         isExtractableFilePattern: '\\.(zip|gz|tar|rar|gzip)$'
     });
-})();
+})(angular);
