@@ -7,7 +7,7 @@
 (function() {
     var app = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
-    app.directive('ngFile', function($parse) {
+    app.directive('ngFile', ['$parse', function($parse) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -21,9 +21,9 @@
                 });
             }
         };
-    });
+    }]);
 
-    app.directive('ngRightClick', function($parse) {
+    app.directive('ngRightClick', ['$parse', function($parse) {
         return function(scope, element, attrs) {
             var fn = $parse(attrs.ngRightClick);
             element.bind('contextmenu', function(event) {
@@ -33,7 +33,7 @@
                 });
             });
         };
-    });
+    }]);
 
     app.filter('strLimit', ['$filter', function($filter) {
         /*going to use css3 ellipsis instead of this*/

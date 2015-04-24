@@ -8,7 +8,11 @@ MINIFIED_FILE="angular-filemanager.min.js"
 DIR_DIST="assets/js"
 MINIFIED_PATH="$DIR_DIST/$MINIFIED_FILE"
 
-find assets/js ! -name "$MINIFIED_FILE" -name "*.js" | sort | xargs -I "{}" cat "{}" | sed '{:q;N;s/\n/ /g;t q}' | sed -e s/"  *"/" "/g > "$MINIFIED_PATH"
-#java -jar "$YUI_COMPRESSOR_JAR" "$MINIFIED_PATH" -o "$MINIFIED_PATH"
+find assets/js ! -name "$MINIFIED_FILE" -name "*.js" \
+    | sort \
+    | xargs -I "{}" cat "{}" \
+    | sed '{:q;N;s/\n/ /g;t q}' > "$MINIFIED_PATH"
+
+java -jar "$YUI_COMPRESSOR_JAR" "$MINIFIED_PATH" -o "$MINIFIED_PATH"
 
 echo "Complete at: $MINIFIED_PATH"

@@ -1,5 +1,5 @@
 ;(function() {
-    angular.module('FileManagerApp').config(function($translateProvider) {
+    angular.module('FileManagerApp').config(['$translateProvider', function($translateProvider) {
         $translateProvider.translations('en', {
             filemanager: "File Manager",
             language: "Language",
@@ -233,5 +233,5 @@
             original: "Original",
             changes: "Cambios"
         });
-    });
+    }]);
 })();
