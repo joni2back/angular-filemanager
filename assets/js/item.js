@@ -10,6 +10,7 @@
                 date: model && new Date(model.date),
                 perms: new Chmod(model && model.rights),
                 content: '',
+                recursive: false,
                 sizeKb: function() {
                     return Math.round(this.size / 1024, 1);
                 },
@@ -266,7 +267,8 @@
                 mode: "changepermissions",
                 path: self.tempModel.fullPath(),
                 perms: self.tempModel.perms.toOctal(),
-                permsCode: self.tempModel.perms.toCode()
+                permsCode: self.tempModel.perms.toCode(),
+                recursive: self.tempModel.recursive
             }};
             self.inprocess = true;
             self.error = '';

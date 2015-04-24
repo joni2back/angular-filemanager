@@ -75,7 +75,8 @@
             write: "Write",
             exec: "Exec",
             original: "Original",
-            changes: "Changes"
+            changes: "Changes",
+            recursive: "Recursive"
         });
 
         $translateProvider.translations('pt', {
@@ -153,7 +154,8 @@
             write: "Gravável",
             exec: "Execução",
             original: "Original",
-            changes: "Mudanças"
+            changes: "Mudanças",
+            recursive: "Recursiva"
         });
 
         $translateProvider.translations('es', {
@@ -231,7 +233,8 @@
             write: "Escritura",
             exec: "Ejecucion",
             original: "Original",
-            changes: "Cambios"
+            changes: "Cambios",
+            recursive: "Recursivo"
         });
     }]);
 })();

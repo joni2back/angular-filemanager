@@ -10,17 +10,17 @@
     </thead>
     <tbody class="file-item">
         <tr data-ng-show="fileNavigator.requesting">
-            <td colspan="4">
+            <td colspan="5">
                 {{"loading" | translate}}...
             </td>
         </tr>
         <tr data-ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1 && !fileNavigator.error">
-            <td colspan="4">
+            <td colspan="5">
                 {{"no_files_in_folder" | translate}}...
             </td>
         </tr>
         <tr data-ng-show="!fileNavigator.requesting && fileNavigator.error">
-            <td colspan="4">
+            <td colspan="5">
                 {{ fileNavigator.error }}
             </td>
         </tr>

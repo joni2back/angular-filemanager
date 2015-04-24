@@ -248,8 +248,7 @@
               <h4 class="modal-title">{{'change_permissions' | translate}}</h4>
             </div>
             <div class="modal-body">
-
-              <table class="table table-striped table-bordered table-hover">
+              <table class="table table-striped table-bordered table-hover mb0">
                   <thead>
                       <tr>
                           <th>{{'permissions' | translate}}</th>
@@ -269,7 +268,12 @@
                       </tr>
                 </tbody>
               </table>
-              <div class="clearfix">
+              <div class="checkbox" ng-show="config.enablePermissionsRecursive && temp.model.type === 'dir'">
+                <label>
+                  <input type="checkbox" ng-model="temp.tempModel.recursive"> {{'recursive' | translate}}
+                </label>
+              </div>
+              <div class="clearfix mt10">
                   <span class="badge pull-left">
                     {{'original' | translate}}: {{temp.model.perms.toCode(temp.model.type === 'dir'?'d':'-')}} ({{temp.model.perms.toOctal()}})
                   </span>
@@ -281,7 +285,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
-              <button class="btn btn-sm btn-primary" data-ng-click="changePermissions(temp)" data-ng-disabled="">{{'change' | translate}}</button>
+              <button class="btn btn-sm btn-primary" type="submit" data-ng-disabled="">{{'change' | translate}}</button>
             </div>
         </form>
     </div>
