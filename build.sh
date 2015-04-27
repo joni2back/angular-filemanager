@@ -13,6 +13,11 @@ find assets/js ! -name "$MINIFIED_FILE" -name "*.js" \
     | xargs -I "{}" cat "{}" \
     | sed '{:q;N;s/\n/ /g;t q}' > "$MINIFIED_PATH"
 
-java -jar "$YUI_COMPRESSOR_JAR" "$MINIFIED_PATH" -o "$MINIFIED_PATH"
 
-echo "Complete at: $MINIFIED_PATH"
+if [ -f "$YUI_COMPRESSOR_JAR" ] && which java > /dev/null ; then
+    java -jar "$YUI_COMPRESSOR_JAR" "$MINIFIED_PATH" -o "$MINIFIED_PATH"
+fi
+
+ES=$?;
+echo "MINIFIED: $MINIFIED_PATH"
+exit $ES
