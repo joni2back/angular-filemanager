@@ -10,14 +10,14 @@ MINIFIED_PATH="$DIR_DIST/$MINIFIED_FILE"
 
 find assets/js ! -name "$MINIFIED_FILE" -name "*.js" \
     | sort \
-    | xargs -I "{}" cat "{}" \
-    | sed '{:q;N;s/\n/ /g;t q}' > "$MINIFIED_PATH"
+    | xargs -I "{}" cat "{}"  > "$MINIFIED_PATH"
 
-
-if [ -f "$YUI_COMPRESSOR_JAR" ] && which java > /dev/null ; then
-    java -jar "$YUI_COMPRESSOR_JAR" "$MINIFIED_PATH" -o "$MINIFIED_PATH"
+if $(echo "$@" | grep -qv 'prevent-minify') ; then
+    if [ -f "$YUI_COMPRESSOR_JAR" ] && which java > /dev/null ; then
+        java -jar "$YUI_COMPRESSOR_JAR" "$MINIFIED_PATH" -o "$MINIFIED_PATH"
+    fi
 fi
 
 ES=$?;
-echo "MINIFIED: $MINIFIED_PATH"
+echo "OUTFILE: $MINIFIED_PATH"
 exit $ES
