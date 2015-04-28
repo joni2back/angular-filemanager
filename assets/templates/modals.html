@@ -1,6 +1,7 @@
 <div class="modal animated fadeIn" id="delete">
   <div class="modal-dialog">
     <div class="modal-content">
+    <form data-ng-submit="remove(temp)">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
@@ -14,8 +15,9 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-        <button type="button" class="btn btn-sm btn-primary" data-ng-click="remove(temp)" data-ng-disabled="temp.inprocess" autofocus="autofocus">{{"remove" | translate}}</button>
+        <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess" autofocus="autofocus">{{"remove" | translate}}</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -40,7 +42,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-              <button type="button" class="btn btn-sm btn-primary" data-ng-click="rename(temp)" data-ng-disabled="temp.inprocess">{{'rename' | translate}}</button>
+              <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess">{{'rename' | translate}}</button>
             </div>
         </form>
     </div>
@@ -67,7 +69,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-              <button type="button" class="btn btn-sm btn-primary" data-ng-click="copy(temp)" data-ng-disabled="temp.inprocess">Copy</button>
+              <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess">Copy</button>
             </div>
         </form>
     </div>
@@ -107,7 +109,7 @@
               </div>
               <div ng-hide="temp.success">
                   <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="compress(temp)" data-ng-disabled="temp.inprocess">{{'compress' | translate}}</button>
+                  <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess">{{'compress' | translate}}</button>
               </div>
             </div>
         </form>
@@ -143,7 +145,7 @@
               </div>
               <div ng-hide="temp.success">
                   <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-                  <button type="button" class="btn btn-sm btn-primary" data-ng-click="extract(temp)" data-ng-disabled="temp.inprocess">{{'extract' | translate}}</button>
+                  <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess">{{'extract' | translate}}</button>
               </div>
             </div>
         </form>
@@ -174,7 +176,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-              <button type="button" class="btn btn-sm btn-primary" data-ng-click="edit(temp)" data-ng-disabled="temp.inprocess">{{'edit' | translate}}</button>
+              <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess">{{'edit' | translate}}</button>
             </div>
         </form>
     </div>
@@ -199,7 +201,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal" data-ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-              <button class="btn btn-sm btn-primary" data-ng-click="createFolder(temp)" data-ng-disabled="temp.inprocess">{{'create' | translate}}</button>
+              <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="temp.inprocess">{{'create' | translate}}</button>
             </div>
         </form>
     </div>
@@ -225,7 +227,7 @@
             <div class="modal-footer">
               <div data-ng-show="!fileUploader.requesting">
                   <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
-                  <button class="btn btn-sm btn-primary" data-ng-click="uploadFiles()" data-ng-disabled="!uploadFileList.length || fileUploader.requesting">{{'upload' | translate}}</button>
+                  <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="!uploadFileList.length || fileUploader.requesting">{{'upload' | translate}}</button>
               </div>
               <div data-ng-show="fileUploader.requesting">
                   <span class="label label-warning">{{"uploading" | translate}} ...</span>
@@ -285,7 +287,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
-              <button class="btn btn-sm btn-primary" type="submit" data-ng-disabled="">{{'change' | translate}}</button>
+              <button type="submit" class="btn btn-sm btn-primary" data-ng-disabled="">{{'change' | translate}}</button>
             </div>
         </form>
     </div>

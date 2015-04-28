@@ -32,6 +32,7 @@ textarea.code {
 
 .btn,
 .dropdown-menu,
+.input, select, textarea,
 .panel, .panel-heading,
 .modal .modal-content {
     border-radius: 0!important;
