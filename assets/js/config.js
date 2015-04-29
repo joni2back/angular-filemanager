@@ -13,7 +13,7 @@
         editUrl: "/hosting/filemanager/item/edit",
         getContentUrl: "bridges/php/handler.php",
         createFolderUrl: "/hosting/filemanager/item/folder/create",
-        downloadFileUrl: "/hosting/filemanager/item/download",
+        downloadFileUrl: "bridges/php/handler.php",
         compressUrl: "/hosting/filemanager/item/compress",
         extractUrl: "/hosting/filemanager/item/extract",
         permissionsUrl: "/hosting/filemanager/item/permissions/set",
