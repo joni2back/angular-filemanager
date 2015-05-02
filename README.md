@@ -281,9 +281,8 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 --------------------
 
 ##### Errors / Exceptions
-Every backend errors should be with an Error 500 HTTP code.
-
-Btw, you can report errors with a 200 response with this json structure
+Any backend error should be with an error 500 HTTP code.
+Btw, you can also report errors with a 200 response using this json structure
 ```json
 { "result": {
     "success": false,
