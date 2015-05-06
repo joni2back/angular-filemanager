@@ -63,18 +63,18 @@
         };
 
         Chmod.prototype.convertfromCode = function (str) {
-            str = ('' + str).replace(new RegExp("\\s", "g"), '');
+            str = ('' + str).replace(RegExp("\\s", "g"), '');
             str = str.length === 10 ? str.substr(1) : str;
-            if (! str.match(new RegExp("^[\-rwx]{9}$"))) {
+            if (! RegExp("^[\-rwx]{9}$").test(str)) {
                 return;
             }
 
-            var result = [], vals = str.match(new RegExp(".{1,3}", "g"));
+            var result = [], vals = str.match(RegExp(".{1,3}", "g"));
             for (var i in vals) {
                 var rwxObj = this.getRwxObj();
-                rwxObj.read  = !!vals[i].match('r');
-                rwxObj.write = !!vals[i].match('w');
-                rwxObj.exec  = !!vals[i].match('x');
+                rwxObj.read  = /r/.test(vals[i]);
+                rwxObj.write = /w/.test(vals[i]);
+                rwxObj.exec  = /x/.test(vals[i]);
                 result.push(rwxObj);
             }
 
@@ -88,16 +88,16 @@
         Chmod.prototype.convertfromOctal = function (str) {
             str = ('' + str).replace(/\s/g, '');
             str = str.length === 4 ? str.substr(1) : str;
-            if (! str.match(new RegExp("^[0-7]{3}$"))) {
+            if (! RegExp("^[0-7]{3}$").test(str)) {
                 return;
             }
 
-            var result = [], vals = str.match(new RegExp(".{1}", "g"));
+            var result = [], vals = str.match(RegExp(".{1}", "g"));
             for (var i in vals) {
                 var rwxObj = this.getRwxObj();
-                rwxObj.read  = !!vals[i].match("[4567]");
-                rwxObj.write = !!vals[i].match("[2367]");
-                rwxObj.exec  = !!vals[i].match("[1357]");
+                rwxObj.read  = /[4567]/.test(vals[i]);
+                rwxObj.write = /[2367]/.test(vals[i]);
+                rwxObj.exec  = /[1357]/.test(vals[i]);
                 result.push(rwxObj);
             }
 

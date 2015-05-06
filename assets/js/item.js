@@ -16,7 +16,7 @@
                     return Math.round(this.size / 1024, 1);
                 },
                 fullPath: function() {
-                    return ('/' + this.path.join('/') + '/' + this.name).replace(new RegExp('\/\/'), '/');
+                    return ('/' + this.path.join('/') + '/' + this.name).replace(RegExp('\/\/'), '/');
                 }
             };
 
@@ -66,7 +66,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                $http.post($config.createFolderUrl, data).success(function(data) {
+                return $http.post($config.createFolderUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -77,7 +77,6 @@
                     self.inprocess = false;
                 });
             }
-            return self;
         };
 
         Item.prototype.rename = function(success, error) {
@@ -90,7 +89,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                $http.post($config.renameUrl, data).success(function(data) {
+                return $http.post($config.renameUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -101,7 +100,6 @@
                     self.inprocess = false;
                 });
             }
-            return self;
         };
 
         Item.prototype.copy = function(success, error) {
@@ -114,7 +112,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                $http.post($config.copyUrl, data).success(function(data) {
+                return $http.post($config.copyUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -125,7 +123,6 @@
                     self.inprocess = false;
                 });
             }
-            return self;
         };
 
         Item.prototype.compress = function(success, error) {
@@ -138,7 +135,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                $http.post($config.compressUrl, data).success(function(data) {
+                return $http.post($config.compressUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -149,7 +146,6 @@
                     self.inprocess = false;
                 });
             }
-            return self;
         };
 
         Item.prototype.extract = function(success, error) {
@@ -173,8 +169,6 @@
             })["finally"](function() {
                 self.inprocess = false;
             });
-
-            return self;
         };
 
         Item.prototype.download = function(preview) {
@@ -188,7 +182,6 @@
             if (self.model.type !== 'dir') {
                 window.open(url, '_blank', '');
             }
-            return self;
         };
 
         Item.prototype.preview = function() {
@@ -204,7 +197,7 @@
             }};
             self.inprocess = true;
             self.error = '';
-            $http.post($config.getContentUrl, data).success(function(data) {
+            return $http.post($config.getContentUrl, data).success(function(data) {
                 self.tempModel.content = self.model.content = data.result;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -215,7 +208,6 @@
             })['finally'](function() {
                 self.inprocess = false;
             });
-            return self;
         };
 
         Item.prototype.remove = function(success, error) {
@@ -226,7 +218,7 @@
             }};
             self.inprocess = true;
             self.error = '';
-            $http.post($config.removeUrl, data).success(function(data) {
+            return $http.post($config.removeUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -236,7 +228,6 @@
             })['finally'](function() {
                 self.inprocess = false;
             });
-            return self;
         };
 
         Item.prototype.edit = function(success, error) {
@@ -249,7 +240,7 @@
             self.inprocess = true;
             self.error = '';
 
-            $http.post($config.editUrl, data).success(function(data) {
+            return $http.post($config.editUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -259,7 +250,6 @@
             })['finally'](function() {
                 self.inprocess = false;
             });
-            return self;
         };
 
         Item.prototype.changePermissions = function(success, error) {
@@ -273,7 +263,7 @@
             }};
             self.inprocess = true;
             self.error = '';
-            $http.post($config.permissionsUrl, data).success(function(data) {
+            return $http.post($config.permissionsUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -283,7 +273,6 @@
             })['finally'](function() {
                 self.inprocess = false;
             });
-            return self;
         };
 
         Item.prototype.isFolder = function() {
@@ -291,11 +280,11 @@
         };
 
         Item.prototype.isEditable = function() {
-            return !this.isFolder() && !!this.model.name.toLowerCase().match(new RegExp($config.isEditableFilePattern));
+            return !this.isFolder() && RegExp($config.isEditableFilePattern).test(this.model.name.toLowerCase());
         };
 
         Item.prototype.isImage = function() {
-            return !!this.model.name.toLowerCase().match(new RegExp($config.isImageFilePattern));
+            return RegExp($config.isImageFilePattern).test(this.model.name.toLowerCase());
         };
 
         Item.prototype.isCompressible = function() {
@@ -303,7 +292,7 @@
         };
 
         Item.prototype.isExtractable = function() {
-            return !!(!this.isFolder() && this.model.name.match($config.isExtractableFilePattern));
+            return !this.isFolder() && RegExp($config.isExtractableFilePattern).test(this.model.name);
         };
 
         return Item;

@@ -48,7 +48,7 @@
             var self = this;
             var recursive = function(parent, file, path) {
                 var absName = path ? (path + '/' + file.name) : file.name;
-                if (parent.name && !path.match(new RegExp('^' + parent.name))) {
+                if (parent.name && !path.indexOf(parent.name) === 0) {
                     parent.nodes = [];
                 }
                 if (parent.name !== path) {
@@ -56,8 +56,8 @@
                         recursive(parent.nodes[i], file, path);
                     }
                 } else {
-                    for (var i in parent.nodes) {
-                        if (parent.nodes[i].name === absName) {
+                    for (var e in parent.nodes) {
+                        if (parent.nodes[e].name === absName) {
                             return;
                         }
                     }
@@ -66,15 +66,15 @@
             };
 
             !self.history.length && self.history.push({name: path, nodes: []});
-            for (var i in self.fileList) {
-                var file = self.fileList[i].model;
+            for (var o in self.fileList) {
+                var file = self.fileList[o].model;
                 file.type === 'dir' && recursive(self.history[0], file, path);
             }
         };
 
         FileNavigator.prototype.folderClickByName = function(fullPath) {
             var self = this;
-            fullPath = fullPath.replace(new RegExp("^\/*", "g"), '').split('/');
+            fullPath = fullPath.replace(RegExp("^\/*", "g"), '').split('/');
             self.currentPath = fullPath && fullPath[0] === "" ? [] : fullPath;
             self.refresh();
         };

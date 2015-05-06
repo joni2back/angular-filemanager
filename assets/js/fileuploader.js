@@ -10,7 +10,7 @@
             form.append('destination', '/' + path.join('/'));
             for (var file in fileList) {
                 var fileObj = fileList[file];
-                typeof fileObj === 'object' && form.append('file-' + (1 + parseInt(file)), fileObj);
+                typeof fileObj === 'object' && form.append('file-' + (1 + parseInt(file, null)), fileObj);
             }
 
             self.requesting = true;
