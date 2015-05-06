@@ -48,7 +48,7 @@
             var self = this;
             var recursive = function(parent, file, path) {
                 var absName = path ? (path + '/' + file.name) : file.name;
-                if (parent.name && !path.indexOf(parent.name) === 0) {
+                if (parent.name.trim() && path.trim().indexOf(parent.name) !== 0) {
                     parent.nodes = [];
                 }
                 if (parent.name !== path) {
