@@ -93,7 +93,8 @@
         };
 
         $scope.remove = function(item) {
-            item.remove(function() {
+            item.remove(function () {
+                $scope.fileNavigator.setTarget(item,"remove");
                 $scope.fileNavigator.refresh();
                 $('#delete').modal('hide');
             });
@@ -105,7 +106,8 @@
                 item.error = $translate.instant('error_invalid_filename');
                 return false;
             }
-            item.rename(function() {
+            item.rename(function () {
+                $scope.fileNavigator.setTarget(item, "rename");
                 $scope.fileNavigator.refresh();
                 $('#rename').modal('hide');
             });

@@ -86,7 +86,10 @@
                 "mode": "rename",
                 "path": self.model.fullPath(),
                 "newPath": self.tempModel.fullPath()
-            }};
+            }
+            };
+            this.oldPath = self.model.fullPath();
+            this.newPath = self.tempModel.fullPath();
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
