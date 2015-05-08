@@ -332,11 +332,6 @@ input, select, textarea,
     background-color:#eee;
 }
 
-::-webkit-resizer{
-    -webkit-border-radius:4px;
-    background-color:#666;
-}
-
 ::-webkit-scrollbar-thumb{
     min-height:0.8em;
     min-width:0.8em;
@@ -350,4 +345,24 @@ input, select, textarea,
 
 ::-webkit-scrollbar-thumb:active{
     background-color:#888;
+}
+
+.dropdown-menu.dropdown-right-click {
+    display:block; 
+    position:static; 
+    margin-bottom:5px;
+    font-size:1em;
+}
+
+.dropdown-menu.dropdown-right-click>li>a {
+    padding: 5px 12px;
+}
+
+.dropdown-menu.dropdown-right-click>li>a>i {
+    font-size: .9em;
+    margin-right: 1px;
+}
+
+.dropdown-menu.dropdown-right-click .divider {
+    margin: 3px 0;
 }

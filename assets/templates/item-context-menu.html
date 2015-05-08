@@ -1,5 +1,5 @@
 <div id="context-menu" class="dropdown clearfix animated fast fadeIn">
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block; position:static; margin-bottom:5px;">
+    <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" style="">
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#rename"><i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#copy" data-ng-show="!temp.isFolder()"><i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}</a></li>
         <li><a href="" tabindex="-1" data-toggle="modal" data-target="#edit" data-ng-show="temp.isEditable()" data-ng-click="temp.getContent();"><i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}</a></li>
