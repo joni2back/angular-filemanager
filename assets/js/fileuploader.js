@@ -14,7 +14,7 @@
             }
 
             self.requesting = true;
-            $http.post($config.uploadUrl, form, {
+            return $http.post($config.uploadUrl, form, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             }).success(function(data) {

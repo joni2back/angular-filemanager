@@ -127,10 +127,12 @@
         };
 
         $scope.uploadFiles = function() {
-            $scope.fileUploader.upload($scope.uploadFileList,
-                $scope.fileNavigator.currentPath, function() {
+            $scope.fileUploader.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).success(function() {
                 $scope.fileNavigator.refresh();
                 $('#uploadfile').modal('hide');
+            }).error(function(data) {
+                var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');
+                $scope.temp.error = errorMsg;
             });
         };
 
