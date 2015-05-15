@@ -9,14 +9,17 @@ class ExceptionCatcherJSON extends ExceptionCatcher
 {
     public static function draw(\Exception $oExp)
     {
-        return json_encode(array(
+        @header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        $oResponse = new Response;
+        $oResponse->setData(array(
             'success' => false,
-            'error' => array(
-                'message' => $oExp->getMessage(),
+            'error' => $oExp->getMessage(),
+            'errorDetail' => array(
                 'type' => get_class($oExp),
                 'code' => $oExp->getCode()
             )
         ));
+        return $oResponse->flushJson();
     }
 
     public static function register()
@@ -135,6 +138,17 @@ if (Request::getApiParam('mode') === 'editfile') {
     $oResponse->flushJson();
 }
 
+if (Request::getApiParam('mode') === 'addfolder') {
+    $path = Request::getApiParam('path');
+    $name = Request::getApiParam('name');
+    $result = $oFtp->mkdir($path .'/'. $name);
+    if (! $result) {
+        throw new Exception("Unknown error creating this folder");
+    }
+    $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
 if (Request::getQuery('mode') === 'download') {
     $download  = Request::getQuery('preview') === 'true' ? '' : 'attachment;';
     $filePath = Request::getQuery('path');
@@ -150,3 +164,5 @@ if (Request::getQuery('mode') === 'download') {
     }
     $oResponse->flush();
 }
+
+throw new \Exception('This action is not available in the demo');
