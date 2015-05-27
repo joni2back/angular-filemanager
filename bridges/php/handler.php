@@ -99,17 +99,17 @@ class Response
 
 class FileManager extends Ftp 
 {
-    public function download($path) 
+    public function downloadTemp($path) 
     {
         $localPath = tempnam(sys_get_temp_dir(), 'fmanager_');
-        if (parent::download($path, $localPath)) {
+        if ($this->download($path, $localPath)) {
             return $localPath;
         }
     }
 
     public function getContent($path) 
     {
-        $localPath = $this->download($path);
+        $localPath = $this->downloadTemp($path);
         if ($localPath) {
             return @file_get_contents($localPath);
         }
@@ -154,7 +154,7 @@ if (Request::getQuery('mode') === 'download') {
     $filePath = Request::getQuery('path');
     $fileName = explode('/', $filePath);
     $fileName = end($fileName);
-    $tmpFilePath = $oFtp->download($filePath);
+    $tmpFilePath = $oFtp->downloadTemp($filePath);
     if ($fileContent = @file_get_contents($tmpFilePath)) {
         $oResponse->setData($fileContent);
         $oResponse->setHeaders(array(
