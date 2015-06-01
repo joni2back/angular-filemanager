@@ -8,7 +8,7 @@
                 path: path || [],
                 type: 'file',
                 size: 0,
-                date: new Date(model.date && Date.parse(model.date.replace('-','/','g'))),
+                date: new Date(model && model.date && Date.parse(model.date.replace('-','/','g'))),
                 perms: new Chmod(model && model.rights),
                 content: '',
                 recursive: false,
