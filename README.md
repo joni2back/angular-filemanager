@@ -40,25 +40,25 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
         "name": "joomla",
         "rights": "drwxr-xr-x",
         "size": "4096",
-        "time": "16:07",
+        "date": "2015-04-29 09:04:24",
         "type": "dir"
     }, {
         "name": "magento",
         "rights": "drwxr-xr-x",
         "size": "4096",
-        "time": "17:42",
+        "date": "17:42",
         "type": "dir"
     }, {
         "name": ".htaccess",
         "rights": "-rw-r--r--",
         "size": "0",
-        "time": "17:42",
+        "date": "2014-01-03 10:12:09",
         "type": "file"
     }, {
         "name": "index.php",
         "rights": "-rw-r--r--",
         "size": "0",
-        "time": "17:41",
+        "date": "2013-11-01 11:44:13",
         "type": "file"
     }
 ]}
@@ -126,12 +126,12 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 --------------------
 
 #### Edit file
-    URL: $config.removeUrl, Method: POST
+    URL: $config.editUrl, Method: POST
 
 ##### JSON Request content
 ```json
 { "params": {
-    "mode": "edit",
+    "mode": "savefile",
     "content": "<?php echo random(); ?>",
     "path": "/public_html/index.php",
 }}
