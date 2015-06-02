@@ -129,7 +129,13 @@ $oFtp->connect();
 $oResponse = new Response();
 
 if (Request::getApiParam('mode') === 'list') {
-    $oResponse->setData($oFtp->listFilesRaw(Request::getApiParam('path')));
+    $list = $oFtp->listFilesRaw(Request::getApiParam('path'));
+    $list = array_map(function($item) {
+        $date = new \DateTime('now');
+        $item['date'] = $date->format('Y-m-d H:i:s');
+        return $item;
+    }, $list);
+    $oResponse->setData($list);
     $oResponse->flushJson();
 }
 
