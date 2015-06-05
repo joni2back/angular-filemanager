@@ -17,8 +17,9 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
   - File permissions (Unix chmod style)
 
 ### TODO
-  - Multiple file selector (nice to have)
-  - Backend controllers (PHP, Python, NodeJS, .Net, etc)
+  - Multiple file selector
+  - Dropbox and Google Drive compatibility
+  - Backend bridges (PHP, Java, Python, Node, .Net)
 
 --------------------
 ### Backend API
@@ -49,12 +50,6 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
         "date": "17:42",
         "type": "dir"
     }, {
-        "name": ".htaccess",
-        "rights": "-rw-r--r--",
-        "size": "0",
-        "date": "2014-01-03 10:12:09",
-        "type": "file"
-    }, {
         "name": "index.php",
         "rights": "-rw-r--r--",
         "size": "0",
@@ -78,10 +73,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -98,10 +90,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -117,10 +106,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -139,10 +125,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -158,9 +141,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{
-    "result": "<?php echo random(); ?>",
-}
+{ "result": "<?php echo random(); ?>" }
 ```
 
 --------------------
@@ -178,10 +159,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -201,10 +179,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -221,10 +196,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -242,10 +214,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
@@ -259,10 +228,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ```
 ##### JSON Response
 ```json
-{ "result": {
-    "success": true,
-    "error": null
-}}
+{ "result": { "success": true, "error": null } }
 ```
 
 --------------------
