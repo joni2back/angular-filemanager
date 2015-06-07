@@ -10,13 +10,13 @@
             form.append('destination', '/' + path.join('/'));
             for (var file in fileList) {
                 var fileObj = fileList[file];
-                typeof fileObj === 'object' && form.append('file-' + (1 + parseInt(file)), fileObj);
+                console.log(fileObj);
+                typeof fileObj === 'object' && form.append('/' + path.join('/'), fileObj);
             }
-
             self.requesting = true;
             $http.post($config.uploadUrl, form, {
                 transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
+                headers: { 'Content-Type': undefined }
             }).success(function(data) {
                 self.requesting = false;
                 typeof success === 'function' && success(data);

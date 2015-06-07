@@ -37,7 +37,7 @@
         defaultLang: "en",
 
         listUrl: server,
-        uploadUrl: server,
+        uploadUrl: "http://localhost:5839/api/Media",
 
         renameUrl: server,
         copyUrl: server,
