@@ -254,3 +254,11 @@ Btw, you can also report errors with a 200 response using this json structure
     "success": false,
     "error": "Access denied to remove file"
 }}
+
+--------------------
+
+### Versioning
+For transparency into our release cycle and in striving to maintain backward compatibility, angular-filemanager is maintained under [the Semantic Versioning guidelines](http://semver.org/).
+
+### Copyright and license
+Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE). 
