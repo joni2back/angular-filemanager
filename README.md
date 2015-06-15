@@ -254,7 +254,7 @@ Btw, you can also report errors with a 200 response using this json structure
     "success": false,
     "error": "Access denied to remove file"
 }}
-
+```
 --------------------
 
 ### Versioning
