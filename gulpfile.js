@@ -14,13 +14,23 @@ var dst = './dist/';
 gulp.task('cache-templates', function () {
   return gulp.src(src + 'templates/*.html')
     .pipe(templateCache('cached-templates.js', {
-      module: 'cached-templates'
+      module: 'FileManagerApp'
     }))
     .pipe(gulp.dest(dst));
 });
 
 gulp.task('concat-uglify-cache-js', function() {
-  return gulp.src(src + '/js/*.js')
+  return gulp.src([
+      'app.js',
+      'config.js',
+      'chmod.js',
+      'item.js',
+      'filenavigator.js',
+      'fileuploader.js',
+      'translations.js',
+      'controller.js',
+      'selector-controller.js'
+    ])
     .pipe(concat('angular-filemanager.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dst))
