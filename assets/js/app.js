@@ -36,6 +36,13 @@
         };
     }]);
 
+    app.directive('angularFileManager', function($parse) {
+        return {
+            restrict: 'EA',
+            templateUrl: 'assets/templates/index.html'
+        };
+    });
+
     app.filter('strLimit', ['$filter', function($filter) {
         /*going to use css3 ellipsis instead of this*/
         return function(input, limit) {
