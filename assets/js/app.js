@@ -36,10 +36,10 @@
         };
     }]);
 
-    app.directive('angularFileManager', function($parse) {
+    app.directive('angularFileManager', function() {
         return {
             restrict: 'EA',
-            templateUrl: 'assets/templates/index.html'
+            templateUrl: 'index.html'
         };
     });
 

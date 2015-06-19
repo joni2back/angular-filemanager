@@ -19,17 +19,17 @@ gulp.task('cache-templates', function () {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('concat-uglify-cache-js', function() {
+gulp.task('concat-uglify-js', function() {
   return gulp.src([
-      'app.js',
-      'config.js',
-      'chmod.js',
-      'item.js',
-      'filenavigator.js',
-      'fileuploader.js',
-      'translations.js',
-      'controller.js',
-      'selector-controller.js'
+      'assets/js/app.js',
+      'assets/js/config.js',
+      'assets/js/chmod.js',
+      'assets/js/item.js',
+      'assets/js/filenavigator.js',
+      'assets/js/fileuploader.js',
+      'assets/js/translations.js',
+      'assets/js/controller.js',
+      'assets/js/selector-controller.js'
     ])
     .pipe(concat('angular-filemanager.min.js'))
     .pipe(uglify())
@@ -42,4 +42,4 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('default', ['cache-templates', 'concat-uglify-cache-js', 'minify-css']);
+gulp.task('default', ['cache-templates', 'concat-uglify-js', 'minify-css']);
