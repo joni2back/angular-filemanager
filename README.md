@@ -1,10 +1,24 @@
 ## angular-filemanager
 File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](https://github.com/joni2back)
 
+### use in your project
+1) bower install --save angular-filemanager
+2) include dependencies in your project:
+    <!-- third party -->
+    <script src="/bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    
+    <!-- angular-filemanager -->
+    <link rel="stylesheet" href="/bower_components/angular-filemanager/dist/angular-filemanager.css">
+    <script src="/bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
+    <script src="/bower_components/angular-filemanager/dist/cached-templates.js"></script>
+3) use the angular directive:
+    <angular-file-manager></angular-file-manager>
+
 #### [Try the DEMO (only listing and file editor)](http://zendelsolutions.com/zendel/projects/angular-filemanager)
 ---------
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager.png)
-![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager-mobile.png)  Mobile support
+![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager-mobile.png) Mobile support
 
 ### Features
   - Multilanguage (English / Spanish / Portuguese)
@@ -257,8 +271,13 @@ Btw, you can also report errors with a 200 response using this json structure
 ```
 --------------------
 
+### Contribute
+To contribute to the project you can simply fork this repo. To build a minified version, you can simply run the Gulp 
+task `gulp build`. The minified/uglified files are created in the `dist` folder.
+
 ### Versioning
-For transparency into our release cycle and in striving to maintain backward compatibility, angular-filemanager is maintained under [the Semantic Versioning guidelines](http://semver.org/).
+For transparency into our release cycle and in striving to maintain backward compatibility, angular-filemanager is 
+maintained under [the Semantic Versioning guidelines](http://semver.org/).
 
 ### Copyright and license
 Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE). 
