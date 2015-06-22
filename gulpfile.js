@@ -23,7 +23,6 @@ gulp.task('concat-uglify-js', function() {
   return gulp.src([
       'assets/js/app.js',
       'assets/js/chmod.js',
-      'assets/js/config.js',
       'assets/js/controller.js',
       'assets/js/filenavigator.js',
       'assets/js/fileuploader.js',
