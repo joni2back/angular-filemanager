@@ -4,6 +4,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ### use in your project
 1) bower install --save angular-filemanager
 2) include dependencies in your project:
+
     <!-- third party -->
     <script src="/bower_components/angular-translate/angular-translate.min.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
