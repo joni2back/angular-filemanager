@@ -16,6 +16,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
     <script src="/bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
     <script src="/bower_components/angular-filemanager/dist/cached-templates.js"></script>
 3) use the angular directive in your HTML:
+
     <angular-file-manager></angular-file-manager>
     
 #### 2) configure
