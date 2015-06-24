@@ -146,6 +146,10 @@
             return found;
         };
 
+        $scope.$on('refreshNavigator', function() {
+            $scope.fileNavigator.refresh();
+        });
+
         $scope.changeLanguage($scope.getQueryParam('lang'));
         $scope.isWindows = $scope.getQueryParam('server') === 'Windows';
         $scope.fileNavigator.refresh();

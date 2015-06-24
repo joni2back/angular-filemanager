@@ -39,7 +39,15 @@
     app.directive('angularFileManager', function() {
         return {
             restrict: 'EA',
-            templateUrl: 'index.html'
+            scope: {
+                reload: '='
+            },
+            templateUrl: 'index.html',
+            link: function(scope, element, attrs) {
+                scope.$watch('reload', function (value) {
+                    scope.$broadcast('refreshNavigator');
+                });
+            }
         };
     });
 
