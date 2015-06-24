@@ -262,7 +262,3 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ### Copyright and license
 Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE). 
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joni2back/angular-filemanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
