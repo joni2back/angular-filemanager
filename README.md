@@ -23,7 +23,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
   - Extend backend bridges (PHP, Java, Python, Node, .Net)
 
 ### Backend API
-[Read the documentation](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/API.md)
+[Read the documentation](API.md)
 
 ### Contribute
 To contribute to the project you can simply fork this repo. To build a minified version, you can simply run the Gulp 
