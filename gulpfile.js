@@ -44,5 +44,5 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('default', ['cache-templates', 'concat-uglify-js', 'minify-css']);
+gulp.task('default', ['concat-uglify-js', 'minify-css']);
 gulp.task('build', ['default']);
