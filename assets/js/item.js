@@ -178,8 +178,14 @@
                 preview: preview,
                 path: self.model.fullPath()
             };
-            var url = [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
-            if (self.model.type !== 'dir') {
+            if (fileManagerConfig.enableAsyncFileDownload) {
+                $http.get(fileManagerConfig.downloadFileUrl, {
+                    data: {
+                        params: data
+                    }
+                });
+            } else if (self.model.type !== 'dir') {
+                var url = [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
                 window.open(url, '_blank', '');
             }
         };
@@ -277,6 +283,10 @@
 
         Item.prototype.isFolder = function() {
             return this.model.type === 'dir';
+        };
+
+        Item.prototype.isFile = function() {
+            return this.model.type === 'file';
         };
 
         Item.prototype.isEditable = function() {
