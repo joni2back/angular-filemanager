@@ -1,6 +1,6 @@
 (function(angular) {
     "use strict";
-    angular.module('FileManagerApp').constant("$config", {
+    angular.module('FileManagerApp').constant("fileManagerConfig", {
         appName: "https://github.com/joni2back/angular-filemanager",
         defaultLang: "en",
 

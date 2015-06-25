@@ -14,7 +14,6 @@
   <script src="assets/ext/angular-cookies.min.js"></script>
   <script src="assets/ext/jquery.min.js"></script>
   <script src="assets/ext/bootstrap.min.js"></script>
-  <script src="assets/js/angular-filemanager.min.js"></script><!-- Using minified file -->
   <!-- Uncomment if you need to use raw source code
     <script src="assets/js/app.js"></script>
     <script src="assets/js/config.js"></script>
@@ -26,25 +25,14 @@
     <script src="assets/js/controller.js"></script>
     <script src="assets/js/selector-controller.js"></script>
   -->
+  
+  <script src="dist/angular-filemanager.min.js"></script><!-- Comment if you need to use raw source code -->
+  <script src="dist/cached-templates.js"></script><!-- Comment if you need to use raw source code -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/css/angular-filemanager.css" type="text/css" />
+  <link rel="stylesheet" href="dist/angular-filemanager.css">
 </head>
 
-<body data-ng-controller="FileManagerCtrl">
-    <div ng-include="'assets/templates/navbar.html'"></div>
-
-    <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-sm-3 col-md-2 sidebar file-tree" ng-include="'assets/templates/sidebar.html'"></div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div ng-include="'assets/templates/current-folder-breadcrumb.html'"></div>
-                <div ng-include="'assets/templates/' + viewTemplate" class="main-navigation"></div>
-            </div>
-        </div>
-    </div>
-
-    <div ng-include="'assets/templates/modals.html'"></div>
-    <div ng-include="'assets/templates/item-context-menu.html'"></div>
+<body>
+    <angular-file-manager></angular-file-manager>
 </body>
 </html>
