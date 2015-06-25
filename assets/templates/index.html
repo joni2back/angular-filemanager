@@ -1,0 +1,17 @@
+<div data-ng-controller="FileManagerCtrl">
+    <div ng-include="'assets/templates/navbar.html'"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-3 col-md-2 sidebar file-tree" ng-include="'assets/templates/sidebar.html'"></div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div ng-include="'assets/templates/current-folder-breadcrumb.html'"></div>
+                <div ng-include="'assets/templates/' + viewTemplate" class="main-navigation"></div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-include="'assets/templates/modals.html'"></div>
+    <div ng-include="'assets/templates/item-context-menu.html'"></div>
+</div>
