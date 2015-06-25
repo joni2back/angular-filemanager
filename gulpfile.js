@@ -6,20 +6,22 @@ var templateCache = require('gulp-angular-templatecache');  // caches the templa
 var uglify = require('gulp-uglify');                        // minifies JavaScript
 var minifyCss = require('gulp-minify-css');                 // minifies CSS
 var concat = require('gulp-concat');                        // concat JavaScript
+var path = require('path');
 
 // Vars
 var src = './assets/';
 var dst = './dist/';
 
-/*
 gulp.task('cache-templates', function () {
   return gulp.src(src + 'templates/*.html')
     .pipe(templateCache('cached-templates.js', {
-      module: 'FileManagerApp'
+      module: 'FileManagerApp',
+      base: function(file) {
+        return 'assets/templates/' + path.basename(file.history);
+      }
     }))
     .pipe(gulp.dest(dst));
 });
-*/
 
 gulp.task('concat-uglify-js', function() {
   return gulp.src([
@@ -44,5 +46,5 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('default', ['concat-uglify-js', 'minify-css']);
+gulp.task('default', ['cache-templates', 'concat-uglify-js', 'minify-css']);
 gulp.task('build', ['default']);
