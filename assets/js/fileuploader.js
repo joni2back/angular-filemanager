@@ -7,21 +7,19 @@
         self.upload = function(fileList, path, success, error) {
             var form = new window.FormData();
 
-            var data = {};
-            var fileObj;
+            var fileObj, data;
+            data = {
+                params: {
+                    destination: '/' + path.join('/'),
+                    fileInfos: fileList
+                }
+            };
             if (fileList.length == 1) {
-                data = {
-                    params: {
-                        destination: '/' + path.join('/')
-                    }
-                };
-
-                fileObj = fileList[0];
-                typeof fileObj === 'object' && form.append('file', fileObj);
+                form.append('file', fileList[0]);
             } else {
                 for (var file in fileList) {
                     fileObj = fileList[file];
-                    typeof fileObj === 'object' && form.append('file-' + (1 + parseInt(file, null)), fileObj);
+                    form.append('file-' + (1 + parseInt(file, null)), fileObj);
                 }
             }
 
