@@ -1,7 +1,7 @@
 (function(angular) {
     "use strict";
     angular.module('FileManagerApp').service('fileNavigator', [
-        '$http', '$config', 'item', function ($http, $config, Item) {
+        '$http', 'fileManagerConfig', 'item', function ($http, fileManagerConfig, Item) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -25,7 +25,7 @@
             self.requesting = true;
             self.fileList = [];
             self.error = '';
-            $http.post($config.listUrl, data).success(function(data) {
+            $http.post(fileManagerConfig.listUrl, data).success(function(data) {
                 self.fileList = [];
                 angular.forEach(data.result, function(file) {
                     self.fileList.push(new Item(file, self.currentPath));

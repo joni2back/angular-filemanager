@@ -1,11 +1,11 @@
 (function(window, angular, $) {
     "use strict";
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-    '$scope', '$translate', '$cookies', '$config', 'item', 'fileNavigator', 'fileUploader',
-    function($scope, $translate, $cookies, $config, Item, FileNavigator, FileUploader) {
+    '$scope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
+    function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
 
-        $scope.config = $config;
-        $scope.appName = $config.appName;
+        $scope.config = fileManagerConfig;
+        $scope.appName = fileManagerConfig.appName;
         $scope.orderProp = ['model.type', 'model.name'];
         $scope.query = '';
         $scope.temp = new Item();
@@ -22,7 +22,7 @@
             if (locale) {
                 return $translate.use($cookies.language = locale);
             }
-            $translate.use($cookies.language || $config.defaultLang);
+            $translate.use($cookies.language || fileManagerConfig.defaultLang);
         };
 
         $scope.touch = function(item) {

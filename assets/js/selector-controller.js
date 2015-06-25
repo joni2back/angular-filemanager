@@ -1,10 +1,10 @@
 (function(angular, $) {
     "use strict";
     angular.module('FileManagerApp').controller('ModalFileManagerCtrl', [
-        '$scope', '$rootScope', '$config', 'fileNavigator',
-        function($scope, $rootScope, $config, FileNavigator) {
+        '$scope', '$rootScope', 'fileManagerConfig', 'fileNavigator',
+        function($scope, $rootScope, fileManagerConfig, FileNavigator) {
 
-        $scope.appName = $config.appName;
+        $scope.appName = fileManagerConfig.appName;
         $scope.orderProp = ['model.type', 'model.name'];
         $scope.fileNavigator = new FileNavigator();
 
