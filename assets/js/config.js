@@ -20,6 +20,7 @@
         enablePermissionsModule: true,
         enablePermissionsRecursive: true,
         enableCompressChooseName: false,
+        enableAsyncFileDownload: true,
 
         isEditableFilePattern: '\\.(txt|html|htm|aspx|asp|ini|pl|py|md|php|css|js|log|htaccess|htpasswd|json)$',
         isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',
