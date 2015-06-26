@@ -1,14 +1,14 @@
 <div id="context-menu" class="dropdown clearfix animated fast fadeIn">
     <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" style="">
-        <li><a href="" tabindex="-1" data-toggle="modal" data-target="#rename"><i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}</a></li>
-        <li><a href="" tabindex="-1" data-toggle="modal" data-target="#copy" data-ng-show="!temp.isFolder()"><i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}</a></li>
-        <li><a href="" tabindex="-1" data-toggle="modal" data-target="#edit" data-ng-show="temp.isEditable()" data-ng-click="temp.getContent();"><i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}</a></li>
-        <li ng-show="config.enablePermissionsModule"><a href="" tabindex="-1" data-toggle="modal" data-target="#changepermissions"><i class="glyphicon glyphicon-lock"></i> {{'permissions' | translate}}</a></li>
-        <li><a href="" tabindex="-1" data-toggle="modal" data-target="#compress" data-ng-show="temp.isCompressible()" ><i class="glyphicon glyphicon-compressed"></i> {{'compress' | translate}}</a></li>
-        <li><a href="" tabindex="-1" data-toggle="modal" data-target="#extract" ng-click="temp.tempModel.name=''" data-ng-show="temp.isExtractable()" ><i class="glyphicon glyphicon-export"></i> {{'extract' | translate}}</a></li>
-        <li><a href="" tabindex="-1" data-ng-show="!temp.isFolder()" data-ng-click="temp.download()"><i class="glyphicon glyphicon-download"></i> {{'download' | translate}}</a></li>
-        <li><a href="" tabindex="-1" data-ng-show="temp.isImage()" data-ng-click="temp.preview()"><i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.rename"><a href="" tabindex="-1" data-toggle="modal" data-target="#rename"><i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.copy && !temp.isFolder()"><a href="" tabindex="-1" data-toggle="modal" data-target="#copy"><i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.edit && temp.isEditable()"><a href="" tabindex="-1" data-toggle="modal" data-target="#edit" data-ng-click="temp.getContent();"><i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.changePermissions"><a href="" tabindex="-1" data-toggle="modal" data-target="#changepermissions"><i class="glyphicon glyphicon-lock"></i> {{'permissions' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.compress && temp.isCompressible()"><a href="" tabindex="-1" data-toggle="modal" data-target="#compress"><i class="glyphicon glyphicon-compressed"></i> {{'compress' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.extract && temp.isExtractable()"><a href="" tabindex="-1" data-toggle="modal" data-target="#extract" data-ng-click="temp.tempModel.name=''"><i class="glyphicon glyphicon-export"></i> {{'extract' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.download && !temp.isFolder()"><a href="" tabindex="-1" data-ng-click="temp.download()"><i class="glyphicon glyphicon-download"></i> {{'download' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.preview && temp.isImage()"><a href="" tabindex="-1" data-ng-click="temp.preview()"><i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}</a></li>
         <li class="divider"></li>
-        <li><a href="" tabindex="-1" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.delete"><a href="" tabindex="-1" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}</a></li>
     </ul>
 </div>
