@@ -17,9 +17,19 @@
         extractUrl: "bridges/php/handler.php",
         permissionsUrl: "bridges/php/handler.php",
 
-        enablePermissionsModule: true,
+        allowedActions: {
+            rename: true,
+            copy: true,
+            edit: true,
+            changePermissions: true,
+            compress: true,
+            extract: true,
+            download: true,
+            preview: true,
+            delete: true
+        },
+
         enablePermissionsRecursive: true,
-        enableCompressChooseName: false,
 
         isEditableFilePattern: '\\.(txt|html|htm|aspx|asp|ini|pl|py|md|php|css|js|log|htaccess|htpasswd|json|sql|xml|xslt|sh|rb|as|bat|cmd|coffee|php[3-6]|java|c|cbl|go|h|scala|vb)$',
         isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',
