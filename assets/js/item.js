@@ -4,13 +4,13 @@
 
         var Item = function(model, path) {
             var rawModel = {
-                name: '',
+                name: model && model.name || '',
                 path: path || [],
-                type: 'file',
-                size: 0,
-                date: new Date(model && model.date && Date.parse(model.date.replace('-','/','g'))),
+                type: model && model.type || 'file',
+                size: model && model.size || 0,
+                date: convertDate(model && model.date),
                 perms: new Chmod(model && model.rights),
-                content: '',
+                content: model && model.content || '',
                 recursive: false,
                 sizeKb: function() {
                     return Math.round(this.size / 1024, 1);
@@ -22,22 +22,25 @@
 
             this.error = '';
             this.inprocess = false;
+
             this.model = angular.copy(rawModel);
             this.tempModel = angular.copy(rawModel);
 
-            this.update = function() {
-                angular.extend(this.model, angular.copy(this.tempModel));
-                return this;
-            };
+            function convertDate(mysqlDate) {
+                var d = (mysqlDate || '').toString().split(/[- :]/);
+                return new Date(d[0], d[1] - 1, d[2], d[3], d[4], d[5]);
+            }
+        };
 
-            this.revert = function() {
-                angular.extend(this.tempModel, angular.copy(this.model));
-                this.error = '';
-                return this;
-            };
+        Item.prototype.update = function() {
+            angular.extend(this.model, angular.copy(this.tempModel));
+            return this;
+        };
 
-            angular.extend(this.model, model);
-            angular.extend(this.tempModel, model);
+        Item.prototype.revert = function() {
+            angular.extend(this.tempModel, angular.copy(this.model));
+            this.error = '';
+            return this;
         };
 
         Item.prototype.defineCallback = function(data, success, error) {

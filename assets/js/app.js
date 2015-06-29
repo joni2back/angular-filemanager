@@ -8,6 +8,13 @@
     "use strict";
     var app = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
+    app.directive('angularFileManager', ['$parse', function($parse) {
+        return {
+            restrict: 'EA',
+            templateUrl: 'index.html'
+        };
+    }]);
+
     app.directive('ngFile', ['$parse', function($parse) {
         return {
             restrict: 'A',

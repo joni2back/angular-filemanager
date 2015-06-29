@@ -130,6 +130,7 @@ $oResponse = new Response();
 
 if (Request::getApiParam('mode') === 'list') {
     $list = $oFtp->listFilesRaw(Request::getApiParam('path'));
+    $list = is_array($list) ? $list : array();
     $list = array_map(function($item) {
         $date = new \DateTime('now');
         $item['date'] = $date->format('Y-m-d H:i:s');

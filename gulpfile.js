@@ -6,6 +6,7 @@ var templateCache = require('gulp-angular-templatecache');  // caches the templa
 var uglify = require('gulp-uglify');                        // minifies JavaScript
 var minifyCss = require('gulp-minify-css');                 // minifies CSS
 var concat = require('gulp-concat');                        // concat JavaScript
+var path = require('path');
 
 // Vars
 var src = './assets/';
@@ -14,7 +15,10 @@ var dst = './dist/';
 gulp.task('cache-templates', function () {
   return gulp.src(src + 'templates/*.html')
     .pipe(templateCache('cached-templates.js', {
-      module: 'FileManagerApp'
+      module: 'FileManagerApp',
+      base: function(file) {
+        return 'assets/templates/' + path.basename(file.history);
+      }
     }))
     .pipe(gulp.dest(dst));
 });
@@ -22,6 +26,7 @@ gulp.task('cache-templates', function () {
 gulp.task('concat-uglify-js', function() {
   return gulp.src([
       'assets/js/app.js',
+      'assets/js/config.js',
       'assets/js/chmod.js',
       'assets/js/controller.js',
       'assets/js/filenavigator.js',

@@ -92,10 +92,10 @@
                   <div class="label label-success error-msg">{{'compression_started' | translate}}</div>
               </div>
               <div ng-hide="temp.success">
-                  <div ng-hide="config.allowedActions.compress">
+                  <div ng-hide="config.allowedActions.compressChooseName">
                     {{'sure_to_start_compression_with' | translate}} <b>{{temp.model.name}}</b> ?
                   </div>
-                  <div ng-show="config.allowedActions.compress">
+                  <div ng-show="config.allowedActions.compressChooseName">
                     <label class="radio">{{'enter_folder_name_for_compression' | translate}} <b>{{fileNavigator.currentPath.join('/')}}/{{temp.model.name}}</b></label>
                     <input class="form-control" data-ng-model="temp.tempModel.name" autofocus="autofocus">
                   </div>

@@ -24,7 +24,6 @@
             }
 
             self.requesting = true;
-
             return $http.post(fileManagerConfig.uploadUrl, angular.extend(form, data), {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
