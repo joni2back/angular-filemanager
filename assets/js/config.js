@@ -27,7 +27,7 @@
             extract: true,
             download: true,
             preview: true,
-            delete: true
+            remove: true
         },
 
         enablePermissionsRecursive: true,
