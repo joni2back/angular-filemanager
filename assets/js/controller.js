@@ -38,7 +38,7 @@
         $scope.smartClick = function(item) {
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
-            };
+            }
             if (item.isImage()) {
                 return item.preview();
             }
@@ -48,6 +48,7 @@
                 $('#edit').modal('show');
                 return;
             }
+            item.download(false);
         };
 
         $scope.edit = function(item) {
@@ -145,6 +146,10 @@
             });
             return found;
         };
+
+        $scope.$on('refreshNavigator', function() {
+            $scope.fileNavigator.refresh();
+        });
 
         $scope.changeLanguage($scope.getQueryParam('lang'));
         $scope.isWindows = $scope.getQueryParam('server') === 'Windows';

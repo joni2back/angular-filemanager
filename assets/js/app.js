@@ -11,7 +11,7 @@
     app.directive('angularFileManager', ['$parse', function($parse) {
         return {
             restrict: 'EA',
-            templateUrl: 'assets/templates/index.html'
+            templateUrl: 'index.html'
         };
     }]);
 
@@ -42,6 +42,21 @@
             });
         };
     }]);
+
+    app.directive('angularFileManager', function() {
+        return {
+            restrict: 'EA',
+            scope: {
+                reload: '='
+            },
+            templateUrl: 'index.html',
+            link: function(scope, element, attrs) {
+                scope.$watch('reload', function (value) {
+                    scope.$broadcast('refreshNavigator');
+                });
+            }
+        };
+    });
 
     app.filter('strLimit', ['$filter', function($filter) {
         /*going to use css3 ellipsis instead of this*/
