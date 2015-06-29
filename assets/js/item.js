@@ -1,6 +1,6 @@
 (function(window, angular, $) {
     "use strict";
-    angular.module('FileManagerApp').factory('item', ['$http', '$translate', '$config', 'chmod', function($http, $translate, $config, Chmod) {
+    angular.module('FileManagerApp').factory('item', ['$http', '$translate', 'fileManagerConfig', 'chmod', function($http, $translate, fileManagerConfig, Chmod) {
 
         var Item = function(model, path) {
             var rawModel = {
@@ -66,7 +66,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                return $http.post($config.createFolderUrl, data).success(function(data) {
+                return $http.post(fileManagerConfig.createFolderUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -89,7 +89,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                return $http.post($config.renameUrl, data).success(function(data) {
+                return $http.post(fileManagerConfig.renameUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -112,7 +112,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                return $http.post($config.copyUrl, data).success(function(data) {
+                return $http.post(fileManagerConfig.copyUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -135,7 +135,7 @@
             if (self.tempModel.name.trim()) {
                 self.inprocess = true;
                 self.error = '';
-                return $http.post($config.compressUrl, data).success(function(data) {
+                return $http.post(fileManagerConfig.compressUrl, data).success(function(data) {
                     self.defineCallback(data, success, error);
                 }).error(function(data) {
                     self.error = data.result && data.result.error ?
@@ -159,7 +159,7 @@
 
             self.inprocess = true;
             self.error = '';
-            return $http.post($config.extractUrl, data).success(function(data) {
+            return $http.post(fileManagerConfig.extractUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -203,7 +203,7 @@
             }};
             self.inprocess = true;
             self.error = '';
-            return $http.post($config.getContentUrl, data).success(function(data) {
+            return $http.post(fileManagerConfig.getContentUrl, data).success(function(data) {
                 self.tempModel.content = self.model.content = data.result;
                 self.defineCallback(data, success, error);
             }).error(function(data) {
@@ -224,7 +224,7 @@
             }};
             self.inprocess = true;
             self.error = '';
-            return $http.post($config.removeUrl, data).success(function(data) {
+            return $http.post(fileManagerConfig.removeUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -246,7 +246,7 @@
             self.inprocess = true;
             self.error = '';
 
-            return $http.post($config.editUrl, data).success(function(data) {
+            return $http.post(fileManagerConfig.editUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -269,7 +269,7 @@
             }};
             self.inprocess = true;
             self.error = '';
-            return $http.post($config.permissionsUrl, data).success(function(data) {
+            return $http.post(fileManagerConfig.permissionsUrl, data).success(function(data) {
                 self.defineCallback(data, success, error);
             }).error(function(data) {
                 self.error = data.result && data.result.error ?
@@ -290,11 +290,11 @@
         };
 
         Item.prototype.isEditable = function() {
-            return !this.isFolder() && RegExp($config.isEditableFilePattern).test(this.model.name.toLowerCase());
+            return !this.isFolder() && RegExp(fileManagerConfig.isEditableFilePattern).test(this.model.name.toLowerCase());
         };
 
         Item.prototype.isImage = function() {
-            return RegExp($config.isImageFilePattern).test(this.model.name.toLowerCase());
+            return RegExp(fileManagerConfig.isImageFilePattern).test(this.model.name.toLowerCase());
         };
 
         Item.prototype.isCompressible = function() {
@@ -302,7 +302,7 @@
         };
 
         Item.prototype.isExtractable = function() {
-            return !this.isFolder() && RegExp($config.isExtractableFilePattern).test(this.model.name);
+            return !this.isFolder() && RegExp(fileManagerConfig.isExtractableFilePattern).test(this.model.name);
         };
 
         return Item;
