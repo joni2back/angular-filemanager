@@ -4,16 +4,6 @@
     '$scope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
     function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
 
-        $scope.config = fileManagerConfig;
-        $scope.appName = fileManagerConfig.appName;
-        $scope.orderProp = ['model.type', 'model.name'];
-        $scope.query = '';
-        $scope.temp = new Item();
-        $scope.fileNavigator = new FileNavigator();
-        $scope.fileUploader = FileUploader;
-        $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
-
         $scope.setTemplate = function(name) {
             $scope.viewTemplate = $cookies.viewTemplate = name;
         };
@@ -148,12 +138,27 @@
         };
 
         $scope.$on('refreshNavigator', function() {
-            $scope.fileNavigator.refresh();
+            init();
         });
 
-        $scope.changeLanguage($scope.getQueryParam('lang'));
-        $scope.isWindows = $scope.getQueryParam('server') === 'Windows';
-        $scope.fileNavigator.refresh();
+        var init = function() {
+            $scope.config = fileManagerConfig;
+            $scope.appName = fileManagerConfig.appName;
+            $scope.orderProp = ['model.type', 'model.name'];
+            $scope.query = '';
+            $scope.temp = new Item();
+            $scope.fileNavigator = new FileNavigator();
+            $scope.fileNavigatorHistory = [];
+            $scope.fileUploader = FileUploader;
+            $scope.uploadFileList = [];
+            $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
+
+            $scope.changeLanguage($scope.getQueryParam('lang'));
+            $scope.isWindows = $scope.getQueryParam('server') === 'Windows';
+            $scope.fileNavigator.refresh();
+        };
+
+        init();
 
     }]);
 })(window, angular, jQuery);
