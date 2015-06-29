@@ -31,6 +31,7 @@
         },
 
         enablePermissionsRecursive: true,
+        enableAsyncFileDownload: true,
 
         isEditableFilePattern: '\\.(txt|html|htm|aspx|asp|ini|pl|py|md|php|css|js|log|htaccess|htpasswd|json|sql|xml|xslt|sh|rb|as|bat|cmd|coffee|php[3-6]|java|c|cbl|go|h|scala|vb)$',
         isImageFilePattern: '\\.(jpg|jpeg|gif|bmp|png|svg|tiff)$',

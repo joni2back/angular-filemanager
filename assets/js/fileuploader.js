@@ -6,15 +6,25 @@
         self.requesting = false; 
         self.upload = function(fileList, path, success, error) {
             var form = new window.FormData();
- 
-            form.append('destination', '/' + path.join('/'));
-            for (var file in fileList) {
-                var fileObj = fileList[file];
-                typeof fileObj === 'object' && form.append('file-' + (1 + parseInt(file, null)), fileObj);
+
+            var fileObj, data;
+            data = {
+                params: {
+                    destination: '/' + path.join('/'),
+                    fileInfos: fileList
+                }
+            };
+            if (fileList.length == 1) {
+                form.append('file', fileList[0]);
+            } else {
+                for (var file in fileList) {
+                    fileObj = fileList[file];
+                    form.append('file-' + (1 + parseInt(file, null)), fileObj);
+                }
             }
 
             self.requesting = true;
-            return $http.post(fileManagerConfig.uploadUrl, form, {
+            return $http.post(fileManagerConfig.uploadUrl, angular.extend(form, data), {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             }).success(function(data) {
