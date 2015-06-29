@@ -9,6 +9,6 @@
         <li data-ng-show="config.allowedActions.download && !temp.isFolder()"><a href="" tabindex="-1" data-ng-click="temp.download()"><i class="glyphicon glyphicon-download"></i> {{'download' | translate}}</a></li>
         <li data-ng-show="config.allowedActions.preview && temp.isImage()"><a href="" tabindex="-1" data-ng-click="temp.preview()"><i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}</a></li>
         <li class="divider"></li>
-        <li data-ng-show="config.allowedActions.delete"><a href="" tabindex="-1" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}</a></li>
+        <li data-ng-show="config.allowedActions.remove"><a href="" tabindex="-1" data-toggle="modal" data-target="#delete"><i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}</a></li>
     </ul>
 </div>
