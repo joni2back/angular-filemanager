@@ -46,7 +46,7 @@
 
         FileNavigator.prototype.buildTree = function(path) {
             var self = this;
-            var recursive = function(parent, file, path) {
+            function recursive(parent, file, path) {
                 var absName = path ? (path + '/' + file.name) : file.name;
                 if (parent.name.trim() && path.trim().indexOf(parent.name) !== 0) {
                     parent.nodes = [];
@@ -63,22 +63,15 @@
                     }
                     parent.nodes.push({name: absName, nodes: []});
                 }
-
-                // sort nodes by name
                 parent.nodes = parent.nodes.sort(function(a, b) {
-                    if (a.name < b.name) {
-                        return -1;
-                    } else if (a.name > b.name) {
-                        return 1;
-                    }
-                    return 0;
+                    return a.name < b.name ? -1 : a.name === b.name ? 0 : 1;
                 });
             };
 
             !self.history.length && self.history.push({name: path, nodes: []});
             for (var o in self.fileList) {
-                var file = self.fileList[o].model;
-                file.type === 'dir' && recursive(self.history[0], file, path);
+                var item = self.fileList[o];
+                item.isFolder() && recursive(self.history[0], item.model, path);
             }
         };
 
