@@ -1,5 +1,5 @@
 /*!
- * Angular FileManager v0.9 (https://github.com/joni2back/angular-filemanager)
+ * Angular FileManager v1.0.1 (https://github.com/joni2back/angular-filemanager)
  * Jonas Sciangula Street <joni2back@gmail.com>
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
@@ -348,8 +348,8 @@ input, select, textarea,
 }
 
 .dropdown-menu.dropdown-right-click {
-    display:block; 
-    position:static; 
+    display:block;
+    position:static;
     margin-bottom:5px;
     font-size:1em;
 }
