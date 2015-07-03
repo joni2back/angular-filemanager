@@ -120,9 +120,9 @@ class FileManager extends Ftp
 ExceptionCatcherJSON::register();
 
 $oFtp = new FileManager(array(
-    'hostname' => '',
-    'username' => '',
-    'password' => ''
+    'hostname' => 'zendelsolutions.com',
+    'username' => 'demofilemanager@zendelsolutions.com',
+    'password' => 'FMD3m_J56'
 ));
 
 $oFtp->connect();

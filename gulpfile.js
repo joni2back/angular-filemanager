@@ -9,32 +9,23 @@ var concat = require('gulp-concat');                        // concat JavaScript
 var path = require('path');
 
 // Vars
-var src = './assets/';
-var dst = './dist/';
+var src = 'assets/';
+var dst = 'dist/';
+var tplPath = 'assets/templates' //must be same as fileManagerConfig.tplPath
 
 gulp.task('cache-templates', function () {
-  return gulp.src(src + 'templates/*.html')
+  return gulp.src(tplPath + '/*.html')
     .pipe(templateCache('cached-templates.js', {
       module: 'FileManagerApp',
       base: function(file) {
-        return 'assets/templates/' + path.basename(file.history);
+        return tplPath + '/' + path.basename(file.history);
       }
     }))
     .pipe(gulp.dest(dst));
 });
 
 gulp.task('concat-uglify-js', function() {
-  return gulp.src([
-      'assets/js/app.js',
-      'assets/js/config.js',
-      'assets/js/chmod.js',
-      'assets/js/controller.js',
-      'assets/js/filenavigator.js',
-      'assets/js/fileuploader.js',
-      'assets/js/item.js',
-      'assets/js/selector-controller.js',
-      'assets/js/translations.js'
-    ])
+  return gulp.src(src + 'js/*.js')
     .pipe(concat('angular-filemanager.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dst))

@@ -15,7 +15,7 @@
         $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
 
         $scope.setTemplate = function(name) {
-            $scope.viewTemplate = $cookies.viewTemplate = name;
+            $scope.viewTemplate = $cookies.viewTemplate = $scope.config.tplPath + name;
         };
 
         $scope.changeLanguage = function (locale) {

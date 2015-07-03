@@ -306,8 +306,8 @@
       </div>
       <div class="modal-body">
         <div>
-            <div ng-include="'assets/templates/current-folder-breadcrumb.html'"></div>
-            <div ng-include="'assets/templates/main-table-modal.html'"></div>
+            <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'"></div>
+            <div ng-include="config.tplPath + '/main-table-modal.html'"></div>
         </div>
       </div>
       <div class="modal-footer">
@@ -334,5 +334,7 @@
     </div>
 </script>
 <script type="text/ng-template" id="error-bar">
-    <div class="label label-danger error-msg pull-left animated fadeIn" data-ng-show="temp.error"><i class="glyphicon glyphicon-remove-circle"></i> {{temp.error}}</div>
+    <div class="label label-danger error-msg pull-left animated fadeIn" data-ng-show="temp.error">
+      <i class="glyphicon glyphicon-remove-circle"></i> {{temp.error}}
+    </div>
 </script>

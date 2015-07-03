@@ -42,7 +42,7 @@
                 {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}
             </td>
             <td class="text-right">
-                <div ng-include="'assets/templates/item-toolbar.html'"></div>
+                <div ng-include="config.tplPath + '/item-toolbar.html'"></div>
             </td>
         </tr>
     </tbody>
