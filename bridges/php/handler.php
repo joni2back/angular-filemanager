@@ -33,8 +33,7 @@ abstract class Request
     public static function getQuery($param = null, $default = null)
     {
         if ($param) {
-            return isset($_GET[$param]) ?
-                $_GET[$param] : $default;
+            return isset($_GET[$param]) ? $_GET[$param] : $default;
         }
         return $_GET;
     }
