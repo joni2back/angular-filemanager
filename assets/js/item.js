@@ -16,7 +16,7 @@
                     return Math.round(this.size / 1024, 1);
                 },
                 fullPath: function() {
-                    return ('/' + this.path.join('/') + '/' + this.name).replace(RegExp('\/\/'), '/');
+                    return ('/' + this.path.join('/') + '/' + this.name).replace(/\/\//, '/');
                 }
             };
 
@@ -283,11 +283,11 @@
         };
 
         Item.prototype.isEditable = function() {
-            return !this.isFolder() && RegExp(fileManagerConfig.isEditableFilePattern).test(this.model.name.toLowerCase());
+            return !this.isFolder() && fileManagerConfig.isEditableFilePattern.test(this.model.name);
         };
 
         Item.prototype.isImage = function() {
-            return RegExp(fileManagerConfig.isImageFilePattern).test(this.model.name.toLowerCase());
+            return fileManagerConfig.isImageFilePattern.test(this.model.name);
         };
 
         Item.prototype.isCompressible = function() {
@@ -295,7 +295,7 @@
         };
 
         Item.prototype.isExtractable = function() {
-            return !this.isFolder() && RegExp(fileManagerConfig.isExtractableFilePattern).test(this.model.name);
+            return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
         };
 
         return Item;

@@ -77,7 +77,7 @@
 
         FileNavigator.prototype.folderClickByName = function(fullPath) {
             var self = this;
-            fullPath = fullPath.replace(RegExp("^\/*", "g"), '').split('/');
+            fullPath = fullPath.replace(/^\/*/g, '').split('/');
             self.currentPath = fullPath && fullPath[0] === "" ? [] : fullPath;
             self.refresh();
         };
