@@ -7,7 +7,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager-mobile.png)
 
 ### Features
-  - Multilanguage (English / Spanish / Portuguese)
+  - Multilanguage (English / Spanish / Portuguese / French)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Search files
