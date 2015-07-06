@@ -7,6 +7,7 @@
             english: "English",
             spanish: "Spanish",
             portuguese: "Portuguese",
+            french: "French",
             confirm: "Confirm",
             cancel: "Cancel",
             close: "Close",
@@ -87,6 +88,7 @@
             english: "Inglês",
             spanish: "Espanhol",
             portuguese: "Portugues",
+            french: "Francês",
             confirm: "Confirmar",
             cancel: "Cancelar",
             close: "Desligar",
@@ -167,6 +169,7 @@
             english: "Ingles",
             spanish: "Español",
             portuguese: "Portugues",
+            french: "Francés",
             confirm: "Confirmar",
             cancel: "Cancelar",
             close: "Cerrar",
@@ -242,10 +245,11 @@
         });
         $translateProvider.translations('fr', {
             filemanager: "Gestionnaire de fichier",
-            language: "Langage",
+            language: "Langue",
             english: "Anglais",
             spanish: "Espagnol",
             portuguese: "Portugais",
+            french: "Français",
             confirm: "Confirmer",
             cancel: "Annuler",
             close: "Fermer",
@@ -321,3 +325,4 @@
         });
     }]);
 })(angular);
+x
