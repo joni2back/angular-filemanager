@@ -6,12 +6,19 @@ var templateCache = require('gulp-angular-templatecache');  // caches the templa
 var uglify = require('gulp-uglify');                        // minifies JavaScript
 var minifyCss = require('gulp-minify-css');                 // minifies CSS
 var concat = require('gulp-concat');                        // concat JavaScript
+var del = require('del');
 var path = require('path');
 
 // Vars
 var src = 'assets/';
 var dst = 'dist/';
 var tplPath = 'assets/templates' //must be same as fileManagerConfig.tplPath
+
+gulp.task('clean', function (cb) {
+  del([
+      dst + '/*',
+  ], cb);
+});
 
 gulp.task('cache-templates', function () {
   return gulp.src(tplPath + '/*.html')
@@ -37,5 +44,5 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('default', ['cache-templates', 'concat-uglify-js', 'minify-css']);
+gulp.task('default', ['clean', 'cache-templates', 'concat-uglify-js', 'minify-css']);
 gulp.task('build', ['default']);
