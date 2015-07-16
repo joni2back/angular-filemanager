@@ -1,8 +1,8 @@
 ## angular-filemanager API docs
 
-#### Listing
-    URL: fileManagerConfig.listUrl, Method: POST
-##### JSON Request content
+#### Listing (URL: fileManagerConfig.listUrl, Method: POST)
+
+**JSON Request content**
 ```json
 { "params": {
     "mode": "list",
@@ -10,7 +10,7 @@
     "path": "/public_html"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": [ 
     {
@@ -35,9 +35,8 @@
 ]}
 ```
 --------------------
-#### Rename / Move
-    URL: fileManagerConfig.renameUrl, Method: POST
-##### JSON Request content
+#### Rename / Move (URL: fileManagerConfig.renameUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "rename",
@@ -45,14 +44,13 @@
     "newPath": "/public_html/index2.php"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Copy
-    URL: fileManagerConfig.copyUrl, Method: POST
-##### JSON Request content
+#### Copy (URL: fileManagerConfig.copyUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "copy",
@@ -60,28 +58,26 @@
     "newPath": "/public_html/index-copy.php"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Remove
-    URL: fileManagerConfig.removeUrl, Method: POST
-##### JSON Request content
+#### Remove (URL: fileManagerConfig.removeUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "delete",
     "path": "/public_html/index.php",
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Edit file
-    URL: fileManagerConfig.editUrl, Method: POST
-##### JSON Request content
+#### Edit file (URL: fileManagerConfig.editUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "savefile",
@@ -89,28 +85,26 @@
     "path": "/public_html/index.php",
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Get content of a file
-    URL: fileManagerConfig.getContentUrl, Method: POST
-##### JSON Request content
+#### Get content of a file (URL: fileManagerConfig.getContentUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "editfile",
     "path": "/public_html/index.php"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": "<?php echo random(); ?>" }
 ```
 --------------------
-#### Create folder
-    URL: fileManagerConfig.createFolderUrl, Method: POST
-##### JSON Request content
+#### Create folder (URL: fileManagerConfig.createFolderUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "addfolder",
@@ -118,14 +112,13 @@
     "path": "/public_html"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Set permissions
-    URL: fileManagerConfig.permissionsUrl, Method: POST
-##### JSON Request content
+#### Set permissions (URL: fileManagerConfig.permissionsUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "changepermissions",
@@ -135,14 +128,13 @@
     "recursive": false
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Compress file
-    URL: fileManagerConfig.compressUrl, Method: POST
-##### JSON Request content
+#### Compress file (URL: fileManagerConfig.compressUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "compress",
@@ -150,14 +142,13 @@
     "destination": "/public_html/backups"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Extract file
-    URL: fileManagerConfig.extractUrl, Method: POST
-##### JSON Request content
+#### Extract file (URL: fileManagerConfig.extractUrl, Method: POST)
+**JSON Request content**
 ```json
 { "params": {
     "mode": "extract",
@@ -166,36 +157,49 @@
     "sourceFile": "/public_html/compressed.zip"
 }}
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
 --------------------
-#### Upload file
-    URL: fileManagerConfig.uploadUrl, Method: POST, Content-Type: multipart/form-data
-    Unlimited file upload, each item will be enumerated as file-1, file-2, etc.
-##### Http post params
+#### Upload file (URL: fileManagerConfig.uploadUrl, Method: POST, Content-Type: multipart/form-data)
+
+**Http post request payload**
 ```
-[fileManagerConfig.uploadUrl]?destination=/public_html/image.jpg&file-1={..}&file-2={...}
+------WebKitFormBoundaryqBnbHc6RKfXVAf9j
+Content-Disposition: form-data; name="destination"
+/
+
+------WebKitFormBoundaryqBnbHc6RKfXVAf9j
+Content-Disposition: form-data; name="file-0"; filename="github.txt"
+Content-Type: text/plain
 ```
-##### JSON Response
+**JSON Response**
 ```json
 { "result": { "success": true, "error": null } }
 ```
+
+Unlimited file items to upload, each item will be enumerated as file-0, file-1, etc.
+
+For example, you may retrieve the file in PHP using:
+```php
+$destination = $_POST['destination'];
+$_FILES['file-0'] or foreach($_FILES)
+```
 --------------------
-#### Download / Preview file
-    URL: fileManagerConfig.downloadFileUrl, Method: GET
-##### Http query params
+#### Download / Preview file (URL: fileManagerConfig.downloadFileUrl, Method: GET)
+**Http query params**
 ```
 [fileManagerConfig.downloadFileUrl]?mode=download&preview=true&path=/public_html/image.jpg
 ```
-##### Response
+**Response**
 ```
 -File content
 ```
 --------------------
 ##### Errors / Exceptions
 Any backend error should be with an error 500 HTTP code.
+
 Btw, you can also report errors with a 200 response both using this json structure
 ```json
 { "result": {
