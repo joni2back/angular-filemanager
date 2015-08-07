@@ -17,8 +17,12 @@ body {
     line-height: 100%;
 }
 
-.navbar-collapse.collapse {
-    height:0px!important;
+.navbar .navbar-form {
+    border-bottom: none;
+    border-top: none;
+    box-shadow: none;
+    padding: 0 10px;
+    margin-top: 10px;
 }
 
 .breadcrumb {
@@ -27,6 +31,22 @@ body {
 
 .breadcrumb .btn {
     margin-top:-5px;
+}
+
+.btn.btn-default {
+    color: #444;
+    background-color: #FAFAFA;
+}
+
+.btn {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+    font-weight: 500;
+    letter-spacing: .01em;
+    border: none!important;
+}
+
+*, *:focus {
+    outline: 0!important;
 }
 
 textarea.code {
