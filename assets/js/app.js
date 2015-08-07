@@ -1,5 +1,5 @@
 /*!
- * Angular FileManager v1.0.1 (https://github.com/joni2back/angular-filemanager)
+ * Angular FileManager v1.1.0 (https://github.com/joni2back/angular-filemanager)
  * Jonas Sciangula Street <joni2back@gmail.com>
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */

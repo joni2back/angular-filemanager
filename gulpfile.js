@@ -13,16 +13,15 @@ var path = require('path');
 var src = 'assets/';
 var dst = 'dist/';
 var tplPath = 'assets/templates' //must be same as fileManagerConfig.tplPath
+var jsFile = 'angular-filemanager.min.js';
 
 gulp.task('clean', function (cb) {
-  del([
-      dst + '/*',
-  ], cb);
+  del(dst + '/*', cb);
 });
 
 gulp.task('cache-templates', function () {
   return gulp.src(tplPath + '/*.html')
-    .pipe(templateCache('cached-templates.js', {
+    .pipe(templateCache(jsFile, {
       module: 'FileManagerApp',
       base: function(file) {
         return tplPath + '/' + path.basename(file.history);
@@ -31,11 +30,14 @@ gulp.task('cache-templates', function () {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('concat-uglify-js', function() {
-  return gulp.src(src + 'js/*.js')
-    .pipe(concat('angular-filemanager.min.js'))
+gulp.task('concat-uglify-js', ['clean', 'cache-templates'], function() {
+  return gulp.src([
+      src + 'js/*.js',
+      dst + '/' + jsFile
+    ])
+    .pipe(concat(jsFile))
     .pipe(uglify())
-    .pipe(gulp.dest(dst))
+    .pipe(gulp.dest(dst));
 });
 
 gulp.task('minify-css', function() {
@@ -44,5 +46,5 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('default', ['clean', 'cache-templates', 'concat-uglify-js', 'minify-css']);
+gulp.task('default', ['concat-uglify-js', 'minify-css']);
 gulp.task('build', ['default']);
