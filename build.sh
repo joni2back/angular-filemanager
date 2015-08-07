@@ -10,7 +10,7 @@ MINIFIED_FILE="angular-filemanager.min.js"
 DIR_DIST="dist"
 MINIFIED_PATH="$DIR_DIST/$MINIFIED_FILE"
 
-find assets/js ! -name "$MINIFIED_FILE" -name "*.js" \
+find src/js ! -name "$MINIFIED_FILE" -name "*.js" \
     | sort \
     | xargs -I "{}" cat "{}"  > "$MINIFIED_PATH"
 
