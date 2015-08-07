@@ -36,7 +36,7 @@
                 {{item.model.sizeKb()}}kb
             </td>
             <td class="hidden-sm hidden-xs">
-                {{item.model.date.toString()}}
+                {{item.model.date | formatDate }}
             </td>
             <td class="hidden-sm hidden-xs">
                 {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}

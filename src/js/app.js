@@ -53,6 +53,14 @@
         };
     }]);
 
+    app.filter('formatDate', ['$filter', function($filter) {
+        return function(input, limit) {
+            return input instanceof Date ?
+                input.toISOString().substring(0, 19).replace('T', ' '):
+                input.toString();
+        };
+    }]);
+
     /**
      * jQuery inits
      */
