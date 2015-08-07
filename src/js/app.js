@@ -56,7 +56,7 @@
     /**
      * jQuery inits
      */
-    var menuSelectors = '.main-navigation .table-files td a, .iconset a.thumbnail';
+    var menuSelectors = '.main-navigation .table-files td:first-child, .iconset a.thumbnail';
 
     $(window.document).on('shown.bs.modal', '.modal', function() {
         var self = this;

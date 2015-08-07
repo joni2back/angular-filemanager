@@ -24,5 +24,6 @@
     "angular-cookies": "~1.3.17",
     "bootstrap": "~3.3.2",
     "jquery": "~2.1.3"
+    "bootswatch": "3.3.5"
   }
 }

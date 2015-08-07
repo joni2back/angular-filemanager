@@ -1,6 +1,32 @@
 body {
-    padding-top: 50px;
-    font-size: 13px;
+    padding-top: 55px;
+    font-size: 14px;
+}
+
+.navbar {
+    min-height: 32px;
+}
+
+.navbar .navbar-toggle {
+    padding: 5px 10px;
+}
+
+.navbar .navbar-brand {
+    font-size: inherit;
+    height: 55px;
+    line-height: 100%;
+}
+
+.navbar-collapse.collapse {
+    height:0px!important;
+}
+
+.breadcrumb {
+    border-radius: 0;
+}
+
+.breadcrumb .btn {
+    margin-top:-5px;
 }
 
 textarea.code {
@@ -19,29 +45,6 @@ textarea.code {
     padding: 5px;
     margin-top: 10px;
     text-align: left;
-}
-
-* {
-    outline:none!important;
-}
-
-div, span {
-    cursor:default;
-}
-
-a:hover, a:hover *,
-a:focus, a:focus *,
-a, a * {
-    cursor:pointer;
-    text-decoration: none;
-}
-
-input, select, textarea,
-.btn, .input-sm,
-.dropdown-menu,
-.panel, .panel-heading,
-.modal .modal-content {
-    border-radius: 0!important;
 }
 
 .bold {
@@ -65,10 +68,30 @@ input, select, textarea,
     display: none;
 }
 
+.btn-go-back {
+    margin-top: -5px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.table-modal-condensed {
+
+}
+
+.modal .modal-header {
+    padding-bottom:0;
+}
+
+.modal .breadcrumb {
+    margin-bottom: 10px;
+}
+
 @media (min-width: 768px) {
     .sidebar {
         position: fixed;
-        top: 51px;
+        top: 50px;
         bottom: 0;
         left: 0;
         z-index: 1000;
@@ -76,7 +99,7 @@ input, select, textarea,
         padding: 5px 0;
         overflow-x: hidden;
         overflow-y: auto;
- /* Scrollable contents if viewport is shorter than content. */
+
         background-color: #f5f5f5;
         border-right: 1px solid #eee;
     }
@@ -85,6 +108,12 @@ input, select, textarea,
 @media (max-width: 768px) {
     .navbar-form .btn {
         margin-top: 5px;
+    }
+}
+
+@media (max-width: 475px) {
+    .table.table-files .btn {
+        display: none;
     }
 }
 
@@ -103,7 +132,7 @@ input, select, textarea,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     color: #fff;
-    background-color: #428bca;
+    background-color: #2196F3;
 }
 
 .main {
@@ -153,8 +182,8 @@ input, select, textarea,
     margin-right: 5px;
 }
 
-.table-files td {
-    padding: 3px 8px!important;
+.table.table-files td {
+    /*padding: 3px 8px!important;*/
     vertical-align: middle!important;
 }
 
@@ -186,6 +215,7 @@ input, select, textarea,
     margin: 0;
     padding: 0;
     padding: 10px 0;
+    border: none;
 }
 
 .iconset .thumbnail .item-icon {

@@ -1,9 +1,8 @@
-<table class="table table-striped table-hover mb0 table-files">
+<table class="table table-condensed table-modal-condensed table-hover mb0 table-files">
     <thead>
         <tr>
             <th>{{"name" | translate}}</th>
-            <th class="hidden-sm hidden-xs">{{"date" | translate}}</th>
-            <th class="text-right">{{"actions" | translate}}</th>
+            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody class="file-item">
@@ -31,9 +30,6 @@
                     <i class="glyphicon glyphicon-folder-close"></i>
                     {{item.model.name | strLimit : 32}}
                 </a>
-            </td>
-            <td class="hidden-sm hidden-xs">
-                {{item.model.date.toString()}}
             </td>
             <td class="text-right">
                 <button class="btn btn-sm btn-default" data-ng-click="select(item, temp)"><i class="glyphicon glyphicon-hand-up"></i> {{"select_this" | translate}}</button>
