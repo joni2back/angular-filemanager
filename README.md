@@ -1,10 +1,12 @@
 ## angular-filemanager
-File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](https://github.com/joni2back)
+
+A very smart filemanager to manage your files in the browser developed in AngularJS with Material-Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
 
 #### [Try the DEMO](http://zendelsolutions.com/zendel/projects/angular-filemanager)
 ---------
-![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager.png)
-![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/angular-filemanager-mobile.png)
+![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
+![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot2.png)
+![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot3.png)
 
 ### Features
   - Multilanguage (English / Spanish / Portuguese / French)
@@ -23,7 +25,7 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
   - Extend backend bridges (PHP, Java, Python, Node, .Net)
 
 ### Backend API
-[Read the documentation](API.md)
+[Read the docs](API.md)
 
 ### Use in your existing project
 **1) Install and use**
@@ -32,12 +34,15 @@ File manager developed with AngularJS and Bootstrap by [Jonas Sciangula Street](
 **2) Include the dependencies in your project**
 ```html
 <!-- third party -->
-<script src="/bower_components/angular-translate/angular-translate.min.js"></script>
-<script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
 <!-- angular-filemanager -->
-<link rel="stylesheet" href="/bower_components/angular-filemanager/dist/angular-filemanager.css">
-<script src="/bower_components/angular-filemanager/dist/angular-filemanager.min.js"></script>
-<script src="/bower_components/angular-filemanager/dist/cached-templates.js"></script>
+<script src="dist/angular-filemanager.min.js"></script>
+<link rel="stylesheet" href="dist/angular-filemanager.css">
 ```
 
 **3) Use the angular directive in your HTML**

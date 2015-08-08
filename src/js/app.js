@@ -53,10 +53,18 @@
         };
     }]);
 
+    app.filter('formatDate', ['$filter', function($filter) {
+        return function(input, limit) {
+            return input instanceof Date ?
+                input.toISOString().substring(0, 19).replace('T', ' '):
+                input.toString();
+        };
+    }]);
+
     /**
      * jQuery inits
      */
-    var menuSelectors = '.main-navigation .table-files td a, .iconset a.thumbnail';
+    var menuSelectors = '.main-navigation .table-files td:first-child, .iconset a.thumbnail';
 
     $(window.document).on('shown.bs.modal', '.modal', function() {
         var self = this;
