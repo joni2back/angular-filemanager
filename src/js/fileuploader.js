@@ -20,9 +20,9 @@
                     "Content-Type": undefined
                 }
             }).success(function(data) {
-                self.inprocess = false;
+                self.requesting = false;
             }).error(function(data) {
-                self.inprocess = false;
+                self.requesting = false;
             });
         };
     }]);

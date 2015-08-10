@@ -25,7 +25,7 @@
             </td>
         </tr>
         <tr data-ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" data-ng-show="!fileNavigator.requesting">
-            <td ng-right-click="smartRightClick(item)">
+            <td ng-right-click="touch(item)">
                 <a href="" data-ng-click="smartClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
                     <i class="glyphicon glyphicon-folder-close" data-ng-show="item.model.type === 'dir'"></i>
                     <i class="glyphicon glyphicon-file" data-ng-show="item.model.type === 'file'"></i>

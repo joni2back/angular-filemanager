@@ -32,7 +32,6 @@
                 });
                 self.requesting = false;
                 self.buildTree(path);
-
                 if (data.error) {
                     self.error = data.error;
                     return typeof error === 'function' && error(data);
@@ -46,14 +45,14 @@
 
         FileNavigator.prototype.buildTree = function(path) {
             var self = this;
-            function recursive(parent, file, path) {
-                var absName = path ? (path + '/' + file.name) : file.name;
+            function recursive(parent, item, path) {
+                var absName = path ? (path + '/' + item.model.name) : item.model.name;
                 if (parent.name.trim() && path.trim().indexOf(parent.name) !== 0) {
                     parent.nodes = [];
                 }
                 if (parent.name !== path) {
                     for (var i in parent.nodes) {
-                        recursive(parent.nodes[i], file, path);
+                        recursive(parent.nodes[i], item, path);
                     }
                 } else {
                     for (var e in parent.nodes) {
@@ -61,7 +60,7 @@
                             return;
                         }
                     }
-                    parent.nodes.push({name: absName, nodes: []});
+                    parent.nodes.push({item: item, name: absName, nodes: []});
                 }
                 parent.nodes = parent.nodes.sort(function(a, b) {
                     return a.name < b.name ? -1 : a.name === b.name ? 0 : 1;
@@ -71,23 +70,18 @@
             !self.history.length && self.history.push({name: path, nodes: []});
             for (var o in self.fileList) {
                 var item = self.fileList[o];
-                item.isFolder() && recursive(self.history[0], item.model, path);
+                item.isFolder() && recursive(self.history[0], item, path);
             }
-        };
-
-        FileNavigator.prototype.folderClickByName = function(fullPath) {
-            var self = this;
-            fullPath = fullPath.replace(/^\/*/g, '').split('/');
-            self.currentPath = fullPath && fullPath[0] === "" ? [] : fullPath;
-            self.refresh();
         };
 
         FileNavigator.prototype.folderClick = function(item) {
             var self = this;
-            if (item && item.model.type === 'dir') {
-                self.currentPath.push(item.model.name);
-                self.refresh();
+            self.currentPath = [];
+            if (item && item.isFolder()) {
+                self.currentPath = item.model.fullPath().split('/').splice(1);
+                //self.currentPath.push(item.model.name);
             }
+            self.refresh();
         };
 
         FileNavigator.prototype.upDir = function() {

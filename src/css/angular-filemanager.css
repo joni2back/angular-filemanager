@@ -42,7 +42,7 @@ body {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
     font-weight: 500;
     letter-spacing: .01em;
-    border: none!important;
+    border: none;
 }
 
 *, *:focus {
@@ -189,9 +189,9 @@ a:hover {
     padding-left: 0;
 }
 
-.file-tree .file-tree-root > li {
-    border-left: none!important;
-    padding-left: 0px!important;
+.file-tree ul.nav.nav-sidebar.file-tree-root > li {
+    border-left: none;
+    padding-left: 0px;
 }
 
 .mr2 {
@@ -202,9 +202,8 @@ a:hover {
     margin-right: 5px;
 }
 
-.table.table-files td {
-    /*padding: 3px 8px!important;*/
-    vertical-align: middle!important;
+.table td {
+    vertical-align: middle;
 }
 
 #context-menu {

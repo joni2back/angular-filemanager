@@ -1,4 +1,4 @@
-<table class="table table-condensed table-modal-condensed table-hover mb0 table-files">
+<table class="table table-condensed table-modal-condensed mb0">
     <thead>
         <tr>
             <th>{{"name" | translate}}</th>
@@ -7,7 +7,7 @@
     </thead>
     <tbody class="file-item">
         <tr data-ng-show="fileNavigator.requesting">
-            <td colspan="3">
+            <td colspan="2">
                 {{"loading" | translate}}...
             </td>
         </tr>
@@ -20,7 +20,7 @@
             </td>
         </tr>
         <tr data-ng-show="!fileNavigator.requesting && fileNavigator.error">
-            <td colspan="3">
+            <td colspan="2">
                 {{ fileNavigator.error }}
             </td>
         </tr>
@@ -32,7 +32,9 @@
                 </a>
             </td>
             <td class="text-right">
-                <button class="btn btn-sm btn-default" data-ng-click="select(item, temp)"><i class="glyphicon glyphicon-hand-up"></i> {{"select_this" | translate}}</button>
+                <button class="btn btn-sm btn-default" data-ng-click="select(item, temp)">
+                    <i class="glyphicon glyphicon-hand-up"></i> {{"select_this" | translate}}
+                </button>
             </td>
         </tr>
     </tbody>

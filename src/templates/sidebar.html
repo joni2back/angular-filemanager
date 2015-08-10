@@ -3,7 +3,7 @@
 </ul>
 
 <script type="text/ng-template" id="folder-branch-item">
-    <a href="" ng-click="fileNavigator.folderClickByName(item.name)" class="animated fast fadeInDown">
+    <a href="" ng-click="fileNavigator.folderClick(item.item)" class="animated fast fadeInDown">
         <i class="glyphicon glyphicon-folder-close mr2" ng-show="!fileNavigator.currentPath.join('/').match('^' + item.name)"></i>
         <i class="glyphicon glyphicon-folder-open mr2" ng-show="!!fileNavigator.currentPath.join('/').match('^' + item.name)"></i>
         {{ (item.name.split('/').pop() || '/') | strLimit : 24 }}

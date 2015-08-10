@@ -26,13 +26,9 @@
         };
 
         $scope.touch = function(item) {
-            item = (item && item.revert && item) || new Item();
+            item = item instanceof Item ? item : new Item();
             item.revert && item.revert();
             $scope.temp = item;
-        };
-
-        $scope.smartRightClick = function(item) {
-            $scope.touch(item);
         };
 
         $scope.smartClick = function(item) {
@@ -141,6 +137,7 @@
             window.location.search.substr(1).split("&").forEach(function(item) {
                 if (param ===  item.split("=")[0]) {
                     found = item.split("=")[1];
+                    return false;
                 }
             });
             return found;
