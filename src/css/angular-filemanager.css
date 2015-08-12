@@ -3,6 +3,10 @@ body {
     font-size: 14px;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .navbar {
     min-height: 32px;
 }
