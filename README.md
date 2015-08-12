@@ -47,7 +47,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
 
 **3) Use the angular directive in your HTML**
 ```html
-<angular-file-manager></angular-file-manager>
+<angular-filemanager></angular-filemanager>
 ```
 
 ### Contribute

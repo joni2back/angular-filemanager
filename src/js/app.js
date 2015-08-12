@@ -1,5 +1,5 @@
 /*!
- * Angular FileManager v1.2.0 (https://github.com/joni2back/angular-filemanager)
+ * Angular FileManager v1.3.0 (https://github.com/joni2back/angular-filemanager)
  * Jonas Sciangula Street <joni2back@gmail.com>
  * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
  */
@@ -8,7 +8,7 @@
     "use strict";
     var app = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
-    app.directive('angularFileManager', ['$parse', 'fileManagerConfig', function($parse, fileManagerConfig) {
+    app.directive('angularFilemanager', ['$parse', 'fileManagerConfig', function($parse, fileManagerConfig) {
         return {
             restrict: 'EA',
             templateUrl: fileManagerConfig.tplPath + '/index.html'
@@ -44,7 +44,6 @@
     }]);
 
     app.filter('strLimit', ['$filter', function($filter) {
-        /*going to use css3 ellipsis instead of this*/
         return function(input, limit) {
             if (input.length <= limit) {
                 return input;

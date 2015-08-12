@@ -2,18 +2,23 @@
 <html lang="en" data-ng-app="FileManagerApp">
 <head>
   <!--
-    * Angular FileManager v1.2.0 (https://github.com/joni2back/angular-filemanager)
+    * Angular FileManager v1.3.0 (https://github.com/joni2back/angular-filemanager)
     * Jonas Sciangula Street <joni2back@gmail.com>
     * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
   -->
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
   <title>angular-filemanager</title>
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-translate/angular-translate.min.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- third party -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
+  <!-- /third party -->
+
   <!-- Uncomment if you need to use raw source code
     <script src="src/js/app.js"></script>
     <script src="src/js/config.js"></script>
@@ -24,14 +29,31 @@
     <script src="src/js/translations.js"></script>
     <script src="src/js/controller.js"></script>
     <script src="src/js/selector-controller.js"></script>
+    <link rel="stylesheet" href="src/css/angular-filemanager.css">
   -->
-  <script src="dist/angular-filemanager.min.js"></script><!-- Comment if you need to use raw source code -->
+
+  <!-- Comment if you need to use raw source code -->
+    <link rel="stylesheet" href="dist/angular-filemanager.css">
+    <script src="dist/angular-filemanager.min.js"></script>
+  <!-- /Comment if you need to use raw source code -->
   
-  <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
-  <link rel="stylesheet" href="dist/angular-filemanager.css">
+  <script type="text/javascript">
+    //example to override angular-filemanager default config
+    angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (fileManagerConfig) {
+      var defaults = fileManagerConfig.$get();
+
+      fileManagerConfig.set({
+        appName: 'Demo - github.com/joni2back/angular-filemanager',
+        allowedActions: angular.extend(defaults.allowedActions, {
+          remove: true
+        })
+      });
+
+    }]);
+  </script>
 </head>
 
 <body class="ng-cloak">
-  <angular-file-manager></angular-file-manager>
+  <angular-filemanager></angular-filemanager>
 </body>
 </html>
