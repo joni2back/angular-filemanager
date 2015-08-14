@@ -1,12 +1,12 @@
-<div data-ng-controller="FileManagerCtrl">
+<div ng-controller="FileManagerCtrl">
     <div ng-include="config.tplPath + '/navbar.html'"></div>
 
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-sm-3 col-md-2 sidebar file-tree" ng-include="config.tplPath + '/sidebar.html'"></div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'"></div>
+            <div class="col-sm-3 col-md-2 sidebar file-tree animated slow fadeIn" ng-include="config.tplPath + '/sidebar.html'" ng-show="config.sidebar && fileNavigator.history[0]"></div>
+            <div class="main" ng-class="config.sidebar && fileNavigator.history[0] && 'col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2'">
+                <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'" ng-show="config.breadcrumb"></div>
                 <div ng-include="config.tplPath + '/' + viewTemplate" class="main-navigation clearfix"></div>
             </div>
         </div>

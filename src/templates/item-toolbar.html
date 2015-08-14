@@ -1,32 +1,32 @@
-<div data-ng-show="!item.inprocess">
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" data-ng-show="config.allowedActions.rename" data-ng-click="touch(item)" title="{{'rename' | translate}}">
+<div ng-show="!item.inprocess">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-show="config.allowedActions.rename" ng-click="touch(item)" title="{{'rename' | translate}}">
         <i class="glyphicon glyphicon-edit"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" data-ng-show="config.allowedActions.copy && !item.isFolder()" data-ng-click="touch(item)" title="{{'copy' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#copy" ng-show="config.allowedActions.copy && !item.isFolder()" ng-click="touch(item)" title="{{'copy' | translate}}">
         <i class="glyphicon glyphicon-log-out"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" data-ng-show="config.allowedActions.edit && item.isEditable()" data-ng-click="item.getContent(); touch(item)" title="{{'edit' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#edit" ng-show="config.allowedActions.edit && item.isEditable()" ng-click="item.getContent(); touch(item)" title="{{'edit' | translate}}">
         <i class="glyphicon glyphicon-pencil"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#changepermissions" data-ng-show="config.allowedActions.changePermissions" data-ng-click="touch(item)" title="{{'permissions' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#changepermissions" ng-show="config.allowedActions.changePermissions" ng-click="touch(item)" title="{{'permissions' | translate}}">
         <i class="glyphicon glyphicon-lock"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#compress" data-ng-show="config.allowedActions.compress && item.isCompressible()" data-ng-click="touch(item)" title="{{'compress' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#compress" ng-show="config.allowedActions.compress && item.isCompressible()" ng-click="touch(item)" title="{{'compress' | translate}}">
         <i class="glyphicon glyphicon-compressed"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#extract" data-ng-show="config.allowedActions.extract && item.isExtractable()" data-ng-click="touch(item); item.tempModel.name=''" title="{{'extract' | translate}}">
+    <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#extract" ng-show="config.allowedActions.extract && item.isExtractable()" ng-click="touch(item); item.tempModel.name=''" title="{{'extract' | translate}}">
         <i class="glyphicon glyphicon-export"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-ng-show="config.allowedActions.download && !item.isFolder()" data-ng-click="item.download()" title="{{'download' | translate}}">
+    <button class="btn btn-sm btn-default" ng-show="config.allowedActions.download && !item.isFolder()" ng-click="item.download()" title="{{'download' | translate}}">
         <i class="glyphicon glyphicon-cloud-download"></i>
     </button>
-    <button class="btn btn-sm btn-default" data-ng-show="config.allowedActions.preview && item.isImage()" data-ng-click="item.preview()" title="{{'view_item' | translate}}">
+    <button class="btn btn-sm btn-default" ng-show="config.allowedActions.preview && item.isImage()" ng-click="item.preview()" title="{{'view_item' | translate}}">
         <i class="glyphicon glyphicon-picture"></i>
     </button>
-    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-show="config.allowedActions.remove" data-ng-click="touch(item)" title="{{'remove' | translate}}">
+    <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-show="config.allowedActions.remove" ng-click="touch(item)" title="{{'remove' | translate}}">
         <i class="glyphicon glyphicon-trash"></i>
     </button>
 </div>
-<div data-ng-show="item.inprocess">
+<div ng-show="item.inprocess">
     <button class="btn btn-sm" style="visibility: hidden">&nbsp;</button><span class="label label-warning">{{"wait" | translate}} ...</span>
 </div>

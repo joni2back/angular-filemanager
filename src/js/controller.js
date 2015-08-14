@@ -34,7 +34,7 @@
         $scope.smartClick = function(item) {
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
-            };
+            }
             if (item.isImage()) {
                 return item.preview();
             }

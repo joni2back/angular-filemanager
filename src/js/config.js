@@ -19,6 +19,8 @@
             extractUrl: "bridges/php/handler.php",
             permissionsUrl: "bridges/php/handler.php",
 
+            sidebar: true,
+            breadcrumb: true,
             allowedActions: {
                 rename: true,
                 copy: true,

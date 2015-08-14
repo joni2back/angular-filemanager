@@ -6,33 +6,33 @@
         </tr>
     </thead>
     <tbody class="file-item">
-        <tr data-ng-show="fileNavigator.requesting">
+        <tr ng-show="fileNavigator.requesting">
             <td colspan="2">
-                {{"loading" | translate}}...
+                <div ng-include="config.tplPath + '/spinner.html'"></div>
             </td>
         </tr>
-        <tr data-ng-show="!fileNavigator.requesting && !fileNavigator.listHasFolders() && !fileNavigator.error">
+        <tr ng-show="!fileNavigator.requesting && !fileNavigator.listHasFolders() && !fileNavigator.error">
             <td colspan="2">
                 {{"no_folders_in_folder" | translate}}...
             </td>
             <td class="text-right">
-                <button class="btn btn-sm btn-default" data-ng-click="fileNavigator.upDir()">{{"go_back" | translate}}</button>
+                <button class="btn btn-sm btn-default" ng-click="fileNavigator.upDir()">{{"go_back" | translate}}</button>
             </td>
         </tr>
-        <tr data-ng-show="!fileNavigator.requesting && fileNavigator.error">
+        <tr ng-show="!fileNavigator.requesting && fileNavigator.error">
             <td colspan="2">
                 {{ fileNavigator.error }}
             </td>
         </tr>
-        <tr data-ng-repeat="item in fileNavigator.fileList | orderBy: orderProp" data-ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
+        <tr ng-repeat="item in fileNavigator.fileList | orderBy: orderProp" ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
             <td>
-                <a href="" data-ng-click="fileNavigator.folderClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
+                <a href="" ng-click="fileNavigator.folderClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
                     <i class="glyphicon glyphicon-folder-close"></i>
                     {{item.model.name | strLimit : 32}}
                 </a>
             </td>
             <td class="text-right">
-                <button class="btn btn-sm btn-default" data-ng-click="select(item, temp)">
+                <button class="btn btn-sm btn-default" ng-click="select(item, temp)">
                     <i class="glyphicon glyphicon-hand-up"></i> {{"select_this" | translate}}
                 </button>
             </td>
