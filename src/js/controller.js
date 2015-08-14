@@ -46,6 +46,11 @@
             }
         };
 
+        $scope.isInThisPath = function(path) {
+            var currentPath = $scope.fileNavigator.currentPath.join('/');
+            return currentPath.indexOf(path) !== -1;
+        };
+
         $scope.edit = function(item) {
             item.edit(function() {
                 $('#edit').modal('hide');
