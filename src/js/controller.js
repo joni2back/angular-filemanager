@@ -77,8 +77,11 @@
 
         $scope.compress = function(item) {
             item.compress(function() {
-                item.success = true;
                 $scope.fileNavigator.refresh();
+                if (! $scope.config.extractAsync) {
+                    return $('#compress').modal('hide');
+                }
+                item.success = true;
             }, function() {
                 item.success = false;
             });
@@ -86,8 +89,11 @@
 
         $scope.extract = function(item) {
             item.extract(function() {
-                item.success = true;
                 $scope.fileNavigator.refresh();
+                if (! $scope.config.extractAsync) {
+                    return $('#extract').modal('hide');
+                }
+                item.success = true;
             }, function() {
                 item.success = false;
             });
