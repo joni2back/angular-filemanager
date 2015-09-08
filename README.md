@@ -21,6 +21,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
 
 ### TODO
   - Multiple file selector
+  - Drag and drop
   - Dropbox and Google Drive compatibility
   - Extend backend bridges (PHP, Java, Python, Node, .Net)
 
@@ -53,7 +54,6 @@ A very smart filemanager to manage your files in the browser developed in Angula
 ### Contribute
 To contribute to the project you can simply fork this repo. To build a minified version, you can simply run the Gulp 
 task `gulp build`. The minified/uglified files are created in the `dist` folder. 
-Special thanks to [@silentHoo](https://github.com/silentHoo).
 
 ### Versioning
 For transparency into our release cycle and in striving to maintain backward compatibility, angular-filemanager is maintained under [the Semantic Versioning guidelines](http://semver.org/).
