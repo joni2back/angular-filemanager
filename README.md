@@ -4,6 +4,10 @@ A very smart filemanager to manage your files in the browser developed in Angula
 
 #### [Try the DEMO](http://zendelsolutions.com/zendel/projects/angular-filemanager)
 ---------
+
+***Important:*** We need a collaborator to improve the [docs](API.md) !
+
+---------
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot2.png)
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot3.png)
@@ -20,6 +24,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
   - Mobile support
 
 ### TODO
+  - Improve the docs
   - Multiple file selector
   - Drag and drop
   - Dropbox and Google Drive compatibility
