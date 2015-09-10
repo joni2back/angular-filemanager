@@ -305,9 +305,6 @@
         <h4 class="modal-title">{{"select_destination_folder" | translate}}</h4>
       </div>
       <div class="modal-body">
-
-
-
         <div>
             <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'"></div>
             <div ng-include="config.tplPath + '/main-table-modal.html'"></div>
@@ -335,6 +332,7 @@
 </script>
 <script type="text/ng-template" id="error-bar">
     <div class="label label-danger error-msg pull-left animated fadeIn" ng-show="temp.error">
-      <i class="glyphicon glyphicon-remove-circle"></i> {{temp.error}}
+      <i class="glyphicon glyphicon-remove-circle"></i>
+      <span>{{temp.error}}</span>
     </div>
 </script>

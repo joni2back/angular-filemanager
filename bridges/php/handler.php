@@ -33,9 +33,19 @@ abstract class Request
     public static function getQuery($param = null, $default = null)
     {
         if ($param) {
-            return isset($_GET[$param]) ? $_GET[$param] : $default;
+            return isset($_GET[$param]) ?
+                $_GET[$param] : $default;
         }
         return $_GET;
+    }
+
+    public static function getPost($param = null, $default = null)
+    {
+        if ($param) {
+            return isset($_POST[$param]) ?
+                $_POST[$param] : $default;
+        }
+        return $_POST;
     }
 
     public static function getPostContent() 
@@ -127,6 +137,25 @@ $oFtp = new FileManager(array(
 $oFtp->connect();
 $oResponse = new Response();
 
+if ($_FILES) {
+    $dest = Request::getPost('destination');
+    $errors = array();
+    foreach ($_FILES as $file) {
+        $filePath = $file['tmp_name'];
+        $destPath = $dest .'/'. $file['name'];
+        $result = $oFtp->upload($filePath, $destPath);
+        if (! $result)  {
+            $errors[] = $file['name'];
+        }
+    }
+    if ($errors) {
+        throw new Exception("Unknown error uploading: " . "\n" . implode($errors, ", \n"));
+    }
+    
+    $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
 if (Request::getApiParam('mode') === 'list') {
     $list = $oFtp->listFilesRaw(Request::getApiParam('path'));
     $list = is_array($list) ? $list : array();
@@ -152,6 +181,11 @@ if (Request::getApiParam('mode') === 'addfolder') {
         throw new Exception("Unknown error creating this folder");
     }
     $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
+if (Request::getApiParam('mode') === 'compress' || Request::getApiParam('mode') === 'extract') {
+    $oResponse->setData(true);
     $oResponse->flushJson();
 }
 

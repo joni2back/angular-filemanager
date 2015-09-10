@@ -71,6 +71,10 @@ textarea.code {
     text-align: left;
 }
 
+.modal .label.error-msg > span {
+    white-space: pre-wrap;
+}
+
 .bold {
     font-weight: bold;
 }
