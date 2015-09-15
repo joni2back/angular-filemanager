@@ -48,6 +48,15 @@ abstract class Request
         return $_POST;
     }
 
+    public static function getFile($param = null, $default = null)
+    {
+        if ($param) {
+            return isset($_FILES[$param]) ?
+                $_FILES[$param] : $default;
+        }
+        return $_FILES;
+    }
+
     public static function getPostContent() 
     {
         $rawData = file_get_contents('php://input');
@@ -127,20 +136,20 @@ class FileManager extends Ftp
 }
 
 ExceptionCatcherJSON::register();
-
+$oResponse = new Response();
 $oFtp = new FileManager(array(
     'hostname' => '',
     'username' => '',
     'password' => ''
 ));
 
-$oFtp->connect();
-$oResponse = new Response();
+if (! $oFtp->connect()) {
+    throw new Exception("Cannot connect to the FTP server");
+}
 
-if ($_FILES) {
-    $dest = Request::getPost('destination');
+if (Request::getFile() && $dest = Request::getPost('destination')) {
     $errors = array();
-    foreach ($_FILES as $file) {
+    foreach (Request::getFile() as $file) {
         $filePath = $file['tmp_name'];
         $destPath = $dest .'/'. $file['name'];
         $result = $oFtp->upload($filePath, $destPath);
@@ -148,8 +157,9 @@ if ($_FILES) {
             $errors[] = $file['name'];
         }
     }
+    
     if ($errors) {
-        throw new Exception("Unknown error uploading: " . "\n" . implode($errors, ", \n"));
+        throw new Exception("Unknown error uploading: \n\n" . implode(", \n", $errors));
     }
     
     $oResponse->setData($result);
@@ -199,7 +209,7 @@ if (Request::getQuery('mode') === 'download') {
         $oResponse->setData($fileContent);
         $oResponse->setHeaders(array(
             'Content-Type' => @mime_content_type($tmpFilePath),
-            'Content-disposition' => "$download filename=$fileName"
+            'Content-disposition' => sprintf('%s filename="%s"', $download, $fileName)
         ));
     }
     $oResponse->flush();

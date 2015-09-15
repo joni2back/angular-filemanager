@@ -88,10 +88,10 @@
               <h4 class="modal-title">{{'compress' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <div ng-show="temp.success">
+              <div ng-show="temp.asyncSuccess">
                   <div class="label label-success error-msg">{{'compression_started' | translate}}</div>
               </div>
-              <div ng-hide="temp.success">
+              <div ng-hide="temp.asyncSuccess">
                   <div ng-hide="config.allowedActions.compressChooseName">
                     {{'sure_to_start_compression_with' | translate}} <b>{{temp.model.name}}</b> ?
                   </div>
@@ -104,10 +104,10 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <div ng-show="temp.success">
+              <div ng-show="temp.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{"close" | translate}}</button>
               </div>
-              <div ng-hide="temp.success">
+              <div ng-hide="temp.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
                   <button type="submit" class="btn btn-primary" ng-disabled="temp.inprocess">{{'compress' | translate}}</button>
               </div>
@@ -129,10 +129,10 @@
               <h4 class="modal-title">{{'extract_item' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <div ng-show="temp.success">
+              <div ng-show="temp.asyncSuccess">
                   <div class="label label-success error-msg">{{'extraction_started' | translate}}</div>
               </div>
-              <div ng-hide="temp.success">
+              <div ng-hide="temp.asyncSuccess">
                   <label class="radio">{{'enter_folder_name_for_extraction' | translate}} <b>{{temp.model.name}}</b></label>
                   <input class="form-control" ng-model="temp.tempModel.name" autofocus="autofocus">
                   <div ng-include data-src="'path-selector'" class="clearfix"></div>
@@ -140,10 +140,10 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <div ng-show="temp.success">
+              <div ng-show="temp.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{"close" | translate}}</button>
               </div>
-              <div ng-hide="temp.success">
+              <div ng-hide="temp.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
                   <button type="submit" class="btn btn-primary" ng-disabled="temp.inprocess">{{'extract' | translate}}</button>
               </div>
@@ -318,17 +318,17 @@
 </div>
 
 <script type="text/ng-template" id="path-selector">
-    <div class="panel panel-primary mt10 mb0">
-      <div class="panel-body">
-          <div class="detail-sources">
-            <code class="mr5"><b>{{"source" | translate}}:</b> {{temp.model.fullPath()}}</code>
-          </div>
-          <div class="detail-sources">
-            <code class="mr5"><b>{{"destination" | translate}}:</b>{{temp.tempModel.fullPath()}}</code>
-            <a href="" class="label label-primary" ng-click="openNavigator(temp)">{{'change' | translate}}</a>
-          </div>
-      </div>
+  <div class="panel panel-primary mt10 mb0">
+    <div class="panel-body">
+        <div class="detail-sources">
+          <code class="mr5"><b>{{"source" | translate}}:</b> {{temp.model.fullPath()}}</code>
+        </div>
+        <div class="detail-sources">
+          <code class="mr5"><b>{{"destination" | translate}}:</b>{{temp.tempModel.fullPath()}}</code>
+          <a href="" class="label label-primary" ng-click="openNavigator(temp)">{{'change' | translate}}</a>
+        </div>
     </div>
+  </div>
 </script>
 <script type="text/ng-template" id="error-bar">
     <div class="label label-danger error-msg pull-left animated fadeIn" ng-show="temp.error">

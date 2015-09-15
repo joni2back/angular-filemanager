@@ -13,7 +13,7 @@
                     this.convertfromOctal(initValue);
 
                 if (! codes) {
-                    throw new Error('Invalid input data');
+                    throw new Error('Invalid chmod input data');
                 }
 
                 this.owner = codes.owner;

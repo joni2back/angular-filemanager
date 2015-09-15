@@ -1,7 +1,7 @@
 (function(angular) {
     "use strict";
     angular.module('FileManagerApp').service('fileNavigator', [
-        '$http', 'fileManagerConfig', 'item', function ($http, fileManagerConfig, Item) {
+        '$http', '$q', 'fileManagerConfig', 'item', function ($http, $q, fileManagerConfig, Item) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -13,8 +13,28 @@
             this.error = '';
         };
 
-        FileNavigator.prototype.refresh = function(success, error) {
+        FileNavigator.prototype.deferredHandler = function(data, deferred, defaultMsg) {
+            if (typeof data !== 'object') {
+                this.error = 'Bridge response error, please check the docs.';
+            }
+            if (!this.error && data.result && data.result.error) {
+                this.error = data.result.error;
+            }
+            if (!this.error && data.error) {
+                this.error = data.error.message;
+            }
+            if (!this.error && defaultMsg) {
+                this.error = defaultMsg;
+            }
+            if (this.error) {
+                return deferred.reject(data);
+            }
+            return deferred.resolve(data);
+        };
+
+        FileNavigator.prototype.list = function() {
             var self = this;
+            var deferred = $q.defer();
             var path = self.currentPath.join('/');
             var data = {params: {
                 mode: "list",
@@ -25,21 +45,26 @@
             self.requesting = true;
             self.fileList = [];
             self.error = '';
+
             $http.post(fileManagerConfig.listUrl, data).success(function(data) {
-                self.fileList = [];
-                angular.forEach(data.result, function(file) {
-                    self.fileList.push(new Item(file, self.currentPath));
-                });
-                self.requesting = false;
-                self.buildTree(path);
-                if (data.error) {
-                    self.error = data.error;
-                    return typeof error === 'function' && error(data);
-                }
-                typeof success === 'function' && success(data);
+                self.deferredHandler(data, deferred);
             }).error(function(data) {
+                self.deferredHandler(data, deferred, 'Unknown error listing, check the response');
+            })['finally'](function(data) {
                 self.requesting = false;
-                typeof error === 'function' && error(data);
+            });
+            return deferred.promise;
+        };
+
+        FileNavigator.prototype.refresh = function() {
+            var self = this;
+            var path = self.currentPath.join('/');
+            
+            return self.list().then(function(data) {
+                self.fileList = (data.result || []).map(function(file) {
+                    return new Item(file, self.currentPath);
+                })
+                self.buildTree(path);
             });
         };
 
@@ -79,7 +104,6 @@
             self.currentPath = [];
             if (item && item.isFolder()) {
                 self.currentPath = item.model.fullPath().split('/').splice(1);
-                //self.currentPath.push(item.model.name);
             }
             self.refresh();
         };

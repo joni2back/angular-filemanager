@@ -65,19 +65,21 @@ A very smart filemanager to manage your files in the browser developed in Angula
 ```html
 <!-- Uncomment if you need to use raw source code
   <script src="src/js/app.js"></script>
-  <script src="src/js/config.js"></script>
-  <script src="src/js/chmod.js"></script>
-  <script src="src/js/item.js"></script>
-  <script src="src/js/filenavigator.js"></script>
-  <script src="src/js/fileuploader.js"></script>
-  <script src="src/js/translations.js"></script>
-  <script src="src/js/controller.js"></script>
-  <script src="src/js/selector-controller.js"></script>
-  <link rel="stylesheet" href="src/css/angular-filemanager.css">
+  <script src="src/js/directives/directives.js"></script>
+  <script src="src/js/filters/filters.js"></script>
+  <script src="src/js/providers/config.js"></script>
+  <script src="src/js/entities/chmod.js"></script>
+  <script src="src/js/entities/item.js"></script>
+  <script src="src/js/services/filenavigator.js"></script>
+  <script src="src/js/services/fileuploader.js"></script>
+  <script src="src/js/providers/translations.js"></script>
+  <script src="src/js/controllers/main.js"></script>
+  <script src="src/js/controllers/selector-controller.js"></script>
+  <link href="src/css/angular-filemanager.css" rel="stylesheet">
 -->
 
 <!-- Comment if you need to use raw source code -->
-  <link rel="stylesheet" href="dist/angular-filemanager.css">
+  <link href="dist/angular-filemanager.css" rel="stylesheet">
   <script src="dist/angular-filemanager.min.js"></script>
 <!-- /Comment if you need to use raw source code -->
 ```
@@ -87,15 +89,12 @@ A very smart filemanager to manage your files in the browser developed in Angula
 ### Extending the configuration file
 ```html
 <script type="text/javascript">
-  //example to override angular-filemanager default config
-  angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (fileManagerConfig) {
-    var defaults = fileManagerConfig.$get();
-    fileManagerConfig.set({
-      appName: 'Demo - github.com/joni2back/angular-filemanager',
-      sidebar: false,
+  angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
+    var defaults = config.$get();
+    config.set({
+      appName: 'github.com/joni2back/angular-filemanager',
       allowedActions: angular.extend(defaults.allowedActions, {
         remove: true
-        copy: false
       })
     });
   }]);

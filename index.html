@@ -2,7 +2,7 @@
 <html lang="en" data-ng-app="FileManagerApp">
 <head>
   <!--
-    * Angular FileManager v1.3.1 (https://github.com/joni2back/angular-filemanager)
+    * Angular FileManager v1.4.0 (https://github.com/joni2back/angular-filemanager)
     * Jonas Sciangula Street <joni2back@gmail.com>
     * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
   -->
@@ -21,39 +21,48 @@
 
   <!-- Uncomment if you need to use raw source code
     <script src="src/js/app.js"></script>
-    <script src="src/js/config.js"></script>
-    <script src="src/js/chmod.js"></script>
-    <script src="src/js/item.js"></script>
-    <script src="src/js/filenavigator.js"></script>
-    <script src="src/js/fileuploader.js"></script>
-    <script src="src/js/translations.js"></script>
-    <script src="src/js/controller.js"></script>
-    <script src="src/js/selector-controller.js"></script>
-    <link rel="stylesheet" href="src/css/angular-filemanager.css">
+    <script src="src/js/directives/directives.js"></script>
+    <script src="src/js/filters/filters.js"></script>
+    <script src="src/js/providers/config.js"></script>
+    <script src="src/js/entities/chmod.js"></script>
+    <script src="src/js/entities/item.js"></script>
+    <script src="src/js/services/filenavigator.js"></script>
+    <script src="src/js/services/fileuploader.js"></script>
+    <script src="src/js/providers/translations.js"></script>
+    <script src="src/js/controllers/main.js"></script>
+    <script src="src/js/controllers/selector-controller.js"></script>
+    <link href="src/css/angular-filemanager.css" rel="stylesheet">
   -->
 
   <!-- Comment if you need to use raw source code -->
-    <link rel="stylesheet" href="dist/angular-filemanager.css">
+    <link href="dist/angular-filemanager.css" rel="stylesheet">
     <script src="dist/angular-filemanager.min.js"></script>
   <!-- /Comment if you need to use raw source code -->
   
   <script type="text/javascript">
     //example to override angular-filemanager default config
-    angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (fileManagerConfig) {
-      var defaults = fileManagerConfig.$get();
-
-      fileManagerConfig.set({
-        appName: 'Demo - github.com/joni2back/angular-filemanager',
+    angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
+      var defaults = config.$get();
+      config.set({
+        appName: 'github.com/joni2back/angular-filemanager',
         allowedActions: angular.extend(defaults.allowedActions, {
           remove: true
         })
       });
-
     }]);
   </script>
 </head>
 
 <body class="ng-cloak">
   <angular-filemanager></angular-filemanager>
+
+  <script> 
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-35182652-1', 'auto');
+    ga('send', 'pageview');
+  </script>
 </body>
 </html>
