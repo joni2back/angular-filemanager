@@ -1,10 +1,30 @@
 <table class="table mb0 table-files">
     <thead>
         <tr>
-            <th>{{"name" | translate}}</th>
-            <th class="hidden-xs">{{"size" | translate}}</th>
-            <th class="hidden-sm hidden-xs">{{"date" | translate}}</th>
-            <th class="hidden-sm hidden-xs">{{"permissions" | translate}}</th>
+            <th>
+                <a href="" ng-click="order('model.name')">
+                    {{"name" | translate}}
+                    <span class="sortorder" ng-show="predicate[1] === 'model.name'" ng-class="{reverse:reverse}"></span>
+                </a>
+            </th>
+            <th class="hidden-xs">
+                <a href="" ng-click="order('model.size')">
+                    {{"size" | translate}}
+                    <span class="sortorder" ng-show="predicate[1] === 'model.size'" ng-class="{reverse:reverse}"></span>
+                </a>
+            </th>
+            <th class="hidden-sm hidden-xs">
+                <a href="" ng-click="order('model.date')">
+                    {{"date" | translate}}
+                    <span class="sortorder" ng-show="predicate[1] === 'model.date'" ng-class="{reverse:reverse}"></span>
+                </a>
+            </th>
+            <th class="hidden-sm hidden-xs">
+                <a href="" ng-click="order('model.permissions')">
+                    {{"permissions" | translate}}
+                    <span class="sortorder" ng-show="predicate[1] === 'model.permissions'" ng-class="{reverse:reverse}"></span>
+                </a>
+            </th>
             <th class="text-right"></th>
         </tr>
     </thead>
@@ -24,7 +44,7 @@
                 {{ fileNavigator.error }}
             </td>
         </tr>
-        <tr ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" ng-show="!fileNavigator.requesting">
+        <tr ng-repeat="item in fileNavigator.fileList | filter: query | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting">
             <td ng-right-click="touch(item)">
                 <a href="" ng-click="smartClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
                     <i class="glyphicon glyphicon-folder-close" ng-show="item.model.type === 'dir'"></i>

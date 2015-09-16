@@ -3,11 +3,12 @@
     angular.module('FileManagerApp').factory('item', ['$http', '$q', '$translate', 'fileManagerConfig', 'chmod', function($http, $q, $translate, fileManagerConfig, Chmod) {
 
         var Item = function(model, path) {
+            window.px = this;
             var rawModel = {
                 name: model && model.name || '',
                 path: path || [],
                 type: model && model.type || 'file',
-                size: model && model.size || 0,
+                size: model && parseInt(model.size || 0),
                 date: parseMySQLDate(model && model.date),
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',

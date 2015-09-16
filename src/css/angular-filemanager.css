@@ -532,3 +532,17 @@ a:hover {
             transform: rotate(450deg);
   }
 }
+
+table th > a:hover,
+table th > a:active,
+table th > a:focus {
+    text-decoration: none;
+}
+.sortorder:after {
+    color: #2196f3;
+    content: '\25bc';
+}
+.sortorder.reverse:after {
+    color: #2196f3;
+    content: '\25b2';
+}

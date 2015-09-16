@@ -4,7 +4,13 @@
         '$scope', '$rootScope', 'fileNavigator',
         function($scope, $rootScope, FileNavigator) {
 
-        $scope.orderProp = ['model.type', 'model.name'];
+        $scope.reverse = false;
+        $scope.predicate = ['model.type', 'model.name'];        
+        $scope.order = function(predicate) {
+            $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
+            $scope.predicate[1] = predicate;
+        };
+
         $scope.fileNavigator = new FileNavigator();
 
         $rootScope.select = function(item, temp) {

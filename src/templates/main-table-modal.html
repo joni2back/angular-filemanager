@@ -1,7 +1,12 @@
 <table class="table table-condensed table-modal-condensed mb0">
     <thead>
         <tr>
-            <th>{{"name" | translate}}</th>
+            <th>
+                <a href="" ng-click="order('model.name')">
+                    {{"name" | translate}}
+                    <span class="sortorder" ng-show="predicate[1] === 'model.name'" ng-class="{reverse:reverse}"></span>
+                </a>
+            </th>
             <th class="text-right"></th>
         </tr>
     </thead>
@@ -24,7 +29,7 @@
                 {{ fileNavigator.error }}
             </td>
         </tr>
-        <tr ng-repeat="item in fileNavigator.fileList | orderBy: orderProp" ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
+        <tr ng-repeat="item in fileNavigator.fileList | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
             <td>
                 <a href="" ng-click="fileNavigator.folderClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
                     <i class="glyphicon glyphicon-folder-close"></i>
