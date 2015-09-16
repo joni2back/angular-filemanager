@@ -3,7 +3,6 @@
     angular.module('FileManagerApp').factory('item', ['$http', '$q', '$translate', 'fileManagerConfig', 'chmod', function($http, $q, $translate, fileManagerConfig, Chmod) {
 
         var Item = function(model, path) {
-            window.px = this;
             var rawModel = {
                 name: model && model.name || '',
                 path: path || [],
