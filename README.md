@@ -2,7 +2,7 @@
 
 A very smart filemanager to manage your files in the browser developed in AngularJS with Material-Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
 
-#### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
+#### [Try the demo](http://angular-filemanager.achielit.com/)
 ---------
 
 ***Important:*** We need a collaborator to improve the [docs](API.md) !
@@ -22,7 +22,8 @@ A very smart filemanager to manage your files in the browser developed in Angula
   - Delete, Edit, Preview, Download
   - File permissions (Unix chmod style)
   - Mobile support
-
+  - Quota management (Node only)
+   
 ### TODO
   - Improve the docs
   - Multiple file selector
@@ -67,7 +68,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
   <script src="src/js/app.js"></script>
   <script src="src/js/directives/directives.js"></script>
   <script src="src/js/filters/filters.js"></script>
-  <script src="src/js/providers/config.js"></script>
+  <script src="src/js/providers/Tconfig.js"></script>
   <script src="src/js/entities/chmod.js"></script>
   <script src="src/js/entities/item.js"></script>
   <script src="src/js/services/filenavigator.js"></script>
