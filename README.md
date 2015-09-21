@@ -29,6 +29,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
   - Drag and drop
   - Dropbox and Google Drive compatibility
   - Extend backend bridges (PHP, Java, Python, Node, .Net)
+  - Migrate jQuery to native or angular.element
 
 ### Backend API
 [Read the docs](API.md)

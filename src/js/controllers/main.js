@@ -5,8 +5,6 @@
     function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
 
         $scope.config = fileManagerConfig;
-        $scope.appName = fileManagerConfig.appName;
-
         $scope.reverse = false;
         $scope.predicate = ['model.type', 'model.name'];        
         $scope.order = function(predicate) {
@@ -34,7 +32,7 @@
 
         $scope.touch = function(item) {
             item = item instanceof Item ? item : new Item();
-            item.revert && item.revert();
+            item.revert();
             $scope.temp = item;
         };
 
@@ -43,17 +41,34 @@
                 return $scope.fileNavigator.folderClick(item);
             }
             if (item.isImage()) {
-                return item.preview();
+                return $scope.openImagePreview(item);
             }
             if (item.isEditable()) {
-                item.getContent();
-                $scope.touch(item);
-                return $scope.modal('edit');
+                return $scope.openEditItem(item);
             }
         };
 
+        $scope.openImagePreview = function(item) {
+            item.inprocess = true;
+            $scope.modal('imagepreview')
+                .find('#imagepreview-target')
+                .attr('src', item.getUrl(true))
+                .unbind('load error')
+                .on('load error', function() {
+                    item.inprocess = false;
+                    $scope.$apply();
+                });
+            return $scope.touch(item);
+        };
+
+        $scope.openEditItem = function(item) {
+            item.getContent();
+            $scope.modal('edit');
+            return $scope.touch(item);
+        };
+
         $scope.modal = function(id, hide) {
-            $('#' + id).modal(hide ? 'hide' : 'show')
+            return $('#' + id).modal(hide ? 'hide' : 'show');
         };
 
         $scope.isInThisPath = function(path) {
@@ -138,7 +153,7 @@
                     $scope.modal('newfolder', true);
                 });
             } else {
-                $scope.temp.error = $translate.instant('error_invalid_filename');
+                item.error = $translate.instant('error_invalid_filename');
                 return false;
             }
         };

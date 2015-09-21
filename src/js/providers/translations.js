@@ -79,7 +79,9 @@
             exec: "Exec",
             original: "Original",
             changes: "Changes",
-            recursive: "Recursive"
+            recursive: "Recursive",
+            preview: "Item preview",
+            open: "Open"
         });
 
         $translateProvider.translations('pt', {
@@ -160,7 +162,9 @@
             exec: "Execução",
             original: "Original",
             changes: "Mudanças",
-            recursive: "Recursiva"
+            recursive: "Recursiva",
+            preview: "Visualização",
+            open: "Abrir"
         });
 
         $translateProvider.translations('es', {
@@ -241,8 +245,11 @@
             exec: "Ejecucion",
             original: "Original",
             changes: "Cambios",
-            recursive: "Recursivo"
+            recursive: "Recursivo",
+            preview: "Vista previa",
+            open: "Abrir"
         });
+
         $translateProvider.translations('fr', {
             filemanager: "Gestionnaire de fichier",
             language: "Langue",
@@ -321,7 +328,9 @@
             exec: "Éxécution",
             original: "Original",
             changes: "Modifications",
-            recursive: "Récursif"
+            recursive: "Récursif",
+            preview: "Aperçu",
+            open: "Ouvrir"
         });
     }]);
 })(angular);
