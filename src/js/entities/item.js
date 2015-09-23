@@ -167,23 +167,20 @@
             return deferred.promise;
         };
 
-        Item.prototype.download = function(preview) {
-            var self = this;
+        Item.prototype.getUrl = function(preview) {
+            var path = this.model.fullPath();
             var data = {
                 mode: "download",
                 preview: preview,
-                path: self.model.fullPath()
+                path: path
             };
-
-            var url = [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
-            if (self.model.type !== 'dir') {
-                window.open(url, '_blank', '');
-            }
+            return path && [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
         };
 
-        Item.prototype.preview = function() {
-            var self = this;
-            return self.download(true);
+        Item.prototype.download = function(preview) {
+            if (this.model.type !== 'dir') {
+                window.open(this.getUrl(preview), '_blank', '');
+            }
         };
 
         Item.prototype.getContent = function() {

@@ -20,7 +20,7 @@
     <button class="btn btn-sm btn-default" ng-show="config.allowedActions.download && !item.isFolder()" ng-click="item.download()" title="{{'download' | translate}}">
         <i class="glyphicon glyphicon-cloud-download"></i>
     </button>
-    <button class="btn btn-sm btn-default" ng-show="config.allowedActions.preview && item.isImage()" ng-click="item.preview()" title="{{'view_item' | translate}}">
+    <button class="btn btn-sm btn-default" ng-show="config.allowedActions.preview && item.isImage()" ng-click="openImagePreview(item)" title="{{'view_item' | translate}}">
         <i class="glyphicon glyphicon-picture"></i>
     </button>
     <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete" ng-show="config.allowedActions.remove" ng-click="touch(item)" title="{{'remove' | translate}}">

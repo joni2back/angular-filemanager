@@ -1,3 +1,29 @@
+<div class="modal animated fadeIn" id="imagepreview">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form ng-submit="remove(temp)">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">{{"close" | translate}}</span>
+        </button>
+        <h4 class="modal-title">{{"preview" | translate}}</h4>
+      </div>
+      <div class="modal-body" ng-show="temp.getUrl().length > 10">
+        <div class="text-center">
+          <img id="imagepreview-target" class="preview" alt="{{temp.model.name}}" ng-class="{'loading': temp.inprocess}">
+          <span class="label label-warning" ng-show="temp.inprocess">{{'loading' | translate}} ...</span>
+        </div>
+        <div ng-include data-src="'error-bar'" class="clearfix"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{"close" | translate}}</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="modal animated fadeIn" id="delete">
   <div class="modal-dialog">
     <div class="modal-content">
