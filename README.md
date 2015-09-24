@@ -3,9 +3,7 @@
 A very smart filemanager to manage your files in the browser developed in AngularJS with Material-Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
 
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
-
 [![Analytics](https://ga-beacon.appspot.com/UA-35182652-1/github.com/joni2back/angular-filemanager?pixel)](https://github.com/joni2back/angular-filemanager)
-
 ---------
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot2.png)
