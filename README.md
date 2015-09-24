@@ -3,9 +3,8 @@
 A very smart filemanager to manage your files in the browser developed in AngularJS with Material-Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
 
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
----------
 
-***Important:*** We need a collaborator to improve the [docs](API.md) !
+[![Analytics](https://ga-beacon.appspot.com/UA-35182652-1/github.com/joni2back/angular-filemanager?pixel)](https://github.com/joni2back/angular-filemanager)
 
 ---------
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
@@ -105,8 +104,8 @@ A very smart filemanager to manage your files in the browser developed in Angula
 ---------
 
 ### Contribute
-To contribute to the project you can simply fork this repo. To build a minified version, you can simply run the Gulp 
-task `gulp build`. The minified/uglified files are created in the `dist` folder. 
+To contribute to the project you can simply fork this repo. To build a minified version, you can simply run the Gulp
+task `gulp build`. The minified/uglified files are created in the `dist` folder.
 
 ### Versioning
 For transparency into our release cycle and in striving to maintain backward compatibility, angular-filemanager is maintained under [the Semantic Versioning guidelines](http://semver.org/).
