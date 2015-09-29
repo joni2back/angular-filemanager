@@ -48,7 +48,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
   <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
 
 <!-- angular-filemanager -->
-  <link rel="stylesheet" href="dist/angular-filemanager.css">
+  <link rel="stylesheet" href="dist/angular-filemanager.min.css">
   <script src="dist/angular-filemanager.min.js"></script>
 ```
 
@@ -77,7 +77,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
 -->
 
 <!-- Comment if you need to use raw source code -->
-  <link href="dist/angular-filemanager.css" rel="stylesheet">
+  <link href="dist/angular-filemanager.min.css" rel="stylesheet">
   <script src="dist/angular-filemanager.min.js"></script>
 <!-- /Comment if you need to use raw source code -->
 ```
