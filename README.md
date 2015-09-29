@@ -3,7 +3,6 @@
 A very smart filemanager to manage your files in the browser developed in AngularJS with Material-Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
 
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
-[![Analytics](https://ga-beacon.appspot.com/UA-35182652-1/github.com/joni2back/angular-filemanager?pixel)](https://github.com/joni2back/angular-filemanager)
 ---------
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
 ![alt tag](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot2.png)
@@ -48,7 +47,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
   <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
 
 <!-- angular-filemanager -->
-  <link rel="stylesheet" href="dist/angular-filemanager.css">
+  <link rel="stylesheet" href="dist/angular-filemanager.min.css">
   <script src="dist/angular-filemanager.min.js"></script>
 ```
 
@@ -73,11 +72,13 @@ A very smart filemanager to manage your files in the browser developed in Angula
   <script src="src/js/providers/translations.js"></script>
   <script src="src/js/controllers/main.js"></script>
   <script src="src/js/controllers/selector-controller.js"></script>
-  <link href="src/css/angular-filemanager.css" rel="stylesheet">
+  <link href="src/css/animations.css" rel="stylesheet">
+  <link href="src/css/dialogs.css" rel="stylesheet">
+  <link href="src/css/main.css" rel="stylesheet">
 -->
 
 <!-- Comment if you need to use raw source code -->
-  <link href="dist/angular-filemanager.css" rel="stylesheet">
+  <link href="dist/angular-filemanager.min.css" rel="stylesheet">
   <script src="dist/angular-filemanager.min.js"></script>
 <!-- /Comment if you need to use raw source code -->
 ```
@@ -90,7 +91,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
   angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
     var defaults = config.$get();
     config.set({
-      appName: 'github.com/joni2back/angular-filemanager',
+      appName: 'my angular-filemanager',
       allowedActions: angular.extend(defaults.allowedActions, {
         remove: true
       })
