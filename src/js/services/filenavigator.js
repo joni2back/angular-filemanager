@@ -88,7 +88,7 @@
                     parent.nodes.push({item: item, name: absName, nodes: []});
                 }
                 parent.nodes = parent.nodes.sort(function(a, b) {
-                    return a.name < b.name ? -1 : a.name === b.name ? 0 : 1;
+                    return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() === b.name.toLowerCase() ? 0 : 1;
                 });
             };
 
