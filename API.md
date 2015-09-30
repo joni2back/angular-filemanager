@@ -138,8 +138,8 @@
 ```json
 { "params": {
     "mode": "compress",
-    "path": "/public_html/compressed.zip",
-    "destination": "/public_html/backups"
+    "path": "/public_html/backups",
+    "destination": "/public_html/compressed.zip"
 }}
 ```
 **JSON Response**
@@ -192,6 +192,8 @@ $_FILES['file-0'] or foreach($_FILES)
 ```
 [fileManagerConfig.downloadFileUrl]?mode=download&preview=true&path=/public_html/image.jpg
 ```
+If `preview` is `false` the file is forced to download
+
 **Response**
 ```
 -File content
