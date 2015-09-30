@@ -1,8 +1,8 @@
 (function(window, angular, $) {
-    "use strict";
+    'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-    '$scope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
-    function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
+        '$scope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
+        function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
@@ -170,9 +170,9 @@
 
         $scope.getQueryParam = function(param) {
             var found;
-            window.location.search.substr(1).split("&").forEach(function(item) {
-                if (param ===  item.split("=")[0]) {
-                    found = item.split("=")[1];
+            window.location.search.substr(1).split('&').forEach(function(item) {
+                if (param ===  item.split('=')[0]) {
+                    found = item.split('=')[1];
                     return false;
                 }
             });

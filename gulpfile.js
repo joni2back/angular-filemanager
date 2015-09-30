@@ -2,17 +2,18 @@
 
 // Require
 var gulp = require('gulp');
-var templateCache = require('gulp-angular-templatecache');  // caches the templates with $templateCache
-var uglify = require('gulp-uglify');                        // minifies JavaScript
-var minifyCss = require('gulp-minify-css');                 // minifies CSS
-var concat = require('gulp-concat');                        // concat JavaScript
+var templateCache = require('gulp-angular-templatecache');
+var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
+var concat = require('gulp-concat');
+var eslint = require('gulp-eslint');
 var del = require('del');
 var path = require('path');
 
 // Vars
 var src = 'src/';
 var dst = 'dist/';
-var tplPath = 'src/templates' //must be same as fileManagerConfig.tplPath
+var tplPath = 'src/templates'; //must be same as fileManagerConfig.tplPath
 var jsFile = 'angular-filemanager.min.js';
 var cssFile = 'angular-filemanager.min.css';
 
@@ -49,5 +50,26 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest(dst));
 });
 
+gulp.task('lint', function () {
+  return gulp.src([src + 'js/app.js', src + 'js/*/*.js'])
+    .pipe(eslint({
+      'rules': {
+          'quotes': [2, 'single'], 
+          'linebreak-style': [2, 'unix'],
+          'semi': [2, 'always']
+      },
+      'env': {
+          'browser': true
+      },
+      'globals': {
+          'angular': true,
+          'jQuery': true
+      },
+      'extends': 'eslint:recommended'
+    }))
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
+});
+
 gulp.task('default', ['concat-uglify-js', 'minify-css']);
-gulp.task('build', ['default']);
+gulp.task('build', ['lint', 'default']);

@@ -5,24 +5,24 @@
  */
 
 (function(window, angular, $) {
-    "use strict";
-    var app = angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
+    'use strict';
+    angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
 
     /**
      * jQuery inits
      */
     $(window.document).on('shown.bs.modal', '.modal', function() {
-        setTimeout(function() {
+        window.setTimeout(function() {
             $('[autofocus]', this).focus();
         }.bind(this), 100);
     });
 
     $(window.document).on('click', function() {
-        $("#context-menu").hide();
+        $('#context-menu').hide();
     });
 
     $(window.document).on('contextmenu', '.main-navigation .table-files td:first-child, .iconset a.thumbnail', function(e) {
-        $("#context-menu").hide().css({
+        $('#context-menu').hide().css({
             left: e.pageX,
             top: e.pageY
         }).show();

@@ -1,5 +1,5 @@
 (function(angular) {
-    "use strict";
+    'use strict';
     var app = angular.module('FileManagerApp');
 
     app.filter('strLimit', ['$filter', function($filter) {
@@ -11,8 +11,8 @@
         };
     }]);
 
-    app.filter('formatDate', ['$filter', function($filter) {
-        return function(input, limit) {
+    app.filter('formatDate', ['$filter', function() {
+        return function(input) {
             return input instanceof Date ?
                 input.toISOString().substring(0, 19).replace('T', ' ') :
                 (input.toLocaleString || input.toString).apply(input);

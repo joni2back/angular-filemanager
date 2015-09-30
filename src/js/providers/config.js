@@ -1,23 +1,23 @@
 (function(angular) {
-    "use strict";
-    angular.module('FileManagerApp').provider("fileManagerConfig", function() {
+    'use strict';
+    angular.module('FileManagerApp').provider('fileManagerConfig', function() {
 
         var values = {
-            appName: "https://github.com/joni2back/angular-filemanager",
-            defaultLang: "en",
+            appName: 'https://github.com/joni2back/angular-filemanager',
+            defaultLang: 'en',
 
-            listUrl: "bridges/php/handler.php",
-            uploadUrl: "bridges/php/handler.php",
-            renameUrl: "bridges/php/handler.php",
-            copyUrl: "bridges/php/handler.php",
-            removeUrl: "bridges/php/handler.php",
-            editUrl: "bridges/php/handler.php",
-            getContentUrl: "bridges/php/handler.php",
-            createFolderUrl: "bridges/php/handler.php",
-            downloadFileUrl: "bridges/php/handler.php",
-            compressUrl: "bridges/php/handler.php",
-            extractUrl: "bridges/php/handler.php",
-            permissionsUrl: "bridges/php/handler.php",
+            listUrl: 'bridges/php/handler.php',
+            uploadUrl: 'bridges/php/handler.php',
+            renameUrl: 'bridges/php/handler.php',
+            copyUrl: 'bridges/php/handler.php',
+            removeUrl: 'bridges/php/handler.php',
+            editUrl: 'bridges/php/handler.php',
+            getContentUrl: 'bridges/php/handler.php',
+            createFolderUrl: 'bridges/php/handler.php',
+            downloadFileUrl: 'bridges/php/handler.php',
+            compressUrl: 'bridges/php/handler.php',
+            extractUrl: 'bridges/php/handler.php',
+            permissionsUrl: 'bridges/php/handler.php',
 
             sidebar: true,
             breadcrumb: true,

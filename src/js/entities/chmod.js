@@ -1,5 +1,5 @@
 (function(angular) {
-    "use strict";
+    'use strict';
     angular.module('FileManagerApp').service('chmod', function () {
 
         var Chmod = function(initValue) {

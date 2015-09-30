@@ -1,5 +1,5 @@
 (function(angular) {
-    "use strict";
+    'use strict';
     angular.module('FileManagerApp').service('fileNavigator', [
         '$http', '$q', 'fileManagerConfig', 'item', function ($http, $q, fileManagerConfig, Item) {
 
@@ -37,7 +37,7 @@
             var deferred = $q.defer();
             var path = self.currentPath.join('/');
             var data = {params: {
-                mode: "list",
+                mode: 'list',
                 onlyFolders: false,
                 path: '/' + path
             }};
@@ -50,7 +50,7 @@
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, 'Unknown error listing, check the response');
-            })['finally'](function(data) {
+            })['finally'](function() {
                 self.requesting = false;
             });
             return deferred.promise;
@@ -59,17 +59,15 @@
         FileNavigator.prototype.refresh = function() {
             var self = this;
             var path = self.currentPath.join('/');
-            
             return self.list().then(function(data) {
                 self.fileList = (data.result || []).map(function(file) {
                     return new Item(file, self.currentPath);
-                })
+                });
                 self.buildTree(path);
             });
         };
 
         FileNavigator.prototype.buildTree = function(path) {
-            var self = this;
             function recursive(parent, item, path) {
                 var absName = path ? (path + '/' + item.model.name) : item.model.name;
                 if (parent.name.trim() && path.trim().indexOf(parent.name) !== 0) {
@@ -90,42 +88,38 @@
                 parent.nodes = parent.nodes.sort(function(a, b) {
                     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() === b.name.toLowerCase() ? 0 : 1;
                 });
-            };
+            }
 
-            !self.history.length && self.history.push({name: path, nodes: []});
-            for (var o in self.fileList) {
-                var item = self.fileList[o];
-                item.isFolder() && recursive(self.history[0], item, path);
+            !this.history.length && this.history.push({name: path, nodes: []});
+            for (var o in this.fileList) {
+                var item = this.fileList[o];
+                item.isFolder() && recursive(this.history[0], item, path);
             }
         };
 
         FileNavigator.prototype.folderClick = function(item) {
-            var self = this;
-            self.currentPath = [];
+            this.currentPath = [];
             if (item && item.isFolder()) {
-                self.currentPath = item.model.fullPath().split('/').splice(1);
+                this.currentPath = item.model.fullPath().split('/').splice(1);
             }
-            self.refresh();
+            this.refresh();
         };
 
         FileNavigator.prototype.upDir = function() {
-            var self = this;
-            if (self.currentPath[0]) {
-                self.currentPath = self.currentPath.slice(0, -1);
-                self.refresh();
+            if (this.currentPath[0]) {
+                this.currentPath = this.currentPath.slice(0, -1);
+                this.refresh();
             }
         };
 
         FileNavigator.prototype.goTo = function(index) {
-            var self = this;
-            self.currentPath = self.currentPath.slice(0, index + 1);
-            self.refresh();
+            this.currentPath = this.currentPath.slice(0, index + 1);
+            this.refresh();
         };
 
         FileNavigator.prototype.fileNameExists = function(fileName) {
-            var self = this;
-            for (var item in self.fileList) {
-                item = self.fileList[item];
+            for (var item in this.fileList) {
+                item = this.fileList[item];
                 if (fileName.trim && item.model.name.trim() === fileName.trim()) {
                     return true;
                 }
@@ -133,9 +127,8 @@
         };
 
         FileNavigator.prototype.listHasFolders = function() {
-            var self = this;
-            for (var item in self.fileList) {
-                if (self.fileList[item].model.type === 'dir') {
+            for (var item in this.fileList) {
+                if (this.fileList[item].model.type === 'dir') {
                     return true;
                 }
             }
