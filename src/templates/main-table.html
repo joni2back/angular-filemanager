@@ -44,7 +44,7 @@
                 {{ fileNavigator.error }}
             </td>
         </tr>
-        <tr ng-repeat="item in fileNavigator.fileList | filter: query | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting">
+        <tr ng-repeat="item in fileNavigator.fileList | filter: {model:{name: query}} | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting">
             <td ng-right-click="touch(item)">
                 <a href="" ng-click="smartClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
                     <i class="glyphicon glyphicon-folder-close" ng-show="item.model.type === 'dir'"></i>
