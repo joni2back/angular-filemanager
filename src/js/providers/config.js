@@ -5,6 +5,7 @@
         var values = {
             appName: 'https://github.com/joni2back/angular-filemanager',
             defaultLang: 'en',
+            mimeFilter: 'none',
 
             listUrl: 'bridges/php/handler.php',
             uploadUrl: 'bridges/php/handler.php',
@@ -31,7 +32,8 @@
                 extract: true,
                 download: true,
                 preview: true,
-                remove: true
+                remove: true,
+                mimeFilter: false
             },
 
             enablePermissionsRecursive: true,
@@ -44,14 +46,14 @@
             tplPath: 'src/templates'
         };
 
-        return { 
+        return {
             $get: function() {
                 return values;
-            }, 
+            },
             set: function (constants) {
                 angular.extend(values, constants);
             }
         };
-    
+
     });
 })(angular);

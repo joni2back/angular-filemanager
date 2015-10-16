@@ -81,7 +81,11 @@
             changes: 'Changes',
             recursive: 'Recursive',
             preview: 'Item preview',
-            open: 'Open'
+            open: 'Open',
+            images: 'Images',
+            videos: 'Videos',
+            docs: 'Docs',
+            clear: 'Clear'
         });
 
         $translateProvider.translations('pt', {
@@ -247,7 +251,11 @@
             changes: 'Cambios',
             recursive: 'Recursivo',
             preview: 'Vista previa',
-            open: 'Abrir'
+            open: 'Abrir',
+            images: 'Imágenes',
+            videos: 'Videos',
+            docs: 'Documentos',
+            clear: 'Limpiar'
         });
 
         $translateProvider.translations('fr', {
