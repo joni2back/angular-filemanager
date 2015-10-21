@@ -39,7 +39,8 @@
             var data = {params: {
                 mode: 'list',
                 onlyFolders: false,
-                path: '/' + path
+                path: '/' + path,
+                mimeFilter: fileManagerConfig.mimeFilter
             }};
 
             self.requesting = true;

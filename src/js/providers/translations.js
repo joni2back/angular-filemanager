@@ -81,7 +81,11 @@
             changes: 'Changes',
             recursive: 'Recursive',
             preview: 'Item preview',
-            open: 'Open'
+            open: 'Open',
+            images: 'Images',
+            videos: 'Videos',
+            docs: 'Docs',
+            clear: 'Clear'
         });
 
         $translateProvider.translations('pt', {
@@ -164,7 +168,11 @@
             changes: 'Mudanças',
             recursive: 'Recursiva',
             preview: 'Visualização',
-            open: 'Abrir'
+            open: 'Abrir',
+            images: 'Imagens',
+            videos: 'Vídeos',
+            docs: 'Docs',
+            clear: 'Limpar'
         });
 
         $translateProvider.translations('es', {
@@ -247,7 +255,11 @@
             changes: 'Cambios',
             recursive: 'Recursivo',
             preview: 'Vista previa',
-            open: 'Abrir'
+            open: 'Abrir',
+            images: 'Imágenes',
+            videos: 'Videos',
+            docs: 'Documentos',
+            clear: 'Limpiar'
         });
 
         $translateProvider.translations('fr', {
@@ -330,7 +342,11 @@
             changes: 'Modifications',
             recursive: 'Récursif',
             preview: 'Aperçu',
-            open: 'Ouvrir'
+            open: 'Ouvrir',
+            images: 'Imagery',
+            videos: 'Vidéos',
+            docs: 'Docs',
+            clear: 'Cleanse'
         });
     }]);
 })(angular);

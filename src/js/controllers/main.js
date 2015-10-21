@@ -6,7 +6,7 @@
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
-        $scope.predicate = ['model.type', 'model.name'];        
+        $scope.predicate = ['model.type', 'model.name'];
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
@@ -28,6 +28,13 @@
                 return $translate.use($cookies.language = locale);
             }
             $translate.use($cookies.language || fileManagerConfig.defaultLang);
+        };
+
+        $scope.changeMimeFilter = function(mimeFilter) {
+          if (mimeFilter && mimeFilter != fileManagerConfig.mimeFilter) {
+            fileManagerConfig.mimeFilter = mimeFilter;
+            $scope.fileNavigator.refresh();
+          }
         };
 
         $scope.touch = function(item) {
