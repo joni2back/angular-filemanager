@@ -1,57 +1,57 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand hidden-xs" href="" ng-click="fileNavigator.goTo(-1)">{{config.appName}}</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <div class="navbar-form navbar-right">
-        <input type="text" class="form-control input-sm hide" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
-        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#newfolder" ng-click="touch()">
-            <i class="glyphicon glyphicon-plus"></i> {{"create_folder" | translate}}
-        </button>
-        <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#uploadfile" ng-click="touch()">
-            <i class="glyphicon glyphicon-upload"></i> {{"upload_file" | translate}}
-        </button>
-
-        <div class="btn-group">
-          <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuLang" data-toggle="dropdown" aria-expanded="true">
-            <i class="glyphicon glyphicon-globe"></i> {{"language" | translate}} <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropDownMenuLang">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('en')">{{"english" | translate}}</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('es')">{{"spanish" | translate}}</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pt')">{{"portuguese" | translate}}</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fr')">{{"french" | translate}}</a></li>
-          </ul>
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand hidden-xs" href="" ng-click="fileNavigator.goTo(-1)">{{config.appName}}</a>
         </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="navbar-form navbar-right">
+                <input type="text" class="form-control input-sm hide" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
+                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#newfolder" ng-click="touch()">
+                    <i class="glyphicon glyphicon-plus"></i> {{"create_folder" | translate}}
+                </button>
+                <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#uploadfile" ng-click="touch()">
+                    <i class="glyphicon glyphicon-upload"></i> {{"upload_file" | translate}}
+                </button>
 
-        <div ng-show="config.allowedActions.mimeFilter" class="btn-group">
-          <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuFilter" data-toggle="dropdown" aria-expanded="true">
-            <i class="glyphicon glyphicon-filter"></i> {{"filter" | translate}}: {{config.mimeFilter | translate}} <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropDownMenuFilter">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeMimeFilter('images')"><i class="glyphicon glyphicon-picture"> {{"images" | translate}}</i></a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeMimeFilter('videos')"><i class="glyphicon glyphicon-film"> {{"videos" | translate}}</i></a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeMimeFilter('docs')"><i class="glyphicon glyphicon-file"> {{"docs" | translate}}</i></a></li>
-            <li class="divider"></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href ng-click="changeMimeFilter('none')"><i class="glyphicon glyphicon-remove"> {{"clear" | translate}}</i></a></li>
-          </ul>
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuLang" data-toggle="dropdown" aria-expanded="true">
+                        <i class="glyphicon glyphicon-globe"></i> {{"language" | translate}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropDownMenuLang">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('en')">{{"english" | translate}}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('es')">{{"spanish" | translate}}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pt')">{{"portuguese" | translate}}</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fr')">{{"french" | translate}}</a></li>
+                    </ul>
+                </div>
+
+                <div ng-show="config.allowedActions.mimeFilter" class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuFilter" data-toggle="dropdown" aria-expanded="true">
+                        <i class="glyphicon glyphicon-filter"></i> {{"filter" | translate}}: {{config.mimeFilter | translate}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropDownMenuFilter">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeMimeFilter('images')"><i class="glyphicon glyphicon-picture"> {{"images" | translate}}</i></a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeMimeFilter('videos')"><i class="glyphicon glyphicon-film"> {{"videos" | translate}}</i></a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeMimeFilter('docs')"><i class="glyphicon glyphicon-file"> {{"docs" | translate}}</i></a></li>
+                        <li class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href ng-click="changeMimeFilter('none')"><i class="glyphicon glyphicon-remove"> {{"clear" | translate}}</i></a></li>
+                    </ul>
+                </div>
+
+                <button class="btn btn-default btn-sm" ng-click="$parent.setTemplate('main-icons.html')" ng-show="$parent.viewTemplate !== 'main-icons.html'" title="{{'icons' | translate}}">
+                    <i class="glyphicon glyphicon-th-large"></i>
+                </button>
+                <button class="btn btn-default btn-sm" ng-click="$parent.setTemplate('main-table.html')" ng-show="$parent.viewTemplate !== 'main-table.html'" title="{{'list' | translate}}">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                </button>
+
+            </div>
         </div>
-
-        <button class="btn btn-default btn-sm" ng-click="$parent.setTemplate('main-icons.html')" ng-show="$parent.viewTemplate !== 'main-icons.html'" title="{{'icons' | translate}}">
-            <i class="glyphicon glyphicon-th-large"></i>
-        </button>
-        <button class="btn btn-default btn-sm" ng-click="$parent.setTemplate('main-table.html')" ng-show="$parent.viewTemplate !== 'main-table.html'" title="{{'list' | translate}}">
-            <i class="glyphicon glyphicon-th-list"></i>
-        </button>
-
-      </div>
     </div>
-  </div>
 </nav>

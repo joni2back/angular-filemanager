@@ -168,7 +168,11 @@
             changes: 'Mudanças',
             recursive: 'Recursiva',
             preview: 'Visualização',
-            open: 'Abrir'
+            open: 'Abrir',
+            images: 'Imagens',
+            videos: 'Vídeos',
+            docs: 'Docs',
+            clear: 'Limpar'
         });
 
         $translateProvider.translations('es', {
@@ -338,7 +342,11 @@
             changes: 'Modifications',
             recursive: 'Récursif',
             preview: 'Aperçu',
-            open: 'Ouvrir'
+            open: 'Ouvrir',
+            images: 'Imagery',
+            videos: 'Vidéos',
+            docs: 'Docs',
+            clear: 'Cleanse'
         });
     }]);
 })(angular);
