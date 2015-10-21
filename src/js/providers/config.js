@@ -1,6 +1,6 @@
-(function(angular) {
+(function (angular) {
     'use strict';
-    angular.module('FileManagerApp').provider('fileManagerConfig', function() {
+    angular.module('FileManagerApp').provider('fileManagerConfig', function () {
 
         var values = {
             appName: 'https://github.com/joni2back/angular-filemanager',
@@ -34,6 +34,10 @@
                 remove: true
             },
 
+            layout: {
+                name: 'default'
+            },
+
             enablePermissionsRecursive: true,
             compressAsync: true,
             extractAsync: true,
@@ -44,14 +48,14 @@
             tplPath: 'src/templates'
         };
 
-        return { 
-            $get: function() {
+        return {
+            $get: function () {
                 return values;
-            }, 
+            },
             set: function (constants) {
                 angular.extend(values, constants);
             }
         };
-    
+
     });
 })(angular);
