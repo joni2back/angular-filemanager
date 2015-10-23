@@ -5,7 +5,7 @@
     app.directive('angularFilemanager', ['$parse', 'fileManagerConfig', function($parse, fileManagerConfig) {
         return {
             restrict: 'EA',
-            templateUrl: fileManagerConfig.tplPath + '/layouts/' + fileManagerConfig.layout.name + '.html'
+            templateUrl: fileManagerConfig.tplPath + '/layout-' + fileManagerConfig.layout.name + '.html'
         };
     }]);
 
