@@ -30,6 +30,13 @@
             $translate.use($cookies.language || fileManagerConfig.defaultLang);
         };
 
+        $scope.changeMimeFilter = function(mimeFilter) {
+          if (mimeFilter && mimeFilter != fileManagerConfig.mimeFilter) {
+            fileManagerConfig.mimeFilter = mimeFilter;
+            $scope.fileNavigator.refresh();
+          }
+        };
+
         $scope.touch = function(item) {
             item = item instanceof Item ? item : new Item();
             item.revert();
