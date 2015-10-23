@@ -5,7 +5,7 @@
     app.directive('angularFilemanager', ['$parse', 'fileManagerConfig', function($parse, fileManagerConfig) {
         return {
             restrict: 'EA',
-            templateUrl: fileManagerConfig.tplPath + '/main.html'
+            templateUrl: fileManagerConfig.tplPath + '/layouts/' + fileManagerConfig.layout.name + '.html'
         };
     }]);
 
@@ -36,5 +36,5 @@
             });
         };
     }]);
-    
+
 })(angular);

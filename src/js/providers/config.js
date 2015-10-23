@@ -1,6 +1,6 @@
-(function(angular) {
+(function (angular) {
     'use strict';
-    angular.module('FileManagerApp').provider('fileManagerConfig', function() {
+    angular.module('FileManagerApp').provider('fileManagerConfig', function () {
 
         var values = {
             appName: 'https://github.com/joni2back/angular-filemanager',
@@ -35,6 +35,10 @@
                 preview: true,
                 remove: true,
                 mimeFilter: false
+            },
+
+            layout: {
+                name: 'default'
             },
 
             enablePermissionsRecursive: true,
