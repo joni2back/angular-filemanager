@@ -18,6 +18,7 @@
             compressUrl: 'bridges/php/handler.php',
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
+            eventDispatcher: null,
 
             sidebar: true,
             breadcrumb: true,
@@ -44,14 +45,14 @@
             tplPath: 'src/templates'
         };
 
-        return { 
+        return {
             $get: function() {
                 return values;
-            }, 
+            },
             set: function (constants) {
                 angular.extend(values, constants);
             }
         };
-    
+
     });
 })(angular);

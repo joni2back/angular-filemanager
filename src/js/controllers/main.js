@@ -6,7 +6,7 @@
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
-        $scope.predicate = ['model.type', 'model.name'];        
+        $scope.predicate = ['model.type', 'model.name'];
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
@@ -37,6 +37,9 @@
         };
 
         $scope.smartClick = function(item) {
+            if (fileManagerConfig.eventDispatcher != null) {
+                fileManagerConfig.eventDispatcher.dispatch('smartClick', item);
+            }
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
             }
