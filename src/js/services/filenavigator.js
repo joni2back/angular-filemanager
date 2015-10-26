@@ -40,7 +40,8 @@
                 mode: 'list',
                 onlyFolders: false,
                 path: '/' + path,
-                mimeFilter: fileManagerConfig.mimeFilter
+                mimeFilter: fileManagerConfig.mimeFilter,
+                excludeFolders: fileManagerConfig.excludeFolders
             }};
 
             self.requesting = true;

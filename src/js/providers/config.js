@@ -20,6 +20,7 @@
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
             eventDispatcher: null,
+            excludeFolders: null,
 
             sidebar: true,
             breadcrumb: true,
@@ -34,7 +35,11 @@
                 download: true,
                 preview: true,
                 remove: true,
-                mimeFilter: false
+                mimeFilter: false,
+                navbar: {
+                    newFolder: true,
+                    uploadFile: true
+                }
             },
 
             layout: {
@@ -52,7 +57,7 @@
         };
 
         return {
-            $get: function() {
+            $get: function () {
                 return values;
             },
             set: function (constants) {
