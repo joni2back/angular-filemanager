@@ -17,7 +17,7 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
+        $scope.viewTemplate = $cookies.viewTemplate || fileManagerConfig.defaultViewTemplate || 'main-table.html';
 
         $scope.setTemplate = function(name) {
             $scope.viewTemplate = $cookies.viewTemplate = name;

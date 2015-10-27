@@ -10,7 +10,7 @@
             } else {
                 url += layout + '.html';
             }
-            console.log('Print layout: ' + url);
+            console.log('Print layout: ' + url + ' with tplPath: ' + fileManagerConfig.tplPath);
             return $http.get(url, {cache: $templateCache});
         };
         var linker = function (scope, element, attrs) {

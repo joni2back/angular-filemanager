@@ -19,7 +19,7 @@
                     <i class="glyphicon glyphicon-upload"></i> {{"upload_file" | translate}}
                 </button>
 
-                <div class="btn-group">
+                <div class="btn-group" ng-show="config.navbar.language">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuLang" data-toggle="dropdown" aria-expanded="true">
                         <i class="glyphicon glyphicon-globe"></i> {{"language" | translate}} <span class="caret"></span>
                     </button>
@@ -31,7 +31,7 @@
                     </ul>
                 </div>
 
-                <div ng-show="config.allowedActions.mimeFilter" class="btn-group">
+                <div ng-show="config.navbar.mimeFilter" class="btn-group">
                     <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuFilter" data-toggle="dropdown" aria-expanded="true">
                         <i class="glyphicon glyphicon-filter"></i> {{"filter" | translate}}: {{config.mimeFilter | translate}} <span class="caret"></span>
                     </button>

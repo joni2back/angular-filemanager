@@ -6,6 +6,7 @@
             appName: 'https://github.com/joni2back/angular-filemanager',
             defaultLang: 'en',
             mimeFilter: 'none',
+            pwd: '/',
 
             listUrl: 'bridges/php/handler.php',
             uploadUrl: 'bridges/php/handler.php',
@@ -21,6 +22,7 @@
             permissionsUrl: 'bridges/php/handler.php',
             eventDispatcher: null,
             excludeFolders: null,
+            defaultViewTemplate: 'main-table.html',
 
             sidebar: true,
             breadcrumb: true,
@@ -34,12 +36,22 @@
                 extract: true,
                 download: true,
                 preview: true,
-                remove: true,
-                mimeFilter: false,
-                navbar: {
-                    newFolder: true,
-                    uploadFile: true
-                }
+                remove: true
+            },
+
+            navbar: {
+                newFolder: true,
+                uploadFile: true,
+                language: true,
+                mimeFilter: false
+            },
+
+            tableColumns: {
+                name: true,
+                size: true,
+                date: true,
+                permissions: true,
+                toolbar: true
             },
 
             layout: {

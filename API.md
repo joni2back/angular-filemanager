@@ -8,7 +8,8 @@
     "mode": "list",
     "onlyFolders": false,
     "path": "/public_html",
-    "mimeFilter": "none"
+    "mimeFilter": "none",
+    "pwd": "/"
 }}
 ```
 
@@ -21,6 +22,9 @@ MimeFilter possible values:
 | videos     | Only videos    |
 | docs       | Only documents |
 
+pwd: Define an folder to isolate querys. For example if you have an private user folder (/media/user1):
+  - pwd = "/media/user1"
+  - path = "/"
 
 **JSON Response**
 ```json

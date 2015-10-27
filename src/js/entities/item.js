@@ -15,8 +15,15 @@
                 sizeKb: function() {
                     return Math.round(this.size / 1024, 1);
                 },
-                fullPath: function() {
-                    return ('/' + this.path.join('/') + '/' + this.name).replace(/\/\//, '/');
+                fullPath: function(withPWD) {
+                    withPWD = typeof withPWD !== 'undefined' ? withPWD : true;
+                    var result;
+                    if (withPWD && fileManagerConfig.pwd != null) {
+                        result = (fileManagerConfig.pwd + this.path.join('/') + '/' + this.name).replace(/\/\//, '/');
+                    } else {
+                        result = ('/' + this.path.join('/') + '/' + this.name).replace(/\/\//, '/');
+                    }
+                    return result;
                 }
             };
 
@@ -79,7 +86,7 @@
             })['finally'](function() {
                 self.inprocess = false;
             });
-        
+
             return deferred.promise;
         };
 
@@ -256,7 +263,7 @@
                 permsCode: self.tempModel.perms.toCode(),
                 recursive: self.tempModel.recursive
             }};
-            
+
             self.inprocess = true;
             self.error = '';
             $http.post(fileManagerConfig.permissionsUrl, data).success(function(data) {

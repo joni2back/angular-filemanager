@@ -18,7 +18,7 @@
             deferred.resolve(data);
         }
 
-        this.requesting = false; 
+        this.requesting = false;
         this.upload = function(fileList, path) {
             if (! window.FormData) {
                 throw new Error('Unsupported browser version');
@@ -27,6 +27,7 @@
             var form = new window.FormData();
             var deferred = $q.defer();
             form.append('destination', '/' + path.join('/'));
+            form.append('pwd', fileManagerConfig.pwd);
 
             for (var i = 0; i < fileList.length; i++) {
                 var fileObj = fileList.item(i);

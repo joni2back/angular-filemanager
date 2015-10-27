@@ -11,10 +11,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <div class="navbar-form navbar-right">
-                <button ng-show="config.allowedActions.navbar.newFolder"  class="btn btn-default btn-sm" data-toggle="modal" data-target="#newfolder" ng-click="touch()">
+                <button ng-show="config.navbar.newFolder"  class="btn btn-default btn-sm" data-toggle="modal" data-target="#newfolder" ng-click="touch()">
                     <i class="glyphicon glyphicon-plus"></i> {{"create_folder" | translate}}
                 </button>
-                <button ng-show="config.allowedActions.navbar.uploadFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#uploadfile" ng-click="touch()">
+                <button ng-show="config.navbar.uploadFile" class="btn btn-default btn-sm" data-toggle="modal" data-target="#uploadfile" ng-click="touch()">
                     <i class="glyphicon glyphicon-upload"></i> {{"upload_file" | translate}}
                 </button>
             </div>
