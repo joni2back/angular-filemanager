@@ -1,10 +1,12 @@
-(function(angular) {
+(function (angular) {
     'use strict';
-    angular.module('FileManagerApp').provider('fileManagerConfig', function() {
+    angular.module('FileManagerApp').provider('fileManagerConfig', function () {
 
         var values = {
             appName: 'https://github.com/joni2back/angular-filemanager',
             defaultLang: 'en',
+            mimeFilter: 'none',
+            pwd: '/',
 
             listUrl: 'bridges/php/handler.php',
             uploadUrl: 'bridges/php/handler.php',
@@ -18,6 +20,9 @@
             compressUrl: 'bridges/php/handler.php',
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
+            eventDispatcher: null,
+            excludeFolders: null,
+            defaultViewTemplate: 'main-table.html',
 
             sidebar: true,
             breadcrumb: true,
@@ -34,6 +39,27 @@
                 remove: true
             },
 
+            navbar: {
+                newFolder: true,
+                uploadFile: true,
+                language: true,
+                mimeFilter: false
+            },
+
+            tableColumns: {
+                name: true,
+                size: true,
+                date: true,
+                permissions: true,
+                toolbar: true
+            },
+
+            layout: {
+                name: 'default'
+            },
+
+            autoImagePreview: true,
+            autoEditFile: true,
             enablePermissionsRecursive: true,
             compressAsync: true,
             extractAsync: true,
@@ -44,14 +70,14 @@
             tplPath: 'src/templates'
         };
 
-        return { 
-            $get: function() {
+        return {
+            $get: function () {
                 return values;
-            }, 
+            },
             set: function (constants) {
                 angular.extend(values, constants);
             }
         };
-    
+
     });
 })(angular);

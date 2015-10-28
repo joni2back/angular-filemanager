@@ -7,12 +7,28 @@
 { "params": {
     "mode": "list",
     "onlyFolders": false,
-    "path": "/public_html"
+    "path": "/public_html",
+    "mimeFilter": "none",
+    "pwd": "/"
 }}
 ```
+
+MimeFilter possible values:
+
+| MimeFilter | Description    |
+|------------|----------------|
+| none       | No filter      |
+| images     | Only images    |
+| videos     | Only videos    |
+| docs       | Only documents |
+
+pwd: Define a folder to isolate querys. For example if you have a private user folder (/media/user1):
+  - pwd = "/media/user1"
+  - path = "/"
+
 **JSON Response**
 ```json
-{ "result": [ 
+{ "result": [
     {
         "name": "joomla",
         "rights": "drwxr-xr-x",
@@ -69,6 +85,7 @@
 { "params": {
     "mode": "delete",
     "path": "/public_html/index.php",
+    "type": "dir"
 }}
 ```
 **JSON Response**

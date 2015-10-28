@@ -1,6 +1,10 @@
-body {
+.filemanager {
   padding-top: 55px;
   font-size: 14px;
+}
+
+.no-navbar {
+    padding-top: 0;
 }
 
 *,
@@ -126,7 +130,7 @@ a:hover {
 
 .file-tree ul.nav.nav-sidebar.file-tree-root > li {
   border-left: none;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 .table td {
@@ -159,7 +163,6 @@ a:hover {
   border-radius: 0;
   overflow: hidden;
   margin: 0;
-  padding: 0;
   padding: 10px 0;
   border: none;
 }
@@ -300,6 +303,19 @@ table th > a:focus {
     overflow-y: auto;
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
+  }
+
+  .sidebar-selection {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      display: block;
+      padding: 5px 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: #f5f5f5;
+      border-right: 1px solid #eee;
   }
 }
 

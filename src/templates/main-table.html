@@ -1,25 +1,25 @@
 <table class="table mb0 table-files">
     <thead>
         <tr>
-            <th>
+            <th ng-show="config.tableColumns.name">
                 <a href="" ng-click="order('model.name')">
                     {{"name" | translate}}
                     <span class="sortorder" ng-show="predicate[1] === 'model.name'" ng-class="{reverse:reverse}"></span>
                 </a>
             </th>
-            <th class="hidden-xs">
+            <th class="hidden-xs" ng-show="config.tableColumns.size">
                 <a href="" ng-click="order('model.size')">
                     {{"size" | translate}}
                     <span class="sortorder" ng-show="predicate[1] === 'model.size'" ng-class="{reverse:reverse}"></span>
                 </a>
             </th>
-            <th class="hidden-sm hidden-xs">
+            <th class="hidden-sm hidden-xs" ng-show="config.tableColumns.date">
                 <a href="" ng-click="order('model.date')">
                     {{"date" | translate}}
                     <span class="sortorder" ng-show="predicate[1] === 'model.date'" ng-class="{reverse:reverse}"></span>
                 </a>
             </th>
-            <th class="hidden-sm hidden-xs">
+            <th class="hidden-sm hidden-xs" ng-show="config.tableColumns.permissions">
                 <a href="" ng-click="order('model.permissions')">
                     {{"permissions" | translate}}
                     <span class="sortorder" ng-show="predicate[1] === 'model.permissions'" ng-class="{reverse:reverse}"></span>
@@ -45,23 +45,23 @@
             </td>
         </tr>
         <tr ng-repeat="item in fileNavigator.fileList | filter: {model:{name: query}} | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting">
-            <td ng-right-click="touch(item)">
+            <td ng-right-click="touch(item)" ng-show="config.tableColumns.name">
                 <a href="" ng-click="smartClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
                     <i class="glyphicon glyphicon-folder-close" ng-show="item.model.type === 'dir'"></i>
                     <i class="glyphicon glyphicon-file" ng-show="item.model.type === 'file'"></i>
                     {{item.model.name | strLimit : 64}}
                 </a>
             </td>
-            <td class="hidden-xs">
+            <td class="hidden-xs" ng-show="config.tableColumns.size">
                 {{item.model.sizeKb()}}kb
             </td>
-            <td class="hidden-sm hidden-xs">
+            <td class="hidden-sm hidden-xs" ng-show="config.tableColumns.date">
                 {{item.model.date | formatDate }}
             </td>
-            <td class="hidden-sm hidden-xs">
+            <td class="hidden-sm hidden-xs" ng-show="config.tableColumns.permissions">
                 {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}
             </td>
-            <td class="text-right">
+            <td class="text-right" ng-show="config.tableColumns.toolbar">
                 <div ng-include="config.tplPath + '/item-toolbar.html'"></div>
             </td>
         </tr>

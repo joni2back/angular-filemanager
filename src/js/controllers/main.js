@@ -6,7 +6,7 @@
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
-        $scope.predicate = ['model.type', 'model.name'];        
+        $scope.predicate = ['model.type', 'model.name'];
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
@@ -17,7 +17,7 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
+        $scope.viewTemplate = $cookies.viewTemplate || fileManagerConfig.defaultViewTemplate || 'main-table.html';
 
         $scope.setTemplate = function(name) {
             $scope.viewTemplate = $cookies.viewTemplate = name;
@@ -30,6 +30,13 @@
             $translate.use($cookies.language || fileManagerConfig.defaultLang);
         };
 
+        $scope.changeMimeFilter = function(mimeFilter) {
+          if (mimeFilter && mimeFilter != fileManagerConfig.mimeFilter) {
+            fileManagerConfig.mimeFilter = mimeFilter;
+            $scope.fileNavigator.refresh();
+          }
+        };
+
         $scope.touch = function(item) {
             item = item instanceof Item ? item : new Item();
             item.revert();
@@ -37,14 +44,25 @@
         };
 
         $scope.smartClick = function(item) {
+            if (fileManagerConfig.eventDispatcher != null) {
+                fileManagerConfig.eventDispatcher.dispatch('smartClick', item);
+            }
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
             }
             if (item.isImage()) {
-                return $scope.openImagePreview(item);
+                if (fileManagerConfig.autoImagePreview) {
+                    return $scope.openImagePreview(item);
+                } else {
+                    return $scope.touch(item);
+                }
             }
             if (item.isEditable()) {
-                return $scope.openEditItem(item);
+                if (fileManagerConfig.autoEditFile) {
+                    return $scope.openEditItem(item);
+                } else {
+                    return $scope.touch(item);
+                }
             }
         };
 

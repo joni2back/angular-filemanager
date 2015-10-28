@@ -39,7 +39,10 @@
             var data = {params: {
                 mode: 'list',
                 onlyFolders: false,
-                path: '/' + path
+                path: '/' + path,
+                mimeFilter: fileManagerConfig.mimeFilter,
+                excludeFolders: fileManagerConfig.excludeFolders,
+                pwd: fileManagerConfig.pwd
             }};
 
             self.requesting = true;
@@ -100,7 +103,7 @@
         FileNavigator.prototype.folderClick = function(item) {
             this.currentPath = [];
             if (item && item.isFolder()) {
-                this.currentPath = item.model.fullPath().split('/').splice(1);
+                this.currentPath = item.model.fullPath(false).split('/').splice(1);
             }
             this.refresh();
         };
