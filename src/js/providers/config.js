@@ -58,6 +58,7 @@
                 name: 'default'
             },
 
+            autoImagePreview: true,
             enablePermissionsRecursive: true,
             compressAsync: true,
             extractAsync: true,

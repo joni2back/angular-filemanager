@@ -85,6 +85,7 @@ pwd: Define an folder to isolate querys. For example if you have an private user
 { "params": {
     "mode": "delete",
     "path": "/public_html/index.php",
+    "type": "dir"
 }}
 ```
 **JSON Response**

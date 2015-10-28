@@ -216,7 +216,8 @@
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'delete',
-                path: self.tempModel.fullPath()
+                path: self.tempModel.fullPath(),
+                type: self.tempModel.type
             }};
 
             self.inprocess = true;

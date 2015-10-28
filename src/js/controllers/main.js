@@ -51,7 +51,11 @@
                 return $scope.fileNavigator.folderClick(item);
             }
             if (item.isImage()) {
-                return $scope.openImagePreview(item);
+                if (fileManagerConfig.autoImagePreview) {
+                    return $scope.openImagePreview(item);
+                } else {
+                    return $scope.touch(item);
+                }
             }
             if (item.isEditable()) {
                 return $scope.openEditItem(item);
