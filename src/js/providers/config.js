@@ -59,6 +59,7 @@
             },
 
             autoImagePreview: true,
+            autoEditFile: true,
             enablePermissionsRecursive: true,
             compressAsync: true,
             extractAsync: true,

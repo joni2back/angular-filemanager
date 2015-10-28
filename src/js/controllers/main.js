@@ -58,7 +58,11 @@
                 }
             }
             if (item.isEditable()) {
-                return $scope.openEditItem(item);
+                if (fileManagerConfig.autoEditFile) {
+                    return $scope.openEditItem(item);
+                } else {
+                    return $scope.touch(item);
+                }
             }
         };
 
