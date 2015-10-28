@@ -66,7 +66,7 @@
                 self.buildTree(path);
             });
         };
-
+        
         FileNavigator.prototype.buildTree = function(path) {
             function recursive(parent, item, path) {
                 var absName = path ? (path + '/' + item.model.name) : item.model.name;
@@ -90,7 +90,23 @@
                 });
             }
 
-            !this.history.length && this.history.push({name: path, nodes: []});
+            !this.history.length && this.history.push({name: '', nodes: []});
+            function flatten(node, array) {
+                array.push(node);
+                for(var n in node.nodes) {
+                    flatten(node.nodes[n],array);
+                }
+            }
+            function findNode(data, path) {
+                return data.filter(function (n) {
+                    return n.name === path;
+                })[0];
+            }
+            var flatNodes = [];
+            flatten(this.history[0],flatNodes);
+            var selectedNode = findNode(flatNodes, path);
+            selectedNode.nodes = [];
+
             for (var o in this.fileList) {
                 var item = this.fileList[o];
                 item.isFolder() && recursive(this.history[0], item, path);
