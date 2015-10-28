@@ -22,7 +22,7 @@ MimeFilter possible values:
 | videos     | Only videos    |
 | docs       | Only documents |
 
-pwd: Define an folder to isolate querys. For example if you have an private user folder (/media/user1):
+pwd: Define a folder to isolate querys. For example if you have a private user folder (/media/user1):
   - pwd = "/media/user1"
   - path = "/"
 
