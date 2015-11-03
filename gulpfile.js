@@ -55,7 +55,7 @@ gulp.task('lint', function () {
     .pipe(eslint({
       'rules': {
           'quotes': [2, 'single'], 
-          'linebreak-style': [2, 'unix'],
+          //'linebreak-style': [2, 'unix'],
           'semi': [2, 'always']
       },
       'env': {
