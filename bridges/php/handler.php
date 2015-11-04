@@ -183,6 +183,27 @@ if (Request::getApiParam('mode') === 'editfile') {
     $oResponse->flushJson();
 }
 
+if (Request::getApiParam('mode') === 'rename') {
+    $path = Request::getApiParam('path');
+    $newPath = Request::getApiParam('newPath');
+    $result = $oFtp->move($path, $newPath);
+    if (! $result) {
+        throw new Exception("Unknown error renaming this folder");
+    }
+    $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
+if (Request::getApiParam('mode') === 'delete') {
+    $path = Request::getApiParam('path');
+    $result = $oFtp->delete($path);
+    if (! $result) {
+        throw new Exception("Unknown error removing this item");
+    }
+    $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
 if (Request::getApiParam('mode') === 'addfolder') {
     $path = Request::getApiParam('path');
     $name = Request::getApiParam('name');
