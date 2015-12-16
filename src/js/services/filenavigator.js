@@ -68,6 +68,8 @@
         };
         
         FileNavigator.prototype.buildTree = function(path) {
+            var flatNodes = [], selectedNode = {};
+
             function recursive(parent, item, path) {
                 var absName = path ? (path + '/' + item.model.name) : item.model.name;
                 if (parent.name.trim() && path.trim().indexOf(parent.name) !== 0) {
@@ -90,21 +92,22 @@
                 });
             }
 
-            !this.history.length && this.history.push({name: '', nodes: []});
             function flatten(node, array) {
                 array.push(node);
-                for(var n in node.nodes) {
-                    flatten(node.nodes[n],array);
+                for (var n in node.nodes) {
+                    flatten(node.nodes[n], array);
                 }
             }
+
             function findNode(data, path) {
                 return data.filter(function (n) {
                     return n.name === path;
                 })[0];
             }
-            var flatNodes = [];
-            flatten(this.history[0],flatNodes);
-            var selectedNode = findNode(flatNodes, path);
+
+            !this.history.length && this.history.push({name: '', nodes: []});
+            flatten(this.history[0], flatNodes);
+            selectedNode = findNode(flatNodes, path);
             selectedNode.nodes = [];
 
             for (var o in this.fileList) {
