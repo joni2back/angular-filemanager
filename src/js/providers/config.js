@@ -22,6 +22,7 @@
             sidebar: true,
             breadcrumb: true,
             allowedActions: {
+                upload: true,
                 rename: true,
                 copy: true,
                 edit: true,
