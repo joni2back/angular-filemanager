@@ -65,7 +65,7 @@
         Chmod.prototype.convertfromCode = function (str) {
             str = ('' + str).replace(/\s/g, '');
             str = str.length === 10 ? str.substr(1) : str;
-            if (! /^[-rwx]{9}$/.test(str)) {
+            if (! /^[-rwxt]{9}$/.test(str)) {
                 return;
             }
 
@@ -74,7 +74,7 @@
                 var rwxObj = this.getRwxObj();
                 rwxObj.read  = /r/.test(vals[i]);
                 rwxObj.write = /w/.test(vals[i]);
-                rwxObj.exec  = /x/.test(vals[i]);
+                rwxObj.exec  = /x|t/.test(vals[i]);
                 result.push(rwxObj);
             }
 
