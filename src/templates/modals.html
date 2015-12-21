@@ -201,8 +201,8 @@
                 <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{"cancel" | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-disabled="temp.inprocess">{{'edit' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="temp.inprocess">{{'close' | translate}}</button>
+              <button type="submit" class="btn btn-primary" ng-show="config.allowedActions.edit" ng-disabled="temp.inprocess">{{'edit' | translate}}</button>
             </div>
         </form>
     </div>
