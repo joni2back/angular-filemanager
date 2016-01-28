@@ -11,7 +11,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <div class="navbar-form navbar-right">
-        <input type="text" class="form-control input-sm hide" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
+        <input type="text" class="form-control input-sm" ng-show="config.searchForm" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
         <button class="btn btn-default btn-sm" data-toggle="modal" data-target="#newfolder" ng-click="touch()">
             <i class="glyphicon glyphicon-plus"></i> {{"create_folder" | translate}}
         </button>
