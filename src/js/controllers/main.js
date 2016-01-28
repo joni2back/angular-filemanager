@@ -41,7 +41,10 @@
                 return $scope.fileNavigator.folderClick(item);
             }
             if (item.isImage()) {
-                return $scope.openImagePreview(item);
+                if ($scope.config.previewImagesInModal) {
+                    return $scope.openImagePreview(item);
+                } 
+                return item.download(true);
             }
             if (item.isEditable()) {
                 return $scope.openEditItem(item);

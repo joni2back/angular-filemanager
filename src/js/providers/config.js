@@ -36,6 +36,7 @@
                 remove: true
             },
 
+            previewImagesInModal: true,
             enablePermissionsRecursive: true,
             compressAsync: true,
             extractAsync: true,
