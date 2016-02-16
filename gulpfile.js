@@ -32,7 +32,7 @@ gulp.task('cache-templates', function () {
     .pipe(gulp.dest(dst));
 });
 
-gulp.task('concat-uglify-js', ['clean', 'cache-templates'], function() {
+gulp.task('concat-uglify-js', ['cache-templates'], function() {
   return gulp.src([
     src + 'js/app.js',
       src + 'js/*/*.js',
@@ -72,4 +72,4 @@ gulp.task('lint', function () {
 });
 
 gulp.task('default', ['concat-uglify-js', 'minify-css']);
-gulp.task('build', ['lint', 'default']);
+gulp.task('build', ['clean', 'lint', 'default']);
