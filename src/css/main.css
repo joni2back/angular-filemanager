@@ -164,6 +164,10 @@ a:hover {
   border: none;
 }
 
+.iconset .thumbnail.selected {
+  background: #CAFFDD;
+}
+
 .iconset .thumbnail .item-icon {
   font-size: 32px;
 }

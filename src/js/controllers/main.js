@@ -18,6 +18,7 @@
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
         $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
+        $scope.temps = [];
 
         $scope.setTemplate = function(name) {
             $scope.viewTemplate = $cookies.viewTemplate = name;
@@ -34,6 +35,23 @@
             item = item instanceof Item ? item : new Item();
             item.revert();
             $scope.temp = item;
+        };
+
+        $scope.selectOrUnselect = function(item, $event) {
+            if ($event.ctrlKey) {
+                $scope.isSelected(item) ? $scope.temps.pop(item) : $scope.temps.push(item);
+                return;
+            }
+            $scope.temps = [];
+            $scope.temps.push(item);
+        };
+
+        $scope.isSelected = function(item) {
+            return $scope.temps.indexOf(item) !== -1;
+        };
+
+        $scope.isSingleSelection = function() {
+            return $scope.temps.length === 1;
         };
 
         $scope.smartClick = function(item) {

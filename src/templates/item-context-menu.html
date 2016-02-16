@@ -13,7 +13,7 @@
             </a>
         </li>
 
-        <li ng-show="config.allowedActions.preview && temp.isImage()">
+        <li ng-show="config.allowedActions.preview && temp.isImage() && isSingleSelection()">
             <a href="" tabindex="-1" ng-click="openImagePreview(temp)">
                 <i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}
             </a>
@@ -21,7 +21,7 @@
 
         <li class="divider"></li>
 
-        <li ng-show="config.allowedActions.rename">
+        <li ng-show="config.allowedActions.rename && isSingleSelection()">
             <a href="" tabindex="-1" data-toggle="modal" data-target="#rename">
                 <i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}
             </a>
@@ -33,7 +33,7 @@
             </a>
         </li>
 
-        <li ng-show="config.allowedActions.edit && temp.isEditable()">
+        <li ng-show="config.allowedActions.edit && temp.isEditable() && isSingleSelection()">
             <a href="" tabindex="-1" data-toggle="modal" data-target="#edit" ng-click="temp.getContent();">
                 <i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}
             </a>
@@ -51,7 +51,7 @@
             </a>
         </li>
 
-        <li ng-show="config.allowedActions.extract && temp.isExtractable()">
+        <li ng-show="config.allowedActions.extract && temp.isExtractable() && isSingleSelection()">
             <a href="" tabindex="-1" data-toggle="modal" data-target="#extract" ng-click="temp.tempModel.name=''">
                 <i class="glyphicon glyphicon-export"></i> {{'extract' | translate}}
             </a>
