@@ -347,10 +347,14 @@
   <div class="panel panel-primary mt10 mb0">
     <div class="panel-body">
         <div class="detail-sources">
-          <code class="mr5"><b>{{"source" | translate}}:</b> {{temp.model.fullPath()}}</code>
+          <code class="mr5"><b>{{"source" | translate}}:</b>  
+           <span ng-repeat="tempItem in temps">
+            {{tempItem.model.name}}
+           </span>
+          </code>
         </div>
         <div class="detail-sources">
-          <code class="mr5"><b>{{"destination" | translate}}:</b>{{temp.tempModel.fullPath()}}</code>
+          <code class="mr5"><b>{{"destination" | translate}}:</b> {{getSelectedPath()}}</code>
           <a href="" class="label label-primary" ng-click="openNavigator(temp)">{{'change' | translate}}</a>
         </div>
     </div>

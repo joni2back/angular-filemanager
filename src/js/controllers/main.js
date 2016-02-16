@@ -1,8 +1,8 @@
 (function(window, angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
-        function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
+        '$scope', '$rootScope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader', 'apiHandler',
+        function($scope, $rootScope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader, ApiHandler) {
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
@@ -35,10 +35,12 @@
             item = item instanceof Item ? item : new Item();
             item.revert();
             $scope.temp = item;
+            $rootScope.selectedPath = $scope.fileNavigator.currentPath;
+            //$scope.selectOrUnselect(item);
         };
 
         $scope.selectOrUnselect = function(item, $event) {
-            if ($event.ctrlKey) {
+            if ($event && $event.ctrlKey) {
                 $scope.isSelected(item) ? $scope.temps.pop(item) : $scope.temps.push(item);
                 return;
             }
@@ -109,7 +111,14 @@
             });
         };
 
-        $scope.copy = function(item) {
+        $scope.copy = function() {
+            ApiHandler.copy($scope.temps, $rootScope.selectedPath).then(function() {
+                $scope.fileNavigator.refresh();
+                $scope.modal('copy', true);
+            });
+        };
+
+        $scope.copyOld = function(item) {
             var samePath = item.tempModel.path.join() === item.model.path.join();
             if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
                 item.error = $translate.instant('error_invalid_filename');
