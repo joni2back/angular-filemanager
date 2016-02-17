@@ -361,7 +361,7 @@
             sure_to_delete: 'Sind Sie sicher, dass Sie die Datei löschen möchten?',
             change_name_move: 'Namen ändern / verschieben',
             enter_new_name_for: 'Geben Sie den neuen Namen ein für',
-            extract_item: 'Element extrahieren',
+            extract_item: 'Archiv entpacken',
             extraction_started: 'Entpacken hat im Hintergrund begonnen',
             compression_started: 'Komprimierung hat im Hintergrund begonnen',
             enter_folder_name_for_extraction: 'Geben Sie den Verzeichnisnamen für die Entpackung an, von',
@@ -391,7 +391,7 @@
             wait: 'Warte',
             move: 'Verschieben',
             download: 'Herunterladen',
-            view_item: 'Element ansehen',
+            view_item: 'Datei ansehen',
             remove: 'Löschen',
             edit: 'Bearbeiten',
             copy: 'Kopieren',
@@ -419,7 +419,7 @@
             original: 'Original',
             changes: 'Änderungen',
             recursive: 'Rekursiv',
-            preview: 'Elmentvorschau',
+            preview: 'Dateivorschau',
             open: 'Öffnen'
         });
     }]);
