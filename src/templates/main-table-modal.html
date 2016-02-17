@@ -31,7 +31,7 @@
         </tr>
         <tr ng-repeat="item in fileNavigator.fileList | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting && item.model.type === 'dir'">
             <td>
-                <a href="" ng-click="fileNavigator.folderClick(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)">
+                <a href="" ng-click="fileNavigator.folderClick(item)" title="{{item.model.name}} ({{item.model.size | humanReadableFileSize}})">
                     <i class="glyphicon glyphicon-folder-close"></i>
                     {{item.model.name | strLimit : 32}}
                 </a>

@@ -20,13 +20,11 @@
     }]);
 
     app.filter('humanReadableFileSize', ['$filter', 'fileManagerConfig', function($filter, fileManagerConfig) {
-
       // See https://en.wikipedia.org/wiki/Binary_prefix
       var decimalByteUnits = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
       var binaryByteUnits = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
 
       return function(input) {
-
         var i = -1;
         var fileSizeInBytes = input;
 
@@ -35,7 +33,8 @@
           i++;
         } while (fileSizeInBytes > 1024);
 
-        return Math.max(fileSizeInBytes, 0.1).toFixed(1) + ' ' + (fileManagerConfig.useBinarySizePrefixes ? binaryByteUnits[i] : decimalByteUnits[i]);
+        var result = fileManagerConfig.useBinarySizePrefixes ? binaryByteUnits[i] : decimalByteUnits[i];
+        return Math.max(fileSizeInBytes, 0.1).toFixed(1) + ' ' + result;
       };
     }]);
 })(angular);
