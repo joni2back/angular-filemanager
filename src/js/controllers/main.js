@@ -44,20 +44,47 @@
             item = item instanceof Item ? item : new Item();
             item.revert();
             $scope.temp = item;
-            $rootScope.selectedPath = $scope.fileNavigator.currentPath;
             */
-            //$scope.selectOrUnselect(item);
         };
 
         $scope.selectOrUnselect = function(item, $event) {
+            var indexInTemp = $scope.temps.indexOf(item);
             var isRightClick = $event && $event.which == 3;
 
             if (isRightClick && $scope.isSelected(item)) {
                 return;
             }
 
+            if ($event && $event.shiftKey && !isRightClick) {
+                var list = $scope.fileNavigator.fileList;
+                var indexInList = list.indexOf(item);
+                var lastSelected = $scope.temps[0];
+                var i = list.indexOf(lastSelected);
+                var current = undefined;
+
+                if (lastSelected && list.indexOf(lastSelected) < indexInList) {
+                    $scope.temps = [];
+                    while (i <= indexInList) {
+                        current = list[i];
+                        !$scope.isSelected(current) && $scope.temps.push(current);
+                        i++;
+                    }
+                    return;
+                }
+
+                if (lastSelected && list.indexOf(lastSelected) > indexInList) {
+                    $scope.temps = [];
+                    while (i >= indexInList) {
+                        current = list[i];
+                        !$scope.isSelected(current) && $scope.temps.push(current);
+                        i--;
+                    }
+                    return;
+                }
+            }
+
             if ($event && $event.ctrlKey && !isRightClick) {
-                $scope.isSelected(item) ? $scope.temps.pop(item) : $scope.temps.push(item);
+                $scope.isSelected(item) ? $scope.temps.splice(indexInTemp, 1) : $scope.temps.push(item);
                 return;
             }
 
@@ -103,13 +130,11 @@ window.scope = $scope;
                     item.inprocess = false;
                     $scope.$apply();
                 });
-            return $scope.touch(item);
         };
 
         $scope.openEditItem = function(item) {
             item.getContent();
             $scope.modal('edit');
-            return $scope.touch(item);
         };
 
         $scope.modal = function(id, hide) {
@@ -134,7 +159,7 @@ window.scope = $scope;
         };
 
         $scope.copy = function() {
-            ApiHandler.copy($scope.temps, $rootScope.selectedPath).then(function() {
+            ApiHandler.copy($scope.temps, $rootScope.selectorModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('copy', true);
             });

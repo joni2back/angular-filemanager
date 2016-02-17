@@ -13,7 +13,7 @@
             $scope.predicate[1] = predicate;
         };
 
-        $rootScope.select = function(item, temp) {
+        $scope.select = function(item, temp) {
             temp.tempModel.path = item.model.fullPath().split('/');
             $rootScope.selectorModalPath = temp.tempModel.path;
             $('#selector').modal('hide');
