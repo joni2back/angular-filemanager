@@ -17,17 +17,19 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.viewTemplate || 'main-table.html';
+        $scope.viewTemplate = $cookies.get('viewTemplate') || 'main-table.html';
 
         $scope.setTemplate = function(name) {
-            $scope.viewTemplate = $cookies.viewTemplate = name;
+            $cookies.put('viewTemplate', name);
+            $scope.viewTemplate = name;
         };
 
         $scope.changeLanguage = function (locale) {
             if (locale) {
-                return $translate.use($cookies.language = locale);
+                $cookies.put('language', locale);
+                return $translate.use(locale);
             }
-            $translate.use($cookies.language || fileManagerConfig.defaultLang);
+            $translate.use($cookies.get('language') || fileManagerConfig.defaultLang);
         };
 
         $scope.touch = function(item) {
