@@ -19,6 +19,11 @@
         $scope.uploadFileList = [];
         $scope.viewTemplate = $cookies.get('viewTemplate') || 'main-table.html';
         $scope.temps = [];
+        $rootScope.selectorModalPath = [];
+
+        $scope.fileNavigator.onRefresh = function() {
+            $rootScope.selectorModalPath = $scope.fileNavigator.currentPath;
+        };
 
         $scope.setTemplate = function(name) {
             $cookies.put('viewTemplate', name);
@@ -178,6 +183,14 @@ window.scope = $scope;
             });
         };
 
+        $scope.move = function() {
+            /*validate same path*/
+            ApiHandler.move().then(function() {
+                $scope.fileNavigator.refresh();
+                $scope.modal('move', true);
+            });
+        };
+
         $scope.rename = function(item) {
             var samePath = item.tempModel.path.join() === item.model.path.join();
             if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
@@ -189,6 +202,7 @@ window.scope = $scope;
                 $scope.modal('rename', true);
             });
         };
+
 
         $scope.createFolder = function(item) {
             var name = item.tempModel.name && item.tempModel.name.trim();

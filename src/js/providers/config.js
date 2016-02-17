@@ -25,6 +25,7 @@
             allowedActions: {
                 upload: true,
                 rename: true,
+                move: true,
                 copy: true,
                 edit: true,
                 changePermissions: true,

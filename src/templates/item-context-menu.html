@@ -26,6 +26,12 @@
             </a>
         </li>
 
+        <li ng-show="config.allowedActions.move">
+            <a href="" tabindex="-1" data-toggle="modal" data-target="#move">
+                <i class="glyphicon glyphicon-arrow-right"></i> {{'move' | translate}}
+            </a>
+        </li>
+
         <li ng-show="config.allowedActions.copy && !selectionHas('dir')">
             <a href="" tabindex="-1" data-toggle="modal" data-target="#copy">
                 <i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}

@@ -11,6 +11,8 @@
             this.currentPath = [];
             this.history = [];
             this.error = '';
+
+            this.onRefresh = function() {};
         };
 
         FileNavigator.prototype.deferredHandler = function(data, deferred, defaultMsg) {
@@ -64,6 +66,7 @@
                     return new Item(file, self.currentPath);
                 });
                 self.buildTree(path);
+                self.onRefresh();
             });
         };
         
@@ -108,7 +111,7 @@
             !this.history.length && this.history.push({name: '', nodes: []});
             flatten(this.history[0], flatNodes);
             selectedNode = findNode(flatNodes, path);
-            selectedNode.nodes = [];
+            selectedNode && (selectedNode.nodes = []);
 
             for (var o in this.fileList) {
                 var item = this.fileList[o];
