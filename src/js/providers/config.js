@@ -36,9 +36,7 @@
                 remove: true
             },
 
-            hideSize: false,
-            hideDate: false,
-            hidePermissions: false,
+            showSizeForDirectories: false,
 
             previewImagesInModal: true,
             enablePermissionsRecursive: true,
