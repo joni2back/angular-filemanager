@@ -1,6 +1,6 @@
 <div class="iconset clearfix">
     <div class="col-120" ng-repeat="item in fileNavigator.fileList | filter: query | orderBy: orderProp" ng-show="!fileNavigator.requesting && !fileNavigator.error">
-        <a href="" class="thumbnail text-center" ng-click="selectOrUnselect(item, $event)" ng-dblclick="smartClick(item)" ng-right-click="touch(item)" title="{{item.model.name}} ({{item.model.sizeKb()}}kb)" ng-class="{selected: isSelected(item)}">
+        <a href="" class="thumbnail text-center" ng-click="selectOrUnselect(item, $event)" ng-dblclick="smartClick(item)" ng-right-click="touch(item)" title="{{item.model.name}} ({{item.model.size | humanReadableFileSize}})" ng-class="{selected: isSelected(item)}">
             <div class="item-icon">
                 <i class="glyphicon glyphicon-folder-open" ng-show="item.model.type === 'dir'"></i>
                 <i class="glyphicon glyphicon-file" ng-show="item.model.type === 'file'"></i>
