@@ -36,6 +36,10 @@
                 remove: true
             },
 
+            hideSize: false,
+            hideDate: false,
+            hidePermissions: false,
+
             previewImagesInModal: true,
             enablePermissionsRecursive: true,
             compressAsync: true,
@@ -47,14 +51,14 @@
             tplPath: 'src/templates'
         };
 
-        return { 
+        return {
             $get: function() {
                 return values;
-            }, 
+            },
             set: function (constants) {
                 angular.extend(values, constants);
             }
         };
-    
+
     });
 })(angular);
