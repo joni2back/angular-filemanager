@@ -37,6 +37,7 @@
             },
 
             showSizeForDirectories: false,
+            useBinarySizePrefixes: false,
 
             previewImagesInModal: true,
             enablePermissionsRecursive: true,
