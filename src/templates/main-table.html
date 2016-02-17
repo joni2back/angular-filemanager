@@ -34,12 +34,12 @@
                 <div ng-include="config.tplPath + '/spinner.html'"></div>
             </td>
         </tr>
-        <tr ng-show="!fileNavigator.requesting && fileNavigator.fileList.length < 1 && !fileNavigator.error">
+        <tr ng-show="!fileNavigator.requesting &amp;&amp; fileNavigator.fileList.length < 1 &amp;&amp; !fileNavigator.error">
             <td colspan="5">
                 {{"no_files_in_folder" | translate}}...
             </td>
         </tr>
-        <tr ng-show="!fileNavigator.requesting && fileNavigator.error">
+        <tr ng-show="!fileNavigator.requesting &amp;&amp; fileNavigator.error">
             <td colspan="5">
                 {{ fileNavigator.error }}
             </td>
