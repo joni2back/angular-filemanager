@@ -34,30 +34,45 @@
         };
 
         $scope.touch = function(item) {
+            window.item = item;
+            /*
             item = item instanceof Item ? item : new Item();
             item.revert();
             $scope.temp = item;
             $rootScope.selectedPath = $scope.fileNavigator.currentPath;
+            */
             //$scope.selectOrUnselect(item);
         };
 
         $scope.selectOrUnselect = function(item, $event) {
-            if ($event && $event.ctrlKey) {
+            var isRightClick = $event && $event.which == 3;
+
+            if (isRightClick && $scope.isSelected(item)) {
+                return;
+            }
+
+            if ($event && $event.ctrlKey && !isRightClick) {
                 $scope.isSelected(item) ? $scope.temps.pop(item) : $scope.temps.push(item);
                 return;
             }
-            $scope.temps = [];
-            $scope.temps.push(item);
+
+            $scope.temps = [item];
         };
 
         $scope.isSelected = function(item) {
             return $scope.temps.indexOf(item) !== -1;
         };
 
-        $scope.isSingleSelection = function() {
-            return $scope.temps.length === 1;
+        $scope.singleSelection = function() {
+            return $scope.temps.length === 1 ? $scope.temps[0] : false;
         };
 
+        $scope.selectionHas = function(type) {
+            return $scope.temps.find(function(item) {
+                return item.model.type === type;
+            });
+        };
+window.scope = $scope;
         $scope.smartClick = function(item) {
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);

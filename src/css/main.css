@@ -8,6 +8,10 @@ body {
   outline: 0!important;
 }
 
+.navbar-inverse {
+  background-color: #6D4C41;
+}
+
 .navbar {
   min-height: 32px;
 }
