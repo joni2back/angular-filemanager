@@ -53,7 +53,7 @@
                 </a>
             </td>
             <td class="hidden-xs">
-                {{item.model.sizeKb()}}kb
+                {{item.model.size | humanReadableFileSize }}
             </td>
             <td class="hidden-sm hidden-xs">
                 {{item.model.date | formatDate }}
