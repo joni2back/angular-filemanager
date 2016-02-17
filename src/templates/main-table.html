@@ -52,8 +52,10 @@
                     {{item.model.name | strLimit : 64}}
                 </a>
             </td>
-            <td class="hidden-xs" ng-hide="config.hideSize">
+            <td class="hidden-xs">
+              <span ng-show="item.model.type !== 'dir' || config.showSizeForDirectories">
                 {{item.model.sizeKb()}}kb
+              </span>
             </td>
             <td class="hidden-sm hidden-xs" ng-hide="config.hideDate">
                 {{item.model.date | formatDate }}
