@@ -11,7 +11,7 @@
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
         };
-
+window.scope=$scope;
         $scope.query = '';
         $scope.temp = new Item();
         $scope.fileNavigator = new FileNavigator();

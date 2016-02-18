@@ -65,6 +65,13 @@
                 self.fileList = (data.result || []).map(function(file) {
                     return new Item(file, self.currentPath);
                 });
+
+                self.fileList = self.fileList.sort(function(a, b) {
+                    var type = a.model.type.toLowerCase() < b.model.type.toLowerCase() ? -1 : a.model.type.toLowerCase() === b.model.type.toLowerCase() ? 0 : 1;
+                    var name = a.model.name.toLowerCase() < b.model.name.toLowerCase() ? -1 : a.model.name.toLowerCase() === b.model.name.toLowerCase() ? 0 : 1;
+                    return type || name;
+                });
+
                 self.buildTree(path);
                 self.onRefresh();
             });
@@ -90,6 +97,7 @@
                     }
                     parent.nodes.push({item: item, name: absName, nodes: []});
                 }
+                
                 parent.nodes = parent.nodes.sort(function(a, b) {
                     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() === b.name.toLowerCase() ? 0 : 1;
                 });

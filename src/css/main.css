@@ -168,8 +168,15 @@ a:hover {
   border: none;
 }
 
+.table-files .selected,
 .iconset .thumbnail.selected {
-  background: #CAFFDD;
+  background: #2196F3;
+}
+
+.iconset .thumbnail.selected,
+.table-files .selected td,
+.table-files .selected td a {
+  color:#fff;
 }
 
 .iconset .thumbnail .item-icon {
