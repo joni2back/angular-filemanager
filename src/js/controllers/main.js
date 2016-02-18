@@ -51,6 +51,15 @@
             var indexInTemp = $scope.temps.indexOf(item);
             var isRightClick = $event && $event.which == 3;
 
+            if ($event && $event.target.hasAttribute('prevent')) {
+                $scope.temps = [];
+                return;
+            }
+
+            if (! item) {
+                return;
+            }
+
             if (isRightClick && $scope.isSelected(item)) {
                 return;
             }
@@ -101,10 +110,10 @@
 
         $scope.selectionHas = function(type) {
             return $scope.temps.find(function(item) {
-                return item.model.type === type;
+                return item && item.model.type === type;
             });
         };
-window.scope = $scope;
+
         $scope.smartClick = function(item) {
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);

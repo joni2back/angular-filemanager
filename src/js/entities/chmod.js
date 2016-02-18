@@ -13,7 +13,7 @@
                     this.convertfromOctal(initValue);
 
                 if (! codes) {
-                    throw new Error('Invalid chmod input data');
+                    throw new Error('Invalid chmod input data (%s)'.replace('%s', initValue));
                 }
 
                 this.owner = codes.owner;
@@ -65,7 +65,7 @@
         Chmod.prototype.convertfromCode = function (str) {
             str = ('' + str).replace(/\s/g, '');
             str = str.length === 10 ? str.substr(1) : str;
-            if (! /^[-rwxt]{9}$/.test(str)) {
+            if (! /^[-rwxts]{9}$/.test(str)) {
                 return;
             }
 

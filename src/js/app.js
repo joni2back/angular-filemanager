@@ -21,7 +21,7 @@
         $('#context-menu').hide();
     });
 
-    $(window.document).on('contextmenu', '.main-navigation .table-files td:first-child, .iconset a.thumbnail', function(e) {
+    $(window.document).on('contextmenu', '.main-navigation .table-files td:first-child, .iconset', function(e) {
         $('#context-menu').hide().css({
             left: e.pageX,
             top: e.pageY

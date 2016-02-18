@@ -1,5 +1,6 @@
 <div id="context-menu" class="dropdown clearfix animated fast fadeIn">
-    <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" style="">
+    <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="temps.length">
+
         <li ng-show="singleSelection() && singleSelection().isFolder()">
             <a href="" tabindex="-1" ng-click="smartClick(singleSelection())">
                 <i class="glyphicon glyphicon-folder-open"></i> {{'open' | translate}}
@@ -17,8 +18,6 @@
                 <i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}
             </a>
         </li>
-
-        <li class="divider"></li>
 
         <li ng-show="config.allowedActions.rename && singleSelection()">
             <a href="" tabindex="-1" data-toggle="modal" data-target="#rename">
@@ -70,5 +69,18 @@
             </a>
         </li>
 
+    </ul>
+
+    <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length">
+        <li>
+            <a href="" tabindex="-1" data-toggle="modal" data-target="#newfolder">
+                <i class="glyphicon glyphicon-plus"></i> {{'create_folder' | translate}}
+            </a>
+        </li>
+        <li ng-show="config.allowedActions.upload">
+            <a href="" tabindex="-1" data-toggle="modal" data-target="#uploadfile">
+                <i class="glyphicon glyphicon-upload"></i> {{'upload_file' | translate}}
+            </a>
+        </li>
     </ul>
 </div>
