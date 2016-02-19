@@ -4,6 +4,8 @@ A very smart filemanager to manage your files in the browser developed in Angula
 
 [![Build Status](https://travis-ci.org/joni2back/angular-filemanager.svg?branch=master)](https://travis-ci.org/joni2back/angular-filemanager)
 
+#### I'm working on multiple file support / drag and drop features. API should be changed. For more information / contribute, see "[click-changes](https://github.com/joni2back/angular-filemanager/tree/click-changes)" branch.
+
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
 ---------
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
@@ -11,7 +13,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot3.png)
 
 ### Features
-  - Multilanguage (English / Spanish / Portuguese / French)
+  - Multilanguage (English / Spanish / Portuguese / French / German)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Search files
