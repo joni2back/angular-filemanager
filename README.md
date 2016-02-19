@@ -13,7 +13,7 @@ A very smart filemanager to manage your files in the browser developed in Angula
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot3.png)
 
 ### Features
-  - Multilanguage (English / Spanish / Portuguese / French)
+  - Multilanguage (English / Spanish / Portuguese / French / German)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Search files
