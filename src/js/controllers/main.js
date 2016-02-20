@@ -1,8 +1,10 @@
 (function(window, angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$rootScope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader', 'apiHandler',
-        function($scope, $rootScope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader, ApiHandler) {
+        '$scope', '$rootScope', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader', 'apiHandler',
+        function($scope, $rootScope, $translate, fileManagerConfig, Item, FileNavigator, FileUploader, ApiHandler) {
+
+        var $storage = window.localStorage;
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
@@ -11,13 +13,12 @@
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
         };
-window.scope=$scope;
         $scope.query = '';
         $scope.temp = new Item();
         $scope.fileNavigator = new FileNavigator();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.get('viewTemplate') || 'main-table.html';
+        $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
         $scope.temps = [];
         $rootScope.selectorModalPath = [];
 
@@ -26,16 +27,16 @@ window.scope=$scope;
         };
 
         $scope.setTemplate = function(name) {
-            $cookies.put('viewTemplate', name);
+            $storage.setItem('viewTemplate', name);
             $scope.viewTemplate = name;
         };
 
         $scope.changeLanguage = function (locale) {
             if (locale) {
-                $cookies.put('language', locale);
+                $storage.setItem('language', locale);
                 return $translate.use(locale);
             }
-            $translate.use($cookies.get('language') || fileManagerConfig.defaultLang);
+            $translate.use($storage.getItem('language') || fileManagerConfig.defaultLang);
         };
 
         $scope.touch = function(item) {

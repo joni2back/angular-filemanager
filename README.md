@@ -45,7 +45,6 @@ A very smart filemanager to manage your files in the browser developed in Angula
 <!-- third party -->
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-translate/angular-translate.min.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
