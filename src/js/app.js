@@ -6,7 +6,7 @@
 
 (function(window, angular, $) {
     'use strict';
-    angular.module('FileManagerApp', ['pascalprecht.translate', 'ngCookies']);
+    angular.module('FileManagerApp', ['pascalprecht.translate']);
 
     /**
      * jQuery inits

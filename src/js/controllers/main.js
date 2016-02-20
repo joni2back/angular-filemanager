@@ -1,8 +1,10 @@
 (function(window, angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$translate', '$cookies', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
-        function($scope, $translate, $cookies, fileManagerConfig, Item, FileNavigator, FileUploader) {
+        '$scope', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader',
+        function($scope, $translate, fileManagerConfig, Item, FileNavigator, FileUploader) {
+
+        var $storage = window.localStorage;
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
@@ -17,19 +19,19 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $cookies.get('viewTemplate') || 'main-table.html';
+        $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
 
         $scope.setTemplate = function(name) {
-            $cookies.put('viewTemplate', name);
+            $storage.setItem('viewTemplate', name);
             $scope.viewTemplate = name;
         };
 
         $scope.changeLanguage = function (locale) {
             if (locale) {
-                $cookies.put('language', locale);
+                $storage.setItem('language', locale);
                 return $translate.use(locale);
             }
-            $translate.use($cookies.get('language') || fileManagerConfig.defaultLang);
+            $translate.use($storage.getItem('language') || fileManagerConfig.defaultLang);
         };
 
         $scope.touch = function(item) {
