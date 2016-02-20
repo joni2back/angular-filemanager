@@ -1,6 +1,6 @@
 {
   "name": "angular-filemanager",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "A very smart filemanager to manage your files in the browser.",
   "main": "src/app.js",
   "scripts": {
