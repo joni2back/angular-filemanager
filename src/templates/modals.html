@@ -36,7 +36,8 @@
         <h4 class="modal-title">{{"confirm" | translate}}</h4>
       </div>
       <div class="modal-body">
-        {{'sure_to_delete' | translate}} <b>{{singleSelection().model.name}}</b> ?
+        {{'sure_to_delete' | translate}} <span ng-include data-src="'selected-files-msg'"></span>
+
         <div ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
@@ -391,4 +392,22 @@
       <i class="glyphicon glyphicon-remove-circle"></i>
       <span>{{singleSelection().error}}</span>
     </div>
+</script>
+<script type="text/ng-template" id="selected-files-msg">
+  <span ng-show="temps.length == 1">
+    <b>{{singleSelection().model.name}}</b>
+  </span>
+  <span ng-show="temps.length > 1">
+    {{'these_elements' | translate:totalSelecteds()}}
+    <a href="" class="label label-primary" ng-click="showDetails = !showDetails">
+      {{showDetails ? '-' : '+'}} {{'details' | translate}}
+    </a>
+  </span>
+  <div ng-show="temps.length > 1 &amp;&amp; showDetails">
+    <ul class="selected-file-details">
+      <li ng-repeat="tempItem in temps">
+        <b>{{tempItem.model.name}}</b>
+      </li>
+    </ul>
+  </div>
 </script>

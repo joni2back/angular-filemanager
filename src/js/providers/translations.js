@@ -84,7 +84,8 @@
             changes: 'Changes',
             recursive: 'Recursive',
             preview: 'Item preview',
-            open: 'Open'
+            open: 'Open',
+            these_elements: 'these {{total}} elements'
         });
 
         $translateProvider.translations('pt', {
@@ -168,7 +169,8 @@
             changes: 'Mudanças',
             recursive: 'Recursiva',
             preview: 'Visualização',
-            open: 'Abrir'
+            open: 'Abrir',
+            these_elements: 'estes {{total}} elements'
         });
 
         $translateProvider.translations('es', {
@@ -252,7 +254,8 @@
             changes: 'Cambios',
             recursive: 'Recursivo',
             preview: 'Vista previa',
-            open: 'Abrir'
+            open: 'Abrir',
+            these_elements: 'estos {{total}} elementos'
         });
 
         $translateProvider.translations('fr', {
@@ -336,7 +339,8 @@
             changes: 'Modifications',
             recursive: 'Récursif',
             preview: 'Aperçu',
-            open: 'Ouvrir'
+            open: 'Ouvrir',
+            these_elements: 'ces {{total}} éléments'
         });
 
         $translateProvider.translations('de', {
@@ -420,7 +424,8 @@
             changes: 'Änderungen',
             recursive: 'Rekursiv',
             preview: 'Dateivorschau',
-            open: 'Öffnen'
+            open: 'Öffnen',
+            these_elements: 'diese {{total}} elemente'
         });
     }]);
 })(angular);

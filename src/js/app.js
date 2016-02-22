@@ -1,9 +1,3 @@
-/*!
- * Angular FileManager v1.4.8 (https://github.com/joni2back/angular-filemanager)
- * Jonas Sciangula Street <joni2back@gmail.com>
- * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
- */
-
 (function(window, angular, $) {
     'use strict';
     angular.module('FileManagerApp', ['pascalprecht.translate']);
@@ -21,7 +15,7 @@
         $('#context-menu').hide();
     });
 
-    $(window.document).on('contextmenu', '.main-navigation .table-files tr, .iconset', function(e) {
+    $(window.document).on('contextmenu', '.main-navigation .table-files tr:has("td"), .iconset', function(e) {
         $('#context-menu').hide().css({
             left: e.pageX,
             top: e.pageY

@@ -1,9 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('FileManagerApp').service('fileNavigator', [
-        '$http', '$q', 'fileManagerConfig', 'item', function ($http, $q, fileManagerConfig, Item) {
-
-        $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        'apiHandler', 'fileManagerConfig', 'item', function (ApiHandler, fileManagerConfig, Item) {
 
         var FileNavigator = function() {
             this.requesting = false;
@@ -35,27 +33,9 @@
         };
 
         FileNavigator.prototype.list = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var path = self.currentPath.join('/');
-            var data = {params: {
-                mode: 'list',
-                onlyFolders: false,
-                path: '/' + path
-            }};
-
-            self.requesting = true;
-            self.fileList = [];
-            self.error = '';
-
-            $http.post(fileManagerConfig.listUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, 'Unknown error listing, check the response');
-            })['finally'](function() {
-                self.requesting = false;
-            });
-            return deferred.promise;
+            var path = this.currentPath.join('/');
+            this.fileList = [];
+            return ApiHandler.list(path);
         };
 
         FileNavigator.prototype.refresh = function() {
@@ -65,13 +45,6 @@
                 self.fileList = (data.result || []).map(function(file) {
                     return new Item(file, self.currentPath);
                 });
-
-                self.fileList = self.fileList.sort(function(a, b) {
-                    var type = a.model.type.toLowerCase() < b.model.type.toLowerCase() ? -1 : a.model.type.toLowerCase() === b.model.type.toLowerCase() ? 0 : 1;
-                    var name = a.model.name.toLowerCase() < b.model.name.toLowerCase() ? -1 : a.model.name.toLowerCase() === b.model.name.toLowerCase() ? 0 : 1;
-                    return type || name;
-                });
-
                 self.buildTree(path);
                 self.onRefresh();
             });

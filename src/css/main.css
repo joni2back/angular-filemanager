@@ -338,3 +338,7 @@ table th > a:focus {
     display: none;
   }
 }
+
+.selected-file-details {
+  padding-left: 20px;
+}

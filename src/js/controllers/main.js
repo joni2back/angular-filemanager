@@ -19,6 +19,7 @@
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
         $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
+        $scope.fileList = [];
         $scope.temps = [];
         $rootScope.selectorModalPath = [];
 
@@ -66,7 +67,8 @@
             }
 
             if ($event && $event.shiftKey && !isRightClick) {
-                var list = $scope.fileNavigator.fileList;
+                var list = $scope.fileList;
+                //var list = $scope.fileNavigator.fileList;
                 var indexInList = list.indexOf(item);
                 var lastSelected = $scope.temps[0];
                 var i = list.indexOf(lastSelected);
@@ -107,6 +109,12 @@
 
         $scope.singleSelection = function() {
             return $scope.temps.length === 1 ? $scope.temps[0] : false;
+        };
+
+        $scope.totalSelecteds = function() {
+            return {
+                total: $scope.temps.length
+            };
         };
 
         $scope.selectionHas = function(type) {
@@ -211,8 +219,8 @@
             });
         };
 
-        $scope.remove = function(item) {
-            item.remove().then(function() {
+        $scope.remove = function() {
+            ApiHandler.remove($scope.temps).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('delete', true);
             });
@@ -278,5 +286,6 @@
         $scope.changeLanguage($scope.getQueryParam('lang'));
         $scope.isWindows = $scope.getQueryParam('server') === 'Windows';
         $scope.fileNavigator.refresh();
+        window.scope = $scope; //dev
     }]);
 })(window, angular, jQuery);
