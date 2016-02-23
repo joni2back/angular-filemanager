@@ -61,6 +61,14 @@
             return {then:function(){}};
         };
 
+        ApiHandler.prototype.move = function(files, to) {
+            
+            window.console.info(files, to);
+
+            return {then:function(){}};
+        };
+
+
         ApiHandler.prototype.getFileList = function(files) {
             return (files || []).map(function(file) {
                 return file && file.model.fullPath();
@@ -88,6 +96,61 @@
             return deferred.promise;
         };
 
+
+        ApiHandler.prototype.upload = function(fileList, path) {
+            if (! window.FormData) {
+                throw new Error('Unsupported browser version');
+            }
+            var self = this;
+            var form = new window.FormData();
+            var deferred = $q.defer();
+            form.append('destination', '/' + path.join('/'));
+
+            for (var i = 0; i < fileList.length; i++) {
+                var fileObj = fileList.item(i);
+                fileObj instanceof window.File && form.append('file-' + i, fileObj);
+            }
+
+            self.inprocess = true;
+            self.error = '';
+            $http.post(fileManagerConfig.uploadUrl, form, {
+                transformRequest: angular.identity,
+                headers: {
+                    'Content-Type': undefined
+                }
+            }).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, 'Unknown error uploading files');
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+
+            return deferred.promise;
+        };
+
+
+        ApiHandler.prototype.createFolder = function(name, path) {
+            var self = this;
+            var deferred = $q.defer();
+            var data = {params: {
+                mode: 'addfolder',
+                path: path.join('/') || '/',
+                name: name
+            }};
+
+            self.inprocess = true;
+            self.error = '';
+            $http.post(fileManagerConfig.createFolderUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_creating_folder'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+        
+            return deferred.promise;
+        };
         return ApiHandler;
 
     }]);

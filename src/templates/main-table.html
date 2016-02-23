@@ -25,7 +25,6 @@
                     <span class="sortorder" ng-show="predicate[1] === 'model.permissions'" ng-class="{reverse:reverse}"></span>
                 </a>
             </th>
-            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody class="file-item">
@@ -62,9 +61,6 @@
             </td>
             <td class="hidden-sm hidden-xs" ng-hide="config.hidePermissions">
                 {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}
-            </td>
-            <td class="text-right">
-                <div ng-include="config.tplPath + '/item-toolbar.html'"></div>
             </td>
         </tr>
     </tbody>

@@ -40,7 +40,7 @@
             angular.extend(this.tempModel, angular.copy(this.model));
             this.error = '';
         };
-
+/*
         Item.prototype.deferredHandler = function(data, deferred, defaultMsg) {
             if (!data || typeof data !== 'object') {
                 this.error = 'Bridge response error, please check the docs';
@@ -59,28 +59,10 @@
             }
             this.update();
             return deferred.resolve(data);
+            
         };
-
+*/
         Item.prototype.createFolder = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'addfolder',
-                path: self.tempModel.path.join('/'),
-                name: self.tempModel.name
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.createFolderUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_creating_folder'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-        
-            return deferred.promise;
         };
 
         Item.prototype.rename = function() {

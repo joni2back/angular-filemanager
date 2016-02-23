@@ -11,13 +11,13 @@
       </div>
       <div class="modal-body" ng-show="singleSelection().getUrl().length > 10">
         <div class="text-center">
-          <img id="imagepreview-target" class="preview" alt="{{singleSelection().model.name}}" ng-class="{'loading': singleSelection().inprocess}">
-          <span class="label label-warning" ng-show="singleSelection().inprocess">{{'loading' | translate}} ...</span>
+          <img id="imagepreview-target" class="preview" alt="{{singleSelection().model.name}}" ng-class="{'loading': apiHandler.inprocess}">
+          <span class="label label-warning" ng-show="apiHandler.inprocess">{{'loading' | translate}} ...</span>
         </div>
         <div ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"close" | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
       </div>
       </form>
     </div>
@@ -41,8 +41,8 @@
         <div ng-include data-src="'error-bar'" class="clearfix"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-        <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess" autofocus="autofocus">{{"remove" | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess" autofocus="autofocus">{{"remove" | translate}}</button>
       </div>
       </form>
     </div>
@@ -65,8 +65,8 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess">{{'move' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'move' | translate}}</button>
             </div>
         </form>
     </div>
@@ -92,8 +92,8 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess">{{'rename' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'rename' | translate}}</button>
             </div>
         </form>
     </div>
@@ -121,8 +121,8 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess">Copy</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">Copy</button>
             </div>
         </form>
     </div>
@@ -158,11 +158,11 @@
             </div>
             <div class="modal-footer">
               <div ng-show="singleSelection().asyncSuccess">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"close" | translate}}</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
               </div>
               <div ng-hide="singleSelection().asyncSuccess">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-                  <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess">{{'compress' | translate}}</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'compress' | translate}}</button>
               </div>
             </div>
         </form>
@@ -194,11 +194,11 @@
             </div>
             <div class="modal-footer">
               <div ng-show="singleSelection().asyncSuccess">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"close" | translate}}</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
               </div>
               <div ng-hide="singleSelection().asyncSuccess">
-                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-                  <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess">{{'extract' | translate}}</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'extract' | translate}}</button>
               </div>
             </div>
         </form>
@@ -223,13 +223,13 @@
             </div>
             <div class="modal-body">
                 <label class="radio">{{'file_content' | translate}}</label>
-                <span class="label label-warning" ng-show="singleSelection().inprocess">{{'loading' | translate}} ...</span>
-                <textarea class="form-control code" ng-model="singleSelection().tempModel.content" ng-show="!singleSelection().inprocess" autofocus="autofocus"></textarea>
+                <span class="label label-warning" ng-show="apiHandler.inprocess">{{'loading' | translate}} ...</span>
+                <textarea class="form-control code" ng-model="singleSelection().tempModel.content" ng-show="!apiHandler.inprocess" autofocus="autofocus"></textarea>
                 <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{'close' | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-show="config.allowedActions.edit" ng-disabled="singleSelection().inprocess">{{'edit' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{'close' | translate}}</button>
+              <button type="submit" class="btn btn-primary" ng-show="config.allowedActions.edit" ng-disabled="apiHandler.inprocess">{{'edit' | translate}}</button>
             </div>
         </form>
     </div>
@@ -253,8 +253,8 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"cancel" | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-disabled="singleSelection().inprocess">{{'create' | translate}}</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'create' | translate}}</button>
             </div>
         </form>
     </div>
@@ -278,11 +278,11 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <div ng-show="!fileUploader.requesting">
+              <div ng-show="!apiHandler.inprocess">
                   <button type="button" class="btn btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
-                  <button type="submit" class="btn btn-primary" ng-disabled="!uploadFileList.length || fileUploader.requesting">{{'upload' | translate}}</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="!uploadFileList.length || apiHandler.inprocess">{{'upload' | translate}}</button>
               </div>
-              <div ng-show="fileUploader.requesting">
+              <div ng-show="apiHandler.inprocess">
                   <span class="label label-warning">{{"uploading" | translate}} ...</span>
               </div>
             </div>
@@ -364,7 +364,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="singleSelection().inprocess">{{"close" | translate}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
       </div>
     </div>
   </div>
@@ -374,25 +374,27 @@
   <div class="panel panel-primary mt10 mb0">
     <div class="panel-body">
         <div class="detail-sources">
-          <code class="mr5"><b>{{"selection" | translate}}:</b>  
-           <span ng-repeat="tempItem in temps">
-            {{tempItem.model.name}}
-           </span>
+          <code class="mr5"><b>{{"Selection" | translate}}:</b>  
+            <span ng-include="'selected-files-msg'"></span>
           </code>
         </div>
         <div class="detail-sources">
           <code class="mr5"><b>{{"destination" | translate}}:</b> {{getSelectedPath()}}</code>
-          <a href="" class="label label-primary" ng-click="openNavigator(fileNavigator.currentPath)">{{'change' | translate}}</a>
+          <a href="" class="label label-primary" ng-click="openNavigator(fileNavigator.currentPath)">
+            {{'change' | translate}}
+          </a>
         </div>
     </div>
   </div>
 </script>
+
 <script type="text/ng-template" id="error-bar">
-    <div class="label label-danger error-msg pull-left animated fadeIn" ng-show="singleSelection().error">
-      <i class="glyphicon glyphicon-remove-circle"></i>
-      <span>{{singleSelection().error}}</span>
-    </div>
+  <div class="label label-danger error-msg pull-left animated fadeIn" ng-show="apiHandler.error">
+    <i class="glyphicon glyphicon-remove-circle"></i>
+    <span>{{apiHandler.error}}</span>
+  </div>
 </script>
+
 <script type="text/ng-template" id="selected-files-msg">
   <span ng-show="temps.length == 1">
     <b>{{singleSelection().model.name}}</b>

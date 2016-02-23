@@ -14,7 +14,6 @@
             $scope.predicate[1] = predicate;
         };
         $scope.query = '';
-        $scope.temp = new Item();
         $scope.fileNavigator = new FileNavigator();
         $scope.apiHandler = new ApiHandler();
         $scope.fileUploader = FileUploader;
@@ -124,6 +123,12 @@
             });
         };
 
+        $scope.prepareNewFolder = function() {
+            var item = new Item(null, $scope.fileNavigator.currentPath);
+            $scope.temps = [item];
+            return item;
+        };
+
         $scope.smartClick = function(item) {
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
@@ -141,7 +146,7 @@
 
         $scope.openImagePreview = function(item) {
             item.inprocess = true;
-            $scope.modal('imagepreview')
+            $scope.modal('imagepreview', null, true)
                 .find('#imagepreview-target')
                 .attr('src', item.getUrl(true))
                 .unbind('load error')
@@ -156,8 +161,11 @@
             $scope.modal('edit');
         };
 
-        $scope.modal = function(id, hide) {
-            return $('#' + id).modal(hide ? 'hide' : 'show');
+        $scope.modal = function(id, hide, returnElement) {
+            var element = $('#' + id);
+            element.modal(hide ? 'hide' : 'show');
+            $scope.apiHandler.error = '';
+            return returnElement ? element : true;
         };
 
         $scope.isInThisPath = function(path) {
@@ -228,8 +236,15 @@
         };
 
         $scope.move = function() {
-            /*validate same path*/
-            $scope.apiHandler.move().then(function() {
+            var selectedPath = $rootScope.selectorModalPath.join('/').replace(/^\//, '');
+            var selectedItemsPath = $scope.singleSelection().model.path.join('/').replace(/^\//, '');
+            
+            if (selectedItemsPath == selectedPath) {
+                $scope.apiHandler.error = $translate.instant('error_cannot_move_same_path');
+                return false;
+            }
+
+            $scope.apiHandler.move($scope.temps, $rootScope.selectorModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('move', true);
             });
@@ -247,29 +262,28 @@
             });
         };
 
-
         $scope.createFolder = function(item) {
             var name = item.tempModel.name && item.tempModel.name.trim();
-            item.tempModel.type = 'dir';
-            item.tempModel.path = $scope.fileNavigator.currentPath;
+            var path = item.model.path;
+
             if (name && !$scope.fileNavigator.fileNameExists(name)) {
-                item.createFolder().then(function() {
+                $scope.apiHandler.createFolder(name, path).then(function() {
                     $scope.fileNavigator.refresh();
                     $scope.modal('newfolder', true);
                 });
             } else {
-                item.error = $translate.instant('error_invalid_filename');
+                $scope.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
         };
 
         $scope.uploadFiles = function() {
-            $scope.fileUploader.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
+            $scope.apiHandler.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('uploadfile', true);
             }, function(data) {
                 var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');
-                $scope.temp.error = errorMsg;
+                $scope.apiHandler.error = errorMsg;
             });
         };
 

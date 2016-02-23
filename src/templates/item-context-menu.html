@@ -20,43 +20,43 @@
         </li>
 
         <li ng-show="config.allowedActions.rename && singleSelection()">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#rename">
+            <a href="" tabindex="-1" ng-click="modal('rename')">
                 <i class="glyphicon glyphicon-edit"></i> {{'rename' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.move">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#move">
+            <a href="" tabindex="-1" ng-click="modal('move')">
                 <i class="glyphicon glyphicon-arrow-right"></i> {{'move' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.copy && !selectionHas('dir')">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#copy">
+            <a href="" tabindex="-1" ng-click="modal('copy')">
                 <i class="glyphicon glyphicon-log-out"></i> {{'copy' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.edit && singleSelection() && singleSelection().isEditable()">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#edit" ng-click="singleSelection().getContent();">
+            <a href="" tabindex="-1" ng-click="modal('edit') && singleSelection().getContent();">
                 <i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.changePermissions">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#changepermissions">
+            <a href="" tabindex="-1" ng-click="modal('changepermissions')">
                 <i class="glyphicon glyphicon-lock"></i> {{'permissions' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.compress && singleSelection() && singleSelection().isCompressible()">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#compress">
+            <a href="" tabindex="-1" ng-click="modal('compress')">
                 <i class="glyphicon glyphicon-compressed"></i> {{'compress' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.extract && singleSelection() && singleSelection().isExtractable()">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#extract" ng-click="singleSelection().tempModel.name=''">
+            <a href="" tabindex="-1" ng-click="modal('extract')"  ng-click="singleSelection().tempModel.name=''">
                 <i class="glyphicon glyphicon-export"></i> {{'extract' | translate}}
             </a>
         </li>
@@ -64,7 +64,7 @@
         <li class="divider"></li>
         
         <li ng-show="config.allowedActions.remove">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#delete">
+            <a href="" tabindex="-1" ng-click="modal('delete')">
                 <i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}
             </a>
         </li>
@@ -73,12 +73,12 @@
 
     <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length">
         <li>
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#newfolder">
+            <a href="" tabindex="-1" ng-click="modal('newfolder')">
                 <i class="glyphicon glyphicon-plus"></i> {{'create_folder' | translate}}
             </a>
         </li>
         <li ng-show="config.allowedActions.upload">
-            <a href="" tabindex="-1" data-toggle="modal" data-target="#uploadfile">
+            <a href="" tabindex="-1" ng-click="modal('uploadfile')">
                 <i class="glyphicon glyphicon-upload"></i> {{'upload_file' | translate}}
             </a>
         </li>

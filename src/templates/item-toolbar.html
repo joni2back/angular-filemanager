@@ -1,4 +1,4 @@
-<div ng-show="!item.inprocess">
+<div ng-show="!item.inprocess && singleSelection()">
     <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#rename" ng-show="config.allowedActions.rename" ng-click="touch(item)" title="{{'rename' | translate}}">
         <i class="glyphicon glyphicon-edit"></i>
     </button>
