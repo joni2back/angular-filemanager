@@ -53,18 +53,12 @@
         };
 
         ApiHandler.prototype.copy = function(files, to) {
-            
-            window.console.info(files, to);
-
-            var none = [$http, $q, fileManagerConfig];
-            window.console.warning = none;
+            window.console.info('copy', files, to);
             return {then:function(){}};
         };
 
         ApiHandler.prototype.move = function(files, to) {
-            
-            window.console.info(files, to);
-
+            window.console.info('copy', files, to);
             return {then:function(){}};
         };
 

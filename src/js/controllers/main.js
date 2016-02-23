@@ -235,15 +235,8 @@
             });
         };
 
-        $scope.move = function() {
-            var selectedPath = $rootScope.selectorModalPath.join('/').replace(/^\//, '');
-            var selectedItemsPath = $scope.singleSelection().model.path.join('/').replace(/^\//, '');
-            
-            if (selectedItemsPath == selectedPath) {
-                $scope.apiHandler.error = $translate.instant('error_cannot_move_same_path');
-                return false;
-            }
-
+        $scope.move = function() {           
+            $scope.validateSamePath();
             $scope.apiHandler.move($scope.temps, $rootScope.selectorModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('move', true);
@@ -285,6 +278,16 @@
                 var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');
                 $scope.apiHandler.error = errorMsg;
             });
+        };
+
+        $scope.validateSamePath = function(msg) {
+            var anyItem = $scope.singleSelection() || $scope.temps[0];
+            var selectedPath = $rootScope.selectorModalPath.join('/').replace(/^\//, '');
+            var selectedItemsPath = anyItem && anyItem.model.path.join('/').replace(/^\//, '');
+            if (selectedItemsPath === selectedPath) {
+                $scope.apiHandler.error = msg || $translate.instant('error_cannot_move_same_path');
+                return false;
+            }
         };
 
         $scope.getQueryParam = function(param) {
