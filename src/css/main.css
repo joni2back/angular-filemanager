@@ -1,6 +1,6 @@
 body {
-  padding-top: 55px;
   font-size: 14px;
+  height: 100vh;
 }
 
 *,
@@ -10,6 +10,9 @@ body {
 
 .navbar {
   min-height: 32px;
+  margin-bottom: 0;
+  border: 0;
+  border-radius: 0;
 }
 
 .navbar .navbar-toggle {
@@ -61,10 +64,6 @@ textarea.code {
 .sub-header {
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
-}
-
-.navbar-fixed-top {
-  border: 0;
 }
 
 .sidebar {
@@ -282,20 +281,30 @@ table th > a:focus {
   font-weight: bold;
 }
 
+.main {
+  overflow-y: auto;
+}
+
 @media (min-width: 768px) {
   .main {
     padding-right: 0;
     padding-left: 0;
   }
 
+  /* The view should fill all available vertical space */
+  angular-filemanager > div,.row,.main,.sidebar {
+    height: 100%;
+  }
+
+  .container-fluid {
+    height: -webkit-calc(100% - 55px);
+    height: -moz-calc(100% - 55px);
+    height: calc(100% - 55px);
+  }
+
   .sidebar {
-    position: fixed;
-    top: 50px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
     display: block;
-    padding: 5px 0;
+    padding: 0;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f5f5f5;
