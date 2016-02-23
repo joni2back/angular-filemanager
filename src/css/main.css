@@ -12,7 +12,6 @@ body {
   min-height: 32px;
   margin-bottom: 0;
   border: 0;
-  z-index: 1030;
   border-radius: 0;
 }
 
@@ -304,7 +303,6 @@ table th > a:focus {
   }
 
   .sidebar {
-    z-index: 1000;
     display: block;
     padding: 0;
     overflow-x: hidden;
