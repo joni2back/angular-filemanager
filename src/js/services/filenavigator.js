@@ -4,6 +4,7 @@
         'apiHandler', 'fileManagerConfig', 'item', function (ApiHandler, fileManagerConfig, Item) {
 
         var FileNavigator = function() {
+            this.apiHandler = new ApiHandler();
             this.requesting = false;
             this.fileList = [];
             this.currentPath = [];
@@ -34,19 +35,22 @@
 
         FileNavigator.prototype.list = function() {
             var path = this.currentPath.join('/');
-            this.fileList = [];
-            return ApiHandler.list(path);
+            return this.apiHandler.list(path, this.deferredHandler.bind(this));
         };
 
         FileNavigator.prototype.refresh = function() {
             var self = this;
             var path = self.currentPath.join('/');
+            self.requesting = true;
+            self.fileList = [];
             return self.list().then(function(data) {
                 self.fileList = (data.result || []).map(function(file) {
                     return new Item(file, self.currentPath);
                 });
                 self.buildTree(path);
                 self.onRefresh();
+            }).finally(function() {
+                self.requesting = false;
             });
         };
         

@@ -29,8 +29,9 @@
             return deferred.resolve(data);
         };
 
-        ApiHandler.prototype.list = function(path) {
+        ApiHandler.prototype.list = function(path, customDeferredHandler) {
             var self = this;
+            var dfHandler = customDeferredHandler || self.deferredHandler;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'list',
@@ -42,9 +43,9 @@
             self.error = '';
 
             $http.post(fileManagerConfig.listUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
+                dfHandler(data, deferred);
             }).error(function(data) {
-                self.deferredHandler(data, deferred, 'Unknown error listing, check the response');
+                dfHandler(data, deferred, 'Unknown error listing, check the response');
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -87,7 +88,7 @@
             return deferred.promise;
         };
 
-        return new ApiHandler;
+        return ApiHandler;
 
     }]);
 })(window, angular);

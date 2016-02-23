@@ -16,6 +16,7 @@
         $scope.query = '';
         $scope.temp = new Item();
         $scope.fileNavigator = new FileNavigator();
+        $scope.apiHandler = new ApiHandler();
         $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
         $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
@@ -177,7 +178,7 @@
         };
 
         $scope.copy = function() {
-            ApiHandler.copy($scope.temps, $rootScope.selectorModalPath).then(function() {
+            $scope.apiHandler.copy($scope.temps, $rootScope.selectorModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('copy', true);
             });
@@ -220,7 +221,7 @@
         };
 
         $scope.remove = function() {
-            ApiHandler.remove($scope.temps).then(function() {
+            $scope.apiHandler.remove($scope.temps).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('delete', true);
             });
@@ -228,7 +229,7 @@
 
         $scope.move = function() {
             /*validate same path*/
-            ApiHandler.move().then(function() {
+            $scope.apiHandler.move().then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('move', true);
             });
