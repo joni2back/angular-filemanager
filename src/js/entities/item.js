@@ -180,13 +180,17 @@
         Item.prototype.download = function(preview) {
             var self = this;
             if (this.model.type !== 'dir') {
-                //window.open(this.getUrl(preview), '_blank', '');
+
+              if(fileManagerConfig.downloadViaFileSaver) {
                 $http.get(this.getUrl(preview)).success(function(data) {
                   var blob = new Blob([data]);
                   FileSaver.saveAs(blob, self.model.name);
                 }).error(function(data) {
                     throw data;
                 });
+              } else {
+                window.open(this.getUrl(preview), '_blank', '');
+              }
             }
         };
 
