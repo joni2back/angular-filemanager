@@ -290,7 +290,7 @@ table th > a:focus {
 
 .main {
   overflow-y: auto;
-  flex: 3 1 400px;
+  flex: 3 1 600px;
 }
 
 angular-filemanager > div {
@@ -306,7 +306,7 @@ angular-filemanager > div {
   }
 
   .sidebar {
-    flex: 1 0 200px;
+    flex: 0.5 0 230px;
     display: block;
     overflow-y: auto;
     background-color: #f5f5f5;
