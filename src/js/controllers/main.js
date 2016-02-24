@@ -185,10 +185,13 @@
         $scope.copy = function() {
             var item = $scope.singleSelection();
             if (item) {
-                var samePath = item.tempModel.path.join() === item.model.path.join();
-                var nameExists = samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name);
+                var nameExists = $scope.fileNavigator.fileNameExists(item.tempModel.name);
                 var hasName = item.tempModel.name.trim();
-                if (!hasName || nameExists) {
+                if (nameExists && $scope.validateSamePath(item)) {
+                    $scope.apiHandler.error = $translate.instant('error_invalid_filename');
+                    return false;
+                }
+                if (!hasName) {
                     $scope.apiHandler.error = $translate.instant('error_invalid_filename');
                     return false;
                 }
@@ -231,7 +234,11 @@
         };
 
         $scope.move = function() {           
-            $scope.validateSamePath();
+            var anyItem = $scope.singleSelection() || $scope.temps[0];
+            if (anyItem && $scope.validateSamePath(anyItem)) {
+                $scope.apiHandler.error = $translate.instant('error_cannot_move_same_path');
+                return false;
+            }
             $scope.apiHandler.move($scope.temps, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('move', true);
@@ -275,14 +282,10 @@
             });
         };
 
-        $scope.validateSamePath = function(msg) {
-            var anyItem = $scope.singleSelection() || $scope.temps[0];
+        $scope.validateSamePath = function(item) {
             var selectedPath = $rootScope.selectedModalPath.join('/').replace(/^\//, '');
-            var selectedItemsPath = anyItem && anyItem.model.path.join('/').replace(/^\//, '');
-            if (selectedItemsPath === selectedPath) {
-                $scope.apiHandler.error = msg || $translate.instant('error_cannot_move_same_path');
-                return false;
-            }
+            var selectedItemsPath = item && item.model.path.join('/').replace(/^\//, '');
+            return selectedItemsPath === selectedPath;
         };
 
         $scope.getQueryParam = function(param) {
