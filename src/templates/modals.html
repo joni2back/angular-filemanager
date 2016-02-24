@@ -361,6 +361,10 @@
         <div>
             <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'"></div>
             <div ng-include="config.tplPath + '/main-table-modal.html'"></div>
+            <hr />
+            <button class="btn btn-sm btn-default" ng-click="selectCurrent()">
+                <i class="glyphicon"></i> {{"select_this" | translate}}
+            </button>
         </div>
       </div>
       <div class="modal-footer">
@@ -379,7 +383,9 @@
           </code>
         </div>
         <div class="detail-sources">
-          <code class="mr5"><b>{{"destination" | translate}}:</b> {{getSelectedPath()}}</code>
+          <code class="mr5">
+            <b>{{"destination" | translate}}:</b> {{ getSelectedPath() }}
+          </code>
           <a href="" class="label label-primary" ng-click="openNavigator(fileNavigator.currentPath)">
             {{'change' | translate}}
           </a>

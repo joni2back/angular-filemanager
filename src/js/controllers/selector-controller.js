@@ -8,39 +8,50 @@
         $scope.predicate = ['model.type', 'model.name'];
         $scope.fileNavigator = new FileNavigator();
 
+        //selectedModalPath = path elegido x usuario || filenavigator.currentPath
+
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
         };
 
         $scope.select = function(item) {
-            $rootScope.selectorModalPath = item.model.fullPath().split('/');
+            $rootScope.selectedModalPath = item.model.fullPath().split('/');
+            $scope.modal('selector', true);
+        };
+
+        $scope.selectCurrent = function() {
+            $rootScope.selectedModalPath = $scope.fileNavigator.currentPath;
             $scope.modal('selector', true);
         };
 
         $scope.selectedFilesAreChildOfPath = function(item) {
-            var path = item.model.fullPath().replace(/^\//, '');
+            var path = item.model.fullPath();
             return $scope.temps.find(function(item) {
-                var itemPath = item.model.fullPath().replace(/^\//, '');
+                var itemPath = item.model.fullPath();
                 if (path == itemPath) {
                     return true;
                 }
                 if (path.startsWith(itemPath)) {
                     //fixme names in same folder like folder-one and folder-one-two
+                    //at the moment fixed hidding affected folders
                 }
             });
         };
 
         $rootScope.openNavigator = function(path) {
-            //fixme getSelectedPath still with last values closing and reopening modal
-            $scope.fileNavigator.currentPath =  path;
-            $rootScope.selectorModalPath = path;
+            $scope.fileNavigator.currentPath = path;
             $scope.fileNavigator.refresh();
             $scope.modal('selector');
         };
 
         $rootScope.getSelectedPath = function() {
-            return ('/' + $rootScope.selectorModalPath.join('/')).replace(/\/\//, '/');
+            var path = $rootScope.selectedModalPath.filter(Boolean);
+            var result = '/' + path.join('/');
+            if ($scope.singleSelection()) {
+                result += '/' + $scope.singleSelection().tempModel.name;
+            }
+            return result.replace(/\/\//, '/');
         };
 
     }]);

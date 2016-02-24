@@ -12,11 +12,9 @@
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',
                 recursive: false,
-                sizeKb: function() {
-                    return Math.round(this.size / 1024, 1);
-                },
                 fullPath: function() {
-                    return ('/' + this.path.join('/') + '/' + this.name).replace(/\/\//, '/');
+                    var path = this.path.filter(Boolean);
+                    return (path.join('/') + '/' + this.name).replace(/\/\//, '/');
                 }
             };
 
@@ -61,10 +59,10 @@
             return deferred.resolve(data);
             
         };
-*/
+
         Item.prototype.createFolder = function() {
         };
-
+*/
         Item.prototype.rename = function() {
             var self = this;
             var deferred = $q.defer();
