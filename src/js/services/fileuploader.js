@@ -29,7 +29,7 @@
             form.append('destination', '/' + path.join('/'));
 
             for (var i = 0; i < fileList.length; i++) {
-                var fileObj = fileList.item(i);
+                var fileObj = fileList[i];
                 fileObj instanceof window.File && form.append('file-' + i, fileObj);
             }
 

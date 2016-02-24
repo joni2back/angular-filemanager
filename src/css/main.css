@@ -8,10 +8,6 @@ body {
   outline: 0!important;
 }
 
-.upload-dragover {
-  background-color: #EEEEEE;
-}
-
 .navbar {
   min-height: 32px;
   margin-bottom: 0;
@@ -221,6 +217,14 @@ a:hover {
 
 .dropdown-menu.dropdown-right-click .divider {
   margin: 3px 0;
+}
+
+.upload-dragover {
+  background-color: #EEEEEE;
+}
+
+.upload-list {
+  margin-top: 20px;
 }
 
 .spinner-wrapper {
