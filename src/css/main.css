@@ -8,6 +8,10 @@ body {
   outline: 0!important;
 }
 
+.upload-dragover {
+  background-color: #EEEEEE;
+}
+
 .navbar {
   min-height: 32px;
 }
