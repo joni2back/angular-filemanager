@@ -1,7 +1,6 @@
 <div class="modal animated fadeIn" id="imagepreview">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form ng-submit="remove(singleSelection())">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
@@ -19,7 +18,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
       </div>
-      </form>
     </div>
   </div>
 </div>
@@ -27,7 +25,7 @@
 <div class="modal animated fadeIn" id="delete">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form ng-submit="remove(singleSelection())">
+    <form ng-submit="remove()">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
             <span aria-hidden="true">&times;</span>
@@ -52,7 +50,7 @@
 <div class="modal animated fadeIn" id="move">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="move(singleSelection())">
+        <form ng-submit="move()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -77,7 +75,7 @@
 <div class="modal animated fadeIn" id="rename">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="rename(singleSelection())">
+        <form ng-submit="rename()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -132,7 +130,7 @@
 <div class="modal animated fadeIn" id="compress">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="compress(singleSelection())">
+        <form ng-submit="compress()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -141,10 +139,10 @@
               <h4 class="modal-title">{{'compress' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <div ng-show="singleSelection().asyncSuccess">
+              <div ng-show="apiHandler.asyncSuccess">
                   <div class="label label-success error-msg">{{'compression_started' | translate}}</div>
               </div>
-              <div ng-hide="singleSelection().asyncSuccess">
+              <div ng-hide="apiHandler.asyncSuccess">
                   <div ng-hide="config.allowedActions.compressChooseName">
                     {{'sure_to_start_compression_with' | translate}} <b>{{singleSelection().model.name}}</b> ?
                   </div>
@@ -157,10 +155,10 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <div ng-show="singleSelection().asyncSuccess">
+              <div ng-show="apiHandler.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
               </div>
-              <div ng-hide="singleSelection().asyncSuccess">
+              <div ng-hide="apiHandler.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
                   <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'compress' | translate}}</button>
               </div>
@@ -173,7 +171,7 @@
 <div class="modal animated fadeIn" id="extract" ng-init="singleSelection().emptyName()">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="extract(singleSelection())">
+        <form ng-submit="extract()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -182,10 +180,10 @@
               <h4 class="modal-title">{{'extract_item' | translate}}</h4>
             </div>
             <div class="modal-body">
-              <div ng-show="singleSelection().asyncSuccess">
+              <div ng-show="apiHandler.asyncSuccess">
                   <div class="label label-success error-msg">{{'extraction_started' | translate}}</div>
               </div>
-              <div ng-hide="singleSelection().asyncSuccess">
+              <div ng-hide="apiHandler.asyncSuccess">
                   <label class="radio">{{'enter_folder_name_for_extraction' | translate}} <b>{{singleSelection().model.name}}</b></label>
                   <input class="form-control" ng-model="singleSelection().tempModel.name" autofocus="autofocus">
                   <div ng-include data-src="'path-selector'" class="clearfix"></div>
@@ -193,10 +191,10 @@
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <div ng-show="singleSelection().asyncSuccess">
+              <div ng-show="apiHandler.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"close" | translate}}</button>
               </div>
-              <div ng-hide="singleSelection().asyncSuccess">
+              <div ng-hide="apiHandler.asyncSuccess">
                   <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiHandler.inprocess">{{"cancel" | translate}}</button>
                   <button type="submit" class="btn btn-primary" ng-disabled="apiHandler.inprocess">{{'extract' | translate}}</button>
               </div>
@@ -209,7 +207,7 @@
 <div class="modal animated fadeIn" id="edit" ng-class="{'modal-fullscreen': fullscreen}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-        <form ng-submit="edit(singleSelection())">
+        <form ng-submit="edit()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -239,7 +237,7 @@
 <div class="modal animated fadeIn" id="newfolder">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="createFolder(singleSelection())">
+        <form ng-submit="createFolder()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -294,7 +292,7 @@
 <div class="modal animated fadeIn" id="changepermissions">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="changePermissions(singleSelection())">
+        <form ng-submit="changePermissions()">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -313,27 +311,31 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr ng-repeat="(permTypeKey, permTypeValue) in singleSelection().tempModel.perms">
+                      <tr ng-repeat="(permTypeKey, permTypeValue) in chmodEdit.tempModel.perms">
                           <td>{{permTypeKey | translate}}</td>
                           <td ng-repeat="(permKey, permValue) in permTypeValue" class="col-xs-1 text-center" ng-click="main()">
                               <label class="col-xs-12">
-                                <input type="checkbox" ng-model="singleSelection().tempModel.perms[permTypeKey][permKey]">
+                                <input type="checkbox" ng-model="chmodEdit.tempModel.perms[permTypeKey][permKey]">
                               </label>
                           </td>
                       </tr>
                 </tbody>
               </table>
-              <div class="checkbox" ng-show="config.enablePermissionsRecursive && singleSelection().model.type === 'dir'">
+              <div class="checkbox" ng-show="config.enablePermissionsRecursive && selectionHas('dir')">
                 <label>
-                  <input type="checkbox" ng-model="singleSelection().tempModel.recursive"> {{'recursive' | translate}}
+                  <input type="checkbox" ng-model="chmodEdit.tempModel.recursive"> {{'recursive' | translate}}
                 </label>
               </div>
               <div class="clearfix mt10">
-                  <span class="label label-primary pull-left">
-                    {{'original' | translate}}: {{singleSelection().model.perms.toCode(singleSelection().model.type === 'dir'?'d':'-')}} ({{singleSelection().model.perms.toOctal()}})
+                  <span class="label label-primary pull-left" ng-hide="chmodEdit.multiple">
+                    {{'original' | translate}}: 
+                    {{chmodEdit.model.perms.toCode(selectionHas('dir') ? 'd':'-')}} 
+                    ({{chmodEdit.model.perms.toOctal()}})
                   </span>
                   <span class="label label-primary pull-right">
-                    {{'changes' | translate}}: {{singleSelection().tempModel.perms.toCode(singleSelection().model.type === 'dir'?'d':'-')}} ({{singleSelection().tempModel.perms.toOctal()}})
+                    {{'changes' | translate}}: 
+                    {{chmodEdit.tempModel.perms.toCode(selectionHas('dir') ? 'd':'-')}} 
+                    ({{chmodEdit.tempModel.perms.toOctal()}})
                   </span>
               </div>
               <div ng-include data-src="'error-bar'" class="clearfix"></div>

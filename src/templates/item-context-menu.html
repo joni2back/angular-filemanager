@@ -14,7 +14,7 @@
         </li>
 
         <li ng-show="config.allowedActions.preview && singleSelection().isImage() && singleSelection()">
-            <a href="" tabindex="-1" ng-click="openImagePreview(singleSelection())">
+            <a href="" tabindex="-1" ng-click="openImagePreview()">
                 <i class="glyphicon glyphicon-picture"></i> {{'view_item' | translate}}
             </a>
         </li>
@@ -38,7 +38,7 @@
         </li>
 
         <li ng-show="config.allowedActions.edit && singleSelection() && singleSelection().isEditable()">
-            <a href="" tabindex="-1" ng-click="openEditItem(singleSelection())">
+            <a href="" tabindex="-1" ng-click="openEditItem()">
                 <i class="glyphicon glyphicon-pencil"></i> {{'edit' | translate}}
             </a>
         </li>

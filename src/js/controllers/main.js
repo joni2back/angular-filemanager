@@ -21,6 +21,15 @@
         $scope.fileList = [];
         $scope.temps = [];
 
+        $scope.$watch('temps', function() {
+            if ($scope.singleSelection()) {
+                $scope.chmodEdit = $scope.singleSelection();
+            } else {
+                $scope.chmodEdit = new Item({rights: 644});
+                $scope.chmodEdit.multiple = true;
+            }
+        });
+
         $scope.fileNavigator.onRefresh = function() {
             $scope.temps = [];
             $rootScope.selectedModalPath = $scope.fileNavigator.currentPath;
@@ -134,7 +143,8 @@
             }
         };
 
-        $scope.openImagePreview = function(item) {
+        $scope.openImagePreview = function() {
+            var item = $scope.singleSelection();
             $scope.apiHandler.inprocess = true;
             $scope.modal('imagepreview', null, true)
                 .find('#imagepreview-target')
@@ -146,7 +156,8 @@
                 });
         };
 
-        $scope.openEditItem = function(item) {
+        $scope.openEditItem = function() {
+            var item = $scope.singleSelection();
             $scope.apiHandler.getContent(item).then(function(data) {
                 item.tempModel.content = item.model.content = data.result;
             });
@@ -170,15 +181,20 @@
             return currentPath.indexOf(path) !== -1;
         };
 
-        $scope.edit = function(item) {
+        $scope.edit = function() {
+            var item = $scope.singleSelection();
             var content = item.tempModel.content;
             $scope.apiHandler.edit(item, content).then(function() {
                 $scope.modal('edit', true);
             });
         };
 
-        $scope.changePermissions = function(item) {
-            item.changePermissions().then(function() {
+        $scope.changePermissions = function() {
+            var item = $scope.chmodEdit;
+            var code = item.tempModel.perms.toCode();
+            var octal = item.tempModel.perms.toOctal();
+            var recursive = item.tempModel.recursive;
+            $scope.apiHandler.changePermissions($scope.temps, octal, code, recursive).then(function() {
                 $scope.modal('changepermissions', true);
             });
         };
@@ -207,27 +223,28 @@
             });
         };
 
-        $scope.compress = function(item) {
-            item.compress().then(function() {
+        $scope.compress = function() {
+            $scope.apiHandler.compress($scope.temps, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 if (! $scope.config.compressAsync) {
                     return $scope.modal('compress', true);
                 }
-                item.asyncSuccess = true;
+                $scope.apiHandler.asyncSuccess = true;
             }, function() {
-                item.asyncSuccess = false;
+                $scope.apiHandler.asyncSuccess = false;
             });
         };
 
-        $scope.extract = function(item) {
-            item.extract().then(function() {
+        $scope.extract = function() {
+            var item = $scope.singleSelection();
+            $scope.apiHandler.extract(item, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 if (! $scope.config.extractAsync) {
                     return $scope.modal('extract', true);
                 }
-                item.asyncSuccess = true;
+                $scope.apiHandler.asyncSuccess = true;
             }, function() {
-                item.asyncSuccess = false;
+                $scope.apiHandler.asyncSuccess = false;
             });
         };
 
@@ -250,7 +267,8 @@
             });
         };
 
-        $scope.rename = function(item) {
+        $scope.rename = function() {
+            var item = $scope.singleSelection();
             var samePath = item.tempModel.path.join() === item.model.path.join();
             if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
                 $scope.apiHandler.error = $translate.instant('error_invalid_filename');
@@ -262,10 +280,10 @@
             });
         };
 
-        $scope.createFolder = function(item) {
+        $scope.createFolder = function() {
+            var item = $scope.singleSelection();
             var name = item.tempModel.name && item.tempModel.name.trim();
             var path = item.model.path;
-
             if (name && !$scope.fileNavigator.fileNameExists(name)) {
                 $scope.apiHandler.createFolder(name, path).then(function() {
                     $scope.fileNavigator.refresh();

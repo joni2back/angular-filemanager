@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('FileManagerApp').factory('item', ['$http', '$q', '$translate', 'fileManagerConfig', 'chmod', function($http, $q, $translate, fileManagerConfig, Chmod) {
+    angular.module('FileManagerApp').factory('item', ['fileManagerConfig', 'chmod', function(fileManagerConfig, Chmod) {
 
         var Item = function(model, path) {
             var rawModel = {
@@ -37,98 +37,6 @@
         Item.prototype.revert = function() {
             angular.extend(this.tempModel, angular.copy(this.model));
             this.error = '';
-        };
-/*
-        Item.prototype.deferredHandler = function(data, deferred, defaultMsg) {
-            if (!data || typeof data !== 'object') {
-                this.error = 'Bridge response error, please check the docs';
-            }
-            if (data.result && data.result.error) {
-                this.error = data.result.error;
-            }
-            if (!this.error && data.error) {
-                this.error = data.error.message;
-            }
-            if (!this.error && defaultMsg) {
-                this.error = defaultMsg;
-            }
-            if (this.error) {
-                return deferred.reject(data);
-            }
-            this.update();
-            return deferred.resolve(data);
-            
-        };
-
-        Item.prototype.createFolder = function() {
-        };
-*/
-
-        Item.prototype.compress = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'compress',
-                path: self.model.fullPath(),
-                destination: self.tempModel.fullPath()
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.compressUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_compressing'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
-
-        Item.prototype.extract = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'extract',
-                path: self.model.fullPath(),
-                sourceFile: self.model.fullPath(),
-                destination: self.tempModel.fullPath()
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.extractUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_extracting'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
-
-
-        Item.prototype.changePermissions = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'changepermissions',
-                path: self.tempModel.fullPath(),
-                perms: self.tempModel.perms.toOctal(),
-                permsCode: self.tempModel.perms.toCode(),
-                recursive: self.tempModel.recursive
-            }};
-            
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.permissionsUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_changing_perms'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
         };
 
         Item.prototype.isFolder = function() {
