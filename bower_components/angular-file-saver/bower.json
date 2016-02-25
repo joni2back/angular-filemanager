@@ -1,0 +1,29 @@
+{
+  "name": "angular-file-saver",
+  "version": "1.0.3",
+  "main": "dist/angular-file-saver.bundle.js",
+  "authors": [
+    "Philipp Alferov <philipp.alferov@gmail.com>"
+  ],
+  "description": "An AngularJS service that implements the HTML5 W3C saveAs() in browsers that do not natively support it",
+  "keywords": [
+    "filesaver",
+    "angular",
+    "saveas",
+    "blob",
+    "save",
+    "file"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "blob-polyfill": "~1.0.20150320",
+    "file-saver.js": "~1.20150507.2"
+  }
+}

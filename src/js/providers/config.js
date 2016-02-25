@@ -19,6 +19,8 @@
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
 
+            downloadViaFileSaver: false,
+
             searchForm: true,
             sidebar: true,
             breadcrumb: true,

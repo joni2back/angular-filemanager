@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Angular File Saver - an AngularJS service that provides cross-browser compatibility of the HTML5 saveAs()</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="dist/examples.css" media="screen">
+  <script src="dist/examples.js"></script>
+</head>
+<body ng-app="fileSaverExample">
+
+  <section class="page-header">
+    <h1 class="project-name">Angular File Saver</h1>
+    <h2 class="project-tagline">An AngularJS service that provides cross-browser compatibility of the HTML5 saveAs()</h2>
+    <a href="https://github.com/alferov/angular-file-saver" class="btn">View on GitHub</a>
+    <a href="https://github.com/alferov/angular-file-saver/zipball/master" class="btn">Download .zip</a>
+    <a href="https://github.com/alferov/angular-file-saver/tarball/master" class="btn">Download .tar.gz</a>
+  </section>
+
+  <section class="main-content">
+
+    <!-- inject:html -->
+    <h1 id="angular-file-saver">Angular File Saver</h1>
+<p><a href="https://npmjs.org/package/angular-file-saver"><img src="https://img.shields.io/npm/v/angular-file-saver.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://travis-ci.org/alferov/angular-file-saver"><img src="https://img.shields.io/travis/alferov/angular-file-saver.svg?style=flat-square" alt="Build Status"></a>
+<a href="https://david-dm.org/alferov/angular-file-saver"><img src="https://david-dm.org/alferov/angular-file-saver.svg?style=flat-square" alt="Dependency Status"></a></p>
+<blockquote>
+<p>Angular File Saver is an AngularJS service that leverages
+<a href="https://github.com/eligrey/FileSaver.js/">FileSaver.js</a> and
+<a href="https://github.com/eligrey/Blob.js/">Blob.js</a> to implement the HTML5 W3C
+saveAs() interface in browsers that do not natively support it</p>
+</blockquote>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li><a href="https://github.com/angular/angular.js">Angular</a></li>
+<li><a href="https://github.com/eligrey/FileSaver.js/">FileSaver.js</a></li>
+<li><a href="https://github.com/eligrey/Blob.js/">Blob.js</a></li>
+</ul>
+<p>File <code>dist/angular-file-saver.bundle.js</code> contains all required dependencies and
+grants access to both <code>Blob.js</code> and <code>FileSaver.js</code> polyfills via <code>Blob</code> and
+<code>SaveAs</code> services.</p>
+<h2 id="installation">Installation</h2>
+<pre><code class="lang-sh"># Using bower:
+$ bower install angular-file-saver
+
+# Using npm:
+$ npm install angular-file-saver
+</code></pre>
+<h2 id="basic-usage">Basic usage</h2>
+<ul>
+<li>Include the <code>ngFileSaver</code> module into your project;</li>
+<li>Pass both <code>FileSaver</code> and <code>Blob</code> services as dependencies;</li>
+<li>Create a <a href="https://developer.mozilla.org/en/docs/Web/API/Blob">Blob object</a>
+passing an array with data as a first argument and an object with set of options
+as the second one: <code>new Blob([&#39;text&#39;], { type: &#39;text/plain;charset=utf-8&#39; })</code>;</li>
+<li>Invoke <code>FileSaver.saveAs</code> with the following arguments:<ul>
+<li><code>data</code> <strong>Blob</strong>: a Blob instance;</li>
+<li><code>filename</code> <strong>String</strong>: Custom filename (extension is optional);</li>
+<li><code>disableAutoBOM</code> <strong>Boolean</strong>: (optional) Disable automatically provided Unicode text encoding hints;</li>
+</ul>
+</li>
+</ul>
+<p><a href="http://alferov.github.io/angular-file-saver/#demo">Demo</a></p>
+<h2 id="api">API</h2>
+<h3 id="-filesaver-"><code>FileSaver</code></h3>
+<h4 id="-saveas-data-filename-disableautobom-"><code>#saveAs(data, filename[, disableAutoBOM])</code></h4>
+<p>Immediately starts saving a file</p>
+<h4 id="parameters">Parameters</h4>
+<ul>
+<li><strong>Blob</strong> <code>data</code>: a Blob instance;</li>
+<li><strong>String</strong> <code>filename</code>: Custom filename (extension is optional);</li>
+<li><strong>Boolean</strong> <code>disableAutoBOM</code> : (optional) Disable automatically provided Unicode text encoding hints;</li>
+</ul>
+<h3 id="-blob-blobparts-options-"><code>Blob(blobParts[, options]))</code></h3>
+<p>An Angular factory that returns a Blob instance.
+<a href="https://developer.mozilla.org/en/docs/Web/API/Blob">Blob API on MDN</a></p>
+<h3 id="-saveas-data-filename-disableautobom-"><code>SaveAs(data, filename[, disableAutoBOM])</code></h3>
+<p>An Angular factory that returns a FileSaver.js <code>saveAs</code> polyfill.
+<a href="https://github.com/eligrey/FileSaver.js/#syntax">FileSaver.js documentationruvy</a></p>
+<h2 id="example">Example</h2>
+<p><strong>JS</strong></p>
+<pre><code class="lang-js">function ExampleCtrl(FileSaver, Blob) {
+  var vm = this;
+
+  vm.val = {
+    text: &#39;Hey ho lets go!&#39;
+  };
+
+  vm.download = function(text) {
+    var data = new Blob([text], { type: &#39;text/plain;charset=utf-8&#39; });
+    FileSaver.saveAs(data, &#39;text.txt&#39;);
+  };
+}
+
+angular
+  .module(&#39;fileSaverExample&#39;, [&#39;ngFileSaver&#39;])
+  .controller(&#39;ExampleCtrl&#39;, [&#39;FileSaver&#39;, &#39;Blob&#39;, ExampleCtrl]);
+</code></pre>
+<p><strong>HTML</strong></p>
+<pre><code class="lang-html">&lt;div class=&quot;wrapper&quot; ng-controller=&quot;ExampleCtrl as vm&quot;&gt;
+  &lt;textarea
+    ng-model=&quot;vm.val.text&quot;
+    name=&quot;textarea&quot; rows=&quot;5&quot; cols=&quot;20&quot;&gt;
+      Hey ho let&#39;s go!
+  &lt;/textarea&gt;
+  &lt;a href=&quot;&quot; class=&quot;btn btn-dark btn-small&quot; ng-click=&quot;vm.download(vm.val.text)&quot;&gt;
+    Download
+  &lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="license">License</h2>
+<p>MIT © <a href="https://github.com/alferov">Philipp Alferov</a></p>
+
+    <!-- endinject -->
+
+    <h3 id="demo">Demo</h3>
+    <p>Download as a text file</p>
+    <div class="wrapper" ng-controller="DownloadText as vm">
+      <textarea ng-model="vm.val.text" ng-model-options="{ getterSetter: true }" name="textarea" rows="5" cols="20">Hey ho let's go!</textarea>
+      <a href="" class="btn btn-dark btn-small" ng-click="vm.download(vm.val.text)">Download</a>
+    </div>
+
+    <footer class="site-footer">
+      <span class="site-footer-owner"><a href="https://github.com/alferov/angular-file-saver">Angular-file-saver</a> is maintained by Philipp Alferov <a href="https://github.com/alferov">@alferov</a>.</span>
+
+      <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+    </footer>
+
+  </section>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 (function(window, angular, $) {
     'use strict';
-    angular.module('FileManagerApp').factory('item', ['$http', '$q', '$translate', 'fileManagerConfig', 'chmod', function($http, $q, $translate, fileManagerConfig, Chmod) {
+    angular.module('FileManagerApp').factory('item', ['$http', '$q', '$translate', 'fileManagerConfig', 'chmod', 'FileSaver', 'Blob', function($http, $q, $translate, fileManagerConfig, Chmod, FileSaver, Blob) {
 
         var Item = function(model, path) {
             var rawModel = {
@@ -79,7 +79,7 @@
             })['finally'](function() {
                 self.inprocess = false;
             });
-        
+
             return deferred.promise;
         };
 
@@ -178,8 +178,19 @@
         };
 
         Item.prototype.download = function(preview) {
+            var self = this;
             if (this.model.type !== 'dir') {
+
+              if(fileManagerConfig.downloadViaFileSaver) {
+                $http.get(this.getUrl(preview)).success(function(data) {
+                  var blob = new Blob([data]);
+                  FileSaver.saveAs(blob, self.model.name);
+                }).error(function(data) {
+                    throw data;
+                });
+              } else {
                 window.open(this.getUrl(preview), '_blank', '');
+              }
             }
         };
 
@@ -256,7 +267,7 @@
                 permsCode: self.tempModel.perms.toCode(),
                 recursive: self.tempModel.recursive
             }};
-            
+
             self.inprocess = true;
             self.error = '';
             $http.post(fileManagerConfig.permissionsUrl, data).success(function(data) {
