@@ -9,7 +9,7 @@
         </button>
         <h4 class="modal-title">{{"preview" | translate}}</h4>
       </div>
-      <div class="modal-body" ng-show="singleSelection().getUrl().length > 10">
+      <div class="modal-body">
         <div class="text-center">
           <img id="imagepreview-target" class="preview" alt="{{singleSelection().model.name}}" ng-class="{'loading': apiHandler.inprocess}">
           <span class="label label-warning" ng-show="apiHandler.inprocess">{{'loading' | translate}} ...</span>
@@ -273,7 +273,7 @@
               <h4 class="modal-title">{{"upload_file" | translate}}</h4>
             </div>
             <div class="modal-body">
-              <label class="radio">{{"files_will_uploaded_to" | translate}} <b>{{fileNavigator.currentPath.join('/')}}</b></label>
+              <label class="radio">{{"files_will_uploaded_to" | translate}} <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
               <input type="file" class="form-control" ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>

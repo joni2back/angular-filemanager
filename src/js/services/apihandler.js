@@ -1,7 +1,7 @@
-(function(window, angular) {
+(function(angular, $) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$translate', 'fileManagerConfig', 
-        function ($http, $q, $translate, fileManagerConfig) {
+    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'fileManagerConfig', 
+        function ($http, $q, $window, $translate, fileManagerConfig) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -52,21 +52,56 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.copy = function(files, to) {
-            window.console.info('copy', files, to);
-            return {then:function(){}};
+        ApiHandler.prototype.copy = function(files, path) {
+            var self = this;
+            var deferred = $q.defer();
+            var fileList = self.getFileList(files);
+            var data = {params: {
+                mode: 'copy',
+                items: fileList,
+                newPath: '/' + path.join('/')
+            }};
+
+            self.inprocess = true;
+            self.error = '';
+            $http.post(fileManagerConfig.copyUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_copying'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
         };
 
-        ApiHandler.prototype.move = function(files, to) {
-            window.console.info('copy', files, to);
-            return {then:function(){}};
+        ApiHandler.prototype.move = function(files, path) {
+            var self = this;
+            var deferred = $q.defer();
+            var fileList = self.getFileList(files);
+            var data = {params: {
+                mode: 'move',
+                items: fileList,
+                newPath: '/' + path.join('/')
+            }};
+            self.inprocess = true;
+            self.error = '';
+            $http.post(fileManagerConfig.renameUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_renaming'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
         };
-
-
         ApiHandler.prototype.getFileList = function(files) {
             return (files || []).map(function(file) {
                 return file && file.model.fullPath();
             });
+        };
+
+        ApiHandler.prototype.getFilePath = function(item) {
+            return item && item.model.fullPath();
         };
 
         ApiHandler.prototype.remove = function(files) {
@@ -90,19 +125,18 @@
             return deferred.promise;
         };
 
-
         ApiHandler.prototype.upload = function(fileList, path) {
-            if (! window.FormData) {
+            if (! $window.FormData) {
                 throw new Error('Unsupported browser version');
             }
             var self = this;
-            var form = new window.FormData();
+            var form = new $window.FormData();
             var deferred = $q.defer();
             form.append('destination', '/' + path.join('/'));
 
             for (var i = 0; i < fileList.length; i++) {
                 var fileObj = fileList.item(i);
-                fileObj instanceof window.File && form.append('file-' + i, fileObj);
+                fileObj instanceof $window.File && form.append('file-' + i, fileObj);
             }
 
             self.inprocess = true;
@@ -123,6 +157,86 @@
             return deferred.promise;
         };
 
+        ApiHandler.prototype.getContent = function(item) {
+            var path = this.getFilePath(item);
+            var self = this;
+            var deferred = $q.defer();
+            var data = {params: {
+                mode: 'editfile',
+                path: path
+            }};
+
+            self.inprocess = true;
+            self.error = '';
+            $http.post(fileManagerConfig.getContentUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_getting_content'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
+        ApiHandler.prototype.edit = function(item, content) {
+            var path = this.getFilePath(item);
+            var self = this;
+            var deferred = $q.defer();
+            var data = {params: {
+                mode: 'savefile',
+                content: content,
+                path: path
+            }};
+
+            self.inprocess = true;
+            self.error = '';
+
+            $http.post(fileManagerConfig.editUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_modifying'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
+        ApiHandler.prototype.rename = function(item) {
+            var path = this.getFilePath(item);
+            var self = this;
+            var deferred = $q.defer();
+            var data = {params: {
+                mode: 'rename',
+                path: path,
+                newPath: item.tempModel.fullPath()
+            }};
+            self.inprocess = true;
+            self.error = '';
+            $http.post(fileManagerConfig.renameUrl, data).success(function(data) {
+                self.deferredHandler(data, deferred);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_renaming'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
+        ApiHandler.prototype.getUrl = function(item, preview) {
+            var path = this.getFilePath(item);
+            var data = {
+                mode: 'download',
+                preview: preview,
+                path: path
+            };
+            return path && [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
+        };
+
+        ApiHandler.prototype.download = function(item, preview) {
+            if (! item.isFolder()) {
+                $window.open(this.getUrl(item, preview), '_blank', '');
+            }
+        };
 
         ApiHandler.prototype.createFolder = function(name, path) {
             var self = this;
@@ -148,4 +262,4 @@
         return ApiHandler;
 
     }]);
-})(window, angular);
+})(angular, jQuery);

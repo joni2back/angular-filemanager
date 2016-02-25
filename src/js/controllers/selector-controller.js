@@ -7,8 +7,7 @@
         $scope.reverse = false;
         $scope.predicate = ['model.type', 'model.name'];
         $scope.fileNavigator = new FileNavigator();
-
-        //selectedModalPath = path elegido x usuario || filenavigator.currentPath
+        $rootScope.selectedModalPath = [];
 
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
@@ -48,7 +47,7 @@
         $rootScope.getSelectedPath = function() {
             var path = $rootScope.selectedModalPath.filter(Boolean);
             var result = '/' + path.join('/');
-            if ($scope.singleSelection()) {
+            if ($scope.singleSelection() && !$scope.singleSelection().isFolder()) {
                 result += '/' + $scope.singleSelection().tempModel.name;
             }
             return result.replace(/\/\//, '/');

@@ -1,4 +1,4 @@
-(function(window, angular, $) {
+(function(angular) {
     'use strict';
     angular.module('FileManagerApp').factory('item', ['$http', '$q', '$translate', 'fileManagerConfig', 'chmod', function($http, $q, $translate, fileManagerConfig, Chmod) {
 
@@ -63,46 +63,6 @@
         Item.prototype.createFolder = function() {
         };
 */
-        Item.prototype.rename = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'rename',
-                path: self.model.fullPath(),
-                newPath: self.tempModel.fullPath()
-            }};
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.renameUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_renaming'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
-
-        Item.prototype.copy = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'copy',
-                path: self.model.fullPath(),
-                newPath: self.tempModel.fullPath()
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.copyUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_copying'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
 
         Item.prototype.compress = function() {
             var self = this;
@@ -147,84 +107,6 @@
             return deferred.promise;
         };
 
-        Item.prototype.getUrl = function(preview) {
-            var path = this.model.fullPath();
-            var data = {
-                mode: 'download',
-                preview: preview,
-                path: path
-            };
-            return path && [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
-        };
-
-        Item.prototype.download = function(preview) {
-            if (this.model.type !== 'dir') {
-                window.open(this.getUrl(preview), '_blank', '');
-            }
-        };
-
-        Item.prototype.getContent = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'editfile',
-                path: self.tempModel.fullPath()
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.getContentUrl, data).success(function(data) {
-                self.tempModel.content = self.model.content = data.result;
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_getting_content'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
-
-        Item.prototype.remove = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'delete',
-                path: self.tempModel.fullPath()
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-            $http.post(fileManagerConfig.removeUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_deleting'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
-
-        Item.prototype.edit = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var data = {params: {
-                mode: 'savefile',
-                content: self.tempModel.content,
-                path: self.tempModel.fullPath()
-            }};
-
-            self.inprocess = true;
-            self.error = '';
-
-            $http.post(fileManagerConfig.editUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_modifying'));
-            })['finally'](function() {
-                self.inprocess = false;
-            });
-            return deferred.promise;
-        };
 
         Item.prototype.changePermissions = function() {
             var self = this;
@@ -271,4 +153,4 @@
 
         return Item;
     }]);
-})(window, angular, jQuery);
+})(angular);

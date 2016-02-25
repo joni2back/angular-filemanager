@@ -1,10 +1,10 @@
-(function(window, angular, $) {
+(function(angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$rootScope', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'fileUploader', 'apiHandler',
-        function($scope, $rootScope, $translate, fileManagerConfig, Item, FileNavigator, FileUploader, ApiHandler) {
+        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiHandler',
+        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiHandler) {
 
-        var $storage = window.localStorage;
+        var $storage = $window.localStorage;
 
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
@@ -16,12 +16,10 @@
         $scope.query = '';
         $scope.fileNavigator = new FileNavigator();
         $scope.apiHandler = new ApiHandler();
-        $scope.fileUploader = FileUploader;
         $scope.uploadFileList = [];
         $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
         $scope.fileList = [];
         $scope.temps = [];
-        $rootScope.selectedModalPath = [];
 
         $scope.fileNavigator.onRefresh = function() {
             $scope.temps = [];
@@ -129,7 +127,7 @@
                 if ($scope.config.previewImagesInModal) {
                     return $scope.openImagePreview(item);
                 } 
-                return item.download(true);
+                return $scope.apiHandler.download(item, true);
             }
             if (item.isEditable()) {
                 return $scope.openEditItem(item);
@@ -140,7 +138,7 @@
             $scope.apiHandler.inprocess = true;
             $scope.modal('imagepreview', null, true)
                 .find('#imagepreview-target')
-                .attr('src', item.getUrl(true))
+                .attr('src', $scope.apiHandler.getUrl(item, true))
                 .unbind('load error')
                 .on('load error', function() {
                     $scope.apiHandler.inprocess = false;
@@ -149,7 +147,9 @@
         };
 
         $scope.openEditItem = function(item) {
-            item.getContent();
+            $scope.apiHandler.getContent(item).then(function(data) {
+                item.tempModel.content = item.model.content = data.result;
+            });
             $scope.modal('edit');
         };
 
@@ -171,7 +171,8 @@
         };
 
         $scope.edit = function(item) {
-            item.edit().then(function() {
+            var content = item.tempModel.content;
+            $scope.apiHandler.edit(item, content).then(function() {
                 $scope.modal('edit', true);
             });
         };
@@ -180,6 +181,10 @@
             item.changePermissions().then(function() {
                 $scope.modal('changepermissions', true);
             });
+        };
+
+        $scope.download = function(item) {
+            $scope.apiHandler.download(item);
         };
 
         $scope.copy = function() {
@@ -251,7 +256,7 @@
                 $scope.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
-            item.rename().then(function() {
+            $scope.apiHandler.rename(item).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('rename', true);
             });
@@ -290,7 +295,7 @@
 
         $scope.getQueryParam = function(param) {
             var found;
-            window.location.search.substr(1).split('&').forEach(function(item) {
+            $window.location.search.substr(1).split('&').forEach(function(item) {
                 if (param ===  item.split('=')[0]) {
                     found = item.split('=')[1];
                     return false;
@@ -302,7 +307,7 @@
         $scope.changeLanguage($scope.getQueryParam('lang'));
         $scope.isWindows = $scope.getQueryParam('server') === 'Windows';
         $scope.fileNavigator.refresh();
-        window.scope = $scope; //dev
-        window.rootScope = $rootScope; //dev
+        $window.scope = $scope; //dev
+        $window.rootScope = $rootScope; //dev
     }]);
-})(window, angular, jQuery);
+})(angular, jQuery);
