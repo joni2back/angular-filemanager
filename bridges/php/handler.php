@@ -196,7 +196,7 @@ if (Request::getApiParam('mode') === 'rename') {
 
 if (Request::getApiParam('mode') === 'delete') {
     $path = Request::getApiParam('path');
-    $result = $oFtp->delete($path);
+    $result = $path ? $oFtp->delete($path) : false;
     if (! $result) {
         throw new Exception("Unknown error removing this item");
     }
