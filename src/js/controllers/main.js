@@ -165,6 +165,16 @@
             }
         };
 
+        $scope.addForUpload = function($files) {
+            $scope.uploadFileList = $scope.uploadFileList.concat($files);
+
+            $scope.modal('uploadfile', false);
+        };
+
+        $scope.removeFromUpload = function(index) {
+            $scope.uploadFileList.splice(index, 1);
+        };        
+
         $scope.uploadFiles = function() {
             $scope.fileUploader.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
                 $scope.fileNavigator.refresh();
