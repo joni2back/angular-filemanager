@@ -195,10 +195,16 @@ if (Request::getApiParam('mode') === 'rename') {
 }
 
 if (Request::getApiParam('mode') === 'delete') {
-    $path = Request::getApiParam('path');
-    $result = $path ? $oFtp->delete($path) : false;
-    if (! $result) {
-        throw new Exception("Unknown error removing this item");
+    $items = Request::getApiParam('items');
+    $errors = array();
+    foreach($items as $item) {
+        $result = $item ? $oFtp->delete($item) : false;
+        if (! $result)  {
+            $errors[] = $item;
+        }
+    }
+    if ($errors) {
+        throw new Exception("Unknown error deleting: \n\n" . implode(", \n", $errors));
     }
     $oResponse->setData($result);
     $oResponse->flushJson();
