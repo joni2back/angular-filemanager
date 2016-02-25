@@ -6,6 +6,10 @@ A very smart filemanager to manage your files in the browser developed in Angula
 
 #### I'm working on multiple file support / drag and drop features. API should be changed. For more information / contribute, see "[click-changes](https://github.com/joni2back/angular-filemanager/tree/click-changes)" branch.
 
+### Support
+This project is under free license. If you want to support the angular-filemanager development or just thank it's main maintainer by paying a beer, you can make a donation by clicking the following button  [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
+
+
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
 ---------
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
