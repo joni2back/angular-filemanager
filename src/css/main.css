@@ -8,6 +8,10 @@ body {
   outline: 0!important;
 }
 
+.navbar-inverse {
+  background-color: #6D4C41;
+}
+
 .navbar {
   min-height: 32px;
   margin-bottom: 0;
@@ -154,6 +158,15 @@ a:hover {
   margin-right: 0;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently */
+}
+
 .iconset .thumbnail {
   border-radius: 0;
   overflow: hidden;
@@ -161,6 +174,17 @@ a:hover {
   padding: 0;
   padding: 10px 0;
   border: none;
+}
+
+.table-files .selected,
+.iconset .thumbnail.selected {
+  background: #2196F3;
+}
+
+.iconset .thumbnail.selected,
+.table-files .selected td,
+.table-files .selected td a {
+  color:#fff;
 }
 
 .iconset .thumbnail .item-icon {
@@ -330,4 +354,8 @@ table th > a:focus {
   .table.table-files .btn {
     display: none;
   }
+}
+
+.selected-file-details {
+  padding-left: 20px;
 }

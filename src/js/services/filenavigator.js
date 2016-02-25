@@ -1,16 +1,17 @@
 (function(angular) {
     'use strict';
     angular.module('FileManagerApp').service('fileNavigator', [
-        '$http', '$q', 'fileManagerConfig', 'item', function ($http, $q, fileManagerConfig, Item) {
-
-        $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+        'apiHandler', 'fileManagerConfig', 'item', function (ApiHandler, fileManagerConfig, Item) {
 
         var FileNavigator = function() {
+            this.apiHandler = new ApiHandler();
             this.requesting = false;
             this.fileList = [];
             this.currentPath = [];
             this.history = [];
             this.error = '';
+
+            this.onRefresh = function() {};
         };
 
         FileNavigator.prototype.deferredHandler = function(data, deferred, defaultMsg) {
@@ -33,37 +34,23 @@
         };
 
         FileNavigator.prototype.list = function() {
-            var self = this;
-            var deferred = $q.defer();
-            var path = self.currentPath.join('/');
-            var data = {params: {
-                mode: 'list',
-                onlyFolders: false,
-                path: '/' + path
-            }};
-
-            self.requesting = true;
-            self.fileList = [];
-            self.error = '';
-
-            $http.post(fileManagerConfig.listUrl, data).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, 'Unknown error listing, check the response');
-            })['finally'](function() {
-                self.requesting = false;
-            });
-            return deferred.promise;
+            var path = this.currentPath.join('/');
+            return this.apiHandler.list(path, this.deferredHandler.bind(this));
         };
 
         FileNavigator.prototype.refresh = function() {
             var self = this;
             var path = self.currentPath.join('/');
+            self.requesting = true;
+            self.fileList = [];
             return self.list().then(function(data) {
                 self.fileList = (data.result || []).map(function(file) {
                     return new Item(file, self.currentPath);
                 });
                 self.buildTree(path);
+                self.onRefresh();
+            }).finally(function() {
+                self.requesting = false;
             });
         };
         
@@ -87,6 +74,7 @@
                     }
                     parent.nodes.push({item: item, name: absName, nodes: []});
                 }
+                
                 parent.nodes = parent.nodes.sort(function(a, b) {
                     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() === b.name.toLowerCase() ? 0 : 1;
                 });
@@ -108,7 +96,7 @@
             !this.history.length && this.history.push({name: '', nodes: []});
             flatten(this.history[0], flatNodes);
             selectedNode = findNode(flatNodes, path);
-            selectedNode.nodes = [];
+            selectedNode && (selectedNode.nodes = []);
 
             for (var o in this.fileList) {
                 var item = this.fileList[o];
