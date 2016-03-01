@@ -7,9 +7,15 @@
             </a>
         </li>
 
-        <li ng-show="config.allowedActions.download && !selectionHas('dir')">
-            <a href="" tabindex="-1" ng-click="download(singleSelection())">
-                <i class="glyphicon glyphicon-download"></i> {{'download' | translate}}
+        <li ng-show="config.allowedActions.download && !selectionHas('dir') && singleSelection()">
+            <a href="" tabindex="-1" ng-click="download()">
+                <i class="glyphicon glyphicon-cloud-download"></i> {{'download' | translate}}
+            </a>
+        </li>
+
+        <li ng-show="config.allowedActions.downloadMultiple && !selectionHas('dir') && !singleSelection()">
+            <a href="" tabindex="-1" ng-click="download()">
+                <i class="glyphicon glyphicon-cloud-download"></i> {{'download_in_zip' | translate}}
             </a>
         </li>
 
@@ -79,7 +85,7 @@
         </li>
         <li ng-show="config.allowedActions.upload">
             <a href="" tabindex="-1" ng-click="modal('uploadfile')">
-                <i class="glyphicon glyphicon-upload"></i> {{'upload_file' | translate}}
+                <i class="glyphicon glyphicon-cloud-upload"></i> {{'upload_file' | translate}}
             </a>
         </li>
     </ul>

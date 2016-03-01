@@ -15,6 +15,7 @@
             getContentUrl: 'bridges/php/handler.php',
             createFolderUrl: 'bridges/php/handler.php',
             downloadFileUrl: 'bridges/php/handler.php',
+            downloadMultipleUrl: 'bridges/php/handler.php',
             compressUrl: 'bridges/php/handler.php',
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
@@ -33,10 +34,12 @@
                 compressChooseName: true,
                 extract: true,
                 download: true,
+                downloadMultiple: true,
                 preview: true,
                 remove: true
             },
 
+            multipleDownloadFileName: 'angular-filemanager.zip',
             showSizeForDirectories: false,
             useBinarySizePrefixes: false,
             downloadFilesByAjax: true,

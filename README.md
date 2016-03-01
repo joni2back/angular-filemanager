@@ -74,8 +74,8 @@ This project is under free license. If you want to support the angular-filemanag
   <script src="src/js/providers/config.js"></script>
   <script src="src/js/entities/chmod.js"></script>
   <script src="src/js/entities/item.js"></script>
+  <script src="src/js/services/apihandler.js"></script>
   <script src="src/js/services/filenavigator.js"></script>
-  <script src="src/js/services/fileuploader.js"></script>
   <script src="src/js/providers/translations.js"></script>
   <script src="src/js/controllers/main.js"></script>
   <script src="src/js/controllers/selector-controller.js"></script>

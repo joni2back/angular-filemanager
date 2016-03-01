@@ -198,8 +198,12 @@
             });
         };
 
-        $scope.download = function(item) {
-            $scope.apiHandler.download(item);
+        $scope.download = function() {
+            var item = $scope.singleSelection();
+            if (item) {
+                return $scope.apiHandler.download(item);
+            }
+            return $scope.apiHandler.downloadMultiple($scope.temps);
         };
 
         $scope.copy = function() {

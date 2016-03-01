@@ -27,7 +27,6 @@
     <script src="src/js/entities/item.js"></script>
     <script src="src/js/services/apihandler.js"></script>
     <script src="src/js/services/filenavigator.js"></script>
-    <script src="src/js/services/fileuploader.js"></script>
     <script src="src/js/providers/translations.js"></script>
     <script src="src/js/controllers/main.js"></script>
     <script src="src/js/controllers/selector-controller.js"></script>
@@ -46,7 +45,7 @@
     angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
       var defaults = config.$get();
       config.set({
-        appName: 'github.com/joni2back/angular-filemanager | multiple file support',
+        appName: 'angular-filemanager | multiple file support',
         allowedActions: angular.extend(defaults.allowedActions, {
           remove: true
         })

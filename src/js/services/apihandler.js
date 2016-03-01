@@ -241,7 +241,7 @@
             }
             if (! fileManagerConfig.downloadFilesByAjax || forceNewWindow || !$window.saveAs) {
                 !$window.saveAs && $window.console.error('Your browser dont support ajax download, downloading by default');
-                return $window.open(url, '_blank', '');
+                return !!$window.open(url, '_blank', '');
             }
             
             self.inprocess = true;
@@ -249,6 +249,34 @@
                 var bin = new $window.Blob([data]);
                 deferred.resolve(data);
                 $window.saveAs(bin, item.model.name);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_downloading'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
+        ApiHandler.prototype.downloadMultiple = function(files, forceNewWindow) {
+            var self = this;
+            var deferred = $q.defer();
+            var data = {
+                mode: 'downloadMultiple',
+                items: self.getFileList(files)
+            };
+            var url = [fileManagerConfig.downloadMultipleUrl, $.param(data)].join('?');
+            var timestamp = new Date().getTime().toString().substr(8, 13);
+
+            if (! fileManagerConfig.downloadFilesByAjax || forceNewWindow || !$window.saveAs) {
+                !$window.saveAs && $window.console.error('Your browser dont support ajax download, downloading by default');
+                return !!$window.open(url, '_blank', '');
+            }
+            
+            self.inprocess = true;
+            $http.get(url).success(function(data) {
+                var bin = new $window.Blob([data]);
+                deferred.resolve(data);
+                $window.saveAs(bin, timestamp + '-' + fileManagerConfig.multipleDownloadFileName);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_downloading'));
             })['finally'](function() {
