@@ -67,7 +67,6 @@
 
             if ($event && $event.shiftKey && !isRightClick) {
                 var list = $scope.fileList;
-                //var list = $scope.fileNavigator.fileList;
                 var indexInList = list.indexOf(item);
                 var lastSelected = $scope.temps[0];
                 var i = list.indexOf(lastSelected);

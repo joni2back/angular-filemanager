@@ -39,7 +39,7 @@
 
             showSizeForDirectories: false,
             useBinarySizePrefixes: false,
-
+            downloadFilesByAjax: true,
             previewImagesInModal: true,
             enablePermissionsRecursive: true,
             compressAsync: true,

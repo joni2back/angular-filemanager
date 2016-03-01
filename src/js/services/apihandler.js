@@ -221,20 +221,40 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.getUrl = function(item, preview) {
+        ApiHandler.prototype.getUrl = function(item) {
             var path = this.getFilePath(item);
             var data = {
                 mode: 'download',
-                preview: preview,
                 path: path
             };
             return path && [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
         };
 
-        ApiHandler.prototype.download = function(item, preview) {
-            if (! item.isFolder()) {
-                $window.open(this.getUrl(item, preview), '_blank', '');
+        ApiHandler.prototype.download = function(item, forceNewWindow) {
+            //TODO: add spinner to indicate file is downloading
+            var self = this;
+            var deferred = $q.defer();
+            var url = self.getUrl(item);
+
+            if (item.isFolder()) {
+                return;
             }
+            if (! fileManagerConfig.downloadFilesByAjax || forceNewWindow || !$window.saveAs) {
+                !$window.saveAs && $window.console.error('Your browser dont support ajax download, downloading by default');
+                return $window.open(url, '_blank', '');
+            }
+            
+            self.inprocess = true;
+            $http.get(url).success(function(data) {
+                var bin = new $window.Blob([data]);
+                deferred.resolve(data);
+                $window.saveAs(bin, item.model.name);
+            }).error(function(data) {
+                self.deferredHandler(data, deferred, $translate.instant('error_downloading'));
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
         };
 
         ApiHandler.prototype.compress = function(files, path) {
