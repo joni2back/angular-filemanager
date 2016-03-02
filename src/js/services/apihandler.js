@@ -1,7 +1,7 @@
 (function(angular, $) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'fileManagerConfig', 
-        function ($http, $q, $window, $translate, fileManagerConfig) {
+    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 
+        function ($http, $q, $window, $translate) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -9,16 +9,6 @@
             this.inprocess = false;
             this.asyncSuccess = false;
             this.error = '';
-        };
-
-        ApiHandler.prototype.getFileList = function(files) {
-            return (files || []).map(function(file) {
-                return file && file.model.fullPath();
-            });
-        };
-
-        ApiHandler.prototype.getFilePath = function(item) {
-            return item && item.model.fullPath();
         };
 
         ApiHandler.prototype.deferredHandler = function(data, deferred, defaultMsg) {
@@ -40,20 +30,21 @@
             return deferred.resolve(data);
         };
 
-        ApiHandler.prototype.list = function(path, customDeferredHandler) {
+        ApiHandler.prototype.list = function(apiUrl, path, customDeferredHandler) {
             var self = this;
             var dfHandler = customDeferredHandler || self.deferredHandler;
             var deferred = $q.defer();
+
             var data = {params: {
                 mode: 'list',
                 onlyFolders: false,
-                path: '/' + path
+                path: path
             }};
 
             self.inprocess = true;
             self.error = '';
 
-            $http.post(fileManagerConfig.listUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 dfHandler(data, deferred);
             }).error(function(data) {
                 dfHandler(data, deferred, 'Unknown error listing, check the response');
@@ -63,18 +54,18 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.copy = function(files, path) {
+        ApiHandler.prototype.copy = function(apiUrl, items, path) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'copy',
-                items: self.getFileList(files),
-                newPath: '/' + path.join('/')
+                items: items,
+                newPath: path
             }};
 
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.copyUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_copying'));
@@ -84,37 +75,37 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.move = function(files, path) {
+        ApiHandler.prototype.move = function(apiUrl, items, path) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'move',
-                items: self.getFileList(files),
-                newPath: '/' + path.join('/')
+                items: items,
+                newPath: path
             }};
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.renameUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
-                self.deferredHandler(data, deferred, $translate.instant('error_renaming'));
+                self.deferredHandler(data, deferred, $translate.instant('error_moving'));
             })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
         };
 
-        ApiHandler.prototype.remove = function(files) {
+        ApiHandler.prototype.remove = function(apiUrl, items) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'delete',
-                items: self.getFileList(files)
+                items: items
             }};
 
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.removeUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_deleting'));
@@ -124,23 +115,12 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.upload = function(fileList, path) {
-            if (! $window.FormData) {
-                throw new Error('Unsupported browser version');
-            }
+        ApiHandler.prototype.upload = function(apiUrl, form) {
             var self = this;
-            var form = new $window.FormData();
             var deferred = $q.defer();
-            form.append('destination', '/' + path.join('/'));
-
-            for (var i = 0; i < fileList.length; i++) {
-                var fileObj = fileList.item(i);
-                fileObj instanceof $window.File && form.append('file-' + i, fileObj);
-            }
-
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.uploadUrl, form, {
+            $http.post(apiUrl, form, {
                 transformRequest: angular.identity,
                 headers: {
                     'Content-Type': undefined
@@ -156,18 +136,17 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.getContent = function(item) {
-            var path = this.getFilePath(item);
+        ApiHandler.prototype.getContent = function(apiUrl, itemPath) {            
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'editfile',
-                path: path
+                path: itemPath
             }};
 
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.getContentUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_getting_content'));
@@ -177,20 +156,19 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.edit = function(item, content) {
-            var path = this.getFilePath(item);
+        ApiHandler.prototype.edit = function(apiUrl, itemPath, content) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'savefile',
                 content: content,
-                path: path
+                path: itemPath
             }};
 
             self.inprocess = true;
             self.error = '';
 
-            $http.post(fileManagerConfig.editUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_modifying'));
@@ -200,18 +178,17 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.rename = function(item) {
-            var path = this.getFilePath(item);
+        ApiHandler.prototype.rename = function(apiUrl, itemPath, newPath) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'rename',
-                path: path,
-                newPath: item.tempModel.fullPath()
+                path: itemPath,
+                newPath: newPath
             }};
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.renameUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_renaming'));
@@ -221,34 +198,29 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.getUrl = function(item) {
-            var path = this.getFilePath(item);
+        ApiHandler.prototype.getUrl = function(apiUrl, path) {
             var data = {
                 mode: 'download',
                 path: path
             };
-            return path && [fileManagerConfig.downloadFileUrl, $.param(data)].join('?');
+            return path && [apiUrl, $.param(data)].join('?');
         };
 
-        ApiHandler.prototype.download = function(item, forceNewWindow) {
-            //TODO: add spinner to indicate file is downloading
+        ApiHandler.prototype.download = function(apiUrl, itemPath, toFilename, downloadByAjax, forceNewWindow) {
             var self = this;
-            var deferred = $q.defer();
-            var url = self.getUrl(item);
+            var url = this.getUrl(apiUrl, itemPath);
 
-            if (item.isFolder()) {
-                return;
-            }
-            if (! fileManagerConfig.downloadFilesByAjax || forceNewWindow || !$window.saveAs) {
+            if (!downloadByAjax || forceNewWindow || !$window.saveAs) {
                 !$window.saveAs && $window.console.error('Your browser dont support ajax download, downloading by default');
                 return !!$window.open(url, '_blank', '');
             }
             
+            var deferred = $q.defer();
             self.inprocess = true;
             $http.get(url).success(function(data) {
                 var bin = new $window.Blob([data]);
                 deferred.resolve(data);
-                $window.saveAs(bin, item.model.name);
+                $window.saveAs(bin, toFilename);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_downloading'));
             })['finally'](function() {
@@ -257,26 +229,25 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.downloadMultiple = function(files, forceNewWindow) {
+        ApiHandler.prototype.downloadMultiple = function(apiUrl, items, toFilename, downloadByAjax, forceNewWindow) {
             var self = this;
             var deferred = $q.defer();
             var data = {
                 mode: 'downloadMultiple',
-                items: self.getFileList(files)
+                items: items
             };
-            var url = [fileManagerConfig.downloadMultipleUrl, $.param(data)].join('?');
-            var timestamp = new Date().getTime().toString().substr(8, 13);
+            var url = [apiUrl, $.param(data)].join('?');
 
-            if (! fileManagerConfig.downloadFilesByAjax || forceNewWindow || !$window.saveAs) {
+            if (!downloadByAjax || forceNewWindow || !$window.saveAs) {
                 !$window.saveAs && $window.console.error('Your browser dont support ajax download, downloading by default');
                 return !!$window.open(url, '_blank', '');
             }
             
             self.inprocess = true;
-            $http.get(url).success(function(data) {
+            $http.get(apiUrl).success(function(data) {
                 var bin = new $window.Blob([data]);
                 deferred.resolve(data);
-                $window.saveAs(bin, timestamp + '-' + fileManagerConfig.multipleDownloadFileName);
+                $window.saveAs(bin, toFilename);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_downloading'));
             })['finally'](function() {
@@ -285,18 +256,19 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.compress = function(files, path) {
+        ApiHandler.prototype.compress = function(apiUrl, items, compressedFilename, path) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'compress',
-                items: self.getFileList(files),
-                destination: path.join('/') || '/'
+                items: items,
+                compressedFilename: compressedFilename,
+                destination: path
             }};
 
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.compressUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_compressing'));
@@ -306,18 +278,19 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.extract = function(item, path) {
+        ApiHandler.prototype.extract = function(apiUrl, item, folderName, path) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'extract',
-                path: this.getFilePath(item),
-                destination: path.join('/') || '/'
+                item: item,
+                destination: path,
+                folderName: folderName
             }};
 
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.extractUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_extracting'));
@@ -327,12 +300,12 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.changePermissions = function(files, permsOctal, permsCode, recursive) {
+        ApiHandler.prototype.changePermissions = function(apiUrl, items, permsOctal, permsCode, recursive) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'changepermissions',
-                items: self.getFileList(files),
+                items: items,
                 perms: permsOctal,
                 permsCode: permsCode,
                 recursive: !!recursive
@@ -340,7 +313,7 @@
             
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.permissionsUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_changing_perms'));
@@ -350,18 +323,18 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.createFolder = function(name, path) {
+        ApiHandler.prototype.createFolder = function(apiUrl, path, name) {
             var self = this;
             var deferred = $q.defer();
             var data = {params: {
                 mode: 'addfolder',
-                path: path.join('/') || '/',
+                path: path,
                 name: name
             }};
 
             self.inprocess = true;
             self.error = '';
-            $http.post(fileManagerConfig.createFolderUrl, data).success(function(data) {
+            $http.post(apiUrl, data).success(function(data) {
                 self.deferredHandler(data, deferred);
             }).error(function(data) {
                 self.deferredHandler(data, deferred, $translate.instant('error_creating_folder'));

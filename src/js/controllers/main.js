@@ -1,11 +1,10 @@
 (function(angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiHandler',
-        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiHandler) {
+        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
+        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware) {
 
         var $storage = $window.localStorage;
-
         $scope.config = fileManagerConfig;
         $scope.reverse = false;
         $scope.predicate = ['model.type', 'model.name'];        
@@ -15,7 +14,7 @@
         };
         $scope.query = '';
         $scope.fileNavigator = new FileNavigator();
-        $scope.apiHandler = new ApiHandler();
+        $scope.apiMiddleware = new ApiMiddleware();
         $scope.uploadFileList = [];
         $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
         $scope.fileList = [];
@@ -23,11 +22,12 @@
 
         $scope.$watch('temps', function() {
             if ($scope.singleSelection()) {
-                $scope.chmodEdit = $scope.singleSelection();
+                $scope.temp = $scope.singleSelection();
             } else {
-                $scope.chmodEdit = new Item({rights: 644});
-                $scope.chmodEdit.multiple = true;
+                $scope.temp = new Item({rights: 644});
+                $scope.temp.multiple = true;
             }
+            $scope.temp.revert();
         });
 
         $scope.fileNavigator.onRefresh = function() {
@@ -135,7 +135,7 @@
                 if ($scope.config.previewImagesInModal) {
                     return $scope.openImagePreview(item);
                 } 
-                return $scope.apiHandler.download(item, true);
+                return $scope.apiMiddleware.download(item, true);
             }
             if (item.isEditable()) {
                 return $scope.openEditItem(item);
@@ -144,20 +144,20 @@
 
         $scope.openImagePreview = function() {
             var item = $scope.singleSelection();
-            $scope.apiHandler.inprocess = true;
+            $scope.apiMiddleware.apiHandler.inprocess = true;
             $scope.modal('imagepreview', null, true)
                 .find('#imagepreview-target')
-                .attr('src', $scope.apiHandler.getUrl(item, true))
+                .attr('src', $scope.apiMiddleware.getUrl(item))
                 .unbind('load error')
                 .on('load error', function() {
-                    $scope.apiHandler.inprocess = false;
+                    $scope.apiMiddleware.apiHandler.inprocess = false;
                     $scope.$apply();
                 });
         };
 
         $scope.openEditItem = function() {
             var item = $scope.singleSelection();
-            $scope.apiHandler.getContent(item).then(function(data) {
+            $scope.apiMiddleware.getContent(item).then(function(data) {
                 item.tempModel.content = item.model.content = data.result;
             });
             $scope.modal('edit');
@@ -166,7 +166,8 @@
         $scope.modal = function(id, hide, returnElement) {
             var element = $('#' + id);
             element.modal(hide ? 'hide' : 'show');
-            $scope.apiHandler.error = '';
+            $scope.apiMiddleware.apiHandler.error = '';
+            $scope.apiMiddleware.apiHandler.asyncSuccess = false;
             return returnElement ? element : true;
         };
 
@@ -181,78 +182,99 @@
         };
 
         $scope.edit = function() {
-            var item = $scope.singleSelection();
-            var content = item.tempModel.content;
-            $scope.apiHandler.edit(item, content).then(function() {
+            $scope.apiMiddleware.edit($scope.singleSelection()).then(function() {
                 $scope.modal('edit', true);
             });
         };
 
         $scope.changePermissions = function() {
-            var item = $scope.chmodEdit;
-            var code = item.tempModel.perms.toCode();
-            var octal = item.tempModel.perms.toOctal();
-            var recursive = item.tempModel.recursive;
-            $scope.apiHandler.changePermissions($scope.temps, octal, code, recursive).then(function() {
+            $scope.apiMiddleware.changePermissions($scope.temps, $scope.temp).then(function() {
                 $scope.modal('changepermissions', true);
             });
         };
 
         $scope.download = function() {
             var item = $scope.singleSelection();
-            if (item) {
-                return $scope.apiHandler.download(item);
+            if ($scope.selectionHas('dir')) {
+                return;
             }
-            return $scope.apiHandler.downloadMultiple($scope.temps);
+            if (item) {
+                return $scope.apiMiddleware.download(item);
+            }
+            return $scope.apiMiddleware.downloadMultiple($scope.temps);
         };
 
         $scope.copy = function() {
             var item = $scope.singleSelection();
             if (item) {
-                var nameExists = $scope.fileNavigator.fileNameExists(item.tempModel.name);
-                var hasName = item.tempModel.name.trim();
+                var name = item.tempModel.name.trim();
+                var nameExists = $scope.fileNavigator.fileNameExists(name);
                 if (nameExists && $scope.validateSamePath(item)) {
-                    $scope.apiHandler.error = $translate.instant('error_invalid_filename');
+                    $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                     return false;
                 }
-                if (!hasName) {
-                    $scope.apiHandler.error = $translate.instant('error_invalid_filename');
+                if (!name) {
+                    $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                     return false;
                 }
             }
-            $scope.apiHandler.copy($scope.temps, $rootScope.selectedModalPath).then(function() {
+            $scope.apiMiddleware.copy($scope.temps, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('copy', true);
             });
         };
 
         $scope.compress = function() {
-            $scope.apiHandler.compress($scope.temps, $rootScope.selectedModalPath).then(function() {
+            var name = $scope.temp.tempModel.name.trim();
+            var nameExists = $scope.fileNavigator.fileNameExists(name);
+
+            if (nameExists && $scope.validateSamePath($scope.temp)) {
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
+                return false;
+            }
+            if (!name) {
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
+                return false;
+            }
+
+            $scope.apiMiddleware.compress($scope.temps, name, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 if (! $scope.config.compressAsync) {
                     return $scope.modal('compress', true);
                 }
-                $scope.apiHandler.asyncSuccess = true;
+                $scope.apiMiddleware.apiHandler.asyncSuccess = true;
             }, function() {
-                $scope.apiHandler.asyncSuccess = false;
+                $scope.apiMiddleware.apiHandler.asyncSuccess = false;
             });
         };
 
         $scope.extract = function() {
-            var item = $scope.singleSelection();
-            $scope.apiHandler.extract(item, $rootScope.selectedModalPath).then(function() {
+            var item = $scope.temp;
+            var name = $scope.temp.tempModel.name.trim();
+            var nameExists = $scope.fileNavigator.fileNameExists(name);
+
+            if (nameExists && $scope.validateSamePath($scope.temp)) {
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
+                return false;
+            }
+            if (!name) {
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
+                return false;
+            }
+
+            $scope.apiMiddleware.extract(item, name, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 if (! $scope.config.extractAsync) {
                     return $scope.modal('extract', true);
                 }
-                $scope.apiHandler.asyncSuccess = true;
+                $scope.apiMiddleware.apiHandler.asyncSuccess = true;
             }, function() {
-                $scope.apiHandler.asyncSuccess = false;
+                $scope.apiMiddleware.apiHandler.asyncSuccess = false;
             });
         };
 
         $scope.remove = function() {
-            $scope.apiHandler.remove($scope.temps).then(function() {
+            $scope.apiMiddleware.remove($scope.temps).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('delete', true);
             });
@@ -261,10 +283,10 @@
         $scope.move = function() {           
             var anyItem = $scope.singleSelection() || $scope.temps[0];
             if (anyItem && $scope.validateSamePath(anyItem)) {
-                $scope.apiHandler.error = $translate.instant('error_cannot_move_same_path');
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_cannot_move_same_path');
                 return false;
             }
-            $scope.apiHandler.move($scope.temps, $rootScope.selectedModalPath).then(function() {
+            $scope.apiMiddleware.move($scope.temps, $rootScope.selectedModalPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('move', true);
             });
@@ -274,10 +296,10 @@
             var item = $scope.singleSelection();
             var samePath = item.tempModel.path.join() === item.model.path.join();
             if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
-                $scope.apiHandler.error = $translate.instant('error_invalid_filename');
+                $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
-            $scope.apiHandler.rename(item).then(function() {
+            $scope.apiMiddleware.rename(item).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('rename', true);
             });
@@ -285,26 +307,23 @@
 
         $scope.createFolder = function() {
             var item = $scope.singleSelection();
-            var name = item.tempModel.name && item.tempModel.name.trim();
-            var path = item.model.path;
-            if (name && !$scope.fileNavigator.fileNameExists(name)) {
-                $scope.apiHandler.createFolder(name, path).then(function() {
-                    $scope.fileNavigator.refresh();
-                    $scope.modal('newfolder', true);
-                });
-            } else {
-                $scope.apiHandler.error = $translate.instant('error_invalid_filename');
-                return false;
+            var name = item.tempModel.name;
+            if (!name || $scope.fileNavigator.fileNameExists(name)) {
+                return $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
             }
+            $scope.apiMiddleware.createFolder(item).then(function() {
+                $scope.fileNavigator.refresh();
+                $scope.modal('newfolder', true);
+            });
         };
 
         $scope.uploadFiles = function() {
-            $scope.apiHandler.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
+            $scope.apiMiddleware.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
                 $scope.fileNavigator.refresh();
                 $scope.modal('uploadfile', true);
             }, function(data) {
                 var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');
-                $scope.apiHandler.error = errorMsg;
+                $scope.apiMiddleware.apiHandler.error = errorMsg;
             });
         };
 

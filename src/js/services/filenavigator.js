@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
     angular.module('FileManagerApp').service('fileNavigator', [
-        'apiHandler', 'fileManagerConfig', 'item', function (ApiHandler, fileManagerConfig, Item) {
+        'apiMiddleware', 'fileManagerConfig', 'item', function (ApiMiddleware, fileManagerConfig, Item) {
 
         var FileNavigator = function() {
-            this.apiHandler = new ApiHandler();
+            this.apiMiddleware = new ApiMiddleware();
             this.requesting = false;
             this.fileList = [];
             this.currentPath = [];
@@ -34,8 +34,7 @@
         };
 
         FileNavigator.prototype.list = function() {
-            var path = this.currentPath.join('/');
-            return this.apiHandler.list(path, this.deferredHandler.bind(this));
+            return this.apiMiddleware.list(this.currentPath, this.deferredHandler.bind(this));
         };
 
         FileNavigator.prototype.refresh = function() {

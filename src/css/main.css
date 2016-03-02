@@ -8,10 +8,6 @@ body {
   outline: 0!important;
 }
 
-.navbar-inverse {
-  background-color: #6D4C41;
-}
-
 .navbar {
   min-height: 32px;
   margin-bottom: 0;
@@ -76,10 +72,6 @@ textarea.code {
 
 .btn-go-back {
   margin-top: -5px;
-}
-
-a:hover {
-  text-decoration: none;
 }
 
 .nav-sidebar {
@@ -249,6 +241,9 @@ a:hover {
   margin-top: 8%;
 }
 
+a:hover,
+a:active,
+a:focus,
 table th > a:hover,
 table th > a:active,
 table th > a:focus {

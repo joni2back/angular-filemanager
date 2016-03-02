@@ -55,14 +55,14 @@
             </a>
         </li>
 
-        <li ng-show="config.allowedActions.compress && singleSelection() && singleSelection().isCompressible()">
+        <li ng-show="config.allowedActions.compress && (!singleSelection() || selectionHas('dir'))">
             <a href="" tabindex="-1" ng-click="modal('compress')">
                 <i class="glyphicon glyphicon-compressed"></i> {{'compress' | translate}}
             </a>
         </li>
 
         <li ng-show="config.allowedActions.extract && singleSelection() && singleSelection().isExtractable()">
-            <a href="" tabindex="-1" ng-click="modal('extract')"  ng-click="singleSelection().tempModel.name=''">
+            <a href="" tabindex="-1" ng-click="modal('extract')">
                 <i class="glyphicon glyphicon-export"></i> {{'extract' | translate}}
             </a>
         </li>
