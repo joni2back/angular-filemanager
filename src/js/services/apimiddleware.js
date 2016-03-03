@@ -69,7 +69,7 @@
             var itemPath = this.getFilePath(item);
             var newPath = item.tempModel.fullPath();
 
-            return this.apiHandler.edit(fileManagerConfig.renameUrl, itemPath, newPath);
+            return this.apiHandler.rename(fileManagerConfig.renameUrl, itemPath, newPath);
         };
 
         ApiMiddleware.prototype.getUrl = function(item) {

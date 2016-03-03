@@ -1,8 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('FileManagerApp').controller('ModalFileManagerCtrl', 
-        ['$scope', '$rootScope', 'fileNavigator',
-        function($scope, $rootScope, FileNavigator) {
+        ['$scope', '$rootScope', 'fileNavigator', function($scope, $rootScope, FileNavigator) {
 
         $scope.reverse = false;
         $scope.predicate = ['model.type', 'model.name'];

@@ -19,7 +19,7 @@
             };
 
             this.error = '';
-            this.inprocess = false;
+            this.processing = false;
 
             this.model = angular.copy(rawModel);
             this.tempModel = angular.copy(rawModel);

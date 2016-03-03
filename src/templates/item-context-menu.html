@@ -79,7 +79,7 @@
 
     <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length">
         <li>
-            <a href="" tabindex="-1" ng-click="modal('newfolder')">
+            <a href="" tabindex="-1" ng-click="modal('newfolder') && prepareNewFolder()">
                 <i class="glyphicon glyphicon-plus"></i> {{'new_folder' | translate}}
             </a>
         </li>
