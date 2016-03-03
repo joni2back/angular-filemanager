@@ -294,7 +294,7 @@
 
         $scope.rename = function() {
             var item = $scope.singleSelection();
-            var samePath = item.tempModel.path.join() === item.model.path.join();
+            var samePath = item.tempModel.path.join('') === item.model.path.join('');
             if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
@@ -328,20 +328,17 @@
         };
 
         $scope.validateSamePath = function(item) {
-            var selectedPath = $rootScope.selectedModalPath.join('/').replace(/^\//, '');
-            var selectedItemsPath = item && item.model.path.join('/').replace(/^\//, '');
+            //validate change
+            var selectedPath = $rootScope.selectedModalPath.join('');
+            var selectedItemsPath = item && item.model.path.join('');
             return selectedItemsPath === selectedPath;
         };
 
         $scope.getQueryParam = function(param) {
-            var found;
-            $window.location.search.substr(1).split('&').forEach(function(item) {
-                if (param ===  item.split('=')[0]) {
-                    found = item.split('=')[1];
-                    return false;
-                }
+            var found = $window.location.search.substr(1).split('&').find(function(item) {
+                return param ===  item.split('=')[0];
             });
-            return found;
+            return found && found.split('=')[1];
         };
 
         $scope.changeLanguage($scope.getQueryParam('lang'));

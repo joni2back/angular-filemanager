@@ -3,23 +3,23 @@
     angular.module('FileManagerApp').provider('fileManagerConfig', function() {
 
         var values = {
-            appName: 'https://github.com/joni2back/angular-filemanager',
+            appName: 'angular-filemanager v2',
             defaultLang: 'en',
 
-            listUrl: 'bridges/php/handler.php',
-            uploadUrl: 'bridges/php/handler.php',
-            renameUrl: 'bridges/php/handler.php',
-            copyUrl: 'bridges/php/handler.php',
-            moveUrl: 'bridges/php/handler.php',
-            removeUrl: 'bridges/php/handler.php',
-            editUrl: 'bridges/php/handler.php',
-            getContentUrl: 'bridges/php/handler.php',
-            createFolderUrl: 'bridges/php/handler.php',
-            downloadFileUrl: 'bridges/php/handler.php',
-            downloadMultipleUrl: 'bridges/php/handler.php',
-            compressUrl: 'bridges/php/handler.php',
-            extractUrl: 'bridges/php/handler.php',
-            permissionsUrl: 'bridges/php/handler.php',
+            listUrl: 'bridges/php/v2/handler.php',
+            uploadUrl: 'bridges/php/v2/handler.php',
+            renameUrl: 'bridges/php/v2/handler.php',
+            copyUrl: 'bridges/php/v2/handler.php',
+            moveUrl: 'bridges/php/v2/handler.php',
+            removeUrl: 'bridges/php/v2/handler.php',
+            editUrl: 'bridges/php/v2/handler.php',
+            getContentUrl: 'bridges/php/v2/handler.php',
+            createFolderUrl: 'bridges/php/v2/handler.php',
+            downloadFileUrl: 'bridges/php/v2/handler.php',
+            downloadMultipleUrl: 'bridges/php/v2/handler.php',
+            compressUrl: 'bridges/php/v2/handler.php',
+            extractUrl: 'bridges/php/v2/handler.php',
+            permissionsUrl: 'bridges/php/v2/handler.php',
 
             searchForm: true,
             sidebar: true,
@@ -49,7 +49,7 @@
             compressAsync: false,
             extractAsync: false,
 
-            isEditableFilePattern: /\.(txt|diff?|patch|asc|cnf|cfg|conf|html?|.html|cfm|cgi|aspx?|ini|pl|py|md|css|cs|js|jsp|log|htaccess|htpasswd|gitignore|gitattributes|env|json|atom|eml|rss|markdown|sql|xml|xslt?|sh|rb|as|bat|cmd|cob|for|ftn|frm|frx|inc|lisp|scm|coffee|php[3-6]?|java|c|cbl|go|h|scala|vb|tmpl|lock|go|yml|yaml|tsv|lst)$/i,
+            isEditableFilePattern: /\.(txt|diff?|patch|svg|asc|cnf|cfg|conf|html?|.html|cfm|cgi|aspx?|ini|pl|py|md|css|cs|js|jsp|log|htaccess|htpasswd|gitignore|gitattributes|env|json|atom|eml|rss|markdown|sql|xml|xslt?|sh|rb|as|bat|cmd|cob|for|ftn|frm|frx|inc|lisp|scm|coffee|php[3-6]?|java|c|cbl|go|h|scala|vb|tmpl|lock|go|yml|yaml|tsv|lst)$/i,
             isImageFilePattern: /\.(jpe?g|gif|bmp|png|svg|tiff?)$/i,
             isExtractableFilePattern: /\.(gz|tar|rar|g?zip)$/i,
             tplPath: 'src/templates'
