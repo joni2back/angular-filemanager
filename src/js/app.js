@@ -15,7 +15,7 @@
         $('#context-menu').hide();
     });
 
-    $(window.document).on('contextmenu', '.main-navigation .table-files tr:has("td"), .iconset', function(e) {
+    $(window.document).on('contextmenu', '.main-navigation .table-files tr.item-list:has("td"), .iconset-items', function(e) {
         $('#context-menu').hide().css({
             left: e.pageX,
             top: e.pageY

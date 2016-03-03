@@ -1,4 +1,8 @@
 <?php
+/**
+ *  FTP bridge for angular-filemanager v2
+ *  @author Jonas Sciangula Street <joni2back@gmail.com>
+ */
 
 require_once __DIR__ . '/php-classic/src/autoloader.php';
 
@@ -66,10 +70,13 @@ abstract class Request
     public static function getApiParam($param) 
     {
         $oData = static::getPostContent();
-        if (isset($oData->params)) {
-            return isset($oData->params->$param) ? $oData->params->$param : null;
-        }
-        return null;
+        return isset($oData->$param) ? $oData->$param : null;
+    }
+
+    public static function getApiOrQueryParam($param) 
+    {
+        return Request::getApiParam($param) ? 
+            Request::getApiParam($param) : Request::getQuery($param);
     }
 }
 
@@ -166,7 +173,7 @@ if (Request::getFile() && $dest = Request::getPost('destination')) {
     $oResponse->flushJson();
 }
 
-if (Request::getApiParam('mode') === 'list') {
+if (Request::getApiParam('action') === 'list') {
     $list = $oFtp->listFilesRaw(Request::getApiParam('path'));
     $list = is_array($list) ? $list : array();
     $list = array_map(function($item) {
@@ -178,23 +185,44 @@ if (Request::getApiParam('mode') === 'list') {
     $oResponse->flushJson();
 }
 
-if (Request::getApiParam('mode') === 'editfile') {
-    $oResponse->setData($oFtp->getContent(Request::getApiParam('path')));
+if (Request::getApiParam('action') === 'getContent') {
+    $oResponse->setData($oFtp->getContent(Request::getApiParam('item')));
     $oResponse->flushJson();
 }
 
-if (Request::getApiParam('mode') === 'rename') {
-    $path = Request::getApiParam('path');
-    $newPath = Request::getApiParam('newPath');
-    $result = $oFtp->move($path, $newPath);
+if (Request::getApiParam('action') === 'rename') {
+    $item = Request::getApiParam('item');
+    $newItemPath = Request::getApiParam('newItemPath');
+    $result = $oFtp->move($item, $newItemPath);
     if (! $result) {
-        throw new Exception("Unknown error renaming this folder");
+        throw new Exception("Unknown error renaming this item");
     }
     $oResponse->setData($result);
     $oResponse->flushJson();
 }
 
-if (Request::getApiParam('mode') === 'delete') {
+if (Request::getApiParam('action') === 'move') {
+    $items = Request::getApiParam('items');
+    $newPath = Request::getApiParam('newPath');
+    $errors = array();
+
+     foreach($items as $item) {
+        $fileName = explode('/', $item);
+        $fileName = end($fileName);
+        $finalPath = $newPath . '/' . $fileName;
+        $result = $item ? $oFtp->move($item, $finalPath) : false;
+        if (! $result)  {
+            $errors[] = $item . ' to ' . $finalPath;
+        }
+    }
+    if ($errors) {
+        throw new Exception("Unknown error moving: \n\n" . implode(", \n", $errors));
+    }
+    $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
+if (Request::getApiParam('action') === 'remove') {
     $items = Request::getApiParam('items');
     $errors = array();
     foreach($items as $item) {
@@ -210,10 +238,9 @@ if (Request::getApiParam('mode') === 'delete') {
     $oResponse->flushJson();
 }
 
-if (Request::getApiParam('mode') === 'addfolder') {
-    $path = Request::getApiParam('path');
-    $name = Request::getApiParam('name');
-    $result = $oFtp->mkdir($path .'/'. $name);
+if (Request::getApiParam('action') === 'createFolder') {
+    $newPath = Request::getApiParam('newPath');
+    $result = $oFtp->mkdir($newPath);
     if (! $result) {
         throw new Exception("Unknown error creating this folder");
     }
@@ -221,12 +248,26 @@ if (Request::getApiParam('mode') === 'addfolder') {
     $oResponse->flushJson();
 }
 
-if (Request::getApiParam('mode') === 'compress' || Request::getApiParam('mode') === 'extract') {
+if (Request::getApiParam('action') === 'compress') {
+    $items = Request::getApiParam('items');
+    $destination = Request::getApiParam('destination');
+    $compressedFilename = Request::getApiParam('compressedFilename');
+
+    //example
+    $temp = tempnam(sys_get_temp_dir(), microtime());
+    $finalDest = $destination . '/' . $compressedFilename;
+
+    $finalDest = preg_match('/\.(tar|zip)$/', $finalDest) ? $finalDest : $finalDest . '.zip';
+    $result = $oFtp->upload($temp, $finalDest);
+    if (! $result) {
+        throw new Exception("Unknown error compressing these file(s)");
+    }
+
     $oResponse->setData(true);
     $oResponse->flushJson();
 }
 
-if (Request::getQuery('mode') === 'download') {
+if (Request::getQuery('action') === 'download') {
     $download  = Request::getQuery('preview') === 'true' ? '' : 'attachment;';
     $filePath = Request::getQuery('path');
     $fileName = explode('/', $filePath);
@@ -237,6 +278,26 @@ if (Request::getQuery('mode') === 'download') {
         $oResponse->setHeaders(array(
             'Content-Type' => @mime_content_type($tmpFilePath),
             'Content-disposition' => sprintf('%s filename="%s"', $download, $fileName)
+        ));
+    }
+    $oResponse->flush();
+}
+
+if (Request::getQuery('action') === 'downloadMultiple') {
+    $items = Request::getApiOrQueryParam('items');
+    $toFilename = Request::getApiOrQueryParam('toFilename');
+    $errors = array();
+
+    $fileContent = is_array($items) ? implode($items, ", \n") : '';
+    if ($errors) {
+        throw new Exception("Unknown compressing to download: \n\n" . implode(", \n", $errors));
+    }
+
+    if ($fileContent) {
+        $oResponse->setData($fileContent);
+        $oResponse->setHeaders(array(
+            'Content-Type' => @mime_content_type($fileContent),
+            'Content-disposition' => sprintf('attachment; filename="%s"', $toFilename)
         ));
     }
     $oResponse->flush();

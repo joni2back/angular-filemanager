@@ -276,7 +276,7 @@
         $scope.remove = function() {
             $scope.apiMiddleware.remove($scope.temps).then(function() {
                 $scope.fileNavigator.refresh();
-                $scope.modal('delete', true);
+                $scope.modal('remove', true);
             });
         };
 

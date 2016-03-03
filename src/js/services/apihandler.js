@@ -35,11 +35,10 @@
             var dfHandler = customDeferredHandler || self.deferredHandler;
             var deferred = $q.defer();
 
-            var data = {params: {
-                mode: 'list',
-                onlyFolders: false,
+            var data = {
+                action: 'list',
                 path: path
-            }};
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -57,11 +56,11 @@
         ApiHandler.prototype.copy = function(apiUrl, items, path) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'copy',
+            var data = {
+                action: 'copy',
                 items: items,
                 newPath: path
-            }};
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -78,11 +77,11 @@
         ApiHandler.prototype.move = function(apiUrl, items, path) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'move',
+            var data = {
+                action: 'move',
                 items: items,
                 newPath: path
-            }};
+            };
             self.inprocess = true;
             self.error = '';
             $http.post(apiUrl, data).success(function(data) {
@@ -98,10 +97,10 @@
         ApiHandler.prototype.remove = function(apiUrl, items) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'delete',
+            var data = {
+                action: 'remove',
                 items: items
-            }};
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -139,10 +138,10 @@
         ApiHandler.prototype.getContent = function(apiUrl, itemPath) {            
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'editfile',
-                path: itemPath
-            }};
+            var data = {
+                action: 'getContent',
+                item: itemPath
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -159,11 +158,11 @@
         ApiHandler.prototype.edit = function(apiUrl, itemPath, content) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'savefile',
-                content: content,
-                path: itemPath
-            }};
+            var data = {
+                action: 'edit',
+                item: itemPath,
+                content: content
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -181,11 +180,11 @@
         ApiHandler.prototype.rename = function(apiUrl, itemPath, newPath) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'rename',
-                path: itemPath,
-                newPath: newPath
-            }};
+            var data = {
+                action: 'rename',
+                item: itemPath,
+                newItemPath: newPath
+            };
             self.inprocess = true;
             self.error = '';
             $http.post(apiUrl, data).success(function(data) {
@@ -200,7 +199,7 @@
 
         ApiHandler.prototype.getUrl = function(apiUrl, path) {
             var data = {
-                mode: 'download',
+                action: 'download',
                 path: path
             };
             return path && [apiUrl, $.param(data)].join('?');
@@ -233,8 +232,9 @@
             var self = this;
             var deferred = $q.defer();
             var data = {
-                mode: 'downloadMultiple',
-                items: items
+                action: 'downloadMultiple',
+                items: items,
+                toFilename: toFilename
             };
             var url = [apiUrl, $.param(data)].join('?');
 
@@ -259,12 +259,12 @@
         ApiHandler.prototype.compress = function(apiUrl, items, compressedFilename, path) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'compress',
+            var data = {
+                action: 'compress',
                 items: items,
-                compressedFilename: compressedFilename,
-                destination: path
-            }};
+                destination: path,
+                compressedFilename: compressedFilename
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -281,12 +281,12 @@
         ApiHandler.prototype.extract = function(apiUrl, item, folderName, path) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'extract',
+            var data = {
+                action: 'extract',
                 item: item,
                 destination: path,
                 folderName: folderName
-            }};
+            };
 
             self.inprocess = true;
             self.error = '';
@@ -303,13 +303,13 @@
         ApiHandler.prototype.changePermissions = function(apiUrl, items, permsOctal, permsCode, recursive) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'changepermissions',
+            var data = {
+                action: 'changePermissions',
                 items: items,
                 perms: permsOctal,
                 permsCode: permsCode,
                 recursive: !!recursive
-            }};
+            };
             
             self.inprocess = true;
             self.error = '';
@@ -323,14 +323,13 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.createFolder = function(apiUrl, path, name) {
+        ApiHandler.prototype.createFolder = function(apiUrl, path) {
             var self = this;
             var deferred = $q.defer();
-            var data = {params: {
-                mode: 'addfolder',
-                path: path,
-                name: name
-            }};
+            var data = {
+                action: 'createFolder',
+                newPath: path
+            };
 
             self.inprocess = true;
             self.error = '';

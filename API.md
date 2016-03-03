@@ -4,45 +4,52 @@
 
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "list",
-    "onlyFolders": false,
+{
+    "action": "list",
     "path": "/public_html"
-}}
+}
 ```
 **JSON Response**
 ```json
 { "result": [ 
     {
-        "name": "joomla",
-        "rights": "drwxr-xr-x",
-        "size": "4096",
-        "date": "2015-04-29 09:04:24",
-        "type": "dir"
-    }, {
         "name": "magento",
         "rights": "drwxr-xr-x",
         "size": "4096",
-        "date": "17:42",
+        "date": "2016-03-03 15:31:40",
         "type": "dir"
     }, {
         "name": "index.php",
         "rights": "-rw-r--r--",
         "size": "549923",
-        "date": "2013-11-01 11:44:13",
+        "date": "2016-03-03 15:31:40",
         "type": "file"
     }
 ]}
 ```
 --------------------
-#### Rename / Move (URL: fileManagerConfig.renameUrl, Method: POST)
+#### Rename (URL: fileManagerConfig.renameUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "rename",
-    "path": "/public_html/index.php",
-    "newPath": "/public_html/index2.php"
-}}
+{
+    "action": "rename",
+    "item": "/public_html/index.php",
+    "newItemPath": "/public_html/index2.php"
+}
+```
+**JSON Response**
+```json
+{ "result": { "success": true, "error": null } }
+```
+--------------------
+#### Move (URL: fileManagerConfig.moveUrl, Method: POST)
+**JSON Request content**
+```json
+{
+    "action": "move",
+    "items": ["/public_html/libs", "/public_html/config.php"],
+    "newPath": "/public_html/includes"
+}
 ```
 **JSON Response**
 ```json
@@ -52,11 +59,11 @@
 #### Copy (URL: fileManagerConfig.copyUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "copy",
+{
+    "action": "copy",
     "path": "/public_html/index.php",
     "newPath": "/public_html/index-copy.php"
-}}
+}
 ```
 **JSON Response**
 ```json
@@ -66,10 +73,10 @@
 #### Remove (URL: fileManagerConfig.removeUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "delete",
-    "path": "/public_html/index.php",
-}}
+{
+    "action": "remove",
+    "items": ["/public_html/index.php"],
+}
 ```
 **JSON Response**
 ```json
@@ -79,11 +86,11 @@
 #### Edit file (URL: fileManagerConfig.editUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "savefile",
-    "content": "<?php echo random(); ?>",
-    "path": "/public_html/index.php",
-}}
+{
+    "action": "edit",
+    "item": "/public_html/index.php",
+    "content": "<?php echo random(); ?>"
+}
 ```
 **JSON Response**
 ```json
@@ -93,10 +100,10 @@
 #### Get content of a file (URL: fileManagerConfig.getContentUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "editfile",
-    "path": "/public_html/index.php"
-}}
+{
+    "action": "getContent",
+    "item": "/public_html/index.php"
+}
 ```
 **JSON Response**
 ```json
@@ -106,11 +113,10 @@
 #### Create folder (URL: fileManagerConfig.createFolderUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "addfolder",
-    "name": "new-folder",
-    "path": "/public_html"
-}}
+{
+    "action": "createFolder",
+    "newPath": "/public_html/new-folder"
+}
 ```
 **JSON Response**
 ```json
@@ -120,13 +126,13 @@
 #### Set permissions (URL: fileManagerConfig.permissionsUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "changepermissions",
-    "path": "/public_html/index.php",
+{
+    "action": "changePermissions",
+    "items": ["/public_html/root", "/public_html/index.php"],
     "perms": "653",
     "permsCode": "rw-r-x-wx",
-    "recursive": false
-}}
+    "recursive": true
+}
 ```
 **JSON Response**
 ```json
@@ -136,10 +142,11 @@
 #### Compress file (URL: fileManagerConfig.compressUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "compress",
-    "path": "/public_html/compressed.zip",
-    "destination": "/public_html/backups"
+{
+    "action": "compress",
+    "items": ["/public_html/photos", "/public_html/docs"],
+    "destination": "/public_html/backups",
+    "compressedFilename": "random-files.zip"
 }}
 ```
 **JSON Response**
@@ -150,12 +157,13 @@
 #### Extract file (URL: fileManagerConfig.extractUrl, Method: POST)
 **JSON Request content**
 ```json
-{ "params": {
-    "mode": "extract",
+{
+    "action": "extract",
     "destination": "/public_html/extracted-files",
-    "path": "/public_html/compressed.zip",
-    "sourceFile": "/public_html/compressed.zip"
-}}
+    "item": "/public_html/compressed.zip",
+    "destination": "/public_html/extracteds/",
+    "folderName": "latest"
+}
 ```
 **JSON Response**
 ```json
@@ -187,10 +195,24 @@ $destination = $_POST['destination'];
 $_FILES['file-0'] or foreach($_FILES)
 ```
 --------------------
-#### Download / Preview file (URL: fileManagerConfig.downloadFileUrl, Method: GET)
+#### Download / Preview file (URL: fileManagerConfig.downloadMultipleUrl, Method: GET)
 **Http query params**
 ```
-[fileManagerConfig.downloadFileUrl]?mode=download&preview=true&path=/public_html/image.jpg
+[fileManagerConfig.downloadFileUrl]?action=download&path=/public_html/image.jpg
+```
+**Response**
+```
+-File content
+```
+--------------------
+#### Download multiples files in ZIP/TAR (URL: fileManagerConfig.downloadFileUrl, Method: GET)
+**JSON Request content**
+```json
+{
+    "action": "downloadMultiple",
+    "items": ["/public_html/image1.jpg", "/public_html/image2.jpg"],
+    "toFilename": "multiple-items.zip"
+}}
 ```
 **Response**
 ```
