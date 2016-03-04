@@ -30,10 +30,12 @@
                 if (path == itemPath) {
                     return true;
                 }
+                /*
                 if (path.startsWith(itemPath)) {
-                    //fixme names in same folder like folder-one and folder-one-two
-                    //at the moment fixed hidding affected folders
+                    fixme names in same folder like folder-one and folder-one-two
+                    at the moment fixed hidding affected folders
                 }
+                */
             });
         };
 

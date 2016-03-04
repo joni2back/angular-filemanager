@@ -62,9 +62,9 @@
                     parent.nodes = [];
                 }
                 if (parent.name !== path) {
-                    for (var i in parent.nodes) {
-                        recursive(parent.nodes[i], item, path);
-                    }
+                    parent.nodes.forEach(function(nd) {
+                        recursive(nd, item, path);
+                    });
                 } else {
                     for (var e in parent.nodes) {
                         if (parent.nodes[e].name === absName) {
@@ -99,7 +99,7 @@
 
             for (var o in this.fileList) {
                 var item = this.fileList[o];
-                item.isFolder() && recursive(this.history[0], item, path);
+                item instanceof Item && item.isFolder() && recursive(this.history[0], item, path);
             }
         };
 
@@ -124,20 +124,15 @@
         };
 
         FileNavigator.prototype.fileNameExists = function(fileName) {
-            for (var item in this.fileList) {
-                item = this.fileList[item];
-                if (fileName.trim && item.model.name.trim() === fileName.trim()) {
-                    return true;
-                }
-            }
+            return this.fileList.find(function(item) {
+                return fileName.trim && item.model.name.trim() === fileName.trim();
+            });
         };
 
         FileNavigator.prototype.listHasFolders = function() {
-            for (var item in this.fileList) {
-                if (this.fileList[item].model.type === 'dir') {
-                    return true;
-                }
-            }
+            return this.fileList.find(function(item) {
+                return item.model.type === 'dir';
+            });
         };
 
         return FileNavigator;

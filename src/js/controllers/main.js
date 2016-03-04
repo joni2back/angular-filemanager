@@ -48,6 +48,10 @@
             $translate.use($storage.getItem('language') || fileManagerConfig.defaultLang);
         };
 
+        $scope.isSelected = function(item) {
+            return $scope.temps.indexOf(item) !== -1;
+        };
+
         $scope.selectOrUnselect = function(item, $event) {
             var indexInTemp = $scope.temps.indexOf(item);
             var isRightClick = $event && $event.which == 3;
@@ -56,22 +60,15 @@
                 $scope.temps = [];
                 return;
             }
-
-            if (! item) {
+            if (! item || (isRightClick && $scope.isSelected(item))) {
                 return;
             }
-
-            if (isRightClick && $scope.isSelected(item)) {
-                return;
-            }
-
             if ($event && $event.shiftKey && !isRightClick) {
                 var list = $scope.fileList;
                 var indexInList = list.indexOf(item);
                 var lastSelected = $scope.temps[0];
                 var i = list.indexOf(lastSelected);
                 var current = undefined;
-
                 if (lastSelected && list.indexOf(lastSelected) < indexInList) {
                     $scope.temps = [];
                     while (i <= indexInList) {
@@ -81,7 +78,6 @@
                     }
                     return;
                 }
-
                 if (lastSelected && list.indexOf(lastSelected) > indexInList) {
                     $scope.temps = [];
                     while (i >= indexInList) {
@@ -92,17 +88,11 @@
                     return;
                 }
             }
-
             if ($event && $event.ctrlKey && !isRightClick) {
                 $scope.isSelected(item) ? $scope.temps.splice(indexInTemp, 1) : $scope.temps.push(item);
                 return;
             }
-
             $scope.temps = [item];
-        };
-
-        $scope.isSelected = function(item) {
-            return $scope.temps.indexOf(item) !== -1;
         };
 
         $scope.singleSelection = function() {
@@ -209,7 +199,7 @@
             if (item) {
                 var name = item.tempModel.name.trim();
                 var nameExists = $scope.fileNavigator.fileNameExists(name);
-                if (nameExists && $scope.validateSamePath(item)) {
+                if (nameExists && validateSamePath(item)) {
                     $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                     return false;
                 }
@@ -228,7 +218,7 @@
             var name = $scope.temp.tempModel.name.trim();
             var nameExists = $scope.fileNavigator.fileNameExists(name);
 
-            if (nameExists && $scope.validateSamePath($scope.temp)) {
+            if (nameExists && validateSamePath($scope.temp)) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
@@ -253,7 +243,7 @@
             var name = $scope.temp.tempModel.name.trim();
             var nameExists = $scope.fileNavigator.fileNameExists(name);
 
-            if (nameExists && $scope.validateSamePath($scope.temp)) {
+            if (nameExists && validateSamePath($scope.temp)) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
@@ -282,7 +272,7 @@
 
         $scope.move = function() {           
             var anyItem = $scope.singleSelection() || $scope.temps[0];
-            if (anyItem && $scope.validateSamePath(anyItem)) {
+            if (anyItem && validateSamePath(anyItem)) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_cannot_move_same_path');
                 return false;
             }
@@ -294,8 +284,9 @@
 
         $scope.rename = function() {
             var item = $scope.singleSelection();
+            var name = item.tempModel.name;
             var samePath = item.tempModel.path.join('') === item.model.path.join('');
-            if (samePath && $scope.fileNavigator.fileNameExists(item.tempModel.name)) {
+            if (!name || (samePath && $scope.fileNavigator.fileNameExists(name))) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
@@ -327,24 +318,22 @@
             });
         };
 
-        $scope.validateSamePath = function(item) {
-            //validate change
+        var validateSamePath = function(item) {
             var selectedPath = $rootScope.selectedModalPath.join('');
             var selectedItemsPath = item && item.model.path.join('');
             return selectedItemsPath === selectedPath;
         };
 
-        $scope.getQueryParam = function(param) {
-            var found = $window.location.search.substr(1).split('&').find(function(item) {
+        var getQueryParam = function(param) {
+            var found = $window.location.search.substr(1).split('&').filter(function(item) {
                 return param ===  item.split('=')[0];
             });
-            return found && found.split('=')[1];
+            return found[0] && found[0].split('=')[1] || undefined;
         };
 
-        $scope.changeLanguage($scope.getQueryParam('lang'));
-        $scope.isWindows = $scope.getQueryParam('server') === 'Windows';
+        $scope.changeLanguage(getQueryParam('lang'));
+        $scope.isWindows = getQueryParam('server') === 'Windows';
         $scope.fileNavigator.refresh();
-        $window.scope = $scope; //dev
-        $window.rootScope = $rootScope; //dev
+
     }]);
 })(angular, jQuery);

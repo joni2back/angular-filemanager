@@ -23,26 +23,22 @@
         };
 
         Chmod.prototype.toOctal = function(prepend, append) {
-            var props = ['owner', 'group', 'others'];
             var result = [];
-            for (var i in props) {
-                var key = props[i];
+            ['owner', 'group', 'others'].forEach(function(key, i) {
                 result[i]  = this[key].read  && this.octalValues.read  || 0;
                 result[i] += this[key].write && this.octalValues.write || 0;
                 result[i] += this[key].exec  && this.octalValues.exec  || 0;
-            }
+            }.bind(this));
             return (prepend||'') + result.join('') + (append||'');
         };
 
         Chmod.prototype.toCode = function(prepend, append) {
-            var props = ['owner', 'group', 'others'];
             var result = [];
-            for (var i in props) {
-                var key = props[i];
+            ['owner', 'group', 'others'].forEach(function(key, i) {
                 result[i]  = this[key].read  && this.codeValues.read  || '-';
                 result[i] += this[key].write && this.codeValues.write || '-';
                 result[i] += this[key].exec  && this.codeValues.exec  || '-';
-            }
+            }.bind(this));
             return (prepend||'') + result.join('') + (append||'');
         };
 
