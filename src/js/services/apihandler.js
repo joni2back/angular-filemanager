@@ -118,6 +118,7 @@
             var self = this;
             var deferred = $q.defer();
             self.inprocess = true;
+            self.progress = 0;
             self.error = '';
 
             var data = {
@@ -139,9 +140,10 @@
                         self.deferredHandler(data, deferred, 'Unknown error uploading files (' + response.status + ')');
                     }
                 }, function (evt) {
-                    var progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-
-                    if(progress == 100) self.inprocess = false;
+                    self.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                })['finally'](function(){
+                    self.inprocess = false;
+                    self.progress = 0;
                 });
             }
 
