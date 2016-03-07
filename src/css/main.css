@@ -235,6 +235,14 @@ textarea.code {
   margin: 3px 0;
 }
 
+.upload-dragover {
+  background-color: #EEEEEE;
+}
+
+.upload-list {
+  margin-top: 20px;
+}
+
 .spinner-wrapper {
   margin: 0 auto;
   text-align: center;

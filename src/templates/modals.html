@@ -274,7 +274,17 @@
             </div>
             <div class="modal-body">
               <label class="radio">{{"files_will_uploaded_to" | translate}} <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
-              <input type="file" class="form-control" ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
+              <button class="btn btn-default btn-block" ngf-select="$parent.addForUpload($files)" ngf-multiple="true">{{"select_files" | translate}}</button>
+              
+              <div class="upload-list">
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="(index, uploadFile) in $parent.uploadFileList">
+                    <button class="btn btn-sm btn-danger pull-right" ng-click="$parent.removeFromUpload(index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span class="sr-only">{{"remove" | translate}}</span></button>
+                    <h5 class="list-group-item-heading">{{uploadFile.name}}</h5>
+                    <p class="list-group-item-text">{{uploadFile.size | humanReadableFileSize}}</p>
+                  </li>
+                </ul>
+              </div>
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
