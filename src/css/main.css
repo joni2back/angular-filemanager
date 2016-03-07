@@ -238,6 +238,21 @@ textarea.code {
 .upload-dragover {
   background-color: #EEEEEE;
 }
+.upload-dragover:before {
+  content: "\e198";
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  color: rgba(102, 102, 102, 0.5);
+  font-size: 80px;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
 
 .upload-list {
   margin-top: 20px;

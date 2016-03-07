@@ -40,19 +40,14 @@
             return this.apiHandler.remove(fileManagerConfig.removeUrl, items);
         };
 
-        ApiMiddleware.prototype.upload = function(fileList, path) {
+        ApiMiddleware.prototype.upload = function(files, path) {
             if (! $window.FormData) {
                 throw new Error('Unsupported browser version');
             }
-            var form = new $window.FormData();
-            form.append('destination', this.getPath(path));
 
-            for (var i = 0; i < fileList.length; i++) {
-                var fileObj = fileList.item(i);
-                fileObj instanceof $window.File && form.append('file-' + i, fileObj);
-            }
+            var destination = this.getPath(path);
 
-            return this.apiHandler.upload(fileManagerConfig.uploadUrl, form);
+            return this.apiHandler.upload(fileManagerConfig.uploadUrl, destination, files);
         };
 
         ApiMiddleware.prototype.getContent = function(item) {
