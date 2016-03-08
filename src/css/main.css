@@ -235,23 +235,25 @@ textarea.code {
   margin: 3px 0;
 }
 
-.upload-dragover {
+.upload-dragover .main{
   background-color: #EEEEEE;
 }
-.upload-dragover:before {
+
+.upload-dragover .main:before {
   content: "\e198";
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  color: rgba(102, 102, 102, 0.5);
+  color: rgba(150, 150, 150, 0.9);
   font-size: 80px;
   font-family: 'Glyphicons Halflings';
   font-style: normal;
   font-weight: normal;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .upload-list {
