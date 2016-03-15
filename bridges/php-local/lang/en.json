@@ -1,0 +1,18 @@
+{
+	"function_not_implemented": "Function not implemented",
+	"file_not_found": "File not found",
+	"listing_filed": "Listing failed",
+	"moving_failed": "Moving failed",
+	"renaming_failed": "Renaming failed",
+	"copying_failed": "Copying failed",
+	"removing_failed": "Removing failed",
+	"removing_failed_directory_not_empty": "Removing failed, directory you are trying to remove is not empty",
+	"saving_failed": "Saving failed",
+	"folder_already_exists": "Folder already exists",
+	"folder_creation_failed": "Folder creation failed",
+	"permissions_change_failed": "Permissions change failed",
+	"compression_failed": "Compression failed",
+	"archive_opening_failed": "Could not open archive, it is either corrupted or unsupported",
+	"extraction_failed": "Extraction failed",
+	"upload_failed": "Upload filed"
+}
