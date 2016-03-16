@@ -60,9 +60,9 @@
             return this.apiHandler.getContent(fileManagerConfig.getContentUrl, itemPath);
         };
 
-        ApiMiddleware.prototype.edit = function(item, content) {
+        ApiMiddleware.prototype.edit = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.edit(fileManagerConfig.editUrl, itemPath, content);
+            return this.apiHandler.edit(fileManagerConfig.editUrl, itemPath, item.tempModel.content);
         };
 
         ApiMiddleware.prototype.rename = function(item) {
