@@ -46,7 +46,7 @@
     angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
       var defaults = config.$get();
       config.set({
-        appName: 'angular-filemanager | multiple file support',
+        appName: 'angular-filemanager',
         allowedActions: angular.extend(defaults.allowedActions, {
           remove: true
         })
