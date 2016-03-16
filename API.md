@@ -1,4 +1,4 @@
-## angular-filemanager API v2 docs
+## angular-filemanager API docs [multiple file support]
 
 #### Listing (URL: fileManagerConfig.listUrl, Method: POST)
 
