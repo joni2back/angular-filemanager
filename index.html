@@ -2,7 +2,7 @@
 <html lang="en" data-ng-app="FileManagerApp">
 <head>
   <!--
-    * Angular FileManager v1.4.8 (https://github.com/joni2back/angular-filemanager)
+    * Angular FileManager v1.5.0 (https://github.com/joni2back/angular-filemanager)
     * Jonas Sciangula Street <joni2back@gmail.com>
     * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
   -->
@@ -25,8 +25,9 @@
     <script src="src/js/providers/config.js"></script>
     <script src="src/js/entities/chmod.js"></script>
     <script src="src/js/entities/item.js"></script>
+    <script src="src/js/services/apihandler.js"></script>
+    <script src="src/js/services/apimiddleware.js"></script>
     <script src="src/js/services/filenavigator.js"></script>
-    <script src="src/js/services/fileuploader.js"></script>
     <script src="src/js/providers/translations.js"></script>
     <script src="src/js/controllers/main.js"></script>
     <script src="src/js/controllers/selector-controller.js"></script>
@@ -45,7 +46,7 @@
     angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
       var defaults = config.$get();
       config.set({
-        appName: 'github.com/joni2back/angular-filemanager',
+        appName: 'angular-filemanager',
         allowedActions: angular.extend(defaults.allowedActions, {
           remove: true
         })

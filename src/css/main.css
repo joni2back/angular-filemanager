@@ -74,10 +74,6 @@ textarea.code {
   margin-top: -5px;
 }
 
-a:hover {
-  text-decoration: none;
-}
-
 .nav-sidebar {
   margin-right: -21px;
   margin-bottom: 20px;
@@ -154,6 +150,15 @@ a:hover {
   margin-right: 0;
 }
 
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently */
+}
+
 .iconset .thumbnail {
   border-radius: 0;
   overflow: hidden;
@@ -161,6 +166,17 @@ a:hover {
   padding: 0;
   padding: 10px 0;
   border: none;
+}
+
+.table-files .selected,
+.iconset .thumbnail.selected {
+  background: #2196F3;
+}
+
+.iconset .thumbnail.selected,
+.table-files .selected td,
+.table-files .selected td a {
+  color:#fff;
 }
 
 .iconset .thumbnail .item-icon {
@@ -225,6 +241,9 @@ a:hover {
   margin-top: 8%;
 }
 
+a:hover,
+a:active,
+a:focus,
 table th > a:hover,
 table th > a:active,
 table th > a:focus {
@@ -322,4 +341,8 @@ table th > a:focus {
   .table.table-files .btn {
     display: none;
   }
+}
+
+.selected-file-details {
+  padding-left: 20px;
 }

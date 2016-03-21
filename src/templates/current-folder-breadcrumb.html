@@ -8,7 +8,13 @@
         <a href="" ng-show="!$last" ng-click="fileNavigator.goTo(key)">
             <i class="glyphicon glyphicon-folder-open mr2"></i> {{dir}}
         </a>
-        <span ng-show="$last"><i class="glyphicon glyphicon-folder-open mr2"></i>  {{dir}}</span>
+        <span ng-show="$last">
+            <i class="glyphicon glyphicon-folder-open mr2"></i> {{dir}}
+        </span>
     </li>
-    <li><button class="btn btn-primary btn-xs" ng-click="fileNavigator.upDir()">&crarr;</button></li>
+    <li>
+        <button class="btn btn-primary btn-xs" ng-click="fileNavigator.upDir()">
+            <i class="glyphicon glyphicon-level-up"></i>
+        </button>
+    </li>
 </ol>
