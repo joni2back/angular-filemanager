@@ -13,7 +13,7 @@ This project is under free license. If you want to support the angular-filemanag
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/click-changes/screenshot.gif)
 
 ### Features
-  - Multilanguage (English / Spanish / Portuguese / French / German / Slovak / Hebrew)
+  - Multilanguage (English / 简体中文 / Spanish / Portuguese / French / German / Slovak / Hebrew)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Multiple file support
@@ -114,3 +114,5 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ### Copyright and license
 Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE).
+
+
