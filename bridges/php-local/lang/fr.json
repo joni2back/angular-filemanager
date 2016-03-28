@@ -1,0 +1,18 @@
+{
+	"function_not_implemented": "Fonction non implémentée",
+	"file_not_found": "Fichier non trouvé",
+	"listing_filed": "Le listing a échoué",
+	"moving_failed": "Le déplacement a échoué",
+	"renaming_failed": "Le renommage a échoué",
+	"copying_failed": "La copie a échouée",
+	"removing_failed": "La suppression a échouée",
+	"removing_failed_directory_not_empty": "La suppression a échouée, le répertoire que vous voulez supprimer n'est pas vide",
+	"saving_failed": "L'enregistrement a échoué",
+	"folder_already_exists": "Le répertoire existe déjà",
+	"folder_creation_failed": "La création du répertoire a échoué",
+	"permissions_change_failed": "Le changement de permission a échoué",
+	"compression_failed": "La compression a échouée",
+	"archive_opening_failed": "L'ouverture de l'archive est impossible, le fichier est corrompu ou non supporté",
+	"extraction_failed": "L'extraction a échouée",
+	"upload_failed": "L'upload a échoué"
+}
