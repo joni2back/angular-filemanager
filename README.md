@@ -4,22 +4,19 @@ A very smart filemanager to manage your files in the browser developed in Angula
 
 [![Build Status](https://travis-ci.org/joni2back/angular-filemanager.svg?branch=master)](https://travis-ci.org/joni2back/angular-filemanager)
 
-#### I'm working on multiple file support / drag and drop features. API should be changed. For more information / contribute, see "[click-changes](https://github.com/joni2back/angular-filemanager/tree/click-changes)" branch.
-
 ### Support
 This project is under free license. If you want to support the angular-filemanager development or just thank it's main maintainer by paying a beer, you can make a donation by clicking the following button  [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
 
 
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
 ---------
-![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot1.png)
-![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot2.png)
-![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot3.png)
+![](https://raw.githubusercontent.com/joni2back/angular-filemanager/click-changes/screenshot.gif)
 
 ### Features
-  - Multilanguage (English / Spanish / Portuguese / French / German)
+  - Multilanguage (English / 简体中文 / Spanish / Portuguese / French / German / Slovak / Hebrew)
   - Multiple templates (List / Icons)
   - Multiple file upload
+  - Multiple file support
   - Search files
   - Directory tree navigation
   - Copy, Move, Rename (Interactive UX)
@@ -28,8 +25,6 @@ This project is under free license. If you want to support the angular-filemanag
   - Mobile support
 
 ### TODO
-  - Improve the docs
-  - Multiple file selector
   - Drag and drop
   - Dropbox and Google Drive compatibility
   - Extend backend bridges (PHP, Java, Python, Node, .Net)
@@ -74,8 +69,9 @@ This project is under free license. If you want to support the angular-filemanag
   <script src="src/js/providers/config.js"></script>
   <script src="src/js/entities/chmod.js"></script>
   <script src="src/js/entities/item.js"></script>
+  <script src="src/js/services/apihandler.js"></script>
+  <script src="src/js/services/apimiddleware.js"></script>
   <script src="src/js/services/filenavigator.js"></script>
-  <script src="src/js/services/fileuploader.js"></script>
   <script src="src/js/providers/translations.js"></script>
   <script src="src/js/controllers/main.js"></script>
   <script src="src/js/controllers/selector-controller.js"></script>
@@ -100,7 +96,7 @@ This project is under free license. If you want to support the angular-filemanag
     config.set({
       appName: 'my angular-filemanager',
       allowedActions: angular.extend(defaults.allowedActions, {
-        remove: true
+        remove: false
       })
     });
   }]);
@@ -118,3 +114,5 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ### Copyright and license
 Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE).
+
+

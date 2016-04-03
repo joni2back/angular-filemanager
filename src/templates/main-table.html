@@ -1,4 +1,4 @@
-<table class="table mb0 table-files">
+<table class="table mb0 table-files noselect">
     <thead>
         <tr>
             <th>
@@ -25,7 +25,6 @@
                     <span class="sortorder" ng-show="predicate[1] === 'model.permissions'" ng-class="{reverse:reverse}"></span>
                 </a>
             </th>
-            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody class="file-item">
@@ -44,9 +43,9 @@
                 {{ fileNavigator.error }}
             </td>
         </tr>
-        <tr ng-repeat="item in fileNavigator.fileList | filter: {model:{name: query}} | orderBy:predicate:reverse" ng-show="!fileNavigator.requesting">
-            <td ng-right-click="touch(item)">
-                <a href="" ng-click="smartClick(item)" title="{{item.model.name}} ({{item.model.size | humanReadableFileSize}})">
+        <tr class="item-list" ng-repeat="item in $parent.fileList = (fileNavigator.fileList | filter: {model:{name: query}} | orderBy:predicate:reverse)" ng-show="!fileNavigator.requesting" ng-click="selectOrUnselect(item, $event)" ng-dblclick="smartClick(item)" ng-right-click="selectOrUnselect(item, $event)" ng-class="{selected: isSelected(item)}">
+            <td>
+                <a href="" title="{{item.model.name}} ({{item.model.size | humanReadableFileSize}})">
                     <i class="glyphicon glyphicon-folder-close" ng-show="item.model.type === 'dir'"></i>
                     <i class="glyphicon glyphicon-file" ng-show="item.model.type === 'file'"></i>
                     {{item.model.name | strLimit : 64}}
@@ -62,9 +61,6 @@
             </td>
             <td class="hidden-sm hidden-xs" ng-hide="config.hidePermissions">
                 {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}
-            </td>
-            <td class="text-right">
-                <div ng-include="config.tplPath + '/item-toolbar.html'"></div>
             </td>
         </tr>
     </tbody>
