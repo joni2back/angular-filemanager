@@ -13,7 +13,7 @@
             german: 'German',
             hebrew: 'Hebrew',
             slovak: 'Slovak',
-            chinese:'中文',
+            chinese:'Chinese',
             confirm: 'Confirm',
             cancel: 'Cancel',
             close: 'Close',
@@ -90,7 +90,8 @@
             preview: 'Item preview',
             open: 'Open',
             these_elements: 'these {{total}} elements',
-            new_folder: 'New folder'
+            new_folder: 'New folder',
+            download_as_zip: 'Download as ZIP'
         });
 
         $translateProvider.translations('he', {
@@ -103,7 +104,7 @@
             german: 'גרמנית',
             hebrew: 'עברי',
             slovak: 'סלובקי',
-            chinese:'中文',
+            chinese:'סִינִית',
             confirm: 'אשר',
             cancel: 'בטל',
             close: 'סגור',
@@ -179,7 +180,8 @@
             recursive: 'רקורסיה',
             preview: 'הצגת פריט',
             open: 'פתח',
-            new_folder: 'תיקיה חדשה'
+            new_folder: 'תיקיה חדשה',
+            download_as_zip: 'להוריד כמו'
         });
 
         $translateProvider.translations('pt', {
@@ -192,7 +194,7 @@
             german: 'Alemão',
             hebrew: 'Hebraico',
             slovak: 'Eslovaco',
-            chinese:'中文',
+            chinese:'Chinês',
             confirm: 'Confirmar',
             cancel: 'Cancelar',
             close: 'Fechar',
@@ -269,7 +271,8 @@
             preview: 'Visualização',
             open: 'Abrir',
             these_elements: 'estes {{total}} elements',
-            new_folder: 'Nova pasta'
+            new_folder: 'Nova pasta',
+            download_as_zip: 'Download como ZIP'
         });
 
         $translateProvider.translations('es', {
@@ -282,7 +285,7 @@
             german: 'Alemán',
             hebrew: 'Hebreo',
             slovak: 'Eslovaco',
-            chinese:'中文',
+            chinese:'Chino',
             confirm: 'Confirmar',
             cancel: 'Cancelar',
             close: 'Cerrar',
@@ -359,7 +362,8 @@
             preview: 'Vista previa',
             open: 'Abrir',
             these_elements: 'estos {{total}} elementos',
-            new_folder: 'Nueva carpeta'
+            new_folder: 'Nueva carpeta',
+            download_as_zip: 'Descargar como ZIP'
         });
 
         $translateProvider.translations('fr', {
@@ -372,7 +376,7 @@
             german: 'Allemand',
             hebrew: 'Hébreu',
             slovak: 'Slovaque',
-            chinese:'中文',
+            chinese:'Chinois',
             confirm: 'Confirmer',
             cancel: 'Annuler',
             close: 'Fermer',
@@ -449,7 +453,8 @@
             preview: 'Aperçu',
             open: 'Ouvrir',
             these_elements: 'ces {{total}} éléments',
-            new_folder: 'Nouveau dossier'
+            new_folder: 'Nouveau dossier',
+            download_as_zip: 'Télécharger comme ZIP'
         });
 
         $translateProvider.translations('de', {
@@ -462,7 +467,7 @@
             german: 'Deutsch',
             hebrew: 'Hebräisch',
             slovak: 'Slowakisch',
-            chinese:'中文',
+            chinese:'Chinesisch',
             confirm: 'Bestätigen',
             cancel: 'Abbrechen',
             close: 'Schließen',
@@ -539,7 +544,8 @@
             preview: 'Dateivorschau',
             open: 'Öffnen',
             these_elements: 'diese {{total}} elemente',
-            new_folder: 'Neuer ordner'
+            new_folder: 'Neuer ordner',
+            download_as_zip: 'Download als ZIP'
         });
 
         $translateProvider.translations('sk', {
@@ -552,7 +558,7 @@
             german: 'Nemčina',
             hebrew: 'Hebrejčina',
             slovak: 'Slovenčina',
-            chinese:'中文',
+            chinese:'Čínština',
             confirm: 'Potvrdiť',
             cancel: 'Zrušiť',
             close: 'Zavrieť',
@@ -629,7 +635,8 @@
             preview: 'Náhľad položky',
             open: 'Otvoriť',
             these_elements: 'týchto {{total}} prvkov',
-            new_folder: 'Nový priečinok'
+            new_folder: 'Nový priečinok',
+            download_as_zip: 'Stiahnuť ako ZIP'
         });
         $translateProvider.translations('zh', {
             filemanager: '文档管理器',
@@ -718,7 +725,8 @@
             preview: '成员预览',
             open: '打开',
             these_elements: '共 {{total}} 个',
-            new_folder: '新文件夹'
+            new_folder: '新文件夹',
+            download_as_zip: '下载的ZIP'
         });
         $translateProvider.translations('ru', {
             filemanager: 'Файловый менеджер',
@@ -807,7 +815,8 @@
             preview: 'Просмотр',
             open: 'Открыть',
             these_elements: 'всего {{total}} елементов',
-            new_folder: 'Новая папка'
+            new_folder: 'Новая папка',
+            download_as_zip: 'Download as ZIP'
         });
         $translateProvider.translations('ua', {
             filemanager: 'Файловий менеджер',
@@ -896,7 +905,8 @@
             preview: 'Перегляд',
             open: 'Відкрити',
             these_elements: 'усього {{total}} елементів',
-            new_folder: 'Нова папка'
+            new_folder: 'Нова папка',
+            download_as_zip: 'Download as ZIP'
         });
     }]);
 })(angular);
