@@ -16,7 +16,16 @@
     });
 
     $(window.document).on('contextmenu', '.main-navigation .table-files tr.item-list:has("td"), .item-list', function(e) {
-        $('#context-menu').hide().css({
+        var menu = $('#context-menu');
+
+        if (e.pageX >= window.innerWidth - menu.width()) {
+            e.pageX -= menu.width();
+        }
+        if (e.pageY >= window.innerHeight - menu.height()) {
+            e.pageY -= menu.height();
+        }
+
+        menu.hide().css({
             left: e.pageX,
             top: e.pageY
         }).show();
