@@ -2,7 +2,7 @@
 <html lang="en" data-ng-app="FileManagerApp">
 <head>
   <!--
-    * Angular FileManager v1.4.8 (https://github.com/joni2back/angular-filemanager)
+    * Angular FileManager v1.5.0 (https://github.com/joni2back/angular-filemanager)
     * Jonas Sciangula Street <joni2back@gmail.com>
     * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
   -->
@@ -47,7 +47,7 @@
     angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
       var defaults = config.$get();
       config.set({
-        appName: 'angular-filemanager | multiple file support',
+        appName: 'angular-filemanager',
         allowedActions: angular.extend(defaults.allowedActions, {
           remove: true
         })
