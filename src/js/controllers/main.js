@@ -308,9 +308,19 @@
             });
         };
 
+        $scope.addForUpload = function($files) {
+            $scope.uploadFileList = $scope.uploadFileList.concat($files);
+            $scope.modal('uploadfile');
+        };
+
+        $scope.removeFromUpload = function(index) {
+            $scope.uploadFileList.splice(index, 1);
+        };
+
         $scope.uploadFiles = function() {
             $scope.apiMiddleware.upload($scope.uploadFileList, $scope.fileNavigator.currentPath).then(function() {
                 $scope.fileNavigator.refresh();
+                $scope.uploadFileList = [];
                 $scope.modal('uploadfile', true);
             }, function(data) {
                 var errorMsg = data.result && data.result.error || $translate.instant('error_uploading_files');

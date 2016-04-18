@@ -1,7 +1,7 @@
 (function(angular, $) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 
-        function ($http, $q, $window, $translate) {
+    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'Upload',
+        function ($http, $q, $window, $translate, Upload) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -114,23 +114,36 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.upload = function(apiUrl, form) {
+        ApiHandler.prototype.upload = function(apiUrl, destination, files) {
             var self = this;
             var deferred = $q.defer();
             self.inprocess = true;
+            self.progress = 0;
             self.error = '';
-            $http.post(apiUrl, form, {
-                transformRequest: angular.identity,
-                headers: {
-                    'Content-Type': undefined
-                }
-            }).success(function(data) {
-                self.deferredHandler(data, deferred);
-            }).error(function(data) {
-                self.deferredHandler(data, deferred, 'Unknown error uploading files');
-            })['finally'](function() {
-                self.inprocess = false;
-            });
+
+            var data = {
+                destination: destination
+            };
+
+            for (var i = 0; i < files.length; i++) {
+                data['file-' + i] = files[i];
+            }
+
+            if (files && files.length) {
+                Upload.upload({
+                    url: apiUrl,
+                    data: data
+                }).then(function (data) {
+                    self.deferredHandler(data, deferred);
+                }, function (data) {
+                    self.deferredHandler(data, deferred, 'Unknown error uploading files');
+                }, function (evt) {
+                    self.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total)) - 1;
+                })['finally'](function() {
+                    self.inprocess = false;
+                    self.progress = 0;
+                });
+            }
 
             return deferred.promise;
         };
