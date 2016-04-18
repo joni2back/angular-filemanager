@@ -166,6 +166,7 @@ textarea.code {
   padding: 0;
   padding: 10px 0;
   border: none;
+  background: none;
 }
 
 .table-files .selected,
@@ -233,6 +234,26 @@ textarea.code {
 
 .dropdown-menu.dropdown-right-click .divider {
   margin: 3px 0;
+}
+
+.upload-dragover .main {
+  opacity: .4;
+}
+
+.upload-dragover:before {
+  content: "\e198";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  color: #2196F3;
+  font-size: 8em;
+  font-family: 'Glyphicons Halflings';
+}
+
+.upload-list {
+  margin-top: 20px;
 }
 
 .spinner-wrapper {

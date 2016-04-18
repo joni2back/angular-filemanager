@@ -120,7 +120,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal" ng-disabled="apiMiddleware.apiHandler.inprocess">{{"cancel" | translate}}</button>
-              <button type="submit" class="btn btn-primary" ng-disabled="apiMiddleware.apiHandler.inprocess">Copy</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="apiMiddleware.apiHandler.inprocess">{{"copy" | translate}}</button>
             </div>
         </form>
     </div>
@@ -273,17 +273,37 @@
               <h4 class="modal-title">{{"upload_files" | translate}}</h4>
             </div>
             <div class="modal-body">
-              <label class="radio">{{"files_will_uploaded_to" | translate}} <b>/{{fileNavigator.currentPath.join('/')}}</b></label>
-              <input type="file" class="form-control" ng-file="$parent.uploadFileList" autofocus="autofocus" multiple="multiple"/>
+              <label class="radio">
+                {{"files_will_uploaded_to" | translate}} 
+                <b>/{{fileNavigator.currentPath.join('/')}}</b>
+              </label>
+              <button class="btn btn-default btn-block" ngf-select="$parent.addForUpload($files)" ngf-multiple="true">
+                {{"select_files" | translate}}
+              </button>
+              
+              <div class="upload-list">
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="(index, uploadFile) in $parent.uploadFileList">
+                    <button class="btn btn-sm btn-danger pull-right" ng-click="$parent.removeFromUpload(index)">
+                        &times;
+                    </button>
+                    <h5 class="list-group-item-heading">{{uploadFile.name}}</h5>
+                    <p class="list-group-item-text">{{uploadFile.size | humanReadableFileSize}}</p>
+                  </li>
+                </ul>
+                <div ng-show="apiMiddleware.apiHandler.inprocess">
+                  <em>{{"uploading" | translate}}... {{apiMiddleware.apiHandler.progress}}%</em>
+                  <div class="progress mb0">
+                    <div class="progress-bar active" role="progressbar" aria-valuenow="{{apiMiddleware.apiHandler.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{apiMiddleware.apiHandler.progress}}%"></div>
+                  </div>
+                </div>
+              </div>
               <div ng-include data-src="'error-bar'" class="clearfix"></div>
             </div>
             <div class="modal-footer">
-              <div ng-show="!apiMiddleware.apiHandler.inprocess">
+              <div>
                   <button type="button" class="btn btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
-                  <button type="submit" class="btn btn-primary" ng-disabled="!uploadFileList.length || apiMiddleware.apiHandler.inprocess">{{'upload' | translate}}</button>
-              </div>
-              <div ng-show="apiMiddleware.apiHandler.inprocess">
-                  <span class="label label-warning">{{"uploading" | translate}} ...</span>
+                  <button type="submit" class="btn btn-primary" ng-disabled="!$parent.uploadFileList.length || apiMiddleware.apiHandler.inprocess">{{'upload' | translate}}</button>
               </div>
             </div>
         </form>

@@ -13,9 +13,10 @@ This project is under free license. If you want to support the angular-filemanag
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/click-changes/screenshot.gif)
 
 ### Features
-  - Multilanguage (English / Spanish / Portuguese / French / German)
+  - Multilanguage (English / 简体中文 / Spanish / Portuguese / French / German / Slovak / Hebrew)
   - Multiple templates (List / Icons)
   - Multiple file upload
+  - Multiple file support
   - Search files
   - Directory tree navigation
   - Copy, Move, Rename (Interactive UX)
@@ -24,8 +25,6 @@ This project is under free license. If you want to support the angular-filemanag
   - Mobile support
 
 ### TODO
-  - Improve the docs
-  - Multiple file selector
   - Drag and drop
   - Dropbox and Google Drive compatibility
   - Extend backend bridges (PHP, Java, Python, Node, .Net)
@@ -97,7 +96,7 @@ This project is under free license. If you want to support the angular-filemanag
     config.set({
       appName: 'my angular-filemanager',
       allowedActions: angular.extend(defaults.allowedActions, {
-        remove: true
+        remove: false
       })
     });
   }]);
@@ -115,3 +114,5 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ### Copyright and license
 Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE).
+
+
