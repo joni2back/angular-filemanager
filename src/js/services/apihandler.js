@@ -133,15 +133,13 @@
                 Upload.upload({
                     url: apiUrl,
                     data: data
-                }).then(function (response) {
-                    self.deferredHandler(response.data, deferred);
-                }, function (response) {
-                    if (response.status > 0) {
-                        self.deferredHandler(data, deferred, 'Unknown error uploading files (' + response.status + ')');
-                    }
+                }).then(function (data) {
+                    self.deferredHandler(data, deferred);
+                }, function (data) {
+                    self.deferredHandler(data, deferred, 'Unknown error uploading files');
                 }, function (evt) {
-                    self.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-                })['finally'](function(){
+                    self.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total)) - 1;
+                })['finally'](function() {
                     self.inprocess = false;
                     self.progress = 0;
                 });

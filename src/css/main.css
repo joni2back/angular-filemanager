@@ -166,6 +166,7 @@ textarea.code {
   padding: 0;
   padding: 10px 0;
   border: none;
+  background: none;
 }
 
 .table-files .selected,
@@ -235,25 +236,20 @@ textarea.code {
   margin: 3px 0;
 }
 
-.upload-dragover .main{
-  background-color: #EEEEEE;
+.upload-dragover .main {
+  opacity: .4;
 }
 
-.upload-dragover .main:before {
+.upload-dragover:before {
   content: "\e198";
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  color: rgba(150, 150, 150, 0.9);
-  font-size: 80px;
+  color: #2196F3;
+  font-size: 8em;
   font-family: 'Glyphicons Halflings';
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .upload-list {
