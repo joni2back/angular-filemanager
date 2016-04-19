@@ -181,6 +181,15 @@ class FileManagerApi
 			    
 				break;
 			
+			case 'downloadMultiple':
+                $downloadMultiple = $this->downloadMultipleAction($queries['items'], $queries['toFilename']);
+                if ($downloadMultiple === true) {
+                    $response = $this->simpleSuccessResponse();
+                } else {
+                    $response = $this->simpleErrorResponse('Something goes wrong');
+                }
+                break;
+			
 			default:
 				$response = $this->simpleErrorResponse($t->function_not_implemented);
 				break;
@@ -204,6 +213,33 @@ class FileManagerApi
 
 	    return true;
 	}
+	
+	private function downloadMultipleAction($paths, $filename)
+    {        
+        $file = tempnam(sys_get_temp_dir(), "zip");
+        $zip = new \ZipArchive();
+        $zip->open($file, \ZipArchive::OVERWRITE);
+
+        foreach ($paths as $path){
+            $pathToElement = $this->basePath . $path;
+            $zip->addFile($pathToElement, basename($pathToElement));
+        }
+
+        if(!$zip->close()) return false;
+
+        if(!file_exists($file)) return false;
+        header('Content-Type: application/zip');
+		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		header('Expires: 0');
+	    header('Cache-Control: must-revalidate');
+	    header('Pragma: public');
+	    header('Content-Length: ' . filesize($file));
+	    readfile($file);
+
+        unlink($file);
+        
+        return true;
+    }
 
 	private function uploadAction($path, $files)
 	{
