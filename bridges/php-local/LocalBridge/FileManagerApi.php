@@ -365,7 +365,7 @@ class FileManagerApi
             }
             else if (is_file($pathToElement) === true)
             {
-                $zip->addFile($file,basename($pathToElement));
+                $zip->addFile($pathToElement,basename($pathToElement));
             }
         }
         return $zip->close();
