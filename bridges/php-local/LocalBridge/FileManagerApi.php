@@ -181,6 +181,15 @@ class FileManagerApi
 			    
 				break;
 			
+			case 'downloadMultiple':
+                $downloadMultiple = $this->downloadMultipleAction($queries['items'], $queries['toFilename']);
+                if ($downloadMultiple === true) {
+                    $response = $this->simpleSuccessResponse();
+                } else {
+                    $response = $this->simpleErrorResponse('Something goes wrong');
+                }
+                break;
+			
 			default:
 				$response = $this->simpleErrorResponse($t->function_not_implemented);
 				break;
@@ -194,7 +203,9 @@ class FileManagerApi
 		$path = $this->basePath . $path;
 
 		if(!file_exists($path)) return false;
-
+        header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename="'.basename($path).'"');
+		header('Expires: 0');
 	    header('Cache-Control: must-revalidate');
 	    header('Pragma: public');
 	    header('Content-Length: ' . filesize($path));
@@ -202,6 +213,33 @@ class FileManagerApi
 
 	    return true;
 	}
+	
+	private function downloadMultipleAction($paths, $filename)
+    {        
+        $file = tempnam(sys_get_temp_dir(), "zip");
+        $zip = new \ZipArchive();
+        $zip->open($file, \ZipArchive::OVERWRITE);
+
+        foreach ($paths as $path){
+            $pathToElement = $this->basePath . $path;
+            $zip->addFile($pathToElement, basename($pathToElement));
+        }
+
+        if(!$zip->close()) return false;
+
+        if(!file_exists($file)) return false;
+        header('Content-Type: application/zip');
+		header('Content-Disposition: attachment; filename="'.$filename.'"');
+		header('Expires: 0');
+	    header('Cache-Control: must-revalidate');
+	    header('Pragma: public');
+	    header('Content-Length: ' . filesize($file));
+	    readfile($file);
+
+        unlink($file);
+        
+        return true;
+    }
 
 	private function uploadAction($path, $files)
 	{
@@ -343,16 +381,30 @@ class FileManagerApi
 
 	private function compressAction($paths, $destination, $archiveName)
 	{
-		$archivePath = $this->basePath . $destination . $archiveName;
-
-		$zip = new ZipArchive();
-		if ($zip->open($archivePath, ZipArchive::CREATE) !== true) return false;
-
-		foreach ($paths as $path) {
-			$zip->addFile($this->basePath . $path, basename($path));
-		}
-
-		return $zip->close();
+		$pathToZip = $this->basePath . $destination . '/' . $archiveName . '.zip';
+        $zip = new \ZipArchive();
+        if ($zip->open($pathToZip, \ZipArchive::CREATE) !== true) return false;
+        
+        foreach ($paths as $path){
+            $pathToElement = $this->basePath . $path;
+            if (is_dir($pathToElement) === true){
+                $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($pathToElement), \RecursiveIteratorIterator::LEAVES_ONLY);
+                foreach ($files as $file){
+                    if( in_array(substr($file, strrpos($file, '/')+1), array('.', '..')) )
+                            continue;
+                    $beautifulPath = str_replace($this->basePath . $destination,'',$file);
+                    if ($beautifulPath[0] == '/'){
+                        $beautifulPath = substr($beautifulPath,1);
+                    }
+                    $zip->addFile($file,$beautifulPath);
+                }
+            }
+            else if (is_file($pathToElement) === true)
+            {
+                $zip->addFile($pathToElement,basename($pathToElement));
+            }
+        }
+        return $zip->close();
 	}
 
 	private function extractAction($destination, $archivePath, $folderName)
