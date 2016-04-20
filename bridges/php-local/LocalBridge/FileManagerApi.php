@@ -9,21 +9,17 @@ namespace AngularFilemanager\LocalBridge;
  */
 class FileManagerApi
 {
-	private $basePath = '';
+	private $basePath = null;
 
 	private $translate;
 
-	public function __construct($basePath = __DIR__ . '/../files', $lang = 'en', $muteErrors = true)
+	public function __construct($basePath = null, $lang = 'en', $muteErrors = true)
 	{
-		if ($muteErrors === true) {
+		if ($muteErrors) {
 			ini_set('display_errors', 0);
 		}
 
-		if(!file_exists($basePath)){
-			mkdir($basePath);
-		}
-
-		$this->basePath = $basePath;
+		$this->basePath = $basePath ?: dirname(__DIR__);
 		$this->translate = new Translate($lang);
 	}
 
@@ -36,7 +32,7 @@ class FileManagerApi
 			$uploaded = $this->uploadAction($request['destination'], $files);
 			if ($uploaded === true) {
 				$response = $this->simpleSuccessResponse();
-			}else{
+			} else {
 				$response = $this->simpleErrorResponse($t->upload_failed);
 			}
 
@@ -63,7 +59,7 @@ class FileManagerApi
 					$response = $this->simpleSuccessResponse();
 				} elseif ($renamed === 'notfound'){
 					$response = $this->simpleErrorResponse($t->file_not_found);
-				}else {
+				} else {
 					$response = $this->simpleErrorResponse($t->renaming_failed);
 				}
 				break;
@@ -72,7 +68,7 @@ class FileManagerApi
 				$moved = $this->moveAction($request['items'], $request['newPath']);
 				if ($moved === true) {
 					$response = $this->simpleSuccessResponse();
-				}else{
+				} else {
 					$response = $this->simpleErrorResponse($t->moving_failed);
 				}
 				break;
@@ -81,7 +77,7 @@ class FileManagerApi
 				$copied = $this->copyAction($request['items'], $request['newPath']);
 				if ($copied === true) {
 					$response = $this->simpleSuccessResponse();
-				}else{
+				} else {
 					$response = $this->simpleErrorResponse($t->copying_failed);
 				}
 				break;
@@ -101,7 +97,7 @@ class FileManagerApi
 				$edited = $this->editAction($request['item'], $request['content']);
 				if ($edited !== false) {
 					$response = $this->simpleSuccessResponse();
-				}else{
+				} else {
 					$response = $this->simpleErrorResponse($t->saving_failed);
 				}
 				break;
@@ -113,7 +109,7 @@ class FileManagerApi
 					$response->setData([
 						'result' => $content
 					]);
-				}else{
+				} else {
 					$response = $this->simpleErrorResponse($t->file_not_found);
 				}
 				break;
@@ -144,7 +140,7 @@ class FileManagerApi
 				$compressed = $this->compressAction($request['items'], $request['destination'], $request['compressedFilename']);
 				if ($compressed === true) {
 					$response = $this->simpleSuccessResponse();
-				}else{
+				} else {
 					$response = $this->simpleErrorResponse($t->compression_failed);
 				}
 				break;
@@ -175,7 +171,7 @@ class FileManagerApi
 				$downloaded = $this->downloadAction($queries['path']);
 			    if ($downloaded === true) {
 			    	exit;
-			    }else{
+			    } else {
 			    	$response = $this->simpleErrorResponse($t->file_not_found);
 			    }
 			    
@@ -193,7 +189,9 @@ class FileManagerApi
 	{
 		$path = $this->basePath . $path;
 
-		if(!file_exists($path)) return false;
+		if (! file_exists($path)) {
+            return false;
+        }
 
 	    header('Cache-Control: must-revalidate');
 	    header('Pragma: public');
@@ -208,7 +206,10 @@ class FileManagerApi
 		$path = $this->basePath . $path;
 
 		foreach ($_FILES as $file) {
-			$uploaded = move_uploaded_file($file['tmp_name'] , rtrim($path, '/') . '/' . $file['name']);
+			$uploaded = move_uploaded_file(
+                $file['tmp_name'], 
+                rtrim($path, '/') . '/' . $file['name']
+            );
 			if ($uploaded === false) {
 				return false;
 			}
@@ -228,7 +229,7 @@ class FileManagerApi
 				'rights' => $this->parsePerms(fileperms($file)),
 				'size' => filesize($file),
 				'date' => $date->format('Y-m-d H:i:s'),
-				'type' => (is_dir($file) ? 'dir' : 'file')
+				'type' => is_dir($file) ? 'dir' : 'file'
 			];
 		}, $files);
 
@@ -240,7 +241,9 @@ class FileManagerApi
 		$oldPath = $this->basePath . $oldPath;
 		$newPath = $this->basePath . $newPath;
 
-		if(!file_exists($oldPath)) return 'notfound';
+		if (! file_exists($oldPath)) {
+            return 'notfound';
+        }
 
 		return rename($oldPath, $newPath);
 	}
@@ -250,10 +253,14 @@ class FileManagerApi
 		$newPath = $this->basePath . rtrim($newPath, '/') . '/';
 
 		foreach ($oldPaths as $oldPath) {
-			if(!file_exists($this->basePath . $oldPath)) return false;
+			if (! file_exists($this->basePath . $oldPath)) {
+                return false;
+            }
 
 			$renamed = rename($this->basePath . $oldPath, $newPath . basename($oldPath));
-			if ($renamed === false) return false;
+			if ($renamed === false) {
+                return false;
+            }
 		}
 
 		return true;
@@ -264,10 +271,17 @@ class FileManagerApi
 		$newPath = $this->basePath . rtrim($newPath, '/') . '/';
 
 		foreach ($oldPaths as $oldPath) {
-			if(!file_exists($this->basePath . $oldPath)) return false;
+			if (! file_exists($this->basePath . $oldPath)) {
+                return false;
+            }
 
-			$copied = copy($this->basePath . $oldPath, $newPath . basename($oldPath));
-			if ($copied === false) return false; 
+			$copied = copy(
+                $this->basePath . $oldPath, 
+                $newPath . basename($oldPath)
+            );
+			if ($copied === false) {
+                return false; 
+            }
 		}
 
 		return true;
@@ -286,12 +300,13 @@ class FileManagerApi
 				} else {
 					$removed = rmdir($path);
 				}
-			}else{
+			} else {
 				$removed = unlink($path);
 			}
 
-			
-			if ($removed === false) return false;
+			if ($removed === false) {
+                return false;
+            }
 		}
 
 		return true;
@@ -300,7 +315,6 @@ class FileManagerApi
 	private function editAction($path, $content)
 	{
 		$path = $this->basePath . $path;
-
 		return file_put_contents($path, $content);
 	}
 
@@ -308,7 +322,9 @@ class FileManagerApi
 	{
 		$path = $this->basePath . $path;
 
-		if (!file_exists($path)) return false;
+		if (! file_exists($path)) {
+            return false;
+        }
 
 		return file_get_contents($path);
 	}
@@ -317,7 +333,9 @@ class FileManagerApi
 	{
 		$path = $this->basePath . $path;
 
-		if (file_exists($path) AND is_dir($path)) return 'exists';
+		if (file_exists($path) && is_dir($path)) {
+            return 'exists';
+        }
 
 		return mkdir($path);
 	}
@@ -327,13 +345,18 @@ class FileManagerApi
 		foreach ($paths as $path) {
 			if (!file_exists($this->basePath . $path)) return 'missing';
 
-			if (is_dir($path) AND $recursive === true) {
-				$iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path), RecursiveIteratorIterator::SELF_FIRST);
+			if (is_dir($path) && $recursive === true) {
+				$iterator = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($path), 
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
 
 				foreach($iterator as $item) {
 				    $changed = chmod($this->basePath . $item, octdec($permissions));
 					
-					if ($changed === false) return false;
+					if ($changed === false) {
+                        return false;
+                    }
 				}
 			}
 
@@ -346,7 +369,9 @@ class FileManagerApi
 		$archivePath = $this->basePath . $destination . $archiveName;
 
 		$zip = new ZipArchive();
-		if ($zip->open($archivePath, ZipArchive::CREATE) !== true) return false;
+		if ($zip->open($archivePath, ZipArchive::CREATE) !== true) {
+            return false;
+        }
 
 		foreach ($paths as $path) {
 			$zip->addFile($this->basePath . $path, basename($path));
@@ -358,11 +383,12 @@ class FileManagerApi
 	private function extractAction($destination, $archivePath, $folderName)
 	{
 		$archivePath = $this->basePath . $archivePath;
-
 		$folderPath = $this->basePath . rtrim($destination, '/') . '/' . $folderName;
 
 		$zip = new ZipArchive;
-		if ($zip->open($archivePath) === false) return 'unsupported';
+		if ($zip->open($archivePath) === false) {
+            return 'unsupported';
+        }
 
 		mkdir($folderPath);
 		$zip->extractTo($folderPath);
@@ -384,13 +410,14 @@ class FileManagerApi
 	private function simpleErrorResponse($message)
 	{
 		$response = new Response();
-		$response->setStatus(500, 'Internal Server Error')
-			 	 ->setData([
-			 		'result' => [
-						'success' => false,
-						'error' => $message
-				 	]
-		]);
+		$response
+            ->setStatus(500, 'Internal Server Error')
+		 	->setData([
+	 	     	'result' => [
+					'success' => false,
+					'error' => $message
+			 	]
+	        ]);
 
 		return $response;
 	}
