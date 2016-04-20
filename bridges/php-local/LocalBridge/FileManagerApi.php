@@ -28,7 +28,7 @@ class FileManagerApi
         $t = $this->translate;
         
         // Probably file upload
-        if (!isset($request['action']) AND (isset($_SERVER["CONTENT_TYPE"]) AND strpos($_SERVER["CONTENT_TYPE"], 'multipart/form-data') !== false)) {
+        if (!isset($request['action']) && (isset($_SERVER["CONTENT_TYPE"]) && strpos($_SERVER["CONTENT_TYPE"], 'multipart/form-data') !== false)) {
             $uploaded = $this->uploadAction($request['destination'], $files);
             if ($uploaded === true) {
                 $response = $this->simpleSuccessResponse();
