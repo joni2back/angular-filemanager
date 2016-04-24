@@ -975,7 +975,7 @@
             compress: 'Sıkıştır',
             error_invalid_filename: 'Geçersiz dosya adı, bu dosya adına sahip dosya mevcut',
             error_modifying: 'Dosya düzenlenirken bir hata oluştu',
-            error_deleting: 'Klasör veya dosya silinirken bir hata oluştu,
+            error_deleting: 'Klasör veya dosya silinirken bir hata oluştu',
             error_renaming: 'Dosya yeniden adlandırılırken bir hata oluştu',
             error_copying: 'Dosya kopyalanırken bir hata oluştu',
             error_compressing: 'Dosya veya klasör sıkıştırılırken bir hata oluştu',
