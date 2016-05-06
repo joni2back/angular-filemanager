@@ -10,7 +10,7 @@ This project is under free license. If you want to support the angular-filemanag
 
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
 ---------
-![](https://raw.githubusercontent.com/joni2back/angular-filemanager/click-changes/screenshot.gif)
+![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot.gif)
 
 ### Features
   - Multilanguage (English / 简体中文 / Spanish / Portuguese / French / German / Slovak / Hebrew)
