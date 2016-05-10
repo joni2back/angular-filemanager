@@ -160,9 +160,7 @@
 {
     "action": "extract",
     "destination": "/public_html/extracted-files",
-    "item": "/public_html/compressed.zip",
-    "destination": "/public_html/extracteds/",
-    "folderName": "latest"
+    "item": "/public_html/compressed.zip"
 }
 ```
 **JSON Response**
