@@ -367,3 +367,18 @@ table th > a:focus {
 .selected-file-details {
   padding-left: 20px;
 }
+
+.item-extension::after {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    content: attr(data-ext);
+    left: 4px;
+    position: absolute;
+    color: #fff;
+    font-size: 9px;
+    text-transform: uppercase;
+    top: 21px;
+}
+
+.selected .item-extension::after {
+    color: #2196F3;
+}

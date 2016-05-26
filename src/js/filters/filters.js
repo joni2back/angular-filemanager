@@ -3,11 +3,17 @@
     var app = angular.module('FileManagerApp');
 
     app.filter('strLimit', ['$filter', function($filter) {
-        return function(input, limit) {
+        return function(input, limit, more) {
             if (input.length <= limit) {
                 return input;
             }
-            return $filter('limitTo')(input, limit) + '...';
+            return $filter('limitTo')(input, limit) + (more || '...');
+        };
+    }]);
+
+    app.filter('fileExtension', ['$filter', function($filter) {
+        return function(input) {
+            return /\./.test(input) && $filter('strLimit')(input.split('.').pop(), 3, '..') || '';
         };
     }]);
 
