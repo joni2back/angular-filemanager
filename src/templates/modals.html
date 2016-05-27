@@ -215,14 +215,14 @@
                   <span aria-hidden="true">&times;</span>
                   <span class="sr-only">{{"close" | translate}}</span>
               </button>
-              <button type="button" class="close mr5" ng-click="fullscreen=!fullscreen" style="font-size: 15px;margin-top:1px;">
-                  <i class="glyphicon glyphicon-fullscreen mr5"></i>
+              <button type="button" class="close fullscreen" ng-click="fullscreen=!fullscreen">
+                  <i class="glyphicon glyphicon-fullscreen"></i>
                   <span class="sr-only">{{'toggle_fullscreen' | translate}}</span>
               </button>
               <h4 class="modal-title">{{'edit_file' | translate}}</h4>
             </div>
             <div class="modal-body">
-                <label class="radio">{{'file_content' | translate}}</label>
+                <label class="radio bold">{{ singleSelection().model.fullPath() }}</label>
                 <span class="label label-warning" ng-show="apiMiddleware.apiHandler.inprocess">{{'loading' | translate}} ...</span>
                 <textarea class="form-control code" ng-model="singleSelection().tempModel.content" ng-show="!apiMiddleware.apiHandler.inprocess" autofocus="autofocus"></textarea>
                 <div ng-include data-src="'error-bar'" class="clearfix"></div>
@@ -402,14 +402,14 @@
   <div class="panel panel-primary mt10 mb0">
     <div class="panel-body">
         <div class="detail-sources">
-          <code class="mr5"><b>{{"Selection" | translate}}:</b>  
+          <div class="like-code mr5"><b>{{"Selection" | translate}}:</b>  
             <span ng-include="'selected-files-msg'"></span>
-          </code>
+          </div>
         </div>
         <div class="detail-sources">
-          <code class="mr5">
+          <div class="like-code mr5">
             <b>{{"destination" | translate}}:</b> {{ getSelectedPath() }}
-          </code>
+          </div>
           <a href="" class="label label-primary" ng-click="openNavigator(fileNavigator.currentPath)">
             {{'change' | translate}}
           </a>
@@ -427,7 +427,7 @@
 
 <script type="text/ng-template" id="selected-files-msg">
   <span ng-show="temps.length == 1">
-    <b>{{singleSelection().model.name}}</b>
+    {{singleSelection().model.name}}
   </span>
   <span ng-show="temps.length > 1">
     {{'these_elements' | translate:totalSelecteds()}}

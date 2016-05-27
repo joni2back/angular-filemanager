@@ -32,6 +32,7 @@
 
         $scope.fileNavigator.onRefresh = function() {
             $scope.temps = [];
+            $scope.query = '';
             $rootScope.selectedModalPath = $scope.fileNavigator.currentPath;
         };
 

@@ -10,13 +10,15 @@
       <a class="navbar-brand hidden-xs" href="" ng-click="fileNavigator.goTo(-1)">{{config.appName}}</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
-      <div class="navbar-form navbar-right">
-        <input type="text" class="form-control input-sm" ng-show="config.searchForm" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
+      <div class="navbar-form navbar-right text-right">
+        <input type="text" class="form-control input-sm hidden-xs search-input" ng-show="config.searchForm" placeholder="{{'search' | translate}}..." ng-model="$parent.query">
         <button class="btn btn-default btn-sm" ng-click="modal('newfolder') && prepareNewFolder()">
-            <i class="glyphicon glyphicon-plus"></i> {{"new_folder" | translate}}
+            <i class="glyphicon glyphicon-plus"></i> 
+            <span class="visible-sm-inline">{{"new_folder" | translate}}</span>
         </button>
         <button class="btn btn-default btn-sm" ng-show="config.allowedActions.upload" ng-click="modal('uploadfile')">
-            <i class="glyphicon glyphicon-cloud-upload"></i> {{"upload_files" | translate}}
+            <i class="glyphicon glyphicon-cloud-upload"></i> 
+            <span class="visible-sm-inline">{{"upload_files" | translate}}</span>
         </button>
 
         <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropDownMenuLang" data-toggle="dropdown" aria-expanded="true">

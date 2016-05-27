@@ -382,3 +382,12 @@ table th > a:focus {
 .selected .item-extension::after {
     color: #2196F3;
 }
+
+.form-control.search-input {
+    max-width: 20em;
+    display: inline;
+}
+
+.like-code {
+    display: inline;
+}
