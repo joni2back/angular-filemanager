@@ -61,8 +61,9 @@
 ```json
 {
     "action": "copy",
-    "path": "/public_html/index.php",
-    "newPath": "/public_html/index-copy.php"
+    "items": ["/public_html/index.php", "/public_html/config.php"],
+    "newPath": "/includes",
+    "singleFilename": "renamed.php" <-- (only present in single selection copy)
 }
 ```
 **JSON Response**

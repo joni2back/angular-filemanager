@@ -27,7 +27,8 @@
 
         ApiMiddleware.prototype.copy = function(files, path) {
             var items = this.getFileList(files);
-            return this.apiHandler.copy(fileManagerConfig.copyUrl, items, this.getPath(path));
+            var singleFilename = items.length === 1 ? files[0].tempModel.name : undefined;
+            return this.apiHandler.copy(fileManagerConfig.copyUrl, items, this.getPath(path), singleFilename);
         };
 
         ApiMiddleware.prototype.move = function(files, path) {

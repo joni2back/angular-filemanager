@@ -53,7 +53,7 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.copy = function(apiUrl, items, path) {
+        ApiHandler.prototype.copy = function(apiUrl, items, path, singleFilename) {
             var self = this;
             var deferred = $q.defer();
             var data = {
@@ -62,6 +62,10 @@
                 newPath: path
             };
 
+            if (singleFilename && items.length === 1) {
+                data.singleFilename = singleFilename;
+            }
+            
             self.inprocess = true;
             self.error = '';
             $http.post(apiUrl, data).success(function(data) {
