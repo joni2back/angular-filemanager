@@ -7,6 +7,12 @@
             </a>
         </li>
 
+        <li ng-show="config.pickCallback && singleSelection() && singleSelection().isSelectable()">
+            <a href="" tabindex="-1" ng-click="config.pickCallback(singleSelection().model)">
+                <i class="glyphicon glyphicon-hand-up"></i> {{'select_this' | translate}}
+            </a>
+        </li>
+
         <li ng-show="config.allowedActions.download && !selectionHas('dir') && singleSelection()">
             <a href="" tabindex="-1" ng-click="download()">
                 <i class="glyphicon glyphicon-cloud-download"></i> {{'download' | translate}}
@@ -67,7 +73,7 @@
             </a>
         </li>
 
-        <li class="divider"></li>
+        <li class="divider" ng-show="config.allowedActions.remove"></li>
         
         <li ng-show="config.allowedActions.remove">
             <a href="" tabindex="-1" ng-click="modal('remove')">
@@ -78,7 +84,7 @@
     </ul>
 
     <ul class="dropdown-menu dropdown-right-click" role="menu" aria-labelledby="dropdownMenu" ng-show="!temps.length">
-        <li>
+        <li ng-show="config.allowedActions.createFolder">
             <a href="" tabindex="-1" ng-click="modal('newfolder') && prepareNewFolder()">
                 <i class="glyphicon glyphicon-plus"></i> {{'new_folder' | translate}}
             </a>

@@ -59,6 +59,10 @@
             return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
         };
 
+        Item.prototype.isSelectable = function() {
+            return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
+        };
+
         return Item;
     }]);
 })(angular);

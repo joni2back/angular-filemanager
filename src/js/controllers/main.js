@@ -16,7 +16,7 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.apiMiddleware = new ApiMiddleware();
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
+        $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-icons.html';
         $scope.fileList = [];
         $scope.temps = [];
 
@@ -119,8 +119,12 @@
         };
 
         $scope.smartClick = function(item) {
+            var pick = $scope.config.allowedActions.pickFiles;
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
+            }
+            if (typeof $scope.config.pickCallback === 'function' && pick) {
+                return $scope.config.pickCallback(item.model);
             }
             if (item.isImage()) {
                 if ($scope.config.previewImagesInModal) {
