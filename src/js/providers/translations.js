@@ -17,6 +17,7 @@
             russian: 'Russian',
             ukrainian: 'Ukrainian',
             turkish: 'Turkish',
+            persian: 'Persian',
             confirm: 'Confirm',
             cancel: 'Cancel',
             close: 'Close',
@@ -111,6 +112,7 @@
             russian: 'רוּסִי',
             ukrainian: 'אוקראיני',
             turkish: 'טורקי',
+            persian: 'פַּרסִית',
             confirm: 'אשר',
             cancel: 'בטל',
             close: 'סגור',
@@ -204,6 +206,7 @@
             russian: 'Russo',
             ukrainian: 'Ucraniano',
             turkish: 'Turco',
+            persian: 'Persa',
             confirm: 'Confirmar',
             cancel: 'Cancelar',
             close: 'Fechar',
@@ -298,6 +301,7 @@
             russian: 'Ruso',
             ukrainian: 'Ucraniano',
             turkish: 'Turco',
+            persian: 'Persa',
             confirm: 'Confirmar',
             cancel: 'Cancelar',
             close: 'Cerrar',
@@ -392,6 +396,7 @@
             russian: 'Russe',
             ukrainian: 'Ukrainien',
             turkish: 'Turc',
+            persian: 'Persan',
             confirm: 'Confirmer',
             cancel: 'Annuler',
             close: 'Fermer',
@@ -486,6 +491,7 @@
             russian: 'Russisch',
             ukrainian: 'Ukrainisch',
             turkish: 'Türkisch',
+            persian: 'Persisch',
             confirm: 'Bestätigen',
             cancel: 'Abbrechen',
             close: 'Schließen',
@@ -580,6 +586,7 @@
             russian: 'Ruský',
             ukrainian: 'Ukrajinský',
             turkish: 'Turecký',
+            persian: 'Perzský',
             confirm: 'Potvrdiť',
             cancel: 'Zrušiť',
             close: 'Zavrieť',
@@ -659,6 +666,7 @@
             new_folder: 'Nový priečinok',
             download_as_zip: 'Stiahnuť ako ZIP'
         });
+
         $translateProvider.translations('zh', {
             filemanager: '文档管理器',
             language: '语言',
@@ -673,6 +681,7 @@
             russian: '俄語',
             ukrainian: '烏克蘭',
             turkish: '土耳其',
+            persian: '波斯語',
             confirm: '确定',
             cancel: '取消',
             close: '关闭',
@@ -752,6 +761,7 @@
             new_folder: '新文件夹',
             download_as_zip: '下载的ZIP'
         });
+
         $translateProvider.translations('ru', {
             filemanager: 'Файловый менеджер',
             language: 'Язык',
@@ -766,6 +776,7 @@
             russian: 'русский',
             ukrainian: 'украинец',
             turkish: 'турецкий',
+            persian: 'персидский',
             confirm: 'Подьвердить',
             cancel: 'Отменить',
             close: 'Закрыть',
@@ -845,6 +856,7 @@
             new_folder: 'Новая папка',
             download_as_zip: 'Download as ZIP'
         });
+
         $translateProvider.translations('ua', {
             filemanager: 'Файловий менеджер',
             language: 'Мова',
@@ -859,6 +871,7 @@
             russian: 'російський',
             ukrainian: 'український',
             turkish: 'турецька',
+            persian: 'перський',
             confirm: 'Підтвердити',
             cancel: 'Відмінити',
             close: 'Закрити',
@@ -953,6 +966,7 @@
             russian: 'Rusça',
             ukrainian: 'Ukrayna',
             turkish: 'Türk',
+            persian: 'Farsça',
             confirm: 'Onayla',
             cancel: 'İptal Et',
             close: 'Kapat',
@@ -1047,6 +1061,7 @@
             russian: 'روسی',
             ukrainian: 'اوکراینی',
             turkish: 'ترکی',
+            persian: 'فارسی',
             confirm: 'تایید',
             cancel: 'رد',
             close: 'بستن',

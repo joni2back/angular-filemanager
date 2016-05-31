@@ -123,15 +123,21 @@
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
             }
+
             if (typeof $scope.config.pickCallback === 'function' && pick) {
-                return $scope.config.pickCallback(item.model);
+                var callbackSuccess = $scope.config.pickCallback(item.model);
+                if (callbackSuccess === true) {
+                    return;
+                }
             }
+
             if (item.isImage()) {
                 if ($scope.config.previewImagesInModal) {
                     return $scope.openImagePreview(item);
                 } 
                 return $scope.apiMiddleware.download(item, true);
             }
+            
             if (item.isEditable()) {
                 return $scope.openEditItem(item);
             }

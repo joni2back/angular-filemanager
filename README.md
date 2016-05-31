@@ -13,10 +13,12 @@ This project is under free license. If you want to support the angular-filemanag
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot.gif)
 
 ### Features
-  - Multilanguage (English / 简体中文 / Spanish / Portuguese / French / German / Slovak / Hebrew)
+  - Multilanguage (
+  English, Chinese, Spanish, Russian, Portuguese, French, German, Slovak, Hebrew, Persan, Ukrainian, Turkish)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Multiple file support
+  - Pick files callback for third parties apps
   - Search files
   - Directory tree navigation
   - Copy, Move, Rename (Interactive UX)
@@ -103,8 +105,8 @@ angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (
     },
 
     allowedActions: angular.extend(defaults.allowedActions, {
-      pickFiles: false,
-      pickFolders: true,
+      pickFiles: true,
+      pickFolders: false,
     }),
   });
 }]);
