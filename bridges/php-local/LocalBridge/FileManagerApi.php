@@ -166,6 +166,8 @@ class FileManagerApi
 
     public function getHandler($queries)
     {
+        $t = $this->translate;
+        
         switch ($queries['action']) {
             case 'download':
                 $downloaded = $this->downloadAction($queries['path']);
