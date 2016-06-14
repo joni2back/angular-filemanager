@@ -16,9 +16,13 @@
   white-space: pre-wrap;
 }
 
-
 .modal .breadcrumb {
-  margin-bottom: 10px;
+  margin: 0;
+  background: #00bcd4;
+  font-size: 16px;
+  max-height: inherit;
+  padding: 0 10px;
+  margin-bottom: 5px;
 }
 
 .modal-fullscreen .modal-dialog,
