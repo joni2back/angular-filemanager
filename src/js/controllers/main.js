@@ -89,7 +89,7 @@
                     return;
                 }
             }
-            if ($event && $event.ctrlKey && !isRightClick) {
+            if ($event && !isRightClick && ($event.ctrlKey || $event.metaKey)) {
                 $scope.isSelected(item) ? $scope.temps.splice(indexInTemp, 1) : $scope.temps.push(item);
                 return;
             }
