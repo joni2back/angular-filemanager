@@ -4,7 +4,8 @@
  *  @author Jonas Sciangula Street <joni2back@gmail.com>
  */
 
-require_once __DIR__ . '/php-classic/src/autoloader.php';
+require_once __DIR__ . '/includes/Ftp.php';
+require_once __DIR__ . '/includes/ExceptionCatcher.php';
 
 use PHPClassic\ExceptionCatcher;
 use PHPClassic\Ftp;
