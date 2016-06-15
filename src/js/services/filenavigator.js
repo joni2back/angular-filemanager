@@ -14,9 +14,12 @@
             this.onRefresh = function() {};
         };
 
-        FileNavigator.prototype.deferredHandler = function(data, deferred, defaultMsg) {
+        FileNavigator.prototype.deferredHandler = function(data, deferred, code, defaultMsg) {
             if (!data || typeof data !== 'object') {
-                this.error = 'Bridge response error, please check the docs';
+                this.error = 'Error %s - Bridge response error, please check the API docs or this ajax response.'.replace('%s', code);
+            }
+            if (code == 404) {
+                this.error = 'Error 404 - Backend bridge is not working, please check the ajax response.';
             }
             if (!this.error && data.result && data.result.error) {
                 this.error = data.result.error;
