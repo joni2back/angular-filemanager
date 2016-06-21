@@ -1,0 +1,18 @@
+{
+	"function_not_implemented": "Funktion nicht implementiert",
+	"file_not_found": "Datei nicht gefunden",
+	"listing_filed": "Auflistung fehlgeschlagen",
+	"moving_failed": "Verschiebung fehlgeschlagen",
+	"renaming_failed": "Umbenennung fehlgeschlagen",
+	"copying_failed": "Kopieren fehlgeschlagen",
+	"removing_failed": "Löschen fehlgeschlagen",
+	"removing_failed_directory_not_empty": "Entfernen fehlgeschlagen, der Ordner, welchen Sie versuchen zu löschen, ist nicht leer.",
+	"saving_failed": "Speichern fehlgeschlagen",
+	"folder_already_exists": "Ordner existiert bereits",
+	"folder_creation_failed": "Ordner Anlage fehlgeschlagen",
+	"permissions_change_failed": "Berechtigungsänderung fehlgeschlagen",
+	"compression_failed": "Kompression fehlgeschlagen",
+	"archive_opening_failed": "Öffnen des Archivs fehlgeschlagen, es ist entweder korrupt oder nicht unterstützt.",
+	"extraction_failed": "Auspacken fehlgeschlagen",
+	"upload_failed": "Hochladen fehlgeschlagen"
+}
