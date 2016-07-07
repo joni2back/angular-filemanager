@@ -9,12 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.nio.file.attribute.PosixFileAttributeView;
-import java.nio.file.attribute.PosixFileAttributes;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +17,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.PosixFileAttributes;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -99,6 +103,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 	}
 
 	private String REPOSITORY_BASE_URL = "";
+	private String REPOSITORY_BASE_PATH = "/tmp";
 	// private String DATE_FORMAT = "yyyy-MM-dd hh:mm:ss"; // (2001-07-04 12:08:56)
 	private String DATE_FORMAT = "EEE, d MMM yyyy HH:mm:ss z"; // (Wed, 4 Jul 2001 12:08:56)
 
@@ -106,30 +111,43 @@ public class AngularFileManagerServlet extends HttpServlet {
 	public void init() throws ServletException {
 		super.init();
 
-		// load from properties file REPOSITORY_BASE_URL and DATE_FORMAT, use default if missing
+		// load from properties file REPOSITORY_BASE_PATH, REPOSITORY_BASE_URL and DATE_FORMAT, use default if missing
 		// throw exception in case of bad data
 		InputStream propertiesFile = null;
 		try {
-			propertiesFile = getClass().getClassLoader().getResourceAsStream("angular-filemanager.properties");
+			String splittedThisServletPara[] = getInitParameter("properties").split(",");
+			propertiesFile = getServletContext().getResourceAsStream(splittedThisServletPara[1].trim());				// get the default one
 			if (propertiesFile != null) {
 				Properties prop = new Properties();
 				// load a properties file from class path, inside static method
 				prop.load(propertiesFile);
 				REPOSITORY_BASE_URL = prop.getProperty("repository.base.url", REPOSITORY_BASE_URL);
 				if (!"".equals(REPOSITORY_BASE_URL) && !new File(getServletContext().getRealPath(REPOSITORY_BASE_URL)).isDirectory()) {
+					// REPOSITORY_BASE_URL is not empty AND NOT a directory 
 					throw new ServletException("invalid repository.base.url");
+				}
+				REPOSITORY_BASE_PATH = prop.getProperty("repository.base.path", REPOSITORY_BASE_PATH);
+				if (!"".equals(REPOSITORY_BASE_PATH) && !new File(REPOSITORY_BASE_PATH).isDirectory()) {
+					// REPOSITORY_BASE_URL is not empty AND not a directory 
+					throw new ServletException("invalid repository.base.path");
 				}
 
 				DATE_FORMAT = prop.getProperty("date.format", DATE_FORMAT);
 				try {
 					if (new SimpleDateFormat(DATE_FORMAT).format(new Date()) == null) {
 						// Invalid date format
+						LOG.debug("throw invalid date.format ");
 						throw new ServletException("invalid date.format");
 					}
 				} catch (NullPointerException | IllegalArgumentException e) {
 					throw new ServletException("invalid date.format", e);
 				}
 			}
+			
+			else {
+LOG.debug("NO properties File");
+			}
+			
 		} catch (Throwable t) {
 		} finally {
 			if (propertiesFile != null) {
@@ -152,10 +170,12 @@ public class AngularFileManagerServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		boolean preview = BooleanUtils.toBoolean(request.getParameter("preview"));
 		String path = request.getParameter("path");
+		LOG.debug("doGet: {} mode: {} preview: {}", path, mode, preview);
 
-		File file = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
+		File file = new File(REPOSITORY_BASE_PATH, path);
 
 		if (!file.isFile()) {
+			// if not a file, it is a folder, show this error.  
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Resource Not Found");
 			return;
 		}
@@ -196,6 +216,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		LOG.debug("doPost");
 		try {
 			// if request contains multipart-form-data
 			if (ServletFileUpload.isMultipartContent(request)) {
@@ -229,6 +250,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 		// URL: $config.uploadUrl, Method: POST, Content-Type: multipart/form-data
 		// Unlimited file upload, each item will be enumerated as file-1, file-2, etc.
 		// [$config.uploadUrl]?destination=/public_html/image.jpg&file-1={..}&file-2={...}
+		LOG.debug("upload now");
 		try {
 			String destination = null;
 			Map<String, InputStream> files = new HashMap<String, InputStream>();
@@ -246,20 +268,32 @@ public class AngularFileManagerServlet extends HttpServlet {
 				}
 			}
 			if (files.size() == 0) {
+				LOG.debug("file size  = 0");
 				throw new Exception("file size  = 0");
 			} else {
 				for (Map.Entry<String, InputStream> fileEntry : files.entrySet()) {
-					File f = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL + destination), fileEntry.getKey());
+					File f = new File(REPOSITORY_BASE_PATH + destination, fileEntry.getKey());
 					if (!write(fileEntry.getValue(), f)) {
+						LOG.debug("write error");
 						throw new Exception("write error");
 					}
 				}
+				
+				JSONObject responseJsonObject = null;
+				responseJsonObject = this.success(responseJsonObject);
+				response.setContentType("application/json");
+				PrintWriter out = response.getWriter();
+				out.print(responseJsonObject);
+				out.flush();
 			}
 		} catch (FileUploadException e) {
+			LOG.debug("Cannot parse multipart request: DiskFileItemFactory.parseRequest");
 			throw new ServletException("Cannot parse multipart request: DiskFileItemFactory.parseRequest", e);
 		} catch (IOException e) {
+			LOG.debug("Cannot parse multipart request: item.getInputStream");
 			throw new ServletException("Cannot parse multipart request: item.getInputStream", e);
 		} catch (Exception e) {
+			LOG.debug("Cannot write file");
 			throw new ServletException("Cannot write file", e);
 		}
 
@@ -367,34 +401,32 @@ public class AngularFileManagerServlet extends HttpServlet {
 		out.print(responseJsonObject);
 		out.flush();
 	}
-
+	
 	private JSONObject list(JSONObject params) throws ServletException {
 		try {
 			boolean onlyFolders = params.getBoolean("onlyFolders");
 			String path = params.getString("path");
-			LOG.debug("list path: {} onlyFolders: {}", path, onlyFolders);
-
-			File dir = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
-			File[] fileList = dir.listFiles();
+			LOG.debug("list path: {} onlyFolders, try 中文: {}", path, onlyFolders);
 
 			List<JSONObject> resultList = new ArrayList<JSONObject>();
-			SimpleDateFormat dt = new SimpleDateFormat(DATE_FORMAT);
-			if (fileList != null) {
+	        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(REPOSITORY_BASE_PATH, path))) {
+    			SimpleDateFormat dt = new SimpleDateFormat(DATE_FORMAT);
 				// Calendar cal = Calendar.getInstance();
-				for (File f : fileList) {
-					if (!f.exists() || (onlyFolders && !f.isDirectory())) {
+	            for (Path pathObj : directoryStream) {
+					BasicFileAttributes attrs = Files.readAttributes(pathObj, BasicFileAttributes.class);
+					
+					if (onlyFolders && !attrs.isDirectory()) {
 						continue;
 					}
-					BasicFileAttributes attrs = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
 					JSONObject el = new JSONObject();
-					el.put("name", f.getName());
-					el.put("rights", getPermissions(f));
+					el.put("name", pathObj.getFileName().toString());
+					el.put("rights", getPermissions(pathObj));
 					el.put("date", dt.format(new Date(attrs.lastModifiedTime().toMillis())));
-					el.put("size", f.length());
-					el.put("type", f.isFile() ? "file" : "dir");
+					el.put("size", attrs.size());
+					el.put("type", attrs.isDirectory() ? "dir" : "file");
 					resultList.add(el);
-				}
-			}
+	            }
+	        } catch (IOException ex) {}
 
 			return new JSONObject().put("result", resultList);
 		} catch (Exception e) {
@@ -409,8 +441,8 @@ public class AngularFileManagerServlet extends HttpServlet {
 			String newpath = params.getString("newPath");
 			LOG.debug("rename from: {} to: {}", path, newpath);
 
-			File srcFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
-			File destFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), newpath);
+			File srcFile = new File(REPOSITORY_BASE_PATH, path);
+			File destFile = new File(REPOSITORY_BASE_PATH, newpath);
 			if (srcFile.isFile()) {
 				FileUtils.moveFile(srcFile, destFile);
 			} else {
@@ -428,8 +460,8 @@ public class AngularFileManagerServlet extends HttpServlet {
 			String path = params.getString("path");
 			String newpath = params.getString("newPath");
 			LOG.debug("copy from: {} to: {}", path, newpath);
-			File srcFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
-			File destFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), newpath);
+			File srcFile = new File(REPOSITORY_BASE_PATH, path);
+			File destFile = new File(REPOSITORY_BASE_PATH, newpath);
 			if (srcFile.isFile()) {
 				FileUtils.copyFile(srcFile, destFile);
 			} else {
@@ -446,7 +478,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 		try {
 			String path = params.getString("path");
 			LOG.debug("delete {}", path);
-			File srcFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
+			File srcFile = new File(REPOSITORY_BASE_PATH, path);
 			if (!FileUtils.deleteQuietly(srcFile)) {
 				throw new Exception("Can't delete: " + srcFile.getAbsolutePath());
 			}
@@ -463,7 +495,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 			String path = params.getString("path");
 			LOG.debug("editFile path: {}", path);
 
-			File srcFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
+			File srcFile = new File(REPOSITORY_BASE_PATH, path);
 			String content = FileUtils.readFileToString(srcFile);
 
 			return new JSONObject().put("result", content);
@@ -480,7 +512,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 			String content = params.getString("content");
 			LOG.debug("saveFile path: {} content: isNotBlank {}, size {}", path, StringUtils.isNotBlank(content), content != null ? content.length() : 0);
 
-			File srcFile = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
+			File srcFile = new File(REPOSITORY_BASE_PATH, path);
 			FileUtils.writeStringToFile(srcFile, content);
 
 			return success(params);
@@ -495,7 +527,8 @@ public class AngularFileManagerServlet extends HttpServlet {
 			String path = params.getString("path");
 			String name = params.getString("name");
 			LOG.debug("addFolder path: {} name: {}", path, name);
-			File newDir = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL + path), name);
+			
+			File newDir = new File(REPOSITORY_BASE_PATH, name);
 			if (!newDir.mkdir()) {
 				throw new Exception("Can't create directory: " + newDir.getAbsolutePath());
 			}
@@ -513,7 +546,7 @@ public class AngularFileManagerServlet extends HttpServlet {
 			String permsCode = params.getString("permsCode"); // "rw-r-x-wx"
 			boolean recursive = params.getBoolean("recursive");
 			LOG.debug("changepermissions path: {} perms: {} permsCode: {} recursive: {}", path, perms, permsCode, recursive);
-			File f = new File(getServletContext().getRealPath(REPOSITORY_BASE_URL), path);
+			File f = new File(REPOSITORY_BASE_PATH, path);
 			setPermissions(f, permsCode, recursive);
 			return success(params);
 		} catch (Exception e) {
@@ -552,9 +585,9 @@ public class AngularFileManagerServlet extends HttpServlet {
 		}
 	}
 
-	private String getPermissions(File f) throws IOException {
+	private String getPermissions(Path path) throws IOException {
 		// http://www.programcreek.com/java-api-examples/index.php?api=java.nio.file.attribute.PosixFileAttributes
-		PosixFileAttributeView fileAttributeView = Files.getFileAttributeView(f.toPath(), PosixFileAttributeView.class);
+		PosixFileAttributeView fileAttributeView = Files.getFileAttributeView(path, PosixFileAttributeView.class);
 		PosixFileAttributes readAttributes = fileAttributeView.readAttributes();
 		Set<PosixFilePermission> permissions = readAttributes.permissions();
 		return PosixFilePermissions.toString(permissions);
