@@ -14,7 +14,7 @@ This project is under free license. If you want to support the angular-filemanag
 
 ### Features
   - Multilanguage (
-  English, Chinese, Spanish, Russian, Portuguese, French, German, Slovak, Hebrew, Persan, Ukrainian, Turkish)
+  English, Chinese, Spanish, Russian, Portuguese, French, German, Slovak, Hebrew, Persian, Ukrainian, Turkish)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Multiple file support
