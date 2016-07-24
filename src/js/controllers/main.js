@@ -339,6 +339,78 @@
             });
         };
 
+        $scope.droppedFromDesktop = function(dragEl, dropEl, dragFiles) { // function referenced by the drop target
+            //this is application logic, for the demo we just want to color the grid squares
+            //the directive provides a native dom object, wrap with jqlite
+            var drop = angular.element(dropEl);
+            var drag = angular.element(dragEl);
+
+            //clear the previously applied color, if it exists
+            var bgClass = drop.attr('data-color');
+            if (bgClass) {
+                drop.removeClass(bgClass);
+            }
+
+            //add the dragged color
+            bgClass = drag.attr("data-color");
+            drop.addClass(bgClass);
+            drop.attr('data-color', bgClass);
+
+            //if element has been dragged from the grid, clear dragged color
+            if (drag.attr("x-lvl-drop-zone")) {
+                drag.removeClass(bgClass);
+            }
+
+            $scope.addForUpload([].slice.call(dragFiles));
+        }
+        $scope.dropped = function(dragEl, dropEl, item) { // function referenced by the drop target
+            //this is application logic, for the demo we just want to color the grid squares
+            //the directive provides a native dom object, wrap with jqlite
+            var drop = angular.element(dropEl);
+            var drag = angular.element(dragEl);
+
+            //clear the previously applied color, if it exists
+            var bgClass = drop.attr('data-color');
+            if (bgClass) {
+                drop.removeClass(bgClass);
+            }
+
+            //add the dragged color
+            bgClass = drag.attr("data-color");
+            drop.addClass(bgClass);
+            drop.attr('data-color', bgClass);
+
+            //if element has been dragged from the grid, clear dragged color
+            if (drag.attr("x-lvl-drop-target")) {
+                drag.removeClass(bgClass);
+            }
+
+            //moving files and directories
+            if($scope.temps.indexOf(item) !== -1){
+                //can't drop here
+                return;
+            } else {
+                //set destination path
+                for(var i =0; i< $scope.temps.length; i ++){
+                    $scope.temps[i].tempModel.path = item.model.fullPath().split('/');
+                }
+                //move all files
+                Promise.all($scope.temps.map(function(drag, i){
+                    drag.rename().then(function () {
+                        var deferred = $q.defer();
+                        FileNavigator.clearTree(drag);
+                        return deferred.promise;
+                    }, function(error) {
+                        $scope.temp.error = error;
+                    });
+                })).then(function(data){
+                    FileNavigator.refresh();
+                },function(err){
+                    FileNavigator.refresh();
+                });
+            }
+        }
+
         var validateSamePath = function(item) {
             var selectedPath = $rootScope.selectedModalPath.join('');
             var selectedItemsPath = item && item.model.path.join('');
