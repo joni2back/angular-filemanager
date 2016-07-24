@@ -3,7 +3,8 @@
 </ul>
 
 <script type="text/ng-template" id="folder-branch-item">
-    <a href="" ng-click="fileNavigator.folderClick(item.item)" class="animated fast fadeInDown">
+    <a href="" ng-click="fileNavigator.folderClick(item.item)" x-lvl-drop-target="true"
+       x-on-drop="dropped(dragEl, dropEl, item.item)" class="animated fast fadeInDown">
 
         <span class="point">
             <i class="glyphicon glyphicon-chevron-down" ng-show="isInThisPath(item.name)"></i>
