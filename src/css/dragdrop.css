@@ -1,0 +1,29 @@
+.lvl-over {
+    /* applied to a drop target when a draggable object is over it */
+    background-color: #3d3d3d;
+    opacity: .5;
+}
+.drag-target {
+    max-width: 200px;
+    background: #2196F3;
+    color:#fff;
+    padding: 10px;
+}
+.lvl-zone-over {
+    /* applied to a drop target when a draggable object is over it */
+    background-color: #66ccff;
+    opacity: .5;
+    z-index:9999;
+}
+
+.lvl-zone-over:before {
+    content: "\e198";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    color: #2196F3;
+    font-size: 8em;
+    font-family: 'Glyphicons Halflings';
+}
