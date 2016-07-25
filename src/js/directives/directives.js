@@ -5,7 +5,14 @@
     app.directive('angularFilemanager', ['$parse', 'fileManagerConfig', function($parse, fileManagerConfig) {
         return {
             restrict: 'EA',
-            templateUrl: fileManagerConfig.tplPath + '/main.html'
+            scope: {
+                config: '=?'
+            },
+            link: function (scope) {
+                scope.config = scope.config || {};
+                scope.templateUrl = ('tplPath' in scope.config) ? scope.config.tplPath : fileManagerConfig.tplPath;
+            },
+            template: '<div ng-include="templateUrl + \'/main.html\'"></div>'
         };
     }]);
 
