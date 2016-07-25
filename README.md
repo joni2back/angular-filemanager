@@ -13,8 +13,7 @@ This project is under free license. If you want to support the angular-filemanag
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot.gif)
 
 ### Features
-  - Multilanguage (
-  English, Chinese, Spanish, Russian, Portuguese, French, German, Slovak, Hebrew, Persian, Ukrainian, Turkish)
+  - Multilanguage (English, Chinese, Spanish, Russian, Portuguese, French, German, Slovak, Hebrew, Persian, Polish, Ukrainian, Turkish)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Multiple file support
