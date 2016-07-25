@@ -42,6 +42,9 @@
 
         FileNavigator.prototype.refresh = function() {
             var self = this;
+            if (! self.currentPath.length) {
+                self.currentPath = fileManagerConfig.basePath || [];
+            }
             var path = self.currentPath.join('/');
             self.requesting = true;
             self.fileList = [];
@@ -95,7 +98,8 @@
                 })[0];
             }
 
-            !this.history.length && this.history.push({name: '', nodes: []});
+            //!this.history.length && this.history.push({name: '', nodes: []});
+            !this.history.length && this.history.push({ name: fileManagerConfig.basePath ? fileManagerConfig.basePath[0] : '', nodes: [] });
             flatten(this.history[0], flatNodes);
             selectedNode = findNode(flatNodes, path);
             selectedNode && (selectedNode.nodes = []);
