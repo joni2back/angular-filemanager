@@ -3,7 +3,8 @@
     angular.module('FileManagerApp').service('apiMiddleware', ['$window', 'fileManagerConfig', 'apiHandler', 
         function ($window, fileManagerConfig, ApiHandler) {
 
-        var ApiMiddleware = function() {
+        var ApiMiddleware = function(config) {
+            this.config = (typeof config === 'undefined') ? fileManagerConfig : config;
             this.apiHandler = new ApiHandler();
         };
 
@@ -22,23 +23,23 @@
         };
 
         ApiMiddleware.prototype.list = function(path, customDeferredHandler) {
-            return this.apiHandler.list(fileManagerConfig.listUrl, this.getPath(path), customDeferredHandler);
+            return this.apiHandler.list(this.config.listUrl, this.getPath(path), customDeferredHandler);
         };
 
         ApiMiddleware.prototype.copy = function(files, path) {
             var items = this.getFileList(files);
             var singleFilename = items.length === 1 ? files[0].tempModel.name : undefined;
-            return this.apiHandler.copy(fileManagerConfig.copyUrl, items, this.getPath(path), singleFilename);
+            return this.apiHandler.copy(this.config.copyUrl, items, this.getPath(path), singleFilename);
         };
 
         ApiMiddleware.prototype.move = function(files, path) {
             var items = this.getFileList(files);
-            return this.apiHandler.move(fileManagerConfig.moveUrl, items, this.getPath(path));
+            return this.apiHandler.move(this.config.moveUrl, items, this.getPath(path));
         };
 
         ApiMiddleware.prototype.remove = function(files) {
             var items = this.getFileList(files);
-            return this.apiHandler.remove(fileManagerConfig.removeUrl, items);
+            return this.apiHandler.remove(this.config.removeUrl, items);
         };
 
         ApiMiddleware.prototype.upload = function(files, path) {
@@ -48,29 +49,29 @@
 
             var destination = this.getPath(path);
 
-            return this.apiHandler.upload(fileManagerConfig.uploadUrl, destination, files);
+            return this.apiHandler.upload(this.config.uploadUrl, destination, files);
         };
 
         ApiMiddleware.prototype.getContent = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.getContent(fileManagerConfig.getContentUrl, itemPath);
+            return this.apiHandler.getContent(this.config.getContentUrl, itemPath);
         };
 
         ApiMiddleware.prototype.edit = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.edit(fileManagerConfig.editUrl, itemPath, item.tempModel.content);
+            return this.apiHandler.edit(this.config.editUrl, itemPath, item.tempModel.content);
         };
 
         ApiMiddleware.prototype.rename = function(item) {
             var itemPath = this.getFilePath(item);
             var newPath = item.tempModel.fullPath();
 
-            return this.apiHandler.rename(fileManagerConfig.renameUrl, itemPath, newPath);
+            return this.apiHandler.rename(this.config.renameUrl, itemPath, newPath);
         };
 
         ApiMiddleware.prototype.getUrl = function(item) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.getUrl(fileManagerConfig.downloadFileUrl, itemPath);
+            return this.apiHandler.getUrl(this.config.downloadFileUrl, itemPath);
         };
 
         ApiMiddleware.prototype.download = function(item, forceNewWindow) {
@@ -83,10 +84,10 @@
             }
             
             return this.apiHandler.download(
-                fileManagerConfig.downloadFileUrl, 
+                this.config.downloadFileUrl,
                 itemPath,
                 toFilename,
-                fileManagerConfig.downloadFilesByAjax,
+                this.config.downloadFilesByAjax,
                 forceNewWindow
             );
         };
@@ -94,25 +95,25 @@
         ApiMiddleware.prototype.downloadMultiple = function(files, forceNewWindow) {
             var items = this.getFileList(files);
             var timestamp = new Date().getTime().toString().substr(8, 13);
-            var toFilename = timestamp + '-' + fileManagerConfig.multipleDownloadFileName;
+            var toFilename = timestamp + '-' + this.config.multipleDownloadFileName;
             
             return this.apiHandler.downloadMultiple(
-                fileManagerConfig.downloadMultipleUrl, 
+                this.config.downloadMultipleUrl,
                 items, 
                 toFilename, 
-                fileManagerConfig.downloadFilesByAjax,
+                this.config.downloadFilesByAjax,
                 forceNewWindow
             );
         };
 
         ApiMiddleware.prototype.compress = function(files, compressedFilename, path) {
             var items = this.getFileList(files);
-            return this.apiHandler.compress(fileManagerConfig.compressUrl, items, compressedFilename, this.getPath(path));
+            return this.apiHandler.compress(this.config.compressUrl, items, compressedFilename, this.getPath(path));
         };
 
         ApiMiddleware.prototype.extract = function(item, folderName, path) {
             var itemPath = this.getFilePath(item);
-            return this.apiHandler.extract(fileManagerConfig.extractUrl, itemPath, folderName, this.getPath(path));
+            return this.apiHandler.extract(this.config.extractUrl, itemPath, folderName, this.getPath(path));
         };
 
         ApiMiddleware.prototype.changePermissions = function(files, dataItem) {
@@ -121,12 +122,12 @@
             var octal = dataItem.tempModel.perms.toOctal();
             var recursive = !!dataItem.tempModel.recursive;
 
-            return this.apiHandler.changePermissions(fileManagerConfig.permissionsUrl, items, code, octal, recursive);
+            return this.apiHandler.changePermissions(this.config.permissionsUrl, items, code, octal, recursive);
         };
 
         ApiMiddleware.prototype.createFolder = function(item) {
             var path = item.tempModel.fullPath();
-            return this.apiHandler.createFolder(fileManagerConfig.createFolderUrl, path);
+            return this.apiHandler.createFolder(this.config.createFolderUrl, path);
         };
 
         return ApiMiddleware;

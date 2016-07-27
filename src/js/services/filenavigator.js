@@ -3,8 +3,9 @@
     angular.module('FileManagerApp').service('fileNavigator', [
         'apiMiddleware', 'fileManagerConfig', 'item', function (ApiMiddleware, fileManagerConfig, Item) {
 
-        var FileNavigator = function() {
-            this.apiMiddleware = new ApiMiddleware();
+        var FileNavigator = function(config) {
+            this.config = (typeof config === 'undefined') ? fileManagerConfig : config;
+            this.apiMiddleware = new ApiMiddleware(this.config);
             this.requesting = false;
             this.fileList = [];
             this.currentPath = [];
@@ -43,7 +44,7 @@
         FileNavigator.prototype.refresh = function() {
             var self = this;
             if (! self.currentPath.length) {
-                self.currentPath = fileManagerConfig.basePath || [];
+                self.currentPath = this.config.basePath || [];
             }
             var path = self.currentPath.join('/');
             self.requesting = true;
@@ -58,7 +59,7 @@
                 self.requesting = false;
             });
         };
-        
+
         FileNavigator.prototype.buildTree = function(path) {
             var flatNodes = [], selectedNode = {};
 
@@ -79,7 +80,7 @@
                     }
                     parent.nodes.push({item: item, name: absName, nodes: []});
                 }
-                
+
                 parent.nodes = parent.nodes.sort(function(a, b) {
                     return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : a.name.toLowerCase() === b.name.toLowerCase() ? 0 : 1;
                 });

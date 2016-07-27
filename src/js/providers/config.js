@@ -24,6 +24,7 @@
             searchForm: true,
             sidebar: true,
             breadcrumb: true,
+            languageSelect: true,
             allowedActions: {
                 upload: true,
                 rename: true,
@@ -42,7 +43,6 @@
                 pickFiles: false,
                 pickFolders: false
             },
-
             multipleDownloadFileName: 'angular-filemanager.zip',
             showExtensionIcons: true,
             showSizeForDirectories: false,

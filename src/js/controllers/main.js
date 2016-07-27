@@ -5,16 +5,16 @@
         function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware) {
 
         var $storage = $window.localStorage;
-        $scope.config = fileManagerConfig;
+        $scope.config = angular.merge(fileManagerConfig, $scope.$parent.$parent.config);
         $scope.reverse = false;
-        $scope.predicate = ['model.type', 'model.name'];        
+        $scope.predicate = ['model.type', 'model.name'];
         $scope.order = function(predicate) {
             $scope.reverse = ($scope.predicate[1] === predicate) ? !$scope.reverse : false;
             $scope.predicate[1] = predicate;
         };
         $scope.query = '';
-        $scope.fileNavigator = new FileNavigator();
-        $scope.apiMiddleware = new ApiMiddleware();
+        $scope.fileNavigator = new FileNavigator($scope.config);
+        $scope.apiMiddleware = new ApiMiddleware($scope.config);
         $scope.uploadFileList = [];
         $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-icons.html';
         $scope.fileList = [];
@@ -24,7 +24,7 @@
             if ($scope.singleSelection()) {
                 $scope.temp = $scope.singleSelection();
             } else {
-                $scope.temp = new Item({rights: 644});
+                $scope.temp = new Item({rights: 644}, null, $scope.config);
                 $scope.temp.multiple = true;
             }
             $scope.temp.revert();
@@ -42,11 +42,11 @@
         };
 
         $scope.changeLanguage = function (locale) {
-            if (locale) {
+            if (locale && $scope.config.languageSelect) {
                 $storage.setItem('language', locale);
                 return $translate.use(locale);
             }
-            $translate.use($storage.getItem('language') || fileManagerConfig.defaultLang);
+            $translate.use($scope.config.languageSelect ? ($storage.getItem('language') || $scope.config.defaultLang) : $scope.config.defaultLang);
         };
 
         $scope.isSelected = function(item) {
@@ -113,7 +113,7 @@
         };
 
         $scope.prepareNewFolder = function() {
-            var item = new Item(null, $scope.fileNavigator.currentPath);
+            var item = new Item(null, $scope.fileNavigator.currentPath, $scope.config);
             $scope.temps = [item];
             return item;
         };
@@ -134,10 +134,10 @@
             if (item.isImage()) {
                 if ($scope.config.previewImagesInModal) {
                     return $scope.openImagePreview(item);
-                } 
+                }
                 return $scope.apiMiddleware.download(item, true);
             }
-            
+
             if (item.isEditable()) {
                 return $scope.openEditItem(item);
             }
@@ -281,7 +281,7 @@
             });
         };
 
-        $scope.move = function() {           
+        $scope.move = function() {
             var anyItem = $scope.singleSelection() || $scope.temps[0];
             if (anyItem && validateSamePath(anyItem)) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_cannot_move_same_path');

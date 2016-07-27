@@ -2,7 +2,7 @@
     'use strict';
     angular.module('FileManagerApp').factory('item', ['fileManagerConfig', 'chmod', function(fileManagerConfig, Chmod) {
 
-        var Item = function(model, path) {
+        var Item = function(model, path, config) {
             var rawModel = {
                 name: model && model.name || '',
                 path: path || [],
@@ -23,6 +23,7 @@
 
             this.model = angular.copy(rawModel);
             this.tempModel = angular.copy(rawModel);
+            this.config = (typeof config === 'undefined') ? fileManagerConfig : config;
 
             function parseMySQLDate(mysqlDate) {
                 var d = (mysqlDate || '').toString().split(/[- :]/);
@@ -44,11 +45,11 @@
         };
 
         Item.prototype.isEditable = function() {
-            return !this.isFolder() && fileManagerConfig.isEditableFilePattern.test(this.model.name);
+            return !this.isFolder() && this.config.isEditableFilePattern.test(this.model.name);
         };
 
         Item.prototype.isImage = function() {
-            return fileManagerConfig.isImageFilePattern.test(this.model.name);
+            return this.config.isImageFilePattern.test(this.model.name);
         };
 
         Item.prototype.isCompressible = function() {
@@ -56,11 +57,11 @@
         };
 
         Item.prototype.isExtractable = function() {
-            return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
+            return !this.isFolder() && this.config.isExtractableFilePattern.test(this.model.name);
         };
 
         Item.prototype.isSelectable = function() {
-            return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
+            return (this.isFolder() && this.config.allowedActions.pickFolders) || (!this.isFolder() && this.config.allowedActions.pickFiles);
         };
 
         return Item;
