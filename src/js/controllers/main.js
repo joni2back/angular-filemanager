@@ -42,11 +42,11 @@
         };
 
         $scope.changeLanguage = function (locale) {
-            if (locale) {
+            if (locale && $scope.config.languageSelect) {
                 $storage.setItem('language', locale);
                 return $translate.use(locale);
             }
-            $translate.use($storage.getItem('language') || $scope.config.defaultLang);
+            $translate.use($scope.config.languageSelect ? ($storage.getItem('language') || $scope.config.defaultLang) : $scope.config.defaultLang);
         };
 
         $scope.isSelected = function(item) {

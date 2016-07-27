@@ -28,25 +28,25 @@
                             <i class="glyphicon glyphicon-th-list"></i>
                         </button>
 
-                        <div class="btn-group">
+                        <div class="btn-group" ng-show="config.languageSelect">
                             <button class="btn btn-flat btn-sm dropdown-toggle" type="button" id="dropDownMenuLang" data-toggle="dropdown" aria-expanded="true">
                                 <i class="glyphicon glyphicon-globe mr2"></i>
                             </button>
 
                             <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="dropDownMenuLang">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('en')">{{"english" | translate}}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('zh')">{{"chinese" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('es')">{{"spanish" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pt')">{{"portuguese" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('en')">{{"english" | translate}}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fr')">{{"french" | translate}}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('de')">{{"german" | translate}}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('he')">{{"hebrew" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('sk')">{{"slovak" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ru')">{{"russian" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ua')">{{"ukrainian" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('tr')">{{"turkish" | translate}}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fa')">{{"persian" | translate}}</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pl')">{{"polish" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pt')">{{"portuguese" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ru')">{{"russian" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('sk')">{{"slovak" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('es')">{{"spanish" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('tr')">{{"turkish" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ua')">{{"ukrainian" | translate}}</a></li>
                             </ul>
                         </div>
 
@@ -55,7 +55,7 @@
                                 <i class="glyphicon glyphicon-option-vertical"></i>
                             </button>
 
-                            <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="more">
+                            <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" ng-if="config.allowedActions.createFolder || config.allowedActions.upload" role="menu" aria-labelledby="more">
                                 <li role="presentation" ng-show="config.allowedActions.createFolder" ng-click="modal('newfolder') && prepareNewFolder()">
                                     <a href="" role="menuitem" tabindex="-1">
                                         <i class="glyphicon glyphicon-plus"></i> {{"new_folder" | translate}}
