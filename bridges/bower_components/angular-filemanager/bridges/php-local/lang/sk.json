@@ -1,0 +1,18 @@
+{
+	"function_not_implemented": "Funkcia nie je implementovaná",
+	"file_not_found": "Súbor nenájdený",
+	"listing_filed": "Výpis súborov zlyhal",
+	"moving_failed": "Presunutie zlyhalo",
+	"renaming_failed": "Premenovanie zlyhalo",
+	"copying_failed": "Kopírovanie zlyhalo",
+	"removing_failed": "Odstraňovanie zlyhalo",
+	"removing_failed_directory_not_empty": "Odstraňovanie zlyhalo, priečinok, ktorý sa snažíte odstrániť nie je prázdny",
+	"saving_failed": "Ukladanie zlyhalo",
+	"folder_already_exists": "Priečinok s daným názvom už existuje",
+	"folder_creation_failed": "Priečinok sa nepodarilo vytvoriť",
+	"permissions_change_failed": "Nepodarilo sa zmeniť oprávnenia",
+	"compression_failed": "Komprimovanie zlyhalo",
+	"archive_opening_failed": "Nepodarilo sa otvoriť archív je buď poškodený alebo nepodporovaného formátu",
+	"extraction_failed": "Extrahovanie zlyhalo",
+	"upload_failed": "Nahrávanie zlyhalo"
+}

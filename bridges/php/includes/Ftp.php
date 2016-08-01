@@ -11,7 +11,7 @@ class Ftp
 {
     public static $initialized = false;
 
-    protected $_hostname  = 'localhost';
+    protected $_hostname  = '';
     protected $_username  = '';
     protected $_password  = '';
     protected $_port      = 21;

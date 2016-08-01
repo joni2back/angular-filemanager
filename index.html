@@ -2,7 +2,7 @@
 <html lang="en" data-ng-app="FileManagerApp">
 <head>
   <!--
-    * Angular FileManager v1.5.1 (https://github.com/joni2back/angular-filemanager)
+    * Angular FileManager v1.5.0 (https://github.com/joni2back/angular-filemanager)
     * Jonas Sciangula Street <joni2back@gmail.com>
     * Licensed under MIT (https://github.com/joni2back/angular-filemanager/blob/master/LICENSE)
   -->
@@ -48,17 +48,54 @@
       var defaults = config.$get();
       config.set({
         appName: 'angular-filemanager',
-        pickCallback: function(item) {
-          var msg = 'Picked %s "%s" for external use'
-            .replace('%s', item.type)
-            .replace('%s', item.fullPath());
-          window.alert(msg);
-        },
 
         allowedActions: angular.extend(defaults.allowedActions, {
           pickFiles: false,
           pickFolders: false,
         }),
+		
+//		listUrl: 'bridges/php-local/',
+//		uploadUrl: 'bridges/php-local/',
+//		renameUrl: 'bridges/php-local/',
+//		copyUrl: 'bridges/php-local/',
+//		moveUrl: 'bridges/php-local/',
+//		removeUrl: 'bridges/php-local/',
+//		editUrl: 'bridges/php-local/',
+//		getContentUrl: 'bridges/php-local/',
+//		createFolderUrl: 'bridges/php-local/',
+//		downloadFileUrl: 'bridges/php-local/',
+//		downloadMultipleUrl: 'bridges/php-local/',
+//		compressUrl: 'bridges/php-local/',
+//		extractUrl: 'bridges/php-local/',
+//		permissionsUrl: 'bridges/php-local/',
+
+		listUrl: "bridges/php/handler.php",
+		uploadUrl: "bridges/php/handler.php",
+		renameUrl: "bridges/php/handler.php",
+		copyUrl: "bridges/php/handler.php",
+		removeUrl: "bridges/php/handler.php",
+		editUrl: "bridges/php/handler.php",
+		getContentUrl: "bridges/php/handler.php",
+		createFolderUrl: "bridges/php/handler.php",
+		downloadFileUrl: "bridges/php/handler.php",
+		compressUrl: "bridges/php/handler.php",
+		extractUrl: "bridges/php/handler.php",
+		permissionsUrl: "bridges/php/handler.php",
+		enablePermissionsRecursive: true,
+		sidebar: true,
+		breadcrumb: true,
+		allowedActions: {
+		    rename: true,
+		    copy: true,
+		    edit: true,
+		    changePermissions: true,
+		    compress: true,
+		    compressChooseName: true,
+		    extract: true,
+		    download: true,
+		    preview: true,
+		    remove: true
+		},
       });
     }]);
   </script>
@@ -67,13 +104,5 @@
 <body class="ng-cloak">
   <angular-filemanager></angular-filemanager>
 
-  <script> 
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-35182652-1', 'auto');
-    ga('send', 'pageview');
-  </script>
 </body>
 </html>

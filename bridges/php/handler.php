@@ -142,15 +142,17 @@ class FileManager extends Ftp
     }
 
 }
-
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 ExceptionCatcherJSON::register();
 $oResponse = new Response();
 $oFtp = new FileManager(array(
-    'hostname' => '',
-    'username' => '',
-    'password' => ''
+    'hostname' => 'williamserver',
+    'username' => 'william',
+    'password' => 'idonotknow'
 ));
-
+////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 if (! $oFtp->connect()) {
     throw new Exception("Cannot connect to the FTP server");
 }
@@ -304,4 +306,4 @@ if (Request::getQuery('action') === 'downloadMultiple') {
     $oResponse->flush();
 }
 
-throw new \Exception('This action is not available in the demo');
+throw new \Exception('SOMETHING IS GOING ON!!! AAAAHHHHH~~~!');
