@@ -7,14 +7,29 @@
 require_once __DIR__ . '/includes/Ftp.php';
 require_once __DIR__ . '/includes/ExceptionCatcher.php';
 
+session_name('file_manager_session');
+session_start();
+
 use PHPClassic\ExceptionCatcher;
 use PHPClassic\Ftp;
+
+class AuthException extends Exception{
+    public function __construct($message){
+        parent::__construct($message);
+    }
+}
 
 class ExceptionCatcherJSON extends ExceptionCatcher 
 {
     public static function draw(\Exception $oExp)
     {
-        @header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        if($oExp instanceof AuthException){
+            session_unset();
+            http_response_code(401);
+        }else{
+            http_response_code(500);
+        }
+
         $oResponse = new Response;
         $oResponse->setData(array(
             'success' => false,
@@ -51,6 +66,13 @@ abstract class Request
                 $_POST[$param] : $default;
         }
         return $_POST;
+    }
+
+    public static function getSession($param, $default = null){
+        if($param) {
+            return isset($_SESSION[$param]) ? $_SESSION[$param] : $default;
+        }
+        return $_SESSION;
     }
 
     public static function getFile($param = null, $default = null)
@@ -92,6 +114,7 @@ class Response
 
     public function flushJson() 
     {
+        $this->setHeaders(['Content-type' => 'application/json']);
         $this->data = json_encode(array('result' => $this->data));
         return $this->flush();
     }
@@ -121,6 +144,10 @@ class Response
         }
         return $this;
     }
+
+    public static function setSession($param, $value){
+        $_SESSION[$param] = $value;
+    }
 }
 
 class FileManager extends Ftp 
@@ -145,14 +172,47 @@ class FileManager extends Ftp
 
 ExceptionCatcherJSON::register();
 $oResponse = new Response();
+
+
+if(Request::getApiParam('action') === 'logout') {
+    session_destroy();
+
+}
+
+if(Request::getApiParam('action') === 'login'){
+
+    $username = Request::getApiParam('username');
+    $password = Request::getApiParam('password');
+
+    $loginFtp = new FileManager(array(
+        'hostname' => 'files.000webhost.com',
+        'username' => $username,
+        'password' => $password
+    ));
+
+    if (! $loginFtp->connect()) {
+        throw new Exception("Log in details are not correct.", 401);
+    }
+
+    Response::setSession('username',$username);
+    Response::setSession('password',$password);
+
+    $oResponse->setData(['success' => true]);
+    $oResponse->flushJson();
+}
+
+if(!Request::getSession('username') && !Request::getSession('password')){
+    throw new AuthException('You are not logged in.',401);
+}
+
 $oFtp = new FileManager(array(
-    'hostname' => '',
-    'username' => '',
-    'password' => ''
+    'hostname' => 'localhost',
+    'username' => Request::getSession('username'),
+    'password' => Request::getSession('password'),
 ));
 
 if (! $oFtp->connect()) {
-    throw new Exception("Cannot connect to the FTP server");
+    throw new AuthException("Cannot connect to the FTP server");
 }
 
 if (Request::getFile() && $dest = Request::getPost('destination')) {
@@ -226,15 +286,21 @@ if (Request::getApiParam('action') === 'move') {
 if (Request::getApiParam('action') === 'remove') {
     $items = Request::getApiParam('items');
     $errors = array();
-    foreach($items as $item) {
-        $result = $item ? $oFtp->delete($item) : false;
-        if (! $result)  {
-            $errors[] = $item;
+
+    if(is_array($items)) {
+        foreach ($items as $item) {
+            $result = $item ? $oFtp->delete($item) : false;
+            if (!$result) {
+                $errors[] = $item;
+            }
         }
+
     }
+
     if ($errors) {
         throw new Exception("Unknown error deleting: \n\n" . implode(", \n", $errors));
     }
+
     $oResponse->setData($result);
     $oResponse->flushJson();
 }

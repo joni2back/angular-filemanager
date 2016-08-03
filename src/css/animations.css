@@ -156,7 +156,7 @@
 .spinner-container .path {
   stroke-dasharray: 1,150;
   stroke-dashoffset: 0;
-  stroke: #2196F3;
+  stroke: #b80303;
   stroke-linecap: round;
   -webkit-animation: dash 1.5s ease-in-out infinite, colors 5.6s ease-in-out infinite;
   animation: dash 1.5s ease-in-out infinite, colors 5.6s ease-in-out infinite;
