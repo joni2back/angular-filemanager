@@ -18,6 +18,9 @@
             if (code == 404) {
                 this.error = 'Error 404 - Backend bridge is not working, please check the ajax response.';
             }
+            if (code == 401){
+                this.error = 'Error 401 - Please log in again.';
+            }
             if (data.result && data.result.error) {
                 this.error = data.result.error;
             }
@@ -31,6 +34,48 @@
                 return deferred.reject(data);
             }
             return deferred.resolve(data);
+        };
+
+        ApiHandler.prototype.logout = function(apiUrl){
+            var self = this;
+            var deferred = $q.defer();
+            var data = {
+                action: 'logout'
+            };
+
+            self.inprocess = true;
+            self.error = '';
+
+            $http.post(apiUrl, data).success(function(data, code) {
+                self.deferredHandler(data, deferred, code);
+            }).error(function(data, code) {
+                self.deferredHandler(data, deferred, code, 'An unknown error occurred when attempting to log out, please try again');
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
+        };
+
+        ApiHandler.prototype.login = function(apiUrl, credentials){
+            var self = this;
+            var deferred = $q.defer();
+            var data = {
+                action: 'login',
+                username: credentials.username,
+                password: credentials.password
+            };
+
+            self.inprocess = true;
+            self.error = '';
+
+            $http.post(apiUrl, data).success(function(data, code) {
+                self.deferredHandler(data, deferred, code);
+            }).error(function(data, code) {
+                self.deferredHandler(data, deferred, code, 'Unknown error occurred when attempting to log in, please try again');
+            })['finally'](function() {
+                self.inprocess = false;
+            });
+            return deferred.promise;
         };
 
         ApiHandler.prototype.list = function(apiUrl, path, customDeferredHandler) {
@@ -48,7 +93,7 @@
             $http.post(apiUrl, data).success(function(data, code) {
                 dfHandler(data, deferred, code);
             }).error(function(data, code) {
-                dfHandler(data, deferred, code, 'Unknown error listing, check the response');
+                dfHandler(data, deferred, code, 'Log in details are not correct');
             })['finally'](function() {
                 self.inprocess = false;
             });
