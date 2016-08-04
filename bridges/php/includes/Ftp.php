@@ -15,9 +15,9 @@ class Ftp
     protected $_username  = '';
     protected $_password  = '';
     protected $_port      = 21;
-    protected $_timeout   = 90;
+    protected $_timeout   = 10;
     protected $_passive   = true;
-    protected $_debug     = false;
+    protected $_debug     = true;
     protected $_conn   = false;
     protected $_ssl   = false;
 
@@ -70,9 +70,7 @@ class Ftp
         }
 
         if (! $this->_login()) {
-            if ($this->_debug == true) {
-                throw new \Exception('FTP - Unable to login');
-            }
+            throw new \AuthException('FTP - Unable to login');
         }
 
         // Set passive mode if needed
@@ -497,6 +495,27 @@ class Ftp
         return false;
     }
 
+    // --------------------------------------------------------------------
+
+    /**
+     * Set file content
+     *
+     * This function set content for file
+     *
+     * @access	public
+     * @param	string	$remotePath to source file
+     * @param	string	$content file content
+     * @return	bool
+     */
+    public function setFileContent($remotePath, $content)
+    {
+        $temp_file = tempnam(sys_get_temp_dir(), 'ftp-');
+        $fw = fopen($temp_file, 'w+');
+        fwrite($fw, $content);
+        fclose($fw);
+        return ftp_put($this->_conn, $remotePath, $temp_file, FTP_ASCII);
+    }
+    
     // --------------------------------------------------------------------
 
     /**
