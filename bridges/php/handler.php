@@ -7,6 +7,9 @@
 require_once __DIR__ . '/includes/Ftp.php';
 require_once __DIR__ . '/includes/ExceptionCatcher.php';
 
+date_default_timezone_set('UTC');
+error_reporting(0);
+
 session_name('file_manager_session');
 session_start();
 
@@ -248,6 +251,35 @@ if (Request::getApiParam('action') === 'list') {
 
 if (Request::getApiParam('action') === 'getContent') {
     $oResponse->setData($oFtp->getContent(Request::getApiParam('item')));
+    $oResponse->flushJson();
+}
+
+if (Request::getApiParam('action') === 'edit') {
+    $item = Request::getApiParam('item');
+    $newContent = Request::getApiParam('content');
+    $result = $oFtp->setFileContent($item, $newContent);
+    $oResponse->setData($result);
+    $oResponse->flushJson();
+}
+
+if (Request::getApiParam('action') === 'changePermissions') {
+    $items = Request::getApiParam('items');
+    $permsCode = Request::getApiParam('permsCode');
+    $permsCode = $oFtp->translateChmodCode($permsCode);
+
+    $errors = array();
+    foreach($items as $item) {
+        $result = $item ? $oFtp->chmod($item, $permsCode) : false;
+        if (! $result)  {
+            $errors[] = $item . ' to ' . $permsCode;
+        }
+    }
+
+    if ($errors) {
+        throw new Exception("Unknown error changing file permissions: \n\n" . implode(", \n", $errors));
+    }
+
+    $oResponse->setData($result);
     $oResponse->flushJson();
 }
 
