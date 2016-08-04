@@ -1,3 +1,5 @@
 /nbproject/private/
 nbproject/
 node_modules/
+.idea
+php.ini

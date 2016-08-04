@@ -498,6 +498,27 @@ class Ftp
     // --------------------------------------------------------------------
 
     /**
+     * Set file content
+     *
+     * This function set content for file
+     *
+     * @access	public
+     * @param	string	$remotePath to source file
+     * @param	string	$content file content
+     * @return	bool
+     */
+    public function setFileContent($remotePath, $content)
+    {
+        $temp_file = tempnam(sys_get_temp_dir(), 'ftp-');
+        $fw = fopen($temp_file, 'w+');
+        fwrite($fw, $content);
+        fclose($fw);
+        return ftp_put($this->_conn, $remotePath, $temp_file, FTP_ASCII);
+    }
+    
+    // --------------------------------------------------------------------
+
+    /**
      * Set the upload type
      *
      * @param	string
