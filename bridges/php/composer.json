@@ -1,0 +1,12 @@
+{
+    "name": "hostinger/angular-filemanager",
+    "require": {
+        "touki/ftp": "^1.2",
+        "alchemy/zippy": "^0.4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "FileManager\\": "."
+        }
+    }
+}

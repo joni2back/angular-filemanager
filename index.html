@@ -65,7 +65,7 @@
 </head>
 
 <body class="ng-cloak">
-  <div class="user-container" ng-controller="UserController as user">
+  <div class="user-container container-fluid" ng-controller="UserController as user">
     <angular-filemanager ng-if="user.status && user.loading == 0"></angular-filemanager>
 
     <div class="row login-page" ng-hide="user.status">

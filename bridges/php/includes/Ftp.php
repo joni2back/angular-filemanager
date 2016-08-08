@@ -63,10 +63,7 @@ class Ftp
         }
 
         if ($this->_conn === false) {
-            if ($this->_debug == true) {
-                throw new \Exception('FTP - Unable to establish a connection');
-            }
-            return false;
+            throw new \Exception('FTP - Unable to establish a connection');
         }
 
         if (! $this->_login()) {
@@ -103,9 +100,6 @@ class Ftp
     protected function _isConnected()
     {
         if (! is_resource($this->_conn)) {
-            if ($this->_debug == true) {
-                throw new \InvalidArgumentException('Invalid connection');
-            }
             return false;
         }
         return true;
@@ -165,7 +159,7 @@ class Ftp
 
         if ($result === false) {
             if ($this->_debug == true) {
-                throw new \Exception('FTP - FileAccess - Unable to create directory');
+                throw new \Exception('FTP - FileAccess - Unable to create directory '.$path);
             }
             return false;
         }
