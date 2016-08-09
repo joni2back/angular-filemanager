@@ -35,7 +35,7 @@
             change_name_move: 'Change name / move',
             enter_new_name_for: 'Enter new name for',
             extract_item: 'Extract item',
-            extraction_started: 'Extraction started in a background process',
+            extraction_started: 'Extraction completed',
             compression_started: 'Compression started in a background process',
             enter_folder_name_for_extraction: 'Enter the folder name for the extraction of',
             enter_file_name_for_compression: 'Enter the file name for the compression of',

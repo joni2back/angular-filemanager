@@ -465,6 +465,10 @@ a:hover{
   color: #9f0202;
 }
 
+.navbar a:hover{
+  color:#f5d3d5 !important;
+}
+
 textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus{
   -webkit-box-shadow: inset 0 -2px 0 #b80303;
   box-shadow: inset 0 -2px 0 #b80303;
@@ -490,4 +494,9 @@ textarea:focus, textarea.form-control:focus, input.form-control:focus, input[typ
 .file-manager-container{
   margin-left:-15px;
   margin-right:-15px;
+}
+
+.navbar .logo{
+  margin-top:2px;
+  margin-right:20px;
 }

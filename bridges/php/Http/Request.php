@@ -47,7 +47,7 @@ class Request
     public static function getApiParam($param)
     {
         $oData = static::getPostContent();
-        return isset($oData->$param) ? $oData->$param : null;
+        return isset($oData->$param) ? $oData->$param : self::getPost($param);
     }
 
     public static function getApiOrQueryParam($param)

@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('FileManagerApp').controller('UserController', ['$scope', '$http', 'apiMiddleware', 'Auth', 'fileManagerConfig', 'fileNavigator', function ($scope, $http, apiMiddleware, Auth, fileManagerConfig, fileNavigator) {
+    angular.module('FileManagerApp').controller('UserController', ['$scope', '$http', 'apiMiddleware', 'Auth', 'fileManagerConfig', 'fileNavigator', '$window', function ($scope, $http, apiMiddleware, Auth, fileManagerConfig, fileNavigator, $window) {
         var vm = this;
 
         apiMiddleware = new apiMiddleware();
@@ -12,7 +12,7 @@
         vm.loading = 1;
         vm.login = {
             attempt: loginAttempt,
-            error: false,
+            error: $window.location.href.indexOf('authenticated=0') !== -1,
             input: {
                 username: '',
                 password: ''

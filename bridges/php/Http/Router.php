@@ -95,7 +95,7 @@ class Router{
         }
         
         if('login' == $this->action){
-            return $this->login();
+            return $this->login(Request::getApiParam('redirect') ? true : false);
         }
         
         if(!Request::getSession('username') && !Request::getSession('password')){
@@ -168,18 +168,11 @@ class Router{
             return null;
         }
 
-        $fileName = explode('/', $filePath);
-        $fileName = end($fileName);
-
-        $file = $this->ftpHelper->findFileByName($filePath);
-
-        if(!$file instanceof File){
-            throw new Exception('File could not be downloaded right now.');
-        }
+        $pathParts = explode('/', $filePath);
+        $fileName = end($pathParts);
 
         $tmpFilePath = $this->_getTempFile();
-
-        $this->ftpHelper->download($tmpFilePath, $file);
+        $this->ftp->get($tmpFilePath, $filePath);
 
         if ($fileContent = @file_get_contents($tmpFilePath)) {
             $this->response->setData($fileContent);
@@ -192,47 +185,46 @@ class Router{
         $this->response->flush();
     }
 
-
-
-    public function downloadMultipleAction(){
-        $items = Request::getApiOrQueryParam('items');
-        $toFilename = Request::getApiOrQueryParam('toFilename');
-        $errors = array();
-
-        $fileContent = is_array($items) ? implode($items, ", \n") : '';
-        if ($errors) {
-            throw new Exception("Unknown compressing to download: \n\n" . implode(", \n", $errors));
-        }
-
-        if ($fileContent) {
-            $oResponse->setData($fileContent);
-            $oResponse->setHeaders(array(
-                'Content-Type' => @mime_content_type($fileContent),
-                'Content-disposition' => sprintf('attachment; filename="%s"', $toFilename)
-            ));
-        }
-        $oResponse->flush();
-    }
-
     /**
      * Check the credentials ang logs in the user
+     * @param bool $redirect
      * @return bool
-     * @throws Exception
+     * @throws AuthException
+     * @throws \Touki\FTP\Exception\ConnectionEstablishedException
+     * @throws \Touki\FTP\Exception\ConnectionException
      */
-    public function login(){
+    public function login($redirect = false){
         $username = Request::getApiParam('username');
         $password = Request::getApiParam('password');
 
         $loginFtp = new Connection($this->host,$username,$password);
 
-        if (!$loginFtp->open()) {
-            throw new AuthException("Log in details are not correct.", 401);
+        try {
+            $authResult = $loginFtp->open();
+        }catch (Exception $e){
+            $authResult = false;
+        }
+
+        if (!$authResult) {
+            if ($redirect) {
+                http_response_code(302);
+                header('Location: /?authenticated=0');
+                exit;
+            } else {
+                throw new AuthException("Log in details are not correct.", 401);
+            }
         }
 
         Response::setSession('username',$username);
         Response::setSession('password',$password);
 
-        return true;
+        if($redirect) {
+            http_response_code(302);
+            header('Location: /');
+            exit;
+        }else{
+            return true;
+        }
     }
 
     /**
@@ -250,12 +242,7 @@ class Router{
      * @throws Exception
      */
     public function listAction(){
-        $dir = $this->ftpHelper->findDirectoryByName(Request::getApiParam('path'));
-        
-        if(!$dir instanceof  Directory){
-            $dir = new Directory(Request::getApiParam('path'));
-        }
-
+        $dir = new Directory($this->_filterPath(Request::getApiParam('path')));
         $list = $this->ftpHelper->findFilesystems($dir);
         
         return $this->_transform($list);
@@ -268,15 +255,8 @@ class Router{
      * @throws \Touki\FTP\Exception\DirectoryException
      */
     public function getContentAction(){
-        $file = $this->ftpHelper->findFileByName(Request::getApiParam('item'));
-
-        if(!$file){
-            throw new Exception('File could not be read.');
-        }
-
-        $tempStorage = $this->_getTempFile();;
-        
-        $this->ftpHelper->download($tempStorage, $file);
+        $tempStorage = $this->_getTempFile();
+        $this->ftp->get($tempStorage, Request::getApiParam('item'));
 
         return file_get_contents($tempStorage);
     }
@@ -289,7 +269,7 @@ class Router{
         $item = Request::getApiParam('item');
         $newContent = Request::getApiParam('content');
 
-        $this->ftpHelper->upload(new File($item), $this->_getTempFile($newContent));
+        $this->ftp->put($item, $this->_getTempFile($newContent));
 
         return true;
     }
@@ -371,21 +351,7 @@ class Router{
 
         if(is_array($items)) {
             foreach ($items as $item) {
-                $dir = $this->ftpHelper->findDirectoryByName($item);
-
-                if($dir instanceof Directory){
-                    $this->ftpHelper->delete($dir,[FTP::RECURSIVE => true]);
-                    continue;
-                }
-
-                $file = $this->ftpHelper->findFileByName($item);
-
-                if($file instanceof File){
-                    $this->ftpHelper->delete($file);
-                    continue;
-                }
-
-                $errors[] = $item;
+                $this->_recursiveDelete($item);
             }
         }
 
@@ -423,14 +389,8 @@ class Router{
         $destination = rtrim(Request::getApiParam('destination'),"/");
         $folderName = trim(Request::getApiParam('folderName'),"/");
 
-        $file = $this->ftpHelper->findFileByName($item);
-
-        if(!$file instanceof File){
-            throw new Exception('File could not be downloaded right now.');
-        }
-
         $tmpFilePath = $this->_getTempFile();
-        $this->ftpHelper->download($tmpFilePath, $file);
+        $this->ftp->get($tmpFilePath, $item);
 
         $extractDir = __DIR__."/../temp/".uniqid();
         mkdir($extractDir,0777,true);
@@ -443,17 +403,38 @@ class Router{
 
         $destination = $destination."/".$folderName;
 
-        $destinationDir = new Directory($destination);
-        $this->ftpHelper->create($destinationDir,[FTP::RECURSIVE => true]);
+        $this->ftp->mkdir($destination);
 
         foreach($extractedZip->getMembers() as $member){
             if($member->isDir()){
-                $this->ftpHelper->create(new Directory(rtrim($destination."/".$member->getLocation(),"/")), [FTP::RECURSIVE => true, FTP::NON_BLOCKING => true]);
+                $this->ftp->mkdir(rtrim($destination."/".$member->getLocation(),"/"));
             }else{
                 $fileLocation = $extractDir."/".$member->getLocation();
                 if(file_exists($fileLocation)) {
-                    $this->ftpHelper->upload(new File($destination . "/" . $member->getLocation()), $fileLocation, [FTP::NON_BLOCKING => true]);
+                    $this->ftp->put($destination . "/" . $member->getLocation(), $fileLocation);
                 }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Copies a file from one directory to another
+     */
+    public function copyAction(){
+        $items = Request::getApiParam('items');
+        $destination = Request::getApiParam('newPath');
+        $singleFilename = Request::getApiParam('singleFilename');
+
+        if(is_array($items)){
+            foreach ($items as $item){
+                $pathPart = explode('/', $item);
+                $newFileName = $singleFilename && count($items) == 1 ? $singleFilename : end($pathPart);
+
+                $tmpFile = $this->_getTempFile();
+                $this->ftp->get($tmpFile, $item);
+                $this->ftp->put($destination."/".$newFileName, $tmpFile);
             }
         }
 
@@ -472,7 +453,7 @@ class Router{
                     'rights' => $item->getOwnerPermissions()->getFlags(). $item->getGroupPermissions()->getFlags().$item->getGuestPermissions()->getFlags(),
                     'user' => $item->getOwner(),
                     'size' => $item->getSize(),
-                    'type' => $item instanceof Directory ? 'dir' : 'file'
+                    'type' => $item instanceof Directory ? 'dir' : 'file',
                 ];
             }
             
@@ -508,5 +489,39 @@ class Router{
 
         return end($extensions);
 
+    }
+
+    public function _filterPath($input){
+        return preg_replace(
+            "/\s/",
+            '\ ',
+             $input);
+    }
+
+    public function _recursiveDelete($path, $isDir = false){
+        if(!$isDir) {
+            try {
+                $this->ftp->delete($path);
+                return true;
+            } catch (Exception $e){
+                // continue as a directory
+            };
+        }
+
+        $list = $this->ftpHelper->findFilesystems(new Directory($this->_filterPath($path)));
+
+        foreach($list as $model) {
+            $realPath = preg_replace("/\\\\\s/", ' ', $model->getRealPath());
+
+            if($model instanceof Directory){
+                $this->_recursiveDelete($realPath, true);
+            }else {
+                $this->ftp->delete($realPath);
+            }
+        }
+
+        $this->ftp->rmdir($path);
+
+        return true;
     }
 }

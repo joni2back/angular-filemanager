@@ -47,7 +47,7 @@
     angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
       var defaults = config.$get();
       config.set({
-        appName: '000webhost File Manager',
+        appName: 'File Manager',
         pickCallback: function(item) {
           var msg = 'Picked %s "%s" for external use'
             .replace('%s', item.type)
