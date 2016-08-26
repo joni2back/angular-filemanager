@@ -3,11 +3,11 @@
     angular.module('FileManagerApp').service('fileNavigator', [
         'apiMiddleware', 'fileManagerConfig', 'item', function (ApiMiddleware, fileManagerConfig, Item) {
 
-        var FileNavigator = function() {
+        var FileNavigator = function(initPath) {
             this.apiMiddleware = new ApiMiddleware();
             this.requesting = false;
             this.fileList = [];
-            this.currentPath = [];
+            this.currentPath = initPath;
             this.history = [];
             this.error = '';
 

@@ -1,11 +1,12 @@
 (function(angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
-        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware) {
+        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware', 'filePathSetter',
+        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware, filePathSetter) {
 
         var $storage = $window.localStorage;
         $scope.config = fileManagerConfig;
+        $scope.fileNavigatorInitPath = filePathSetter.getInitPath();
         $scope.reverse = false;
         $scope.predicate = ['model.type', 'model.name'];        
         $scope.order = function(predicate) {
@@ -13,7 +14,7 @@
             $scope.predicate[1] = predicate;
         };
         $scope.query = '';
-        $scope.fileNavigator = new FileNavigator();
+        $scope.fileNavigator = new FileNavigator($scope.fileNavigatorInitPath);
         $scope.apiMiddleware = new ApiMiddleware();
         $scope.uploadFileList = [];
         $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-icons.html';
