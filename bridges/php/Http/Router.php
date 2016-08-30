@@ -23,7 +23,7 @@ class Router{
     private $zip;
     private $ftp;
     private $ftpHelper;
-    private $host = 'files.000webhost.com';
+    private $host = 'localhost';
 
     /**
      * Router constructor.
