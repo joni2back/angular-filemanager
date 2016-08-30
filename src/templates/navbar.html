@@ -2,6 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-9 col-md-10 hidden-xs">
+                <img class="pull-left logo" src="assets/logo.png" alt="logo" title="000webhost">
                 <div ng-show="!config.breadcrumb">
                     <a class="navbar-brand hidden-xs ng-binding" href="">angular-filemanager</a>
                 </div>
@@ -68,6 +69,11 @@
                                 </li>
                             </ul>
                         </div>
+
+
+                        <button class="btn btn-flat btn-sm" ng-click="$parent.logout()" title="Log out">
+                            <i class="glyphicon glyphicon-off"></i>
+                        </button>
                     </div>
                 </div>
             </div>

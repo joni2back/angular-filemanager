@@ -71,5 +71,10 @@ gulp.task('lint', function () {
     .pipe(eslint.failOnError());
 });
 
+gulp.task('watch', function(){
+    gulp.watch([src+'**/*.js'],['concat-uglify-js']);
+    gulp.watch([src+'**/*.css'],['minify-css']);
+});
+
 gulp.task('default', ['concat-uglify-js', 'minify-css']);
 gulp.task('build', ['clean', 'lint', 'default']);

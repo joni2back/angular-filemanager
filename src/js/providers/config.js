@@ -1,9 +1,15 @@
 (function(angular) {
     'use strict';
-    angular.module('FileManagerApp').provider('fileManagerConfig', function() {
+    angular.module('FileManagerApp')
+
+    .config(['$httpProvider',function($httpProvider){
+        $httpProvider.interceptors.push('AuthInterceptor');
+    }])
+
+    .provider('fileManagerConfig', function() {
 
         var values = {
-            appName: 'angular-filemanager v1.5',
+            appName: '000webhost',
             defaultLang: 'en',
 
             listUrl: 'bridges/php/handler.php',
@@ -20,6 +26,8 @@
             compressUrl: 'bridges/php/handler.php',
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
+            loginUrl: 'bridges/php/handler.php',
+            logoutUrl: 'bridges/php/handler.php',
 
             searchForm: true,
             sidebar: true,
@@ -31,16 +39,16 @@
                 copy: true,
                 edit: true,
                 changePermissions: true,
-                compress: true,
-                compressChooseName: true,
+                compress: false,
+                compressChooseName: false,
                 extract: true,
                 download: true,
-                downloadMultiple: true,
+                downloadMultiple: false,
                 preview: true,
                 remove: true,
                 createFolder: true,
-                pickFiles: false,
-                pickFolders: false
+                pickFiles: true,
+                pickFolders: true
             },
 
             multipleDownloadFileName: 'angular-filemanager.zip',
@@ -51,7 +59,7 @@
             previewImagesInModal: true,
             enablePermissionsRecursive: true,
             compressAsync: false,
-            extractAsync: false,
+            extractAsync: true,
             pickCallback: null,
 
             isEditableFilePattern: /\.(txt|diff?|patch|svg|asc|cnf|cfg|conf|html?|.html|cfm|cgi|aspx?|ini|pl|py|md|css|cs|js|jsp|log|htaccess|htpasswd|gitignore|gitattributes|env|json|atom|eml|rss|markdown|sql|xml|xslt?|sh|rb|as|bat|cmd|cob|for|ftn|frm|frx|inc|lisp|scm|coffee|php[3-6]?|java|c|cbl|go|h|scala|vb|tmpl|lock|go|yml|yaml|tsv|lst)$/i,

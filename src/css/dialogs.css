@@ -18,7 +18,7 @@
 
 .modal .breadcrumb {
   margin: 0;
-  background: #00bcd4;
+  background: #b84346;
   font-size: 16px;
   max-height: inherit;
   padding: 0 10px;
@@ -72,20 +72,20 @@
 
 .modal .modal-header {
     border-radius: 4px 4px 0 0;
-    background: #2196F3;
+    background: #b80303;
     padding: 1.3em;
 }
 
 .modal .modal-header .modal-title {
     font-size: 20px;
     line-height: 100%;
-    color: #D4E5F5;
+    color: #f5d3d5;
     margin: 0;
 }
 
 .modal .modal-header .close {
     opacity: 1;
-    color: #D4E5F5;
+    color: #f5d3d5;
 }
 
 .modal .modal-header .close.fullscreen {

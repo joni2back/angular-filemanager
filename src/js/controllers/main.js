@@ -1,8 +1,8 @@
 (function(angular, $) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
-        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
-        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware) {
+        '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware', 'Auth',
+        function($scope, $rootScope, $window, $translate, fileManagerConfig, Item, FileNavigator, ApiMiddleware, Auth) {
 
         var $storage = $window.localStorage;
         $scope.config = fileManagerConfig;
@@ -34,6 +34,12 @@
             $scope.temps = [];
             $scope.query = '';
             $rootScope.selectedModalPath = $scope.fileNavigator.currentPath;
+        };
+
+        $scope.logout = function(){
+            $scope.apiMiddleware.logout().then(function(){
+                Auth.setStatus(false);
+            });
         };
 
         $scope.setTemplate = function(name) {

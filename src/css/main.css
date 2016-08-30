@@ -8,6 +8,10 @@ body {
   outline: 0!important;
 }
 
+.user-container.container-fluid{
+  height:100vh;
+}
+
 .navbar {
   min-height: 32px;
   margin-bottom: 0;
@@ -86,11 +90,11 @@ textarea.code {
 .nav-sidebar> li > a:hover, 
 .nav-sidebar> li > a:focus {
   background: none;
-  color: #1378b9;
+  color: #9f0202;
 }
 
 .nav-sidebar > li.active > a {
-  color: #2196F3;
+  color: #b80303;
 }
 
 
@@ -164,7 +168,7 @@ textarea.code {
 
 .table-files .selected,
 .iconset .thumbnail.selected {
-  background: #2196F3;
+  background: #b80303;
 }
 
 .iconset .thumbnail.selected,
@@ -242,7 +246,7 @@ textarea.code {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  color: #2196F3;
+  color: #b80303;
   font-size: 8em;
   font-family: 'Glyphicons Halflings';
 }
@@ -267,12 +271,12 @@ table th > a:focus {
 }
 
 .sortorder:after {
-  color: #2196f3;
+  color: #b80303;
   content: '\25bc';
 }
 
 .sortorder.reverse:after {
-  color: #2196f3;
+  color: #b80303;
   content: '\25b2';
 }
 
@@ -358,7 +362,7 @@ table th > a:focus {
 }
 
 .selected .item-extension::after {
-  color: #2196F3;
+  color: #b80303;
 }
 
 .form-control.search-input {
@@ -443,4 +447,56 @@ table th > a:focus {
   width: 18px;
   height: 18px;
   line-height: 100%;
+}
+
+.navbar-inverse, .btn-danger{
+  background-color:#b80303;
+}
+
+a{
+  color:#b80303;
+}
+
+.navbar-inverse .breadcrumb > .active{
+  color:#f5d3d5 !important;
+}
+
+a:hover{
+  color: #9f0202;
+}
+
+.navbar a:hover{
+  color:#f5d3d5 !important;
+}
+
+textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus{
+  -webkit-box-shadow: inset 0 -2px 0 #b80303;
+  box-shadow: inset 0 -2px 0 #b80303;
+}
+
+.login-page h3 .logo{
+  float:left;
+  height:120px;
+  display:block;
+  margin-top:-4px;
+}
+
+.login-page h3{
+  font-size:2.2em;
+  margin:2em 0 1em;
+  line-height:120px;
+}
+
+.login-page .btn-login{
+  margin-top:1.5em;
+}
+
+.file-manager-container{
+  margin-left:-15px;
+  margin-right:-15px;
+}
+
+.navbar .logo{
+  margin-top:2px;
+  margin-right:20px;
 }

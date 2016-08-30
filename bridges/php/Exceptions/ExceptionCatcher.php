@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPClassic;
+namespace FileManager\Exceptions;
 
 use Exception;
 
@@ -18,7 +18,7 @@ abstract class ExceptionCatcher
     /**
      * @param Exception $oExp
      */
-    public static function handle(Exception $oExp)
+    public static function handle($oExp)
     {
         echo static::draw($oExp);
     }
@@ -27,7 +27,7 @@ abstract class ExceptionCatcher
      * @param Exception $oExp
      * @return string
      */
-    public static function draw(Exception $oExp)
+    public static function draw($oExp)
     {
         $details = static::buildDetails($oExp);
         $content = sprintf('<h3>Exception: %s</h3>', $oExp->getMessage());
@@ -65,7 +65,7 @@ abstract class ExceptionCatcher
      * @param Exception $oExp
      * @return array
      */
-    protected function buildDetails(Exception $oExp)
+    protected function buildDetails($oExp)
     {
         $arr = array();
         $arr[] = static::getDetails($oExp->getFile(), $oExp->getLine());

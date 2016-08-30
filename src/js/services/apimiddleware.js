@@ -21,6 +21,14 @@
             return item && item.model.fullPath();
         };
 
+        ApiMiddleware.prototype.logout = function() {
+            return this.apiHandler.logout(fileManagerConfig.logoutUrl);
+        };
+
+        ApiMiddleware.prototype.login = function(credentials) {
+            return this.apiHandler.login(fileManagerConfig.loginUrl, credentials);
+        };
+
         ApiMiddleware.prototype.list = function(path, customDeferredHandler) {
             return this.apiHandler.list(fileManagerConfig.listUrl, this.getPath(path), customDeferredHandler);
         };
