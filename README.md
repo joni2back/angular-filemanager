@@ -47,6 +47,7 @@ This project is under free license. If you want to support the angular-filemanag
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-translate/angular-translate.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/file-saver/FileSaver.js"></script>
   <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
 
 <!-- angular-filemanager -->
