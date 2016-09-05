@@ -43,9 +43,9 @@ This project is under free license. If you want to support the angular-filemanag
 **2) Include the dependencies in your project**
 ```html
 <!-- third party -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-translate/angular-translate.min.js"></script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
 
