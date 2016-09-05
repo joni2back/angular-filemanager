@@ -63,7 +63,8 @@ gulp.task('lint', function () {
       },
       'globals': {
           'angular': true,
-          'jQuery': true
+          'jQuery': true,
+          'saveAs': true
       },
       'extends': 'eslint:recommended'
     }))
