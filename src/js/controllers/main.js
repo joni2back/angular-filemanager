@@ -125,7 +125,7 @@
             }
 
             if (typeof $scope.config.pickCallback === 'function' && pick) {
-                var callbackSuccess = $scope.config.pickCallback(item.model);
+                var callbackSuccess = $scope.config.pickCallback(item.model,$scope,$rootScope);
                 if (callbackSuccess === true) {
                     return;
                 }
