@@ -228,8 +228,8 @@
             var self = this;
             var url = this.getUrl(apiUrl, itemPath);
 
-            if (!downloadByAjax || forceNewWindow || !$window.saveAs) {
-                !$window.saveAs && $window.console.log('Your browser dont support ajax download, downloading by default');
+            if (!downloadByAjax || forceNewWindow) {
+                $window.console.log('Your browser dont support ajax download, downloading by default');
                 return !!$window.open(url, '_blank', '');
             }
             
@@ -238,7 +238,7 @@
             $http.get(url).success(function(data) {
                 var bin = new $window.Blob([data]);
                 deferred.resolve(data);
-                $window.saveAs(bin, toFilename);
+                saveAs(bin, toFilename);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_downloading'));
             })['finally'](function() {
@@ -257,8 +257,8 @@
             };
             var url = [apiUrl, $.param(data)].join('?');
 
-            if (!downloadByAjax || forceNewWindow || !$window.saveAs) {
-                !$window.saveAs && $window.console.log('Your browser dont support ajax download, downloading by default');
+            if (!downloadByAjax || forceNewWindow) {
+                $window.console.log('Your browser dont support ajax download, downloading by default');
                 return !!$window.open(url, '_blank', '');
             }
             
@@ -266,7 +266,7 @@
             $http.get(apiUrl).success(function(data) {
                 var bin = new $window.Blob([data]);
                 deferred.resolve(data);
-                $window.saveAs(bin, toFilename);
+                saveAs(bin, toFilename);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_downloading'));
             })['finally'](function() {
