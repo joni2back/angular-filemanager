@@ -21,12 +21,12 @@
   "homepage": "https://github.com/joni2back/angular-filemanager#readme",
   "devDependencies": {
     "bower": "^1.7.9",
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-angular-templatecache": "^1.9.1",
+    "gulp-clean-css": "^2.0.12",
     "gulp-concat": "^2.6.0",
-    "gulp-clean-css": "^2.0.7",
-    "gulp-uglify": "^1.5.3",
-    "gulp-eslint": "^2.0.0",
-    "del": "^2.2.0"
+    "gulp-eslint": "^2.1.0",
+    "gulp-uglify": "^1.5.4"
   }
 }

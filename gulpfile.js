@@ -26,7 +26,7 @@ gulp.task('cache-templates', function () {
     .pipe(templateCache(jsFile, {
       module: 'FileManagerApp',
       base: function(file) {
-        return tplPath + '/' + path.basename(file.history);
+        return tplPath + '/' + path.basename(file.history[0]);
       }
     }))
     .pipe(gulp.dest(dst));

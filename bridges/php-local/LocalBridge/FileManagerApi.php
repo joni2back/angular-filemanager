@@ -189,13 +189,22 @@ class FileManagerApi
 
     private function downloadAction($path)
     {
+        $file_name = basename($path);
         $path = $this->basePath . $path;
 
         if (! file_exists($path)) {
             return false;
         }
 
-        header('Cache-Control: must-revalidate');
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $path);
+        finfo_close($finfo);
+
+        if (ob_get_level()) ob_end_clean();
+
+        header("Content-Disposition: attachment; filename=\"$file_name\"");
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header("Content-Type: $mime_type");
         header('Pragma: public');
         header('Content-Length: ' . filesize($path));
         readfile($path);
