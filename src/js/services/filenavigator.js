@@ -21,6 +21,9 @@
             if (code == 404) {
                 this.error = 'Error 404 - Backend bridge is not working, please check the ajax response.';
             }
+            if (code == 200) {
+                this.error = '';
+            }
             if (!this.error && data.result && data.result.error) {
                 this.error = data.result.error;
             }
