@@ -28,7 +28,7 @@
         menu.hide().css({
             left: e.pageX,
             top: e.pageY
-        }).show();
+        }).appendTo('body').show();
         e.preventDefault();
     });
 
