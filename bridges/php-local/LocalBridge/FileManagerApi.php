@@ -377,6 +377,7 @@ class FileManagerApi
         );
 
         foreach ($iterator as $item) {
+          $item = iconv('UTF-8', SYSTEM_coding, $item);
           $changed = chmod($this->basePath . $item, octdec($permissions));
 
           if ($changed === false) {
@@ -390,6 +391,9 @@ class FileManagerApi
   }
 
   private function compressAction($paths, $destination, $archiveName) {
+    return 'pass';
+    $destination = iconv('UTF-8', SYSTEM_coding, $destination);
+    $archiveName = iconv('UTF-8', SYSTEM_coding, $archiveName);
     $archivePath = $this->basePath . $destination . $archiveName;
 
     $zip = new ZipArchive();
@@ -406,6 +410,7 @@ class FileManagerApi
   }
 
   private function extractAction($destination, $archivePath, $folderName) {
+    return 'pass';
     $archivePath = $this->basePath . iconv('UTF-8', SYSTEM_coding, $archivePath);
     $folderPath = $this->basePath . rtrim(iconv('UTF-8', SYSTEM_coding, $destination), '/') . '/' . $folderName;
 
@@ -507,7 +512,7 @@ class FileManagerApi
       }
     }
 
-    $array = array_merge($b, $a);
+    $array = array_merge($a, $b);
 
     return $array;
 
