@@ -150,6 +150,10 @@
             });
         };
 
+        FileNavigator.prototype.getCurrentFolderName = function() {
+            return this.currentPath.slice(-1)[0] || '/';
+        };
+
         return FileNavigator;
     }]);
 })(angular);
