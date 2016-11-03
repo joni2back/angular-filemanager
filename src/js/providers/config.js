@@ -20,6 +20,7 @@
             compressUrl: 'bridges/php/handler.php',
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
+            basePath: '/',
 
             searchForm: true,
             sidebar: true,
@@ -44,6 +45,7 @@
             },
 
             multipleDownloadFileName: 'angular-filemanager.zip',
+            filterFileExtensions: [],
             showExtensionIcons: true,
             showSizeForDirectories: false,
             useBinarySizePrefixes: false,

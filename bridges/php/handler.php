@@ -274,6 +274,13 @@ if (Request::getQuery('action') === 'download') {
     $fileName = explode('/', $filePath);
     $fileName = end($fileName);
     $tmpFilePath = $oFtp->downloadTemp($filePath);
+
+    @register_shutdown_function(function() use ($tmpFilePath) {
+        if (file_exists($tmpFilePath)) {
+            @unlink($tmpFilePath);
+        }
+    });
+
     if ($fileContent = @file_get_contents($tmpFilePath)) {
         $oResponse->setData($fileContent);
         $oResponse->setHeaders(array(
