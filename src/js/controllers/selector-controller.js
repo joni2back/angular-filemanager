@@ -14,7 +14,7 @@
         };
 
         $scope.select = function(item) {
-            $rootScope.selectedModalPath = item.model.fullPath().split('/');
+            $rootScope.selectedModalPath = item.model.fullPath().split('/').filter(Boolean);
             $scope.modal('selector', true);
         };
 
