@@ -6,9 +6,9 @@ define('SYSTEM_coding', 'GBK');
 
 /**
  *  PHP Local filesystem bridge for angular-filemanager
- *  
- *  @author Jakub Ďuraš <jakub@duras.me>
- *  @version 0.1.0
+ *
+ * @author Jakub Ďuraš <jakub@duras.me>
+ * @version 0.1.0
  */
 include 'LocalBridge/Response.php';
 include 'LocalBridge/Rest.php';
@@ -23,11 +23,24 @@ $fileManagerApi = new FileManagerApi($base_path);
 
 $rest = new Rest();
 $rest->post([$fileManagerApi, 'postHandler'])
-     ->get([$fileManagerApi, 'getHandler'])
-     ->handle();
+  ->get([$fileManagerApi, 'getHandler'])
+  ->handle();
 
 function sbasename($filename) {
   return preg_replace('/^.*[\\\\\\/]/', '', $filename);
+}
+
+function getFilesize($file) {
+  $size = filesize($file);
+  if ($size < 0) {
+    if ((strtoupper(substr(PHP_OS, 0, 3)) == 'WIN')) {
+      exec('for %I in ("' . $file . '") do @echo %~zI', $output);
+      $size = $output[0];
+    } else {
+      $size = trim(`stat -c%s $file`);
+    }
+  }
+  return $size;
 }
 
 function debugLog($msg) {

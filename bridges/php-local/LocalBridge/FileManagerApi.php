@@ -202,7 +202,7 @@ class FileManagerApi
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
     header("Content-Type: $mime_type");
     header('Pragma: public');
-    header('Content-Length: ' . filesize($path));
+    header('Content-Length: ' . getFilesize($path));
     readfile($path);
 
     return true;
@@ -251,7 +251,7 @@ class FileManagerApi
           'name' => iconv(mb_detect_encoding($file, array('ASCII', 'UTF-8', 'GB2312', 'GBK', 'BIG5')), 'UTF-8', $file),
           'type' => is_dir($current_path . DIRECTORY_SEPARATOR . $file) ? 'dir' : 'file',
           'rights' => $this->parsePerms(fileperms($current_path . DIRECTORY_SEPARATOR . $file)),
-          'size' => filesize($current_path . DIRECTORY_SEPARATOR . $file),
+          'size' => getFilesize($current_path . DIRECTORY_SEPARATOR . $file),
           'date' => date('Y-m-d H:i:s', filemtime($current_path . DIRECTORY_SEPARATOR . $file))
         ];
       }
