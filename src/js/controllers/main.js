@@ -156,6 +156,16 @@
                 });
         };
 
+        $scope.openDwonloadLink = function() {
+            var item = $scope.singleSelection();
+            $scope.modal('downloadlink', null, true)
+                .find('#downloadlink-target')
+                .val(window.location.protocol + '//' + window.location.hostname + '/' + $scope.apiMiddleware.getUrl(item))
+                .on('focus', function() {
+                    this.select();
+                });
+        };
+
         $scope.openEditItem = function() {
             var item = $scope.singleSelection();
             $scope.apiMiddleware.getContent(item).then(function(data) {

@@ -1,0 +1,18 @@
+{
+	"function_not_implemented": "功能未实现",
+	"file_not_found": "没有找到文件",
+	"listing_filed": "获取列表失败",
+	"moving_failed": "移动失败",
+	"renaming_failed": "重命名失败",
+	"copying_failed": "复制失败",
+	"removing_failed": "删除失败",
+	"removing_failed_directory_not_empty": "删除失败，您正要删除的文件夹不是空的",
+	"saving_failed": "保存失败",
+	"folder_already_exists": "文件夹已存在",
+	"folder_creation_failed": "新建文件夹失败",
+	"permissions_change_failed": "修改权限失败",
+	"compression_failed": "压缩失败",
+	"archive_opening_failed": "无法打开压缩包，有错误或不支持",
+	"extraction_failed": "解压缩失败",
+	"upload_failed": "上传失败"
+}
