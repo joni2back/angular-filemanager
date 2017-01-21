@@ -190,6 +190,7 @@
 
         $scope.changePermissions = function() {
             $scope.apiMiddleware.changePermissions($scope.temps, $scope.temp).then(function() {
+                $scope.fileNavigator.refresh();
                 $scope.modal('changepermissions', true);
             });
         };
