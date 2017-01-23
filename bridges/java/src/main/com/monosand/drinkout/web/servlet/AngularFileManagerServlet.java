@@ -221,11 +221,9 @@ public class AngularFileManagerServlet extends HttpServlet {
             // if request contains multipart-form-data
             if (ServletFileUpload.isMultipartContent(request)) {
                 if (isSupportFeature(Mode.upload)) {
-                    if (Boolean.TRUE.equals(enabledAction.get(Mode.upload))) {
-                        uploadFile(request, response);
-                    } else {
-                        setError(new IllegalAccessError(notSupportFeature(Mode.upload).getAsString("error")), response);
-                    }
+                    uploadFile(request, response);
+                } else {
+                    setError(new IllegalAccessError(notSupportFeature(Mode.upload).getAsString("error")), response);
                 }
             } // all other post request has jspn params in body
             else {
@@ -270,13 +268,14 @@ public class AngularFileManagerServlet extends HttpServlet {
             try {
                 String destination = null;
                 Map<String, InputStream> files = new HashMap<>();
-
-                List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                ServletFileUpload sfu = new ServletFileUpload(new DiskFileItemFactory());
+                sfu.setHeaderEncoding("UTF-8");
+                List<FileItem> items = sfu.parseRequest(request);
                 for (FileItem item : items) {
                     if (item.isFormField()) {
                         // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
                         if ("destination".equals(item.getFieldName())) {
-                            destination = item.getString();
+                            destination = item.getString("UTF-8");
                         }
                     } else {
                         // Process form file field (input type="file").
