@@ -21,6 +21,7 @@
             extractUrl: 'bridges/php/handler.php',
             permissionsUrl: 'bridges/php/handler.php',
             basePath: '/',
+            tokenString: '',
 
             searchForm: true,
             sidebar: true,
