@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+    <!--Disable static path check to reduce processing time. 不過濾特定路徑以節省時間-->
+    <http pattern="/bower_components/**" security="none"/>
+    <http pattern="/dist/**" security="none"/>
+    <http pattern="/favicon.ico" security="none"/>
+    <http use-expressions="true"  disable-url-rewriting="true"  create-session="always" auto-config="false">
+        <intercept-url pattern="/login" access="permitAll" requires-channel="any"/>
+        <intercept-url pattern="/logout" access="permitAll" requires-channel="any"/>
+        <intercept-url pattern="/bridges/**" access="hasRole('ROLE_USER')" requires-channel="any"/>
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" requires-channel="any"/>
+        <csrf disabled="true"/>
+        <headers>
+            <cache-control/>
+            <content-type-options disabled="true"/>
+            <frame-options disabled="true"/>
+            <hsts disabled="true"/>
+            <xss-protection/>
+        </headers>
+        <form-login/>
+        <http-basic />
+        <logout />
+        <session-management session-fixation-protection="migrateSession"/>
+        <csrf disabled="true"/>
+        <headers>
+            <cache-control/>
+            <content-type-options/>
+            <frame-options/>
+            <hsts disabled="true"/>
+            <xss-protection/>
+        </headers>
+    </http>
+    
+    <authentication-manager alias="authenticationManager">
+        <!--Determine user roles by yourself.自定義用戶權限-->
+        <authentication-provider>
+            <password-encoder hash="plaintext"/>
+            <user-service>
+                <user name="user" password="user" authorities="ROLE_USER" />
+                <user name="john" password="smith" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

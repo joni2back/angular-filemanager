@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-9 col-md-10 hidden-xs">
                 <div ng-show="!config.breadcrumb">
-                    <a class="navbar-brand hidden-xs ng-binding" href="">angular-filemanager</a>
+                    <a class="navbar-brand hidden-xs ng-binding" href="">angular-{{"filemanager" | translate}}</a>
                 </div>
                 <div ng-include="config.tplPath + '/current-folder-breadcrumb.html'" ng-show="config.breadcrumb">
                 </div>
@@ -40,20 +40,21 @@
                             </button>
 
                             <ul class="dropdown-menu scrollable-menu animated fast fadeIn pull-right" role="menu" aria-labelledby="dropDownMenuLang">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('en')">{{"english" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('zh')">{{"chinese" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('es')">{{"spanish" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pt')">{{"portuguese" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fr')">{{"french" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('de')">{{"german" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('he')">{{"hebrew" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('it')">{{"italian" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('sk')">{{"slovak" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ru')">{{"russian" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ua')">{{"ukrainian" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('tr')">{{"turkish" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fa')">{{"persian" | translate}}</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pl')">{{"polish" | translate}}</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('en')">English</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('zh_tw')">正體中文</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('zh_cn')">简体中文</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('es')">Español</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pt')">Portugues</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fr')">Français</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('de')">Deutsch</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('he')">עברי</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('it')">italiano</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('sk')">Slovenčina</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ru')">русский</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('ua')">український</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('tr')">Türkçe</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('fa')">فارسی</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="" ng-click="changeLanguage('pl')">Polski</a></li>
                             </ul>
                         </div>
 
