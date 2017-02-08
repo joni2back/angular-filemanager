@@ -6,7 +6,10 @@
     "Jonas Sciangula Street <joni2back@gmail.com>"
   ],
   "description": "A very smart filemanager to manage your files in the browser.",
-  "main": "js/app.js",
+  "main": [
+    "dist/angular-filemanager.min.css",
+    "dist/angular-filemanager.min.js"
+  ],
   "keywords": [
     "filemanager"
   ],
