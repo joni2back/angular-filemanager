@@ -13,6 +13,10 @@
 
         var queryToken =  '?t=' + fileManagerConfig.fileSystemToken;
 
+        if (fileManagerConfig.typeQueryString != '') {
+            queryToken = queryToken + '&type=' + fileManagerConfig.typeQueryString;
+        }
+
         ApiHandler.prototype.deferredHandler = function(data, deferred, code, defaultMsg) {
             if (!data || typeof data !== 'object') {
                 this.error = 'Error %s - Bridge response error, please check the API docs or this ajax response.'.replace('%s', code);
