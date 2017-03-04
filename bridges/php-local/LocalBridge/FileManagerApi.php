@@ -245,7 +245,7 @@ class FileManagerApi
         $files = array_map(function ($file) {
             $date = new \DateTime('@' . filemtime($file));
             return [
-                'name' => utf8_encode(basename($file)),
+                'name' => basename($file),
                 'rights' => $this->parsePerms(fileperms($file)),
                 'size' => filesize($file),
                 'date' => $date->format('Y-m-d H:i:s'),
