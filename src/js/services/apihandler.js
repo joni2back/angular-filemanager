@@ -1,7 +1,7 @@
 (function(angular, $) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'Upload',
-        function ($http, $q, $window, $translate, Upload) {
+    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'Upload', 'fileManagerConfig',
+        function ($http, $q, $window, $translate, Upload, fileManagerConfig) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -10,6 +10,12 @@
             this.asyncSuccess = false;
             this.error = '';
         };
+
+        var queryToken =  '?t=' + fileManagerConfig.fileSystemToken;
+
+        if (fileManagerConfig.typeQueryString != '') {
+            queryToken = queryToken + '&type=' + fileManagerConfig.typeQueryString;
+        }
 
         ApiHandler.prototype.deferredHandler = function(data, deferred, code, defaultMsg) {
             if (!data || typeof data !== 'object') {
@@ -46,7 +52,7 @@
             self.inprocess = true;
             self.error = '';
 
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 dfHandler(data, deferred, code);
             }).error(function(data, code) {
                 dfHandler(data, deferred, code, 'Unknown error listing, check the response');
@@ -71,7 +77,7 @@
             
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_copying'));
@@ -91,7 +97,7 @@
             };
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_moving'));
@@ -111,7 +117,7 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_deleting'));
@@ -138,7 +144,7 @@
 
             if (files && files.length) {
                 Upload.upload({
-                    url: apiUrl,
+                    url: apiUrl + queryToken,
                     data: data
                 }).then(function (data) {
                     self.deferredHandler(data.data, deferred, data.status);
@@ -165,7 +171,7 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_getting_content'));
@@ -187,7 +193,7 @@
             self.inprocess = true;
             self.error = '';
 
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_modifying'));
@@ -207,7 +213,7 @@
             };
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_renaming'));
@@ -220,7 +226,8 @@
         ApiHandler.prototype.getUrl = function(apiUrl, path) {
             var data = {
                 action: 'download',
-                path: path
+                path: path,
+                t: fileManagerConfig.fileSystemToken
             };
             return path && [apiUrl, $.param(data)].join('?');
         };
@@ -254,7 +261,8 @@
             var data = {
                 action: 'downloadMultiple',
                 items: items,
-                toFilename: toFilename
+                toFilename: toFilename,
+                t: fileManagerConfig.fileSystemToken
             };
             var url = [apiUrl, $.param(data)].join('?');
 
@@ -288,7 +296,7 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_compressing'));
@@ -310,7 +318,7 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_extracting'));
@@ -333,7 +341,7 @@
             
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_changing_perms'));
@@ -353,7 +361,7 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
+            $http.post(apiUrl + queryToken, data).success(function(data, code) {
                 self.deferredHandler(data, deferred, code);
             }).error(function(data, code) {
                 self.deferredHandler(data, deferred, code, $translate.instant('error_creating_folder'));

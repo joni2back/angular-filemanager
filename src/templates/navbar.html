@@ -12,7 +12,7 @@
                 <div class="navbar-collapse">
                     <div class="navbar-form navbar-right text-right">
                         <div class="pull-left visible-xs" ng-if="fileNavigator.currentPath.length">
-                            <button class="btn btn-primary btn-flat" ng-click="fileNavigator.upDir()">
+                            <button type="button" class="btn btn-primary btn-flat" ng-click="fileNavigator.upDir()">
                                 <i class="glyphicon glyphicon-chevron-left"></i>
                             </button>
                             {{fileNavigator.getCurrentFolderName() | strLimit : 12}}
@@ -26,11 +26,11 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-icons.html')" ng-show="$parent.viewTemplate !=='main-icons.html'" title="{{'icons' | translate}}">
+                        <button type="button" class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-icons.html')" ng-show="$parent.viewTemplate !=='main-icons.html'" title="{{'icons' | translate}}">
                             <i class="glyphicon glyphicon-th-large"></i>
                         </button>
 
-                        <button class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-table.html')" ng-show="$parent.viewTemplate !=='main-table.html'" title="{{'list' | translate}}">
+                        <button type="button" class="btn btn-flat btn-sm" ng-click="$parent.setTemplate('main-table.html')" ng-show="$parent.viewTemplate !=='main-table.html'" title="{{'list' | translate}}">
                             <i class="glyphicon glyphicon-th-list"></i>
                         </button>
 
