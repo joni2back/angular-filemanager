@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
     <li>
         <a href="" ng-click="fileNavigator.goTo(-1)">
-            {{ config.appName }}
+            {{"filemanager" | translate}}
         </a>
     </li>
     <li ng-repeat="(key, dir) in fileNavigator.currentPath track by key" ng-class="{'active':$last}" class="animated fast fadeIn">
