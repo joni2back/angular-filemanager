@@ -264,7 +264,7 @@
 <div class="modal animated fadeIn" id="uploadfile">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form ng-submit="uploadFiles()">
+        <form>
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">
                   <span aria-hidden="true">&times;</span>
@@ -303,7 +303,7 @@
             <div class="modal-footer">
               <div>
                   <button type="button" class="btn btn-default" data-dismiss="modal">{{"cancel" | translate}}</button>
-                  <button type="submit" class="btn btn-primary" ng-disabled="!$parent.uploadFileList.length || apiMiddleware.apiHandler.inprocess">{{'upload' | translate}}</button>
+                  <button type="submit" class="btn btn-primary" ng-disabled="!$parent.uploadFileList.length || apiMiddleware.apiHandler.inprocess" ng-click="uploadFiles()">{{'upload' | translate}}</button>
               </div>
             </div>
         </form>
