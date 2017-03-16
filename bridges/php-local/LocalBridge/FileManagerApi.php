@@ -5,7 +5,7 @@ namespace AngularFilemanager\LocalBridge;
  * File Manager API Class
  *
  * Made for PHP Local filesystem bridge for angular-filemanager to handle file manipulations
- * @author       Jakub Ďuraš <jakub@duras.me> 
+ * @author Jakub Ďuraš <jakub@duras.me>
  */
 class FileManagerApi
 {
@@ -28,7 +28,10 @@ class FileManagerApi
         $t = $this->translate;
         
         // Probably file upload
-        if (!isset($request['action']) && (isset($_SERVER["CONTENT_TYPE"]) && strpos($_SERVER["CONTENT_TYPE"], 'multipart/form-data') !== false)) {
+        if (!isset($request['action'])
+            && (isset($_SERVER["CONTENT_TYPE"])
+            && strpos($_SERVER["CONTENT_TYPE"], 'multipart/form-data') !== false)
+        ) {
             $uploaded = $this->uploadAction($request['destination'], $files);
             if ($uploaded === true) {
                 $response = $this->simpleSuccessResponse();
@@ -57,7 +60,7 @@ class FileManagerApi
                 $renamed = $this->renameAction($request['item'], $request['newItemPath']);
                 if ($renamed === true) {
                     $response = $this->simpleSuccessResponse();
-                } elseif ($renamed === 'notfound'){
+                } elseif ($renamed === 'notfound') {
                     $response = $this->simpleErrorResponse($t->file_not_found);
                 } else {
                     $response = $this->simpleErrorResponse($t->renaming_failed);
@@ -137,7 +140,11 @@ class FileManagerApi
                 break;
 
             case 'compress':
-                $compressed = $this->compressAction($request['items'], $request['destination'], $request['compressedFilename']);
+                $compressed = $this->compressAction(
+                    $request['items'],
+                    $request['destination'],
+                    $request['compressedFilename']
+                );
                 if ($compressed === true) {
                     $response = $this->simpleSuccessResponse();
                 } else {
@@ -192,7 +199,7 @@ class FileManagerApi
         $file_name = basename($path);
         $path = $this->basePath . $path;
 
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             return false;
         }
 
@@ -200,7 +207,9 @@ class FileManagerApi
         $mime_type = finfo_file($finfo, $path);
         finfo_close($finfo);
 
-        if (ob_get_level()) ob_end_clean();
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
 
         header("Content-Disposition: attachment; filename=\"$file_name\"");
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -218,7 +227,7 @@ class FileManagerApi
 
         foreach ($_FILES as $file) {
             $uploaded = move_uploaded_file(
-                $file['tmp_name'], 
+                $file['tmp_name'],
                 rtrim($path, '/') . '/' . $file['name']
             );
             if ($uploaded === false) {
@@ -227,16 +236,16 @@ class FileManagerApi
         }
 
         return true;
-    }    
+    }
 
     private function listAction($path)
     {
         $files = glob($this->basePath . rtrim($path, '/') . '/*');
 
-        $files = array_map(function($file){
+        $files = array_map(function ($file) {
             $date = new \DateTime('@' . filemtime($file));
             return [
-                'name' => utf8_encode(basename($file)),
+                'name' => basename($file),
                 'rights' => $this->parsePerms(fileperms($file)),
                 'size' => filesize($file),
                 'date' => $date->format('Y-m-d H:i:s'),
@@ -287,11 +296,11 @@ class FileManagerApi
             }
 
             $copied = copy(
-                $this->basePath . $oldPath, 
+                $this->basePath . $oldPath,
                 $newPath . basename($oldPath)
             );
             if ($copied === false) {
-                return false; 
+                return false;
             }
         }
 
@@ -354,15 +363,17 @@ class FileManagerApi
     private function changePermissionsAction($paths, $permissions, $recursive)
     {
         foreach ($paths as $path) {
-            if (!file_exists($this->basePath . $path)) return 'missing';
+            if (!file_exists($this->basePath . $path)) {
+                return 'missing';
+            }
 
             if (is_dir($path) && $recursive === true) {
                 $iterator = new RecursiveIteratorIterator(
-                    new RecursiveDirectoryIterator($path), 
+                    new RecursiveDirectoryIterator($path),
                     RecursiveIteratorIterator::SELF_FIRST
                 );
 
-                foreach($iterator as $item) {
+                foreach ($iterator as $item) {
                     $changed = chmod($this->basePath . $item, octdec($permissions));
                     
                     if ($changed === false) {
@@ -423,11 +434,11 @@ class FileManagerApi
         $response = new Response();
         $response
             ->setStatus(500, 'Internal Server Error')
-             ->setData([
-                  'result' => [
+            ->setData([
+                'result' => [
                     'success' => false,
                     'error' => $message
-                 ]
+                ]
             ]);
 
         return $response;
