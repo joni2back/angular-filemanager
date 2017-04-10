@@ -103,7 +103,7 @@ class Rest
         if (isset($_GET)) {
             $queries = $_GET;
         }
-        
+
         if (isset($this->callbacks['before'])) {
             $this->callbacks['before']($queries, $body['data'], $body['files']);
         }
@@ -150,17 +150,17 @@ class Rest
         $data = null;
         $files = null;
 
-        if (isset($_POST) || !empty($_POST)) {
+        if (isset($_POST) && !empty($_POST)) {
             $data = $_POST;
         }
 
-        if (isset($_FILES) || !empty($_FILES)) {
+        if (isset($_FILES) && !empty($_FILES)) {
             $files = $_FILES;
         }
 
         //In case of PUT request or request with json body
         if ($data === null) {
-            if (isset($_SERVER["CONTENT_TYPE"]) || strpos($_SERVER["CONTENT_TYPE"], 'application/json') !== false) {
+            if (isset($_SERVER["CONTENT_TYPE"]) && strpos($_SERVER["CONTENT_TYPE"], 'application/json') !== false) {
                 $input = file_get_contents('php://input');
 
                 $data = json_decode($input, true);
@@ -190,7 +190,7 @@ class Rest
 
         if (isset($headers['Authorization'])) {
             $token = str_replace('Token ', '', $headers['Authorization']);
-            
+
             $authenticated = token::verify($token);
         }
 
