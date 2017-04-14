@@ -5,7 +5,7 @@ namespace AngularFilemanager\LocalBridge;
  *  PHP Local filesystem bridge for angular-filemanager
  *
  *  @author Jakub Ďuraš <jakub@duras.me>
- *  @version 0.1.0
+ *  @version 0.2.0
  */
 include 'LocalBridge/Response.php';
 include 'LocalBridge/Rest.php';
