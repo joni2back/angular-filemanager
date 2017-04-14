@@ -158,18 +158,12 @@ class Rest
             $files = $_FILES;
         }
 
-        //In case of PUT request or request with json body
+        //In case of request with json body
         if ($data === null) {
             if (isset($_SERVER["CONTENT_TYPE"]) && strpos($_SERVER["CONTENT_TYPE"], 'application/json') !== false) {
                 $input = file_get_contents('php://input');
 
                 $data = json_decode($input, true);
-            } else {
-                $stream = [];
-                new stream($stream);
-
-                $data = $stream['post'];
-                $files = $stream['file'];
             }
         }
 
