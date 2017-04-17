@@ -174,7 +174,7 @@ class FileManagerApi
     public function getHandler($queries)
     {
         $t = $this->translate;
-        
+
         switch ($queries['action']) {
             case 'download':
                 $downloaded = $this->downloadAction($queries['path']);
@@ -185,7 +185,17 @@ class FileManagerApi
                 }
                 
                 break;
-            
+
+            case 'downloadMultiple':
+                $downloaded = $this->downloadMultipleAction($queries['items'], $queries['toFilename']);
+                if ($downloaded === true) {
+                    exit;
+                } else {
+                    $response = $this->simpleErrorResponse($t->file_not_found);
+                }
+
+                break;
+
             default:
                 $response = $this->simpleErrorResponse($t->function_not_implemented);
                 break;
@@ -217,6 +227,34 @@ class FileManagerApi
         header('Pragma: public');
         header('Content-Length: ' . filesize($path));
         readfile($path);
+
+        return true;
+    }
+
+    private function downloadMultipleAction($items, $archiveName)
+    {
+        $archivePath = tempnam('../', 'archive');
+
+        $zip = new \ZipArchive();
+        if ($zip->open($archivePath, \ZipArchive::CREATE) !== true) {
+            unlink($archivePath);
+            return false;
+        }
+
+        foreach ($items as $path) {
+            $zip->addFile($this->basePath . $path, basename($path));
+        }
+
+        $zip->close();
+
+        header("Content-Disposition: attachment; filename=\"$archiveName\"");
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header("Content-Type: application/zip");
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($archivePath));
+        readfile($archivePath);
+
+        unlink($archivePath);
 
         return true;
     }
@@ -390,8 +428,8 @@ class FileManagerApi
     {
         $archivePath = $this->basePath . $destination . $archiveName;
 
-        $zip = new ZipArchive();
-        if ($zip->open($archivePath, ZipArchive::CREATE) !== true) {
+        $zip = new \ZipArchive();
+        if ($zip->open($archivePath, \ZipArchive::CREATE) !== true) {
             return false;
         }
 
@@ -407,7 +445,7 @@ class FileManagerApi
         $archivePath = $this->basePath . $archivePath;
         $folderPath = $this->basePath . rtrim($destination, '/') . '/' . $folderName;
 
-        $zip = new ZipArchive;
+        $zip = new \ZipArchive;
         if ($zip->open($archivePath) === false) {
             return 'unsupported';
         }
