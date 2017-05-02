@@ -207,7 +207,7 @@ class FileManagerApi
     private function downloadAction($path)
     {
         $file_name = basename($path);
-        $path = $this->basePath . $path;
+        $path = $this->canonicalizePath($this->basePath . $path);
 
         if (!file_exists($path)) {
             return false;
@@ -261,12 +261,12 @@ class FileManagerApi
 
     private function uploadAction($path, $files)
     {
-        $path = $this->basePath . $path;
+        $path = $this->canonicalizePath($this->basePath . $path);
 
         foreach ($_FILES as $file) {
             $uploaded = move_uploaded_file(
                 $file['tmp_name'],
-                rtrim($path, '/') . '/' . $file['name']
+                $path . DIRECTORY_SEPARATOR . $this->normalizeName($file['name'])
             );
             if ($uploaded === false) {
                 return false;
@@ -278,10 +278,19 @@ class FileManagerApi
 
     private function listAction($path)
     {
-        $files = glob($this->basePath . rtrim($path, '/') . '/*');
+        $files = array_values(array_filter(
+            scandir($this->basePath . $path),
+            function ($path) {
+                return !($path === '.' || $path === '..');
+            }
+        ));
 
-        $files = array_map(function ($file) {
+        $files = array_map(function ($file) use ($path) {
+            $file = $this->canonicalizePath(
+                $this->basePath . $path . DIRECTORY_SEPARATOR . $file
+            );
             $date = new \DateTime('@' . filemtime($file));
+
             return [
                 'name' => basename($file),
                 'rights' => $this->parsePerms(fileperms($file)),
@@ -308,10 +317,10 @@ class FileManagerApi
 
     private function moveAction($oldPaths, $newPath)
     {
-        $newPath = $this->basePath . rtrim($newPath, '/') . '/';
+        $newPath = $this->basePath . $this->canonicalizePath($newPath) . DIRECTORY_SEPARATOR;
 
         foreach ($oldPaths as $oldPath) {
-            if (! file_exists($this->basePath . $oldPath)) {
+            if (!file_exists($this->basePath . $oldPath)) {
                 return false;
             }
 
@@ -326,10 +335,10 @@ class FileManagerApi
 
     private function copyAction($oldPaths, $newPath)
     {
-        $newPath = $this->basePath . rtrim($newPath, '/') . '/';
+        $newPath = $this->basePath . $this->canonicalizePath($newPath) . DIRECTORY_SEPARATOR;
 
         foreach ($oldPaths as $oldPath) {
-            if (! file_exists($this->basePath . $oldPath)) {
+            if (!file_exists($this->basePath . $oldPath)) {
                 return false;
             }
 
@@ -348,7 +357,7 @@ class FileManagerApi
     private function removeAction($paths)
     {
         foreach ($paths as $path) {
-            $path = $this->basePath . $path;
+            $path = $this->canonicalizePath($this->basePath . $path);
 
             if (is_dir($path)) {
                 $dirEmpty = (new \FilesystemIterator($path))->valid();
@@ -434,7 +443,43 @@ class FileManagerApi
         }
 
         foreach ($paths as $path) {
-            $zip->addFile($this->basePath . $path, basename($path));
+            $fullPath = $this->basePath . $path;
+
+            if (is_dir($fullPath)) {
+                $dirs = [
+                    [
+                        'dir' => basename($path),
+                        'path' => $this->canonicalizePath($this->basePath . $path),
+                    ]
+                ];
+
+                while (count($dirs)) {
+                    $dir = current($dirs);
+                    $zip->addEmptyDir($dir['dir']);
+
+                    $dh = opendir($dir['path']);
+                    while ($file = readdir($dh)) {
+                        if ($file != '.' && $file != '..') {
+                            $filePath = $dir['path'] . DIRECTORY_SEPARATOR . $file;
+                            if (is_file($filePath)) {
+                                $zip->addFile(
+                                    $dir['path'] . DIRECTORY_SEPARATOR . $file,
+                                    $dir['dir'] . '/' . basename($file)
+                                );
+                            } elseif (is_dir($filePath)) {
+                                $dirs[] = [
+                                    'dir' => $dir['dir'] . '/' . $file,
+                                    'path' => $dir['path'] . DIRECTORY_SEPARATOR . $file
+                                ];
+                            }
+                        }
+                    }
+                    closedir($dh);
+                    array_shift($dirs);
+                }
+            } else {
+                $zip->addFile($path, basename($path));
+            }
         }
 
         return $zip->close();
@@ -443,7 +488,7 @@ class FileManagerApi
     private function extractAction($destination, $archivePath, $folderName)
     {
         $archivePath = $this->basePath . $archivePath;
-        $folderPath = $this->basePath . rtrim($destination, '/') . '/' . $folderName;
+        $folderPath = $this->basePath . $this->canonicalizePath($destination) . DIRECTORY_SEPARATOR . $folderName;
 
         $zip = new \ZipArchive;
         if ($zip->open($archivePath) === false) {
@@ -532,5 +577,54 @@ class FileManagerApi
                     (($perms & 0x0200) ? 'T' : '-'));
 
         return $info;
+    }
+
+    private function canonicalizePath($path)
+    {
+        $dirSep = DIRECTORY_SEPARATOR;
+        $wrongDirSep = DIRECTORY_SEPARATOR === '/' ? '\\' : '/';
+
+        // Replace incorrect dir separators
+        $path = str_replace($wrongDirSep, $dirSep, $path);
+
+        $path = explode($dirSep, $path);
+        $stack = array();
+        foreach ($path as $seg) {
+            if ($seg == '..') {
+                // Ignore this segment, remove last segment from stack
+                array_pop($stack);
+                continue;
+            }
+
+            if ($seg == '.') {
+                // Ignore this segment
+                continue;
+            }
+
+            $stack[] = $seg;
+        }
+
+        // Remove last /
+        if (empty($stack[count($stack) - 1])) {
+            array_pop($stack);
+        }
+
+        return implode($dirSep, $stack);
+    }
+
+    /**
+    * Creates ASCII name
+    *
+    * @param string name encoded in UTF-8
+    * @return string name containing only numbers, chars without diacritics, underscore and dash
+    * @copyright Jakub Vrána, https://php.vrana.cz/
+    */
+    private function normalizeName($name)
+    {
+        $name = preg_replace('~[^\\pL0-9_]+~u', '-', $name);
+        $name = trim($name, "-");
+        $name = iconv("utf-8", "us-ascii//TRANSLIT", $name);
+        $name = preg_replace('~[^-a-z0-9_]+~', '', $name);
+        return $name;
     }
 }
