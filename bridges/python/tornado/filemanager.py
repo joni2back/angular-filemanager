@@ -324,7 +324,7 @@ def main():
             r'/(.*)',
             tornado.web.StaticFileHandler,
             {
-                'path': os.path.join(os.path.dirname(__file__), '../..'),
+                'path': os.path.join(os.path.dirname(__file__), '../../..'),
                 'default_filename': 'index.html'
             }
         ),
