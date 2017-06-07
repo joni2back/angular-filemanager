@@ -1,11 +1,19 @@
 ## angular-filemanager
 
-A very smart filemanager to manage your files in the browser developed in AngularJS with Material-Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
+A very smart filemanager to manage your files in the browser developed in AngularJS following Material Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
+
+This project provides you a font-end interface in order to allow you to create your own backend connector following the [connector API](API.md). 
+
+By the way, we provide some backend connectors in many languages as example (ftp, local files, etc)
 
 [![Build Status](https://travis-ci.org/joni2back/angular-filemanager.svg?branch=master)](https://travis-ci.org/joni2back/angular-filemanager)
 
 ### Support
-This project is under free license. If you want to support the angular-filemanager development or just thank it's main maintainer by paying a beer, you can make a donation by clicking the following button  [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
+This project is under free license. If you want to support the angular-filemanager development or just thank it's main maintainer by paying a beer, you can make a donation by clicking the following button
+
+Donate by Paypal [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
+
+Donate by Bitcoin wallet: ```147ca6be-a6a5-4012-8209-8ec94ff340b8```
 
 
 #### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
@@ -13,7 +21,7 @@ This project is under free license. If you want to support the angular-filemanag
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot.gif)
 
 ### Features
-  - Multilanguage (English, Chinese, Spanish, Russian, Portuguese, French, German, Italian, Slovak, Hebrew, Persian, Polish, Ukrainian, Turkish)
+  - Multilanguage (English, Chinese, Spanish, Russian, Portuguese, French, German, Italian, Slovak, Hebrew, Persian, Polish, Ukrainian, Turkish, etc...)
   - Multiple templates (List / Icons)
   - Multiple file upload
   - Multiple file support
