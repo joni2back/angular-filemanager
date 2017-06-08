@@ -264,9 +264,12 @@ class FileManagerApi
         $path = $this->canonicalizePath($this->basePath . $path);
 
         foreach ($_FILES as $file) {
+            $fileInfo = pathinfo($file['name']);
+            $fileName = $this->normalizeName($fileInfo['filename']) . '.' . $fileInfo['extension'];
+
             $uploaded = move_uploaded_file(
                 $file['tmp_name'],
-                $path . DIRECTORY_SEPARATOR . $this->normalizeName($file['name'])
+                $path . DIRECTORY_SEPARATOR . $fileName
             );
             if ($uploaded === false) {
                 return false;
