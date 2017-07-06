@@ -130,8 +130,8 @@
 {
     "action": "changePermissions",
     "items": ["/public_html/root", "/public_html/index.php"],
-    "perms": "653",
-    "permsCode": "rw-r-x-wx",
+    "perms": "rw-r-x-wx",
+    "permsCode": "653",
     "recursive": true
 }
 ```
@@ -161,7 +161,8 @@
 {
     "action": "extract",
     "destination": "/public_html/extracted-files",
-    "item": "/public_html/compressed.zip"
+    "item": "/public_html/compressed.zip",
+    "folderName": "extract_dir"
 }
 ```
 **JSON Response**
