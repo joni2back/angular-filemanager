@@ -46,10 +46,10 @@
             self.inprocess = true;
             self.error = '';
 
-            $http.post(apiUrl, data).success(function(data, code) {
-                dfHandler(data, deferred, code);
-            }).error(function(data, code) {
-                dfHandler(data, deferred, code, 'Unknown error listing, check the response');
+            $http.post(apiUrl, data).then(function(response) {
+                dfHandler(response.data, deferred, response.status);
+            }, function(response) {
+                dfHandler(response.data, deferred, response.status, 'Unknown error listing, check the response');
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -68,13 +68,13 @@
             if (singleFilename && items.length === 1) {
                 data.singleFilename = singleFilename;
             }
-            
+
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_copying'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_copying'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -91,10 +91,10 @@
             };
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_moving'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_moving'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -111,10 +111,10 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_deleting'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_deleting'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -155,7 +155,7 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.getContent = function(apiUrl, itemPath) {            
+        ApiHandler.prototype.getContent = function(apiUrl, itemPath) {
             var self = this;
             var deferred = $q.defer();
             var data = {
@@ -165,10 +165,10 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_getting_content'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_getting_content'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -187,10 +187,10 @@
             self.inprocess = true;
             self.error = '';
 
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_modifying'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_modifying'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -207,10 +207,10 @@
             };
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_renaming'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_renaming'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -233,15 +233,15 @@
                 !$window.saveAs && $window.console.log('Your browser dont support ajax download, downloading by default');
                 return !!$window.open(url, '_blank', '');
             }
-            
+
             var deferred = $q.defer();
             self.inprocess = true;
-            $http.get(url).success(function(data) {
-                var bin = new $window.Blob([data]);
-                deferred.resolve(data);
+            $http.get(url).then(function(response) {
+                var bin = new $window.Blob([response.data]);
+                deferred.resolve(response.data);
                 $window.saveAs(bin, toFilename);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_downloading'));
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_downloading'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -262,14 +262,14 @@
                 !$window.saveAs && $window.console.log('Your browser dont support ajax download, downloading by default');
                 return !!$window.open(url, '_blank', '');
             }
-            
+
             self.inprocess = true;
-            $http.get(apiUrl).success(function(data) {
-                var bin = new $window.Blob([data]);
-                deferred.resolve(data);
+            $http.get(apiUrl).then(function(response) {
+                var bin = new $window.Blob([response.data]);
+                deferred.resolve(response.data);
                 $window.saveAs(bin, toFilename);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_downloading'));
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_downloading'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -288,10 +288,10 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_compressing'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_compressing'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -310,10 +310,10 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_extracting'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_extracting'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -330,13 +330,13 @@
                 permsCode: permsCode,
                 recursive: !!recursive
             };
-            
+
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_changing_perms'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_changing_perms'));
             })['finally'](function() {
                 self.inprocess = false;
             });
@@ -353,14 +353,14 @@
 
             self.inprocess = true;
             self.error = '';
-            $http.post(apiUrl, data).success(function(data, code) {
-                self.deferredHandler(data, deferred, code);
-            }).error(function(data, code) {
-                self.deferredHandler(data, deferred, code, $translate.instant('error_creating_folder'));
+            $http.post(apiUrl, data).then(function(response) {
+                self.deferredHandler(response.data, deferred, response.status);
+            }, function(response) {
+                self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_creating_folder'));
             })['finally'](function() {
                 self.inprocess = false;
             });
-        
+
             return deferred.promise;
         };
 
