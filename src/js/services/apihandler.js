@@ -50,7 +50,7 @@
                 dfHandler(response.data, deferred, response.status);
             }, function(response) {
                 dfHandler(response.data, deferred, response.status, 'Unknown error listing, check the response');
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -75,7 +75,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_copying'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -95,7 +95,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_moving'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -115,7 +115,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_deleting'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -146,7 +146,7 @@
                     self.deferredHandler(data.data, deferred, data.status, 'Unknown error uploading files');
                 }, function (evt) {
                     self.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total)) - 1;
-                }).finally(function() {
+                })['finally'](function() {
                     self.inprocess = false;
                     self.progress = 0;
                 });
@@ -169,7 +169,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_getting_content'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -191,7 +191,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_modifying'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -211,7 +211,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_renaming'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -242,7 +242,7 @@
                 $window.saveAs(bin, toFilename);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_downloading'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -270,7 +270,7 @@
                 $window.saveAs(bin, toFilename);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_downloading'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -292,7 +292,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_compressing'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -314,7 +314,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_extracting'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -337,7 +337,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_changing_perms'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
             return deferred.promise;
@@ -357,7 +357,7 @@
                 self.deferredHandler(response.data, deferred, response.status);
             }, function(response) {
                 self.deferredHandler(response.data, deferred, response.status, $translate.instant('error_creating_folder'));
-            }).finally(function() {
+            })['finally'](function() {
                 self.inprocess = false;
             });
 
