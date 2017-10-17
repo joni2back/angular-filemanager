@@ -1,4 +1,4 @@
-(function(angular, $) {
+(function(angular) {
     'use strict';
     angular.module('FileManagerApp').controller('FileManagerCtrl', [
         '$scope', '$rootScope', '$window', '$translate', 'fileManagerConfig', 'item', 'fileNavigator', 'apiMiddleware',
@@ -165,7 +165,7 @@
         };
 
         $scope.modal = function(id, hide, returnElement) {
-            var element = $('#' + id);
+            var element = angular.element('#' + id);
             element.modal(hide ? 'hide' : 'show');
             $scope.apiMiddleware.apiHandler.error = '';
             $scope.apiMiddleware.apiHandler.asyncSuccess = false;
@@ -362,4 +362,4 @@
         $scope.fileNavigator.refresh();
 
     }]);
-})(angular, jQuery);
+})(angular);

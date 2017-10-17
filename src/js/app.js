@@ -1,22 +1,22 @@
-(function(window, angular, $) {
+(function(window, angular) {
     'use strict';
     angular.module('FileManagerApp', ['pascalprecht.translate', 'ngFileUpload']);
 
     /**
      * jQuery inits
      */
-    $(window.document).on('shown.bs.modal', '.modal', function() {
+    angular.element(window.document).on('shown.bs.modal', '.modal', function() {
         window.setTimeout(function() {
-            $('[autofocus]', this).focus();
+            angular.element('[autofocus]', this).focus();
         }.bind(this), 100);
     });
 
-    $(window.document).on('click', function() {
-        $('#context-menu').hide();
+    angular.element(window.document).on('click', function() {
+        angular.element('#context-menu').hide();
     });
 
-    $(window.document).on('contextmenu', '.main-navigation .table-files tr.item-list:has("td"), .item-list', function(e) {
-        var menu = $('#context-menu');
+    angular.element(window.document).on('contextmenu', '.main-navigation .table-files tr.item-list:has("td"), .item-list', function(e) {
+        var menu = angular.element('#context-menu');
 
         if (e.pageX >= window.innerWidth - menu.width()) {
             e.pageX -= menu.width();
@@ -54,5 +54,5 @@
             return undefined;
         };
     }
- 
-})(window, angular, jQuery);
+
+})(window, angular);

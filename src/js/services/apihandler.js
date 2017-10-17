@@ -1,7 +1,7 @@
-(function(angular, $) {
+(function(angular) {
     'use strict';
-    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', 'Upload',
-        function ($http, $q, $window, $translate, Upload) {
+    angular.module('FileManagerApp').service('apiHandler', ['$http', '$q', '$window', '$translate', '$httpParamSerializer', 'Upload',
+        function ($http, $q, $window, $translate, $httpParamSerializer, Upload) {
 
         $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -222,7 +222,7 @@
                 action: 'download',
                 path: path
             };
-            return path && [apiUrl, $.param(data)].join('?');
+            return path && [apiUrl, $httpParamSerializer(data)].join('?');
         };
 
         ApiHandler.prototype.download = function(apiUrl, itemPath, toFilename, downloadByAjax, forceNewWindow) {
@@ -256,7 +256,7 @@
                 items: items,
                 toFilename: toFilename
             };
-            var url = [apiUrl, $.param(data)].join('?');
+            var url = [apiUrl, $httpParamSerializer(data)].join('?');
 
             if (!downloadByAjax || forceNewWindow || !$window.saveAs) {
                 !$window.saveAs && $window.console.log('Your browser dont support ajax download, downloading by default');
@@ -367,4 +367,4 @@
         return ApiHandler;
 
     }]);
-})(angular, jQuery);
+})(angular);
