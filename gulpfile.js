@@ -59,11 +59,11 @@ gulp.task('lint', function () {
           'semi': [2, 'always']
       },
       'env': {
-          'browser': true
+          'browser': true,
       },
       'globals': {
           'angular': true,
-          'jQuery': true
+          'jQuery': true,
       },
       'extends': 'eslint:recommended'
     }))
