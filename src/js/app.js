@@ -5,13 +5,13 @@
     /**
      * jQuery inits
      */
-    angular.element(window.document).on('shown.bs.modal', '.modal', function() {
+    jquery.selector(window.document).on('shown.bs.modal', '.modal', function() {
         window.setTimeout(function() {
             angular.element('[autofocus]', this).focus();
         }.bind(this), 100);
     });
 
-    angular.element(window.document).on('click', function() {
+    jquery.selector(window.document).on('click', function() {
         angular.element('#context-menu').hide();
     });
 
