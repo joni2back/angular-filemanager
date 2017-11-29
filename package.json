@@ -20,13 +20,21 @@
   },
   "homepage": "https://github.com/joni2back/angular-filemanager#readme",
   "devDependencies": {
-    "bower": "^1.7.9",
-    "del": "^2.2.0",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-angular-templatecache": "^1.9.1",
-    "gulp-clean-css": "^2.0.12",
-    "gulp-concat": "^2.6.0",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
     "gulp-eslint": "^2.1.0",
-    "gulp-uglify": "^1.5.4"
+    "gulp-uglify": "^3.0.0",
+    "yarn": "^1.3.2",
+    "angular-translate": "~2.15.1",
+    "bootstrap": "~3.3.2",
+    "jquery": "~3.1.1",
+    "bootswatch": "~3.3.7",
+    "ng-file-upload": "^12.0.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.7"
   }
 }
