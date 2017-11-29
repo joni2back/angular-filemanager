@@ -2,9 +2,8 @@
 
 A very smart filemanager to manage your files in the browser developed in AngularJS following Material Design styles by [Jonas Sciangula Street](https://github.com/joni2back)
 
-This project provides you a font-end interface in order to allow you to create your own backend connector following the [connector API](API.md). 
-
-By the way, we provide some backend connectors in many languages as example (ftp, local files, etc)
+This project provides a web file manager interface, **allowing you to create your own backend connector** following the [connector API](API.md). 
+*By the way, we provide some example backend connectors in many languages as example (php-ftp, php-local, python, etc)*
 
 [![Build Status](https://travis-ci.org/joni2back/angular-filemanager.svg?branch=master)](https://travis-ci.org/joni2back/angular-filemanager)
 
@@ -21,10 +20,10 @@ Donate by Bitcoin wallet: ```147ca6be-a6a5-4012-8209-8ec94ff340b8```
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot.gif)
 
 ### Features
-  - Multilanguage (English, Chinese, Spanish, Russian, Portuguese, French, German, Italian, Slovak, Hebrew, Persian, Polish, Ukrainian, Turkish, etc...)
-  - Multiple templates (List / Icons)
-  - Multiple file upload
   - Multiple file support
+  - Multilanguage
+  - List and Icon view
+  - Multiple file upload
   - Pick files callback for third parties apps
   - Search files
   - Directory tree navigation
@@ -35,27 +34,27 @@ Donate by Bitcoin wallet: ```147ca6be-a6a5-4012-8209-8ec94ff340b8```
 
 ### TODO
   - Drag and drop
-  - Dropbox and Google Drive compatibility
-  - Extend backend bridges (PHP, Java, Python, Node, .Net)
-  - Migrate jQuery to native or angular.element
+  - Dropbox and Google Drive connectors
+  - Remove usage of jQuery
 
 ### Backend API
 [Read the docs](API.md)
 
 ---------
 
-### Use in your existing project
-**1) Install and use**
-```bower install --save angular-filemanager```
+### Using in your existing project
+**1) Install deps using yarn with**
+```yarn install```
 
 **2) Include the dependencies in your project**
 ```html
 <!-- third party -->
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-translate/angular-translate.min.js"></script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="bower_components/bootswatch/paper/bootstrap.min.css" />
+  <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-translate/dist/angular-translate.min.js"></script>
+  <script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+  <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="node_modules/bootswatch/paper/bootstrap.min.css" />
 
 <!-- angular-filemanager -->
   <link rel="stylesheet" href="dist/angular-filemanager.min.css">
@@ -69,35 +68,7 @@ Donate by Bitcoin wallet: ```147ca6be-a6a5-4012-8209-8ec94ff340b8```
 
 ---------
 
-### Using source files instead of minified js
-```html
-<!-- Uncomment if you need to use raw source code
-  <script src="src/js/app.js"></script>
-  <script src="src/js/directives/directives.js"></script>
-  <script src="src/js/filters/filters.js"></script>
-  <script src="src/js/providers/config.js"></script>
-  <script src="src/js/entities/chmod.js"></script>
-  <script src="src/js/entities/item.js"></script>
-  <script src="src/js/services/apihandler.js"></script>
-  <script src="src/js/services/apimiddleware.js"></script>
-  <script src="src/js/services/filenavigator.js"></script>
-  <script src="src/js/providers/translations.js"></script>
-  <script src="src/js/controllers/main.js"></script>
-  <script src="src/js/controllers/selector-controller.js"></script>
-  <link href="src/css/animations.css" rel="stylesheet">
-  <link href="src/css/dialogs.css" rel="stylesheet">
-  <link href="src/css/main.css" rel="stylesheet">
--->
-
-<!-- Comment if you need to use raw source code -->
-  <link href="dist/angular-filemanager.min.css" rel="stylesheet">
-  <script src="dist/angular-filemanager.min.js"></script>
-<!-- /Comment if you need to use raw source code -->
-```
-
----------
-
-### Extending the configuration file
+### Extending the configuration file by adding a script
 ```html
 <script type="text/javascript">
 angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
@@ -120,6 +91,11 @@ angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (
 </script>
 ```
 
+### Create a new build with your changes
+```sh
+  gulp build || node node_modules/gulp/bin/gulp.js build
+```
+
 You can do many things by extending the configuration. Like hide the sidebar or the search button. See [the list of default configurations](/src/js/providers/config.js).
 
 ---------
@@ -133,5 +109,3 @@ For transparency into our release cycle and in striving to maintain backward com
 
 ### Copyright and license
 Code and documentation released under [the MIT license](https://github.com/joni2back/angular-filemanager/blob/master/LICENSE).
-
-
