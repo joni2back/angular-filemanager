@@ -148,7 +148,7 @@
     "items": ["/public_html/photos", "/public_html/docs"],
     "destination": "/public_html/backups",
     "compressedFilename": "random-files.zip"
-}}
+}
 ```
 **JSON Response**
 ```json
