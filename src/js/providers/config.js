@@ -5,6 +5,7 @@
         var values = {
             appName: 'angular-filemanager v1.5',
             defaultLang: 'en',
+            multiLang: true,
 
             listUrl: 'bridges/php/handler.php',
             uploadUrl: 'bridges/php/handler.php',
