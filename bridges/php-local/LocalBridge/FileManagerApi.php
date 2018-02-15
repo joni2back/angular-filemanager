@@ -47,7 +47,7 @@ class FileManagerApi
                 $list = $this->listAction($request['path']);
 
                 if (!is_array($list)) {
-                    $response = $this->simpleErrorResponse($t->listing_filed);
+                    $response = $this->simpleErrorResponse($t->listing_failed);
                 } else {
                     $response = new Response();
                     $response->setData([
