@@ -1,7 +1,7 @@
 {
 	"function_not_implemented": "Function not implemented",
 	"file_not_found": "File not found",
-	"listing_filed": "Listing failed",
+	"listing_failed": "Listing failed",
 	"moving_failed": "Moving failed",
 	"renaming_failed": "Renaming failed",
 	"copying_failed": "Copying failed",
