@@ -28,6 +28,7 @@ import datetime
 import json
 import os
 import shutil
+import uuid
 import stat
 import zipfile
 import tornado.web
@@ -116,21 +117,35 @@ class FileManager:
     def copy(self, request):
         try:
             items = request['items']
+            path = os.path.abspath(self.root + request['newPath'])
             if len(items) == 1 and 'singleFilename' in request:
                 src = os.path.abspath(self.root + items[0])
-                dst = os.path.abspath(self.root + request['singleFilename'])
-                if not (os.path.exists(src) and src.startswith(self.root) and dst.startswith(self.root)):
+                if not (os.path.exists(src) and src.startswith(self.root) and path.startswith(self.root)):
                     return {'result': {'success': 'false', 'error': 'File not found'}}
 
-                shutil.move(src, dst)
+                shutil.copy(src, path)
             else:
-                path = os.path.abspath(self.root + request['newPath'])
                 for item in items:
                     src = os.path.abspath(self.root + item)
                     if not (os.path.exists(src) and src.startswith(self.root) and path.startswith(self.root)):
                         return {'result': {'success': 'false', 'error': 'Invalid path'}}
 
-                    shutil.move(src, path)
+                    shutil.copy(src, path)
+        except Exception as e:
+            return {'result': {'success': 'false', 'error': e.message}}
+
+        return {'result': {'success': 'true', 'error': ''}}
+
+    def move(self, request):
+        try:
+            items = request['items']
+            path = os.path.abspath(self.root + request['newPath'])
+            for item in items:
+                src = os.path.abspath(self.root + item)
+                if not (os.path.exists(src) and src.startswith(self.root) and path.startswith(self.root)):
+                    return {'result': {'success': 'false', 'error': 'Invalid path'}}
+
+                shutil.move(src, path)
         except Exception as e:
             return {'result': {'success': 'false', 'error': e.message}}
 
@@ -226,14 +241,15 @@ class FileManager:
                     continue
 
                 if os.path.isfile(path):
-                    zip_file.write(path)
+                    zip_file.write(path, item)
                 else:
+                    zip_file.write(path, arcname=os.path.basename(path))
+
                     for root, dirs, files in os.walk(path):
-                        for f in files:
-                            zip_file.write(
-                                f,
-                                os.path.relpath(os.path.join(root, f), os.path.join(path, '..'))
-                            )
+                        if root != path:
+                            zip_file.write(root, arcname=os.path.relpath(root, os.path.dirname(path)))
+                        for filename in files:
+                            zip_file.write(os.path.join(root, filename), arcname=os.path.join(os.path.relpath(root, os.path.dirname(path)), filename))                
 
             zip_file.close()
         except Exception as e:
@@ -274,15 +290,35 @@ class FileManager:
 
     def download(self, path):
         path = os.path.abspath(self.root + path)
-        print(path)
         content = ''
         if path.startswith(self.root) and os.path.isfile(path):
-            print(path)
             try:
                 with open(path, 'rb') as f:
                     content = f.read()
             except Exception as e:
                 pass
+        return content
+
+    def downloadMultiple(self, items, filename):
+        temp_zip_filename = str(uuid.uuid4())
+        zipfile_path = os.path.abspath(os.path.join(self.root, temp_zip_filename))
+        zip_file = zipfile.ZipFile(zipfile_path, 'w', zipfile.ZIP_DEFLATED)
+        for item in items:
+            path = os.path.abspath(self.root + item)
+            if not (os.path.exists(path) and path.startswith(self.root)):
+                continue
+
+            if os.path.isfile(path):
+                zip_file.write(path, item)
+            else:
+                pass
+        zip_file.close()     
+
+        content = ''
+        f = open(zipfile_path,'rb')
+        content = f.read()
+        f.close()
+        os.remove(zipfile_path)
         return content
 
 
@@ -291,11 +327,28 @@ class FileManagerHandler(tornado.web.RequestHandler):
         self.filemanager = FileManager(root, show_dotfiles)
 
     def get(self):
+
         action = self.get_query_argument('action', '')
         path = self.get_query_argument('path', '')
+        items = self.get_query_arguments('items')
+        toFilename = self.get_query_argument('toFilename', '')
+
         if action == 'download' and path:
             result = self.filemanager.download(path)
             self.write(result)
+            
+            file_name = os.path.basename(path)
+            self.set_header('Content-Type', 'application/force-download')
+            self.set_header('Content-Disposition', 'attachment; filename=%s' % file_name) 
+        elif action == 'downloadMultiple' and len(items) > 0 and toFilename:
+            result = self.filemanager.downloadMultiple(items,toFilename)
+            self.write(result)
+            
+            file_name = os.path.basename(toFilename)
+            self.set_header('Content-Type', 'application/force-download')
+            self.set_header('Content-Disposition', 'attachment; filename=%s' % file_name) 
+        else:
+            pass
 
     def post(self):
         if self.request.headers.get('Content-Type').find('multipart/form-data') >= 0:
