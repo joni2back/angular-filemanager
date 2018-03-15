@@ -274,7 +274,7 @@ class FileManager:
 
     def upload(self, handler):
         try:
-            destination = handler.get_body_argument('destination', default='/')
+            destination = handler.get_body_argument('destination', default='/')[1:]
             for name in handler.request.files:
                 fileinfo = handler.request.files[name][0]
                 filename = fileinfo['filename']
