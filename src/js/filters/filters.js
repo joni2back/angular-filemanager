@@ -19,6 +19,10 @@
 
     app.filter('formatDate', ['$filter', function() {
         return function(input) {
+
+          if(input == 'Invalid Date'){
+            return '';
+          }
             return input instanceof Date ?
                 input.toISOString().substring(0, 19).replace('T', ' ') :
                 (input.toLocaleString || input.toString).apply(input);
