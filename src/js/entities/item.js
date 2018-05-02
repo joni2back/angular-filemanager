@@ -9,11 +9,16 @@
                 type: model && model.type || 'file',
                 size: model && parseInt(model.size || 0),
                 date: parseMySQLDate(model && model.date),
+                fid: model && model.fid ||'',
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',
                 recursive: false,
                 fullPath: function() {
                     var path = this.path.filter(Boolean);
+                    if(this.fid.length > 0) {
+                      return ('/' + path.join('/') + '/' + this.fid).replace(/\/\//, '/');
+                    }
+
                     return ('/' + path.join('/') + '/' + this.name).replace(/\/\//, '/');
                 }
             };

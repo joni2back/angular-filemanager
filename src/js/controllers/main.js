@@ -120,6 +120,7 @@
 
         $scope.smartClick = function(item) {
             var pick = $scope.config.allowedActions.pickFiles;
+
             if (item.isFolder()) {
                 return $scope.fileNavigator.folderClick(item);
             }
@@ -141,6 +142,8 @@
             if (item.isEditable()) {
                 return $scope.openEditItem(item);
             }
+
+          return $scope.apiMiddleware.download(item, true);
         };
 
         $scope.openImagePreview = function() {
