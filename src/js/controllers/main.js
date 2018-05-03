@@ -364,5 +364,17 @@
         $scope.isWindows = getQueryParam('server') === 'Windows';
         $scope.fileNavigator.refresh();
 
+        //listen to custom event from parent iframe, then open modal
+        $window.addEventListener('onCreateFolder', function () {
+            $scope.modal('newfolder');
+            $scope.prepareNewFolder();
+        });
+
+          //listen to custom event from parent iframe, then open modal
+          $window.addEventListener('onUploadFile', function () {
+            $scope.modal('uploadfile');
+          });
+
+
     }]);
 })(angular);
