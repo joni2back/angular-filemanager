@@ -1,0 +1,18 @@
+{
+	"function_not_implemented": "Funzione non implementata",
+	"file_not_found": "File non trovato",
+	"listing_failed": "Elenco fallito",
+	"moving_failed": "Spostamento fallito",
+	"renaming_failed": "Rinomina fallita",
+	"copying_failed": "Copia fallita",
+	"removing_failed": "Rimozione fallita",
+	"removing_failed_directory_not_empty": "Rimozione fallita, la cartella che stai tentando di rimuovere non è vuota",
+	"saving_failed": "Salvataggio fallito",
+	"folder_already_exists": "La cartella esiste già",
+	"folder_creation_failed": "Creazione della cartella fallita",
+	"permissions_change_failed": "Modifica dei permessi non riuscita",
+	"compression_failed": "Compressione fallita",
+	"archive_opening_failed": "Impossibile aprire l'archivio, è danneggiato o non supportato",
+	"extraction_failed": "Estrazione fallita",
+	"upload_failed": "Caricamento fallito"
+}

@@ -1,7 +1,7 @@
 {
 	"function_not_implemented": "구현되지 않은 기능입니다",
 	"file_not_found": "파일을 찾을 수 없습니다",
-	"listing_filed": "목록 작성 실패",
+	"listing_failed": "목록 작성 실패",
 	"moving_failed": "이동 실패",
 	"renaming_failed": "이름 변경 실패",
 	"copying_failed": "복사 실패",

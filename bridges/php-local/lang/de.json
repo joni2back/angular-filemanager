@@ -1,7 +1,7 @@
 {
 	"function_not_implemented": "Funktion nicht implementiert",
 	"file_not_found": "Datei nicht gefunden",
-	"listing_filed": "Auflistung fehlgeschlagen",
+	"listing_failed": "Auflistung fehlgeschlagen",
 	"moving_failed": "Verschiebung fehlgeschlagen",
 	"renaming_failed": "Umbenennung fehlgeschlagen",
 	"copying_failed": "Kopieren fehlgeschlagen",

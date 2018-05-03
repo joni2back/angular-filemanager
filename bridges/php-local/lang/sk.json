@@ -1,7 +1,7 @@
 {
 	"function_not_implemented": "Funkcia nie je implementovaná",
 	"file_not_found": "Súbor nenájdený",
-	"listing_filed": "Výpis súborov zlyhal",
+	"listing_failed": "Výpis súborov zlyhal",
 	"moving_failed": "Presunutie zlyhalo",
 	"renaming_failed": "Premenovanie zlyhalo",
 	"copying_failed": "Kopírovanie zlyhalo",
