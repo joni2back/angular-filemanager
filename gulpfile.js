@@ -71,5 +71,21 @@ gulp.task('lint', function () {
     .pipe(eslint.failOnError());
 });
 
+gulp.task('pack', function () {
+  gulp.src([
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/angular/angular.min.js',
+    'node_modules/angular-translate/dist/angular-translate.min.js',
+    'node_modules/ng-file-upload/dist/ng-file-upload.min.js',
+    'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'node_modules/bootswatch/paper/bootstrap.min.css',
+    'dist/angular-filemanager.min.css',
+    'dist/angular-filemanager.min.js'
+  ])
+    .pipe(gulp.dest('../libs/'));
+});
+
+
 gulp.task('default', ['concat-uglify-js', 'minify-css']);
 gulp.task('build', ['clean', 'lint', 'default']);
+gulp.task('release', ['build', 'pack']);
