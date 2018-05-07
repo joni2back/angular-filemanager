@@ -366,13 +366,17 @@
 
         //listen to custom event from parent iframe, then open modal
         $window.addEventListener('onCreateFolder', function () {
-            $scope.modal('newfolder');
-            $scope.prepareNewFolder();
+
+          $scope.prepareNewFolder();
+          $scope.modal('newfolder');
+          $scope.$apply();
+
         });
 
           //listen to custom event from parent iframe, then open modal
           $window.addEventListener('onUploadFile', function () {
             $scope.modal('uploadfile');
+            $scope.$apply();
           });
 
 
