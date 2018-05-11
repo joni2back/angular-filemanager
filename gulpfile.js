@@ -72,4 +72,4 @@ gulp.task('lint', function () {
 });
 
 gulp.task('default', ['concat-uglify-js', 'minify-css']);
-gulp.task('build', ['clean', 'lint', 'default']);
+gulp.task('build', ['clean', 'default']);
