@@ -12,6 +12,7 @@
                 fid: model && model.fid ||'',
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',
+                may_edit: model &&  model.may_edit,
                 recursive: false,
                 fullPath: function() {
                     var path = this.path.filter(Boolean);
@@ -63,6 +64,10 @@
         Item.prototype.isExtractable = function() {
             return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
         };
+
+          Item.prototype.hasEditAccess = function() {
+            return !this.isFolder() && this.model.may_edit === true;
+          };
 
         Item.prototype.isSelectable = function() {
             return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
