@@ -16,7 +16,7 @@
                 fullPath: function() {
                     var path = this.path.filter(Boolean);
                     if(this.fid.length > 0) {
-                      return ('/' + path.join('/') + '/' + this.fid).replace(/\/\//, '/');
+                      return ('/' + path.join('/') + '/file-' + this.fid).replace(/\/\//, '/');
                     }
 
                     return ('/' + path.join('/') + '/' + this.name).replace(/\/\//, '/');

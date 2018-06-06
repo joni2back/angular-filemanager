@@ -16,7 +16,7 @@
         $scope.fileNavigator = new FileNavigator();
         $scope.apiMiddleware = new ApiMiddleware();
         $scope.uploadFileList = [];
-        $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-icons.html';
+        $scope.viewTemplate = $storage.getItem('viewTemplate') || 'main-table.html';
         $scope.fileList = [];
         $scope.temps = [];
 
