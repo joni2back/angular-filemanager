@@ -197,13 +197,14 @@
             return deferred.promise;
         };
 
-        ApiHandler.prototype.rename = function(apiUrl, itemPath, newPath) {
+        ApiHandler.prototype.rename = function(apiUrl, itemPath, newPath, newTitle) {
             var self = this;
             var deferred = $q.defer();
             var data = {
                 action: 'rename',
                 item: itemPath,
-                newItemPath: newPath
+                newItemPath: newPath,
+                newTitle: newTitle
             };
             self.inprocess = true;
             self.error = '';
