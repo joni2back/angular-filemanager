@@ -37,7 +37,7 @@
             </a>
         </li>
 
-        <li ng-show="config.allowedActions.move">
+        <li ng-show="config.allowedActions.move || (singleSelection() && singleSelection().hasEditAccess())">
             <a href="" tabindex="-1" ng-click="modalWithPathSelector('move')">
                 <i class="glyphicon glyphicon-arrow-right"></i> {{'move' | translate}}
             </a>
