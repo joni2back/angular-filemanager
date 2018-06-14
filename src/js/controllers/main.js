@@ -167,6 +167,42 @@
             $scope.modal('edit');
         };
 
+        $scope.copyItemURL = function() {
+            var item = $scope.singleSelection();
+            $scope.copyTextToClipboard(item.model.file_url);
+        };
+
+        $scope.fallbackCopyTextToClipboard = function(text) {
+                var textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+
+                try {
+                    document.execCommand('copy');
+                } catch (err) {
+                    return;
+                }finally {
+
+                    document.body.removeChild(textArea);
+                }
+
+            };
+        $scope.copyTextToClipboard = function (text) {
+                if (!navigator.clipboard) {
+                    $scope.fallbackCopyTextToClipboard(text);
+                    return;
+                }
+                navigator.clipboard.writeText(text).then(function() {
+
+                }, function(err) {
+                    return err;
+                });
+            };
+
+
+
         $scope.modal = function(id, hide, returnElement) {
             var element = angular.element('#' + id);
             element.modal(hide ? 'hide' : 'show');

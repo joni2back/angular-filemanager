@@ -100,7 +100,8 @@
             open: 'Open',
             these_elements: 'these {{total}} elements',
             new_folder: 'New folder',
-            download_as_zip: 'Download as ZIP'
+            download_as_zip: 'Download as ZIP',
+            copy_link: 'Copy link'
         });
 
         $translateProvider.translations('nl', {
@@ -689,7 +690,8 @@
             open: 'Öffnen',
             these_elements: 'diese {{total}} elemente',
             new_folder: 'Neuer ordner',
-            download_as_zip: 'Download als ZIP'
+            download_as_zip: 'Download als ZIP',
+            copy_link: 'Link kopieren'
         });
 
         $translateProvider.translations('sk', {

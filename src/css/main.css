@@ -444,3 +444,9 @@ table th > a:focus {
   height: 18px;
   line-height: 100%;
 }
+
+.table-files i.glyphicon.glyphicon-file.item-extension,
+.table-files i.glyphicon.glyphicon-folder-close {
+  font-size: 32px;
+  zoom:0.75;
+}

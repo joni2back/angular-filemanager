@@ -13,6 +13,9 @@
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',
                 may_edit: model &&  model.may_edit,
+                ext: model && model.ext,
+                file_url: model && model.file_url || '',
+
                 recursive: false,
                 fullPath: function() {
                     var path = this.path.filter(Boolean);
@@ -68,6 +71,10 @@
           Item.prototype.hasEditAccess = function() {
             return !this.isFolder() && this.model.may_edit === true;
           };
+
+        Item.prototype.canCopyLink = function() {
+            return  this.model.file_url && this.model.file_url.length > 0;
+        };
 
         Item.prototype.isSelectable = function() {
             return (this.isFolder() && fileManagerConfig.allowedActions.pickFolders) || (!this.isFolder() && fileManagerConfig.allowedActions.pickFiles);
