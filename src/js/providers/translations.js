@@ -623,7 +623,7 @@
             source: 'Quelle',
             destination: 'Ziel',
             copy_file: 'Datei kopieren',
-            sure_to_delete: 'Sind Sie sicher, dass Sie die Datei löschen möchten?',
+            sure_to_delete: 'Sind Sie sicher, dass Sie die Auswahl löschen möchten?',
             change_name_move: 'Namen ändern / verschieben',
             enter_new_name_for: 'Geben Sie den neuen Namen ein für',
             extract_item: 'Archiv entpacken',
