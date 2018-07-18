@@ -254,7 +254,7 @@
             var deferred = $q.defer();
             var data = {
                 action: 'downloadMultiple',
-                items: items,
+                'items[]': items,
                 toFilename: toFilename
             };
             var url = [apiUrl, $httpParamSerializer(data)].join('?');
