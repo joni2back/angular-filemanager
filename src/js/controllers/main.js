@@ -360,8 +360,10 @@
         };
 
         $scope.addForUpload = function($files) {
-            $scope.uploadFileList = $scope.uploadFileList.concat($files);
-            $scope.modal('uploadfile');
+            if($scope.config.allowedActions.upload) {
+              $scope.uploadFileList = $scope.uploadFileList.concat($files);
+              $scope.modal('uploadfile');
+            }
         };
 
         $scope.removeFromUpload = function(index) {
