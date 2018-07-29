@@ -4,13 +4,13 @@ import json
 from django.http import HttpResponse
 import shutil
 import os
-from filemanager import FileManager
+from .filemanager import FileManager
 
 fm = FileManager('/home', False)
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'filemanager_app/index.html')
 
 
 def list_(request):
