@@ -287,7 +287,7 @@ class FileManager:
             folders.append(_path)
         tmpdir = tempfile.mkdtemp()
         filename = items['toFilename'][0].replace('.zip', '',1)
-        saved_umask = os.umask(0077)
+        saved_umask = os.umask(77)
         path = os.path.join(tmpdir, filename)
         try:
             compress_zip(path, folders)
