@@ -88,4 +88,4 @@ gulp.task('pack', function () {
 
 gulp.task('default', ['concat-uglify-js', 'minify-css']);
 gulp.task('build', ['clean', 'lint', 'default']);
-gulp.task('release', ['build', 'pack']);
+gulp.task('deploy', ['build', 'pack']);

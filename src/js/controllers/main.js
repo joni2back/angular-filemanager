@@ -337,7 +337,7 @@
             var item = $scope.singleSelection();
             var name = item.tempModel.name;
             var samePath = item.tempModel.path.join('') === item.model.path.join('');
-            if (!name || (samePath && $scope.fileNavigator.fileNameExists(name))) {
+            if (!name || (samePath && $scope.fileNavigator.fileNameExists(name)) || name.indexOf('/')> -1) {
                 $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
                 return false;
             }
@@ -350,7 +350,7 @@
         $scope.createFolder = function() {
             var item = $scope.singleSelection();
             var name = item.tempModel.name;
-            if (!name || $scope.fileNavigator.fileNameExists(name)) {
+            if (!name || $scope.fileNavigator.fileNameExists(name) || name.indexOf('/')> -1) {
                 return $scope.apiMiddleware.apiHandler.error = $translate.instant('error_invalid_filename');
             }
             $scope.apiMiddleware.createFolder(item).then(function() {
