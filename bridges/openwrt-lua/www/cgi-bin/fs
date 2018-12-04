@@ -1,0 +1,359 @@
+#!/usr/bin/lua
+
+local os = require "os"
+local fs = require "nixio.fs"
+local json = require "json"
+local luafm = require("luafm")
+
+print("Content-type: text/html; charset=utf-8")
+print("Cache-control: no-cache")
+print("Pragma: no-cache")
+
+-- prepare the browser for content:
+print("\r")
+
+local result
+
+local http_headers = nixio.getenv()
+local request=io.read("*all")
+
+local params=json.decode(request)
+local action=params["action"]
+
+local path
+local items
+local item
+local newItemPath
+local newPath
+local singleFilename
+local content
+local mode
+local destination
+local compressedFilename
+local recursive
+local folderName
+
+local files
+local fstat
+local ftype
+local basename
+local realitem
+local command
+
+if action == "list" then
+
+  path = luafm.make_path(params["path"])
+
+  if path then
+    files = {}
+    local rec
+    for name in fs.dir(path) do
+      basename=fs.realpath(path..'/'..name)
+      if basename then
+        fstat=fs.stat(basename)
+        if fstat["type"]=="reg" then
+          ftype="file"
+        elseif fstat["type"]=="dir" then
+          ftype="dir"
+        else
+          ftype=""
+        end      
+        if ftype then
+          rec={name=name,rights=fstat["modestr"],size=fstat["size"],type=ftype,date=os.date('%Y-%m-%d %H:%M:%S',fstat["mtime"])}
+          table.insert(files,rec)
+        end
+      end    
+    end
+    result = { result = files }
+  else
+    result = { result = {} }
+  end
+
+elseif action == "rename" then
+
+  item = luafm.make_path(params["item"])
+  newItemPath = luafm.make_new_path(params["newItemPath"])
+
+  if item and newItemPath and item ~= luafm.basepath and newItemPath ~= luafm.basepath then
+    result = fs.rename(item,newItemPath)
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Cannot rename requested file/directory" } }
+    end  
+  else
+    result = { result = { success=false, error="Invalid path request" } }
+  end
+
+elseif action == "move" then
+
+  items = params["items"]
+  newPath = luafm.make_dir_path(params["newPath"])
+  
+  if newPath then
+
+    result = true
+
+    for key,item in pairs(items) do
+
+      item = luafm.make_path(item)
+
+      if item and item ~= luafm.basepath then
+        basename = fs.basename(item)
+        result = fs.move(item,newPath.."/"..basename)
+        if not result then 
+          break
+        end
+      else
+        result = false
+        break
+      end
+      
+    end  
+
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Cannot move requested file/directory" } }
+    end  
+
+  else
+
+    result = { result = { success=false, error="Invalid destination request" } }
+
+  end  
+
+elseif action == "copy" then
+
+  items = params["items"]
+  newPath = luafm.make_dir_path(params["newPath"])
+
+  if newPath then
+
+    singleFilename = params["singleFilename"]
+    if singleFilename then
+      singleFilename = fs.basename(singleFilename)
+    end
+
+    result = true
+
+    for key,item in pairs(items) do
+
+      item = luafm.make_path(item)
+
+      if item and item ~= luafm.basepath then
+        if singleFilename then
+          basename = singleFilename
+        else  
+          basename = fs.basename(item)
+        end
+        result = fs.copy(item,newPath.."/"..basename)
+        if not result then 
+          break
+        end
+      else
+        result = false
+        break
+      end
+
+    end  
+
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Cannot copy requested file/directory" } }
+    end  
+
+  else
+
+    result = { result = { success=false, error="Invalid destination request" } }
+
+  end  
+
+elseif action == "remove" then
+
+  items = params["items"]
+
+  result = true
+
+  for key,item in pairs(items) do
+
+    item = luafm.make_path(item)
+
+    if item and item ~= luafm.basepath then
+      result = luafm.rm(item)
+      if not result then 
+        break
+      end
+    else
+      result = false
+      break
+    end
+
+  end
+
+  if result then
+    result = { result = { success=true, error="" } }
+  else
+    result = { result = { success=false, error="Cannot remove requested file/directory" } }
+  end  
+
+elseif action == "getContent" then
+
+  item = luafm.make_path(params["item"])
+  
+  if item and item ~= luafm.basepath then
+    content = fs.readfile(item)
+    result = { result = content }
+  else
+    result = { result = { success=false, error="Invalid path request" } }
+  end
+
+elseif action == "edit" then
+
+  item = luafm.make_path(params["item"])
+  content = params["content"]
+  
+  if item and item ~= luafm.basepath then
+    result = fs.writefile(item,content)
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Cannot write requested file content" } }
+    end  
+  else
+    result = { result = { success=false, error="Invalid path request" } }
+  end
+
+elseif action == "createFolder" then
+
+  newPath = luafm.make_new_path(params["newPath"])
+  
+  if newPath and newPath ~= luafm.basepath then
+    result = fs.mkdir(newPath)
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Cannot create folder" } }
+    end  
+  else
+    result = { result = { success=false, error="Invalid path request" } }
+  end
+
+elseif action == "changePermissions" then
+
+  items = params["items"]
+
+  if params["perms"] then
+    mode = params["perms"]
+  else
+    mode = params["permsCode"]
+  end
+  
+  if mode then
+    
+    recursive = params["recursive"]
+
+    result = true
+
+    for key,item in pairs(items) do
+
+      item = luafm.make_path(item)
+
+      if item and item ~= luafm.basepath then
+        result = luafm.chmod(item,mode,recursive)
+        if not result then 
+          break
+        end
+      else
+        result = false
+        break
+      end
+
+    end
+
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Cannot change permissions" } }
+    end  
+
+  else
+  
+    result = { result = { success=false, error="No permission requested" } }
+  
+  end
+
+elseif action == "compress" then
+
+  items = params["items"]
+  destination = params["destination"]
+  compressedFilename = params["compressedFilename"]
+
+  newPath = luafm.make_new_path(destination..'/'..fs.basename(params["compressedFilename"]))
+
+  result = true
+  files = ""
+
+  for key,item in pairs(items) do
+
+    realitem = luafm.make_path(item)
+
+    if realitem and realitem ~= luafm.basepath then
+      item = item:match("/(.*)")
+      files = files.." "..item
+    else
+      result = false
+      break
+    end
+
+  end
+  
+  if files then
+
+    command = "cd "..luafm.basepath.."; zip -r "..newPath..files
+    result = os.execute(command)
+
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Archiver returned error" } }
+    end  
+
+  else
+
+      result = { result = { success=false, error="No files selected" } }
+  
+  end
+
+elseif action == "extract" then
+
+  item = luafm.make_path(params["item"])
+  destination = params["destination"]
+  folderName = params["folderName"]
+
+  newPath = luafm.make_new_path(destination..'/'..fs.basename(params["folderName"]))
+
+  result = true
+  files = ""
+
+  if item and newPath and item ~= luafm.basepath then
+    command = "unzip "..item.." -d "..newPath
+    result = os.execute(command)
+    if result then
+      result = { result = { success=true, error="" } }
+    else
+      result = { result = { success=false, error="Archiver returned error" } }
+    end  
+  else
+    result = { result = { success=false, error="Invalid path request" } }
+  end
+
+
+else
+
+  result = { result = { success=false, error="Operation not impolemented yet" } }
+
+end
+
+print(json.encode(result))

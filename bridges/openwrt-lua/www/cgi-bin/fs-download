@@ -1,0 +1,36 @@
+#!/usr/bin/lua
+
+nixio = require "nixio"
+fs = require "nixio.fs"
+util = require "luci.util"
+ltn12 = require "ltn12"
+luafm = require "luafm"
+
+args = {}
+
+for dummy,param in pairs(util.split(nixio.getenv('QUERY_STRING'),'&')) do
+  val = util.split(param,'=')
+  args[val[1]] = util.urldecode(val[2],true)
+end
+
+path = luafm.make_path(args["path"])
+if path then
+  file = io.open(path,"rb")
+else
+  file = nil
+end  
+
+if file then
+  print("Content-Type: application/octet-stream")
+  print('Content-Disposition: attachment; filename="'..fs.basename(args["path"])..'"')
+  print("\r")
+  ltn12.pump.all(
+    ltn12.source.file(file),
+    ltn12.sink.file(io.stdout)
+  )
+else
+  print("Status: 404 Not Found")
+  print("Content-Type: text/plain")
+  print("\r")
+  print("File not found")
+end
