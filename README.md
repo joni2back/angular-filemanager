@@ -1,8 +1,7 @@
-## Update Jun 2018
-Hi!, I am moving the project from AngularJS to Angular, it's very important your collaboration on my development tasks and time. 
-Please help me to move forward with a donation by paypal [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
+## Update Dec 2018
+Hi!, I am moving the project from AngularJS to **React** (+Redux +ReduxThunk), it's very important for me your collaboration on my development tasks and time. Please help me to move forward with a donation by paypal :) [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
 
-
+---
 
 # angular-filemanager
 
