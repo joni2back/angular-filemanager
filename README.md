@@ -1,5 +1,5 @@
 ## Update Dec 2018
-Hi!, I am moving the project from AngularJS to **React** (+Redux +ReduxThunk), it's very important for me your collaboration on my development tasks and time. Please help me to move forward with a donation by paypal :) [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
+Hi!, I am moving the project from AngularJS to **React + Redux** [(react-filemanager)](https://github.com/joni2back/react-filemanager), it's very important for me your collaboration on my development tasks and time. Please help me to move forward with a donation by paypal :) [![Donate](https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XRB7EW72PS982) 
 
 ---
 
