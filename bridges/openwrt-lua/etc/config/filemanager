@@ -1,0 +1,4 @@
+
+config filemanager 'config'
+	option basedir '/mnt'
+	option tmpdir '/tmp'

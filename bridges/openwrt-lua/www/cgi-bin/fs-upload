@@ -1,0 +1,33 @@
+#!/usr/bin/lua
+
+local cgi = require "cgi"
+local fs = require "nixio.fs"
+local luafm = require "luafm"
+
+local req = {}
+
+print("\r")
+
+cgi.new(req)
+
+if req.boundary then
+   ret, msg = cgi.parse_request_body(req)
+end
+
+destfile=io.open(req.post["destination"][1]["tempname"],"r")
+destination=destfile:read("*all")
+
+for k, v in pairs(req.post) do
+  for j, v in pairs(req.post[k]) do
+    if v["filename"] then
+      path = luafm.make_new_path(destination..'/'..v.filename)
+      if path then
+        fs.copy(req.post[k][j].tempname, path)
+      end
+    end
+  end
+end
+
+cgi.cleanup(req)
+
+print('{ "result": { "success": true, "error": null } }')
