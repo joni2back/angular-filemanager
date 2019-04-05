@@ -43,7 +43,7 @@
                 {{ fileNavigator.error }}
             </td>
         </tr>
-        <tr class="item-list" ng-repeat="item in $parent.fileList = (fileNavigator.fileList | filter: {model:{name: query}} | orderBy:predicate:reverse)" ng-show="!fileNavigator.requesting" ng-click="selectOrUnselect(item, $event)" ng-dblclick="smartClick(item)" ng-right-click="selectOrUnselect(item, $event)" ng-class="{selected: isSelected(item)}">
+        <tr class="item-list" ng-repeat="item in $parent.fileList = (fileNavigator.fileList | filter: {model:{name: query}} | orderBy:predicate:reverse)" ng-show="!fileNavigator.requesting"  ng-click="selectOrUnselect(item, $event)" ng-dblclick="smartClick(item)" ng-right-click="selectOrUnselect(item, $event)" ng-class="{selected: isSelected(item)}">
             <td>
                 <a href="" title="{{item.model.name}} ({{item.model.size | humanReadableFileSize}})">
                     <i class="glyphicon glyphicon-folder-close" ng-show="item.model.type === 'dir'"></i>
@@ -61,6 +61,9 @@
             </td>
             <td class="hidden-sm hidden-xs" ng-hide="config.hidePermissions">
                 {{item.model.perms.toCode(item.model.type === 'dir'?'d':'-')}}
+            </td>
+            <td >
+                <i class="glyphicon glyphicon-option-vertical" ng-click="openContextMenu($event)" ></i>
             </td>
         </tr>
     </tbody>

@@ -118,6 +118,27 @@
             return item;
         };
 
+        $scope.openContextMenu= function(e) {
+
+            setTimeout(function(){
+            var menu = angular.element('#context-menu');
+
+            if (e.pageX >= window.innerWidth - menu.width()) {
+                e.pageX -= menu.width();
+            }
+            if (e.pageY >= window.innerHeight - menu.height()) {
+                e.pageY -= menu.height();
+            }
+
+            menu.hide().css({
+                left: e.pageX,
+                top: e.pageY
+            }).appendTo('body').show();
+            e.preventDefault();
+            return false;
+            },100);
+        };
+
         $scope.smartClick = function(item) {
             var pick = $scope.config.allowedActions.pickFiles;
 
@@ -169,6 +190,12 @@
 
         $scope.copyItemURL = function() {
             var item = $scope.singleSelection();
+
+            if(iOS()){
+                var win = window.open(item.model.file_url, '_blank');
+                win.focus();
+
+            }
             $scope.copyTextToClipboard(item.model.file_url);
         };
 
@@ -397,6 +424,27 @@
             });
             return found[0] && found[0].split('=')[1] || undefined;
         };
+
+        function iOS() {
+
+            var iDevices = [
+                'iPad Simulator',
+                'iPhone Simulator',
+                'iPod Simulator',
+                'iPad',
+                'iPhone',
+                'iPod'
+            ];
+
+            if (navigator.platform) {
+                while (iDevices.length) {
+                    if (navigator.platform === iDevices.pop()){ return true; }
+                }
+            }
+
+            return false;
+        }
+
 
         $scope.changeLanguage(getQueryParam('lang'));
         $scope.isWindows = getQueryParam('server') === 'Windows';
