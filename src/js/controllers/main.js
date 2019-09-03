@@ -203,7 +203,10 @@
             if (item) {
                 return $scope.apiMiddleware.download(item);
             }
-            return $scope.apiMiddleware.downloadMultiple($scope.temps);
+            $scope.modal('loader');
+            return $scope.apiMiddleware.downloadMultiple($scope.temps).then(function(){
+                $scope.modal('loader', true);
+            });
         };
 
         $scope.copy = function() {
