@@ -13,6 +13,7 @@
                 perms: new Chmod(model && model.rights),
                 content: model && model.content || '',
                 may_edit: model &&  model.may_edit,
+                usage: model && model.usage || [],
                 ext: model && model.ext,
                 file_url: model && model.file_url || '',
 

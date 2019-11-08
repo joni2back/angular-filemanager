@@ -47,6 +47,30 @@
   </div>
 </div>
 
+<div class="modal animated fadeIn" id="remove-blocked">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form ng-submit="remove()">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">{{"close" | translate}}</span>
+                    </button>
+                    <h4 class="modal-title">{{"confirm" | translate}}</h4>
+                </div>
+                <div class="modal-body">
+                    {{'delete_not_possible_usage' | translate}} <span ng-include data-src="'selected-files-msg'"></span>
+
+                    <div ng-include data-src="'error-bar'" class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-disabled="apiMiddleware.apiHandler.inprocess" autofocus="autofocus">{{"Ok" | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal animated fadeIn" id="move">
   <div class="modal-dialog">
     <div class="modal-content">
