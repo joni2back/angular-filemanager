@@ -80,9 +80,9 @@
         </li>
 
         <li class="divider" ng-show="config.allowedActions.remove"></li>
-        
+
         <li ng-show="config.allowedActions.remove || (singleSelection() && singleSelection().hasEditAccess())">
-            <a href="" tabindex="-1" ng-click="modal('remove-blocked')"> 
+            <a href="" tabindex="-1" ng-click="modal('remove')">
                 <i class="glyphicon glyphicon-trash"></i> {{'remove' | translate}}
             </a>
         </li>

@@ -69,9 +69,9 @@
             return !this.isFolder() && fileManagerConfig.isExtractableFilePattern.test(this.model.name);
         };
 
-          Item.prototype.hasEditAccess = function() {
-            return !this.isFolder() && this.model.may_edit === true;
-          };
+        Item.prototype.hasEditAccess = function() {
+          return !this.isFolder() && this.model.may_edit === true;
+        };
 
         Item.prototype.canCopyLink = function() {
             return  this.model.file_url && this.model.file_url.length > 0;

@@ -54,7 +54,8 @@ gulp.task('lint', function () {
   return gulp.src([src + 'js/app.js', src + 'js/*/*.js'])
     .pipe(eslint({
       'rules': {
-          'quotes': [2, 'single'], 
+          'quotes': [2, 'single'],
+        "no-console": "off",
           //'linebreak-style': [2, 'unix'],
           'semi': [2, 'always']
       },
