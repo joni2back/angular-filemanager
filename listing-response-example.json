@@ -1,0 +1,875 @@
+{
+    "result": [
+        {
+            "name": "addins",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "appcompat",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "apppatch",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "AppReadiness",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "arpspoof.exe",
+            "type": "file",
+            "size": 126976,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "assembly",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "bcastdvr",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "bfsvc.exe",
+            "type": "file",
+            "size": 78848,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "BitLockerDiscoveryVolumeContents",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Boot",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "bootstat.dat",
+            "type": "file",
+            "size": 67584,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Branding",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "CbsTemp",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "comsetup.log",
+            "type": "file",
+            "size": 753,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Containers",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "CSC",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Cursors",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "debug",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "diagerr.xml",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "diagnostics",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "diagwrn.xml",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "DigitalLocker",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Downloaded Program Files",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "DtcInstall.log",
+            "type": "file",
+            "size": 1625,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ELAMBKUP",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "en-US",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "es-ES",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "explorer.exe",
+            "type": "file",
+            "size": 4245280,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Fonts",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "GameBarPresenceWriter",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Globalization",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Help",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "HelpPane.exe",
+            "type": "file",
+            "size": 1065472,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "hh.exe",
+            "type": "file",
+            "size": 18432,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "IdentityCRL",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "IME",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ImmersiveControlPanel",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "INF",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "InfusedApps",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "InputMethod",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Installer",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "L2Schemas",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "LanguageOverlayCache",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "LiveKernelReports",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Logs",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "media",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "mib.bin",
+            "type": "file",
+            "size": 43131,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Microsoft.NET",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Migration",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ModemLogs",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "notepad.exe",
+            "type": "file",
+            "size": 254464,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "OCR",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Offline Web Pages",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Panther",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Performance",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "PFRO.log",
+            "type": "file",
+            "size": 48286,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "PidVid_List.dll",
+            "type": "file",
+            "size": 3128,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "PLA",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "PolicyDefinitions",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Prefetch",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "PrintDialog",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Professional.xml",
+            "type": "file",
+            "size": 34925,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Provisioning",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "regedit.exe",
+            "type": "file",
+            "size": 358400,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Registration",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "RemotePackages",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rescache",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Resources",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rlt8723a_chip_bt40_fw_asic_rom_patch.dll",
+            "type": "file",
+            "size": 37100,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "RtkBtManServ.exe",
+            "type": "file",
+            "size": 713816,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8723b_mp_chip_bt40_fw_asic_rom_patch_new.dll",
+            "type": "file",
+            "size": 51068,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8723b_mp_chip_bt40_fw_asic_rom_patch_new_s1.dll",
+            "type": "file",
+            "size": 51016,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8723d_mp_chip_bt40_fw_asic_rom_patch_new.dll",
+            "type": "file",
+            "size": 57708,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8761a_mp_chip_bt40_fw_asic_rom_patch_8192ee_new.dll",
+            "type": "file",
+            "size": 70644,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8761a_mp_chip_bt40_fw_asic_rom_patch_8192eu_new.dll",
+            "type": "file",
+            "size": 67324,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8761a_mp_chip_bt40_fw_asic_rom_patch_8812ae_new.dll",
+            "type": "file",
+            "size": 51272,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8761a_mp_chip_bt40_fw_asic_rom_patch_8814ae_new.dll",
+            "type": "file",
+            "size": 73232,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8761a_mp_chip_bt40_fw_asic_rom_patch_new.dll",
+            "type": "file",
+            "size": 64048,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8821a_mp_chip_bt40_fw_asic_rom_patch_new.dll",
+            "type": "file",
+            "size": 38012,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8821c_mp_chip_bt40_fw_asic_rom_patch_new.dll",
+            "type": "file",
+            "size": 45648,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "rtl8822b_mp_chip_bt40_fw_asic_rom_patch_new.dll",
+            "type": "file",
+            "size": 49080,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "SchCache",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "schemas",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "security",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ServiceProfiles",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ServiceState",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "servicing",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Setup",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "setuperr.log",
+            "type": "file",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ShellComponents",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "ShellExperiences",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "SKB",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "snp2uvc.ini",
+            "type": "file",
+            "size": 15497,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "snp2uvc.src",
+            "type": "file",
+            "size": 13021,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "SoftwareDistribution",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Speech",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Speech_OneCore",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "splwow64.exe",
+            "type": "file",
+            "size": 132096,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "sqldiff.exe",
+            "type": "file",
+            "size": 489984,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "sqlite3.exe",
+            "type": "file",
+            "size": 908800,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "sqlite3_analyzer.exe",
+            "type": "file",
+            "size": 2002432,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "System",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "system.ini",
+            "type": "file",
+            "size": 219,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "System32",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "SystemApps",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "SystemResources",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "SysWOW64",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "TAPI",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Tasks",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Temp",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "TextInput",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "tracing",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "twain_32",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "twain_32.dll",
+            "type": "file",
+            "size": 64512,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Vss",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "WaaS",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "Web",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "win.ini",
+            "type": "file",
+            "size": 92,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "WindowsShell.Manifest",
+            "type": "file",
+            "size": 670,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "WindowsUpdate.log",
+            "type": "file",
+            "size": 276,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "winhlp32.exe",
+            "type": "file",
+            "size": 11776,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "WinSxS",
+            "type": "dir",
+            "size": 0,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "WMSysPr9.prx",
+            "type": "file",
+            "size": 316640,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        },
+        {
+            "name": "write.exe",
+            "type": "file",
+            "size": 11264,
+            "date": "2020-03-03 15:31:40",
+            "rights": "-rw-r--r--"
+        }
+    ],
+    "success": true,
+    "errorMsg": null,
+    "error": null
+}
