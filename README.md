@@ -13,7 +13,7 @@ This project provides a web file manager interface, **allowing you to create you
 [![Build Status](https://travis-ci.org/joni2back/angular-filemanager.svg?branch=master)](https://travis-ci.org/joni2back/angular-filemanager)
 
 
-#### [Try the DEMO](http://angular-filemanager.zendelsolutions.com/)
+#### [Try the DEMO](https://joni2back.github.io/angular-filemanager/)
 ---------
 ![](https://raw.githubusercontent.com/joni2back/angular-filemanager/master/screenshot.gif)
 
