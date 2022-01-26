@@ -148,7 +148,7 @@
     "items": ["/public_html/photos", "/public_html/docs"],
     "destination": "/public_html/backups",
     "compressedFilename": "random-files.zip"
-}}
+}
 ```
 **JSON Response**
 ```json
@@ -212,7 +212,7 @@ $_FILES['file-0'] or foreach($_FILES)
     "action": "downloadMultiple",
     "items": ["/public_html/image1.jpg", "/public_html/image2.jpg"],
     "toFilename": "multiple-items.zip"
-}}
+}
 ```
 **Response**
 ```
