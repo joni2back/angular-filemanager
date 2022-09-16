@@ -29,7 +29,7 @@
     "gulp-uglify": "^3.0.0",
     "yarn": "^1.3.2",
     "angular-translate": "~2.15.1",
-    "bootstrap": "~3.3.2",
+    "bootstrap": "~3.4.1",
     "jquery": "~3.1.1",
     "bootswatch": "~3.3.7",
     "ng-file-upload": "^12.0.1"
